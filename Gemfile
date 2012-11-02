@@ -12,3 +12,15 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 end
+
+group :development do
+  gem 'spork-rails'
+  gem 'guard'
+  gem 'guard-spork'
+  gem 'guard-rspec'
+  gem 'rb-fsevent'
+end
+
+group :test, :development do
+  gem 'rspec-rails'
+end
