@@ -5,6 +5,8 @@ describe Section do
     create_author_and_sign_in
     click_link 'table of contents'
     page.should have_content 'New section'
+    visit new_section_path
+    page.should have_content 'New'
   end
 
   it 'cannot be created by a student' do
