@@ -17,22 +17,6 @@ describe Section do
     page.should_not have_content 'New'
   end
 
-  it 'can be viewed by an author' do
-    create_author_and_sign_in
-    section = FactoryGirl.create :section
-    click_link 'table of contents'
-    click_link section.name
-    page.should have_selector "h1", :content => section.name
-  end
-
-  it 'can be viewed by a student' do
-    create_student_and_sign_in
-    section = FactoryGirl.create :section
-    click_link 'table of contents'
-    click_link section.name
-    page.should have_selector "h1", :content => section.name
-  end
-
   it 'can be edited by an author' do
     create_author_and_sign_in
     section = FactoryGirl.create :section
