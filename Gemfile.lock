@@ -93,6 +93,8 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.3.1)
+    quiet_assets (1.0.1)
+      railties (~> 3.1)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -182,6 +184,7 @@ DEPENDENCIES
   guard-spork
   jquery-rails
   pg
+  quiet_assets
   rails (= 3.2.8)
   rb-fsevent
   rspec-rails

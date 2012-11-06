@@ -19,6 +19,7 @@ group :development do
   gem 'guard-spork'
   gem 'guard-rspec'
   gem 'rb-fsevent'
+  gem 'quiet_assets'
 end
 
 group :test, :development do
