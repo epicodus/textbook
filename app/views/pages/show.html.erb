@@ -1,0 +1,7 @@
+<h1><%= @page.title %></h1>
+
+<%= @page.body %>
+
+<% if can? :update, Page %>
+  <p><%= link_to "Edit #{@page.title}", edit_page_path(@page) %></p>
+<% end %>

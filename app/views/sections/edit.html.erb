@@ -1,3 +1,5 @@
 <h1>Edit <%= @section.name %></h1>
 
 <%= render 'form' %>
+
+<p><%= link_to "Delete #{@section.name}", @section, :confirm => 'Are you sure?', :method => :delete %></p>

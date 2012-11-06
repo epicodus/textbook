@@ -1,0 +1,9 @@
+<%= form_for @page do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <%= f.label :body %>
+  <%= f.text_area :body %>
+  <%= f.label :section %>
+  <%= f.select :section_id, options_from_collection_for_select(@sections, :id, :name, @page.section_id) %>
+  <%= f.submit %>
+<% end %>

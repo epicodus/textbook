@@ -4,4 +4,5 @@ Learnhowtoprogram::Application.routes.draw do
   root :to => 'home#index'
 
   resources :sections
+  resources :pages
 end

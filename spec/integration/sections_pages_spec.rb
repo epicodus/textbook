@@ -17,20 +17,6 @@ describe Section do
     page.should_not have_content 'New'
   end
 
-  it 'can be deleted by an author' do
-    create_author_and_sign_in
-    FactoryGirl.create :section
-    click_link 'table of contents'
-    page.should have_content 'Delete'
-  end
-
-  it 'cannot be deleted by a student' do
-    create_student_and_sign_in
-    FactoryGirl.create :section
-    click_link 'table of contents'
-    page.should_not have_content 'Delete'
-  end
-
   it 'can be viewed by an author' do
     create_author_and_sign_in
     section = FactoryGirl.create :section
