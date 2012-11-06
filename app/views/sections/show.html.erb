@@ -1,0 +1,5 @@
+<h1><%= @section.name %></h1>
+
+<% if can? :update, Section %>
+  <%= link_to "Edit #{@section.name}", edit_section_path(@section) %>
+<% end %>

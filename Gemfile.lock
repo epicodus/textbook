@@ -61,12 +61,21 @@ GEM
     eventmachine (1.0.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (4.1.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.1.0)
+      factory_girl (~> 4.1.0)
+      railties (>= 3.0.0)
+    ffaker (1.15.0)
     ffi (1.1.5)
     guard (1.5.3)
       listen (>= 0.4.2)
       lumberjack (>= 1.0.2)
       pry (>= 0.9.10)
       thor (>= 0.14.6)
+    guard-bundler (1.0.0)
+      bundler (~> 1.0)
+      guard (~> 1.1)
     guard-rspec (2.1.1)
       guard (>= 1.1)
       rspec (~> 2.11)
@@ -129,6 +138,8 @@ GEM
     rb-fsevent (0.9.2)
     rdoc (3.12)
       json (~> 1.4)
+    responders (0.9.3)
+      railties (~> 3.1)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -191,7 +202,10 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 3.2.1)
   devise
+  factory_girl_rails
+  ffaker
   guard
+  guard-bundler
   guard-rspec
   guard-spork
   jquery-rails
@@ -199,6 +213,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 3.2.8)
   rb-fsevent
+  responders
   rspec-rails
   sass-rails (~> 3.2.3)
   shoulda-matchers

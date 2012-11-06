@@ -2,4 +2,8 @@
 
 <p>This site will help you learn how to program.</p>
 
-<p><%= link_to 'Sign in', new_user_session_path %> or <%= link_to 'sign up', new_user_registration_path %>.</p>
+<p>If you'd like to create an account for yourself, you can <%= link_to 'sign up', new_user_registration_path %>.</p>
+
+<p>If you already have an account, you can <%= link_to 'sign in', new_user_session_path %>.</p>
+
+<p>Otherwise, continue to the <%= link_to 'table of contents', sections_path %>.</p>

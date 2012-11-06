@@ -8,6 +8,7 @@ gem 'thin'
 gem 'jquery-rails'
 gem 'devise'
 gem 'cancan'
+gem 'responders'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -20,6 +21,7 @@ group :development do
   gem 'guard'
   gem 'guard-spork'
   gem 'guard-rspec'
+  gem 'guard-bundler'
   gem 'rb-fsevent'
   gem 'quiet_assets'
 end
@@ -31,4 +33,6 @@ end
 
 group :test do
   gem 'shoulda-matchers'
+  gem 'ffaker'
+  gem 'factory_girl_rails'
 end
