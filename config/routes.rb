@@ -1,4 +1,4 @@
-Learnhowtoprogram::Application.routes.draw do
+Textbook::Application.routes.draw do
   devise_for :users
 
   root :to => 'home#index'

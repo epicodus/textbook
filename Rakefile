@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Learnhowtoprogram::Application.load_tasks
+Textbook::Application.load_tasks
