@@ -1,4 +1,6 @@
 class Section < ActiveRecord::Base
+  acts_as_paranoid
+
   default_scope order('sort_order')
 
   attr_accessible :name, :sort_order

@@ -1,4 +1,6 @@
 class Page < ActiveRecord::Base
+  acts_as_paranoid
+
   default_scope order('sort_order')
 
   attr_accessible :title, :body, :section_id, :sort_order

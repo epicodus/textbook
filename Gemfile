@@ -9,6 +9,8 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'cancan'
 gem 'responders'
+gem 'paranoia'
+
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
