@@ -9,3 +9,5 @@
 <% if can? :update, Section %>
   <%= link_to "Edit #{@section.name}", edit_section_path(@section) %>
 <% end %>
+
+<p><%= link_to 'Back to table of contents', sections_path %></p>

@@ -5,3 +5,7 @@
 <% if can? :update, Page %>
   <p><%= link_to "Edit #{@page.title}", edit_page_path(@page) %></p>
 <% end %>
+
+<p><%= link_to 'Back to section contents', @page.section %></p>
+
+<p><%= link_to 'Back to table of contents', sections_path %></p>
