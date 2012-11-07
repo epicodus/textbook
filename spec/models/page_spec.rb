@@ -20,4 +20,22 @@ describe Page do
     Page.first.should eq first_page
     Page.last.should eq last_page
   end
+
+  context '#next' do
+    it 'returns the page with sort order one higher than the current page' do
+      2.times {FactoryGirl.create :page}
+      current_page = Page.first
+      next_page = current_page.next
+      next_page.sort_order.should eq current_page.sort_order + 1
+    end
+  end
+
+  context '#previous' do
+    it 'returns the page with sort order one lower than the current page' do
+      2.times {FactoryGirl.create :page}
+      current_page = Page.last
+      previous_page = current_page.previous
+      previous_page.sort_order.should eq current_page.sort_order - 1
+    end
+  end
 end

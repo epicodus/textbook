@@ -6,6 +6,13 @@
   <p><%= link_to "Edit #{@page.title}", edit_page_path(@page) %></p>
 <% end %>
 
-<p><%= link_to 'Back to section contents', @page.section %></p>
+<% if @page.next %>
+  <p><%= link_to 'Next page', @page.next %></p>
+<% end %>
 
+<% if @page.previous %>
+  <p><%= link_to 'Previous page', @page.previous %></p>
+<% end %>
+
+<p><%= link_to 'Back to section contents', @page.section %></p>
 <p><%= link_to 'Back to table of contents', sections_path %></p>
