@@ -1,5 +1,7 @@
 <%= form_for @section do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
+  <%= f.label :sort_order %>
+  <%= f.text_field :sort_order %>
   <%= f.submit %>
 <% end %>

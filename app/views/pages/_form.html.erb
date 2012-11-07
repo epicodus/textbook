@@ -1,6 +1,8 @@
 <%= form_for @page do |f| %>
   <%= f.label :title %>
   <%= f.text_field :title %>
+  <%= f.label :sort_order %>
+  <%= f.text_field :sort_order %>
   <%= f.label :body %>
   <%= f.text_area :body %>
   <%= f.label :section %>
