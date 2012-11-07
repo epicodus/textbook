@@ -1,4 +1,6 @@
 class Section < ActiveRecord::Base
+  default_scope order('sort_order')
+
   attr_accessible :name, :sort_order
 
   validates :name, :presence => true

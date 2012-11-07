@@ -1,7 +1,7 @@
 <h1><%= @section.name %></h1>
 
 <ul>
-  <% @section.pages.sort_by {|page| page.sort_order}.each do |page| %>
+  <% @section.pages.each do |page| %>
     <li><%= link_to page.title, page %></li>
   <% end %>
 </ul>
