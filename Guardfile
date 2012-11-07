@@ -24,4 +24,5 @@ guard 'rspec', :cli => "--drb" do
   watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
   watch('config/routes.rb')                           { "spec/integration" }
   watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/integration/#{m[1]}_pages_spec.rb" }
+  watch('spec/factories.rb')                          { "spec" }
 end
