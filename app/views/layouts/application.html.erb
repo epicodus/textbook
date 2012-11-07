@@ -14,6 +14,9 @@
 
   <% if user_signed_in? %>
     <p><%= link_to 'Log out', destroy_user_session_path, :method => :delete %>
+  <% else %>
+    <p><%= link_to 'Sign up', new_user_registration_path %> and we'll remember where you were when you return.</p>
+    <p><%= link_to 'Sign in', new_user_session_path %> if you already have an account.</p>
   <% end %>
 </body>
 </html>

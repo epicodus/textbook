@@ -1,9 +1,7 @@
-<h1>Learn How To Program</h1>
+<h1>Welcome to your new site</h1>
 
-<p>This site will help you learn how to program.</p>
+<p>The first page of the first section will show up here.</p>
 
-<p>If you'd like to create an account for yourself, you can <%= link_to 'sign up', new_user_registration_path %>.</p>
-
-<p>If you already have an account, you can <%= link_to 'sign in', new_user_session_path %>.</p>
-
-<p>Otherwise, continue to the <%= link_to 'table of contents', sections_path %>.</p>
+<% if user_signed_in? && current_user.author? %>
+  <p>Create a <%= link_to 'section', new_section_path %> and then a <%= link_to 'page', new_page_path %>.</p>
+<% end %>

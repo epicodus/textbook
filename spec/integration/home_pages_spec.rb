@@ -1,10 +1,18 @@
 require 'spec_helper'
 
-describe 'when a student first visits the site' do
-  context 'the page they see' do
-    it 'has "Learn How To Program" as the title' do
+describe 'when a visitor goes to the homepage' do
+  context 'the page they see if no pages have been created' do
+    it 'has "Welcome to your new site" as the title' do
       visit '/'
-      page.should have_content "Learn How To Program"
+      page.should have_content "Welcome to your new site"
+    end
+  end
+
+  context 'the page they see if a page has been created' do
+    it 'is the first page of the first section' do
+      test_page = FactoryGirl.create :page
+      visit '/'
+      page.should have_content test_page.title
     end
   end
 end
