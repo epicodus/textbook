@@ -8,6 +8,7 @@ describe Page do
 
   it {should validate_presence_of :title}
   it {should validate_presence_of :body}
+  it {should validate_presence_of :section}
   it {should validate_presence_of :sort_order}
   it {should validate_numericality_of(:sort_order).only_integer}
 

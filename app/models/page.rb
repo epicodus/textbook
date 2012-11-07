@@ -8,6 +8,7 @@ class Page < ActiveRecord::Base
   validates :title, :presence => true
   validates :body, :presence => true
   validates :sort_order, :presence => true, :numericality => {:only_integer => true}
+  validates :section, :presence => true
 
   belongs_to :section
 
