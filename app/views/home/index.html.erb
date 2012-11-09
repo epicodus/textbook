@@ -1,11 +1,15 @@
 <h1>Welcome to your new site</h1>
 
-<p>The first page of the first section will become the homepage.</p>
+<% unless user_signed_in? %>
+  <p><%= link_to 'Sign in', new_user_session_path %> to create your first page.</p>
+<% end %>
 
 <% if can? :create, Section %>
+  <p>First, create a section. Sections let you organize your pages into groups.</p>
   <p><%= link_to 'New section', new_section_path, :class => "btn btn-success btn-large" %></p>
 <% end %>
 
 <% if can? :create, Page %>
+  <p>After you have at least one section, create a page.</p>
   <p><%= link_to 'New page', new_page_path, :class => "btn btn-info btn-large" %></p>
 <% end %>

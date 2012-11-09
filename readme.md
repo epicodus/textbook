@@ -6,7 +6,9 @@ To create new sections and pages, a user must be signed in and have the `author`
 
 The first page of the first section is used as the homepage. If no pages exist yet, a placeholder page is displayed. The code for this logic could probably use some love.
 
-The site title must be set in code in application.html.erb. Pull requests are welcome ;)
+The site title must be set in code in application.html.erb.
+
+Pull requests are welcome :)
 
 
 ##To do
