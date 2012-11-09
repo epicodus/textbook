@@ -13,10 +13,10 @@ class Page < ActiveRecord::Base
   belongs_to :section
 
   def next
-    Page.where('sort_order > ?', sort_order).first
+    Page.where(:section_id => section.id).where('sort_order > ?', sort_order).first
   end
 
   def previous
-    Page.where('sort_order < ?', sort_order).last
+    Page.where(:section_id => section.id).where('sort_order < ?', sort_order).last
   end
 end

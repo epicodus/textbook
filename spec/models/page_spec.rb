@@ -23,20 +23,24 @@ describe Page do
   end
 
   context '#next' do
-    it 'returns the page with sort order one higher than the current page' do
-      2.times {FactoryGirl.create :page}
-      current_page = Page.first
-      next_page = current_page.next
-      next_page.sort_order.should eq current_page.sort_order + 1
+    it 'returns the page in the current section with the next-highest sort order than the current page' do
+      current_section = FactoryGirl.create :section
+      current_page = FactoryGirl.create :page, :section => current_section, :sort_order => 1
+      another_section = FactoryGirl.create :section
+      page_from_another_section = FactoryGirl.create :page, :section => another_section, :sort_order => 2
+      next_page = FactoryGirl.create :page, :section => current_section, :sort_order => 3
+      current_page.next.should eq next_page
     end
   end
 
   context '#previous' do
-    it 'returns the page with sort order one lower than the current page' do
-      2.times {FactoryGirl.create :page}
-      current_page = Page.last
-      previous_page = current_page.previous
-      previous_page.sort_order.should eq current_page.sort_order - 1
+    it 'returns the page in the current section with the next-lowest sort order than the current page' do
+      current_section = FactoryGirl.create :section
+      current_page = FactoryGirl.create :page, :section => current_section, :sort_order => 3
+      another_section = FactoryGirl.create :section
+      page_from_another_section = FactoryGirl.create :page, :section => another_section, :sort_order => 2
+      previous_page = FactoryGirl.create :page, :section => current_section, :sort_order => 1
+      current_page.previous.should eq previous_page
     end
   end
 end
