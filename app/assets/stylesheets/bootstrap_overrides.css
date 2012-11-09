@@ -1,0 +1,11 @@
+input, input.btn {
+  display: block;
+}
+
+textarea {
+  width: 100%;
+}
+
+.navbar .container {
+  width: 940px;
+}

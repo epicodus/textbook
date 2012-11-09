@@ -1,7 +1,11 @@
 <h1>Welcome to your new site</h1>
 
-<p>The first page of the first section will show up here.</p>
+<p>The first page of the first section will become the homepage.</p>
 
-<% if user_signed_in? && current_user.author? %>
-  <p>Create a <%= link_to 'section', new_section_path %> and then a <%= link_to 'page', new_page_path %>.</p>
+<% if can? :create, Section %>
+  <p><%= link_to 'New section', new_section_path, :class => "btn btn-success btn-large" %></p>
+<% end %>
+
+<% if can? :create, Page %>
+  <p><%= link_to 'New page', new_page_path, :class => "btn btn-info btn-large" %></p>
 <% end %>

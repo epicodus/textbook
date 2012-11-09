@@ -2,21 +2,52 @@
 <html>
 <head>
   <title>Textbook</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+
 </head>
 <body>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="/">Textbook</a>
+        <div class="nav-collapse" id="main-menu">
+          <ul class="nav" id="main-menu-left">
+          </ul>
+          <ul class="nav pull-right" id="main-menu-right">
+            <% if user_signed_in? %>
+              <li><%= link_to 'My account', edit_user_registration_path %></li>
+              <li><%= link_to 'Log out', destroy_user_session_path, :method => :delete %></li>
+            <% else %>
+              <li><%= link_to 'Sign up', new_user_registration_path %></li>
+              <li><%= link_to 'Sign in', new_user_session_path %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <%= yield %>
+  <div class="container">
+    <% if notice %>
+      <div class="alert alert-info"><%= notice %></div>
+    <% end %>
+    <% if alert %>
+      <div class="alert alert-error"><%= alert %></div>
+    <% end %>
 
-  <% if user_signed_in? %>
-    <p><%= link_to 'Log out', destroy_user_session_path, :method => :delete %>
-  <% else %>
-    <p><%= link_to 'Sign up', new_user_registration_path %> here.</p>
-    <p><%= link_to 'Sign in', new_user_session_path %> if you already have an account.</p>
-  <% end %>
+    <%= yield %>
+  </div>
+
 </body>
 </html>

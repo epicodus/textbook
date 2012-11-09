@@ -4,9 +4,9 @@
   <%= f.text_field :title %>
   <%= f.label :sort_order %>
   <%= f.text_field :sort_order %>
-  <%= f.label :body %>
+  <%= f.label :body, "Body (use HTML)" %>
   <%= f.text_area :body %>
   <%= f.label :section %>
   <%= f.select :section_id, options_from_collection_for_select(@sections, :id, :name, @page.section_id) %>
-  <%= f.submit %>
+  <%= f.submit "Save", :class => "btn btn-primary" %>
 <% end %>

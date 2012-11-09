@@ -13,10 +13,10 @@
   <% end %>
 </ol>
 
-<% if can? :create, Section %>
-  <p><%= link_to 'New section', new_section_path %></p>
+<% if can? :create, Page %>
+  <p><%= link_to 'New page', new_page_path, :class => "btn btn-info btn-large" %></p>
 <% end %>
 
-<% if can? :create, Page %>
-  <p><%= link_to 'New page', new_page_path %></p>
+<% if can? :create, Section %>
+  <p><%= link_to 'New section', new_section_path, :class => "btn btn-success btn-large" %></p>
 <% end %>
