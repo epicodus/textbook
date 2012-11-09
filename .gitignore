@@ -14,3 +14,8 @@
 
 # Ignore database.yml.
 /config/database.yml
+
+# Ignore .env files.
+
+.env
+.env_test
