@@ -6,6 +6,8 @@ To create new sections and pages, a user must be signed in and have the `author`
 
 The first page of the first section is used as the homepage. If no pages exist yet, a placeholder page is displayed. The code for this logic could probably use some love.
 
+The site title must be set in code in application.html.erb. Pull requests are welcome ;)
+
 
 ##To do
 
@@ -19,6 +21,7 @@ The first page of the first section is used as the homepage. If no pages exist y
 * As a student, I should be able to give feedback on a page, so that I can point out if something isn't clear or tell the authors how much I like what they've written.
 * As an author, I should be able to provide custom CSS for my site, so that I can give it a unique look and feel. The current CSS is [Bootswatch Simplex](http://bootswatch.com/simplex/), built on [Bootstrap](http://twitter.github.com/bootstrap/).
 * As a user, I should be able to view the site on screens of different sizes without horizontal scrolling, so that I can visit it on a tablet, phone, or computer with a small screen. (Use bootstrap-responsive!)
+* As an author, I should be able to change the site title, so that I don't have to edit code and re-deploy to make that change.
 
 
 ##License
