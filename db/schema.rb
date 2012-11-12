@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121112161634) do
+ActiveRecord::Schema.define(:version => 20121112161924) do
 
   create_table "chapters", :force => true do |t|
     t.string   "name"
-    t.integer  "sort_order"
+    t.integer  "number"
     t.datetime "deleted_at"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(:version => 20121112161634) do
     t.string   "title",      :null => false
     t.text     "body",       :null => false
     t.integer  "section_id", :null => false
-    t.integer  "sort_order", :null => false
+    t.integer  "number",     :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.datetime "deleted_at"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(:version => 20121112161634) do
 
   create_table "sections", :force => true do |t|
     t.string   "name",       :null => false
-    t.integer  "sort_order", :null => false
+    t.integer  "number",     :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.datetime "deleted_at"

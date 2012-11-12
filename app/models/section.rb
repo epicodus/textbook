@@ -1,12 +1,12 @@
 class Section < ActiveRecord::Base
   acts_as_paranoid
 
-  default_scope order('sort_order')
+  default_scope order('number')
 
-  attr_accessible :name, :sort_order
+  attr_accessible :name, :number
 
   validates :name, :presence => true
-  validates :sort_order, :presence => true, :numericality => {:only_integer => true}
+  validates :number, :presence => true, :numericality => {:only_integer => true}
 
   has_many :pages
   belongs_to :chapter

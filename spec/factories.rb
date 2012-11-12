@@ -12,19 +12,19 @@ FactoryGirl.define do
 
   factory :chapter do
     name {Faker::Lorem.words(1).join}
-    sequence(:sort_order) {|n| n}
+    sequence(:number) {|n| n}
   end
 
   factory :section do
     name {Faker::Lorem.words(2).join}
     association :chapter, :factory => :chapter
-    sequence(:sort_order) {|n| n}
+    sequence(:number) {|n| n}
   end
 
   factory :page do
     title {Faker::Lorem.words(3).join(" ")}
     body {Faker::Lorem.paragraph}
     association :section, :factory => :section
-    sequence(:sort_order) {|n| n}
+    sequence(:number) {|n| n}
   end
 end

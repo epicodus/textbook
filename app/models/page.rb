@@ -1,22 +1,22 @@
 class Page < ActiveRecord::Base
   acts_as_paranoid
 
-  default_scope order('sort_order')
+  default_scope order('number')
 
-  attr_accessible :title, :body, :section_id, :sort_order
+  attr_accessible :title, :body, :section_id, :number
 
   validates :title, :presence => true
   validates :body, :presence => true
-  validates :sort_order, :presence => true, :numericality => {:only_integer => true}
+  validates :number, :presence => true, :numericality => {:only_integer => true}
   validates :section, :presence => true
 
   belongs_to :section
 
   def next
-    Page.where(:section_id => section.id).where('sort_order > ?', sort_order).first
+    Page.where(:section_id => section.id).where('number > ?', number).first
   end
 
   def previous
-    Page.where(:section_id => section.id).where('sort_order < ?', sort_order).last
+    Page.where(:section_id => section.id).where('number < ?', number).last
   end
 end

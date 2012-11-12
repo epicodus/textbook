@@ -1,11 +1,8 @@
-<p>Sections let you organize your pages into groups.</p>
-<p>The sort order is the order in which the sections are displayed in the Table of Contents.</p>
-
 <%= render :partial => 'layouts/errors', :locals => {:object => @section} %>
 <%= form_for @section do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
-  <%= f.label :sort_order %>
-  <%= f.text_field :sort_order %>
+  <%= f.label :number, 'Section number (within chapter)' %>
+  <%= f.text_field :number %>
   <%= f.submit "Save", :class => "btn btn-primary" %>
 <% end %>
