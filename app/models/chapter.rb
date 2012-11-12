@@ -1,4 +1,4 @@
-class Section < ActiveRecord::Base
+class Chapter < ActiveRecord::Base
   acts_as_paranoid
 
   default_scope order('sort_order')
@@ -8,6 +8,5 @@ class Section < ActiveRecord::Base
   validates :name, :presence => true
   validates :sort_order, :presence => true, :numericality => {:only_integer => true}
 
-  has_many :pages
-  belongs_to :chapter
+  has_many :sections
 end

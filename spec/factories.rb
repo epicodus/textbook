@@ -10,8 +10,14 @@ FactoryGirl.define do
     password {Faker::Lorem.words(3).join}
   end
 
+  factory :chapter do
+    name {Faker::Lorem.words(1).join}
+    sequence(:sort_order) {|n| n}
+  end
+
   factory :section do
     name {Faker::Lorem.words(2).join}
+    association :chapter, :factory => :chapter
     sequence(:sort_order) {|n| n}
   end
 

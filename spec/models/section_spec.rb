@@ -9,6 +9,7 @@ describe Section do
   it {should validate_numericality_of(:sort_order).only_integer}
 
   it {should have_many :pages}
+  it {should belong_to :chapter}
 
   it 'sorts by the sort order by default' do
     last_section = FactoryGirl.create :section, :sort_order => 9
