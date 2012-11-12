@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121112155433) do
+ActiveRecord::Schema.define(:version => 20121112161634) do
 
   create_table "chapters", :force => true do |t|
     t.string   "name"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20121112155433) do
     t.integer  "section_id", :null => false
     t.integer  "sort_order", :null => false
     t.datetime "created_at", :null => false
-    t.datetime "updated_at"
+    t.datetime "updated_at", :null => false
     t.datetime "deleted_at"
   end
 
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20121112155433) do
     t.string   "name",       :null => false
     t.integer  "sort_order", :null => false
     t.datetime "created_at", :null => false
-    t.datetime "updated_at"
+    t.datetime "updated_at", :null => false
     t.datetime "deleted_at"
     t.integer  "chapter_id", :null => false
   end
