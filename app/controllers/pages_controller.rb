@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   authorize_resource
 
   def index
+    @chapters = Chapter.all
     render '/chapters/index'
   end
 
