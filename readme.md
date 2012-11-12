@@ -25,6 +25,7 @@ Pull requests are welcome :)
 * As an author, I should be able to provide custom CSS for my site, so that I can give it a unique look and feel. The current CSS is [Bootswatch Simplex](http://bootswatch.com/simplex/), built on [Bootstrap](http://twitter.github.com/bootstrap/).
 * As a user, I should be able to view the site on screens of different sizes without horizontal scrolling, so that I can visit it on a tablet, phone, or computer with a small screen. (Use bootstrap-responsive!)
 * As an author, I should be able to change the site title, so that I don't have to edit code and re-deploy to make that change.
+* As a user, I should see a bottom nav bar on every page, so that I always have navigation links to where I might want to go.
 
 
 ##License

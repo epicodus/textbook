@@ -1,12 +1,13 @@
 class PagesController < ApplicationController
   authorize_resource
-  before_filter :load_sections
 
   def index
-    render '/sections/index'
+    render '/chapters/index'
   end
 
   def new
+    @chapters = Chapter.all
+    @sections = Section.all
     respond_with @page = Page.new
   end
 
@@ -15,10 +16,14 @@ class PagesController < ApplicationController
   end
 
   def show
+    @chapters = Chapter.all
+    @sections = Section.all
     respond_with @page = Page.find(params[:id])
   end
 
   def edit
+    @chapters = Chapter.all
+    @sections = Section.all
     respond_with @page = Page.find(params[:id])
   end
 
@@ -30,11 +35,5 @@ class PagesController < ApplicationController
 
   def destroy
     respond_with @page = Page.find(params[:id]).destroy
-  end
-
-  private
-
-  def load_sections
-    @sections = Section.all
   end
 end

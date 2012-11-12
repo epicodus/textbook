@@ -1,0 +1,20 @@
+<h1><%= @chapter.name %></h1>
+
+<ul>
+  <% @chapter.sections.each do |section| %>
+    <li><%= link_to section.name, section %></li>
+    <ul>
+      <% section.pages.each do |page| %>
+        <li><%= link_to page.title, page %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</ul>
+
+<% if can? :update, Chapter %>
+  <p><%= link_to "Edit #{@chapter.name}", edit_chapter_path(@chapter), :class => "btn btn-large" %></p>
+<% end%>
+
+<% if can? :create, Section %>
+  <p><%= link_to "New section", new_section_path, :class => "btn btn-warning btn-large" %></p>
+<% end %>

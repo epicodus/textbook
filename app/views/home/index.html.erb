@@ -4,12 +4,17 @@
   <p><%= link_to 'Sign in', new_user_session_path %> to create your first page.</p>
 <% end %>
 
+<% if can? :create, Chapter %>
+  <p>First, create a chapter.</p>
+  <p><%= link_to 'New chapter', new_chapter_path, :class => "btn btn-primary btn-large"%>
+<% end %>
+
 <% if can? :create, Section %>
-  <p>First, create a section. Sections let you organize your pages into groups.</p>
-  <p><%= link_to 'New section', new_section_path, :class => "btn btn-success btn-large" %></p>
+  <p>Next, create a section in your chapter.</p>
+  <p><%= link_to 'New section', new_section_path, :class => "btn btn-warning btn-large" %></p>
 <% end %>
 
 <% if can? :create, Page %>
-  <p>After you have at least one section, create a page.</p>
-  <p><%= link_to 'New page', new_page_path, :class => "btn btn-info btn-large" %></p>
+  <p>Finally, create a page.</p>
+  <p><%= link_to 'New page', new_page_path, :class => "btn btn-success btn-large" %></p>
 <% end %>

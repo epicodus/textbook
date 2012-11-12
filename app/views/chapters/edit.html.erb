@@ -1,0 +1,5 @@
+<h1>Edit <%= @chapter.name %></h1>
+
+<%= render 'form' %>
+
+<p><%= link_to "Delete #{@chapter.name}", @chapter, :confirm => 'Are you sure?', :method => :delete %></p>

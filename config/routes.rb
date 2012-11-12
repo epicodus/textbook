@@ -3,6 +3,7 @@ Textbook::Application.routes.draw do
 
   root :to => 'home#index'
 
+  resources :chapters
   resources :sections
   resources :pages
 end

@@ -2,10 +2,12 @@ class SectionsController < ApplicationController
   authorize_resource
 
   def index
-    respond_with @sections = Section.all
+    @chapters = Chapter.all
+    render '/chapters/index'
   end
 
   def new
+    @chapters = Chapter.all
     respond_with @section = Section.new
   end
 
@@ -14,10 +16,12 @@ class SectionsController < ApplicationController
   end
 
   def show
+    @chapters = Chapter.all
     respond_with @section = Section.find(params[:id])
   end
 
   def edit
+    @chapters = Chapter.all
     respond_with @section = Section.find(params[:id])
   end
 

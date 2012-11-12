@@ -11,7 +11,7 @@
 <% end %>
 
 <% if can? :create, Page %>
-  <p><%= link_to 'New page', new_page_path, :class => "btn btn-info btn-large" %></p>
+  <p><%= link_to 'New page', new_page_path, :class => "btn btn-success btn-large" %></p>
 <% end %>
 
 <div class="navbar navbar-fixed-bottom">
@@ -19,7 +19,7 @@
     <div class="container">
       <div class="nav-collapse">
         <ul class="nav pull-right" id="main-menu-right">
-          <li><%= link_to 'Go to table of contents', sections_path %></li>
+          <li><%= link_to 'Table of contents', sections_path %></li>
         </ul>
       </div>
     </div>

@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Section do
   it {should allow_mass_assignment_of :name}
   it {should allow_mass_assignment_of :number}
+  it {should allow_mass_assignment_of :chapter_id}
 
   it {should validate_presence_of :name}
   it {should validate_presence_of :number}

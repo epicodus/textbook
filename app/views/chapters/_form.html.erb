@@ -1,0 +1,8 @@
+<%= render :partial => '/layouts/errors', :locals => {:object => @chapter} %>
+<%= form_for @chapter do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :number, 'Chapter number' %>
+  <%= f.text_field :number %>
+  <%= f.submit 'Save', :class => 'btn btn-primary' %>
+<% end %>

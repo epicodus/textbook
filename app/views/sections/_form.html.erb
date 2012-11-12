@@ -4,5 +4,7 @@
   <%= f.text_field :name %>
   <%= f.label :number, 'Section number (within chapter)' %>
   <%= f.text_field :number %>
+  <%= f.label :chapter %>
+  <%= f.select :chapter_id, options_from_collection_for_select(@chapters, :id, :name, @section.chapter_id) %>
   <%= f.submit "Save", :class => "btn btn-primary" %>
 <% end %>
