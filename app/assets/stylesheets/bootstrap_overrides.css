@@ -9,3 +9,7 @@ textarea {
 .navbar .container {
   width: 940px;
 }
+
+body {
+  padding-bottom: 50px;
+}
