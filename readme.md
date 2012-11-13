@@ -26,6 +26,7 @@ Pull requests are welcome :)
 * As a user, I should be able to view the site on screens of different sizes without horizontal scrolling, so that I can visit it on a tablet, phone, or computer with a small screen. (Use bootstrap-responsive!)
 * As an author, I should be able to change the site title, so that I don't have to edit code and re-deploy to make that change.
 * As a user, I should see a bottom nav bar on every page, so that I always have navigation links to where I might want to go.
+* As a student, I should have a list of key concepts I've learned on each page, as well as a list of all key concepts from the current section in a sidebar.
 
 
 ##License
