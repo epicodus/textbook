@@ -14,7 +14,7 @@ describe Page do
 
   it {should belong_to :section}
 
-  it 'sorts by the sort order by default' do
+  it 'sorts by the number by default' do
     last_page = FactoryGirl.create :page, :number => 9
     (2..8).each {|number| FactoryGirl.create :page, :number => number}
     first_page = FactoryGirl.create :page, :number => 1
@@ -23,7 +23,7 @@ describe Page do
   end
 
   context '#next' do
-    it 'returns the page in the current section with the next-highest sort order than the current page' do
+    it 'returns the page in the current section with the next-highest number than the current page' do
       current_section = FactoryGirl.create :section
       current_page = FactoryGirl.create :page, :section => current_section, :number => 1
       another_section = FactoryGirl.create :section
@@ -34,7 +34,7 @@ describe Page do
   end
 
   context '#previous' do
-    it 'returns the page in the current section with the next-lowest sort order than the current page' do
+    it 'returns the page in the current section with the next-lowest number than the current page' do
       current_section = FactoryGirl.create :section
       current_page = FactoryGirl.create :page, :section => current_section, :number => 3
       another_section = FactoryGirl.create :section

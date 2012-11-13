@@ -12,7 +12,7 @@ describe Section do
   it {should have_many :pages}
   it {should belong_to :chapter}
 
-  it 'sorts by the sort order by default' do
+  it 'sorts by the number by default' do
     last_section = FactoryGirl.create :section, :number => 9
     (2..8).each {|number| FactoryGirl.create :section, :number => number}
     first_section = FactoryGirl.create :section, :number => 1

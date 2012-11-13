@@ -10,7 +10,7 @@ describe Chapter do
 
   it {should have_many :sections}
 
-  it 'sorts by the sort order by default' do
+  it 'sorts by the number by default' do
     last_chapter = FactoryGirl.create :chapter, :number => 9
     (2..8).each {|number| FactoryGirl.create :chapter, :number => number}
     first_chapter = FactoryGirl.create :chapter, :number => 1
