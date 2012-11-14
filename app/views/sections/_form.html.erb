@@ -2,7 +2,7 @@
 <%= form_for @section do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
-  <%= f.label :number, 'Section number (within chapter)' %>
+  <%= f.label :number, 'Section number' %>
   <%= f.text_field :number %>
   <%= f.label :chapter %>
   <%= f.select :chapter_id, options_from_collection_for_select(@chapters, :id, :name, @section.chapter_id) %>
