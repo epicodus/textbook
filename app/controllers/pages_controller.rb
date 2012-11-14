@@ -7,34 +7,40 @@ class PagesController < ApplicationController
   end
 
   def new
-    @chapters = Chapter.all
-    @sections = Section.all
+    load_sections
     respond_with @page = Page.new
   end
 
   def create
+    load_sections
     respond_with @page = Page.create(params[:page])
   end
 
   def show
-    @chapters = Chapter.all
-    @sections = Section.all
+    load_sections
     respond_with @page = Page.find(params[:id])
   end
 
   def edit
-    @chapters = Chapter.all
-    @sections = Section.all
+    load_sections
     respond_with @page = Page.find(params[:id])
   end
 
   def update
+    load_sections
     @page = Page.find(params[:id])
     @page.update_attributes(params[:page])
     respond_with @page
   end
 
   def destroy
+    load_sections
     respond_with @page = Page.find(params[:id]).destroy
+  end
+
+  private
+
+  def load_sections
+    @sections = Section.all
   end
 end
