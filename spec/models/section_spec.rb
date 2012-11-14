@@ -19,24 +19,4 @@ describe Section do
     Section.first.should eq first_section
     Section.last.should eq last_section
   end
-
-  context '#next' do
-    it 'returns the section in the current chapter with the next-highest number than the current section' do
-      chapter = FactoryGirl.create :chapter
-      current_section = FactoryGirl.create :section, :number => 2, :chapter => chapter
-      previous_section = FactoryGirl.create :section, :number => 1, :chapter => chapter
-      next_section = FactoryGirl.create :section, :number => 3, :chapter => chapter
-      current_section.next.should eq next_section
-    end
-  end
-
-  context '#previous' do
-    it 'returns the section in the current chapter with the next-lowest number than the current section' do
-      chapter = FactoryGirl.create :chapter
-      current_section = FactoryGirl.create :section, :number => 2, :chapter => chapter
-      previous_section = FactoryGirl.create :section, :number => 1, :chapter => chapter
-      next_section = FactoryGirl.create :section, :number => 3, :chapter => chapter
-      current_section.previous.should eq previous_section
-    end
-  end
 end
