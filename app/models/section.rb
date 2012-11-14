@@ -10,4 +10,12 @@ class Section < ActiveRecord::Base
 
   has_many :pages
   belongs_to :chapter
+
+  def next
+    Section.where(:chapter_id => chapter.id).where('number > ?', number).first
+  end
+
+  def previous
+    Section.where(:chapter_id => chapter.id).where('number < ?', number).last
+  end
 end
