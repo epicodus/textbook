@@ -8,6 +8,10 @@
   <p><%= link_to "Edit #{@page.title}", edit_page_path(@page), :class => "btn btn-large" %></p>
 <% end %>
 
+<% if can? :create, Page %>
+  <p><%= link_to 'New page', new_page_path, :class => 'btn btn-success btn-large' %></p>
+<% end %>
+
 <div class="navbar navbar-fixed-bottom">
   <div class="navbar-inner">
     <div class="container">
