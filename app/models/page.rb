@@ -13,11 +13,11 @@ class Page < ActiveRecord::Base
   belongs_to :section
 
   def next
-    Page.where(:section_id => section.id).where('number > ?', number).first
+    Page.where('number > ?', number).first
   end
 
   def previous
-    Page.where(:section_id => section.id).where('number < ?', number).last
+    Page.where('number < ?', number).last
   end
 
   def next_page?

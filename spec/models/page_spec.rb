@@ -23,23 +23,17 @@ describe Page do
   end
 
   context '#next' do
-    it 'returns the page in the current section with the next-highest number than the current page' do
-      current_section = FactoryGirl.create :section
-      current_page = FactoryGirl.create :page, :section => current_section, :number => 1
-      another_section = FactoryGirl.create :section
-      page_from_another_section = FactoryGirl.create :page, :section => another_section, :number => 2
-      next_page = FactoryGirl.create :page, :section => current_section, :number => 3
+    it 'returns the page with the next-highest number than the current page' do
+      current_page = FactoryGirl.create :page, :number => 1
+      next_page = FactoryGirl.create :page, :number => 2
       current_page.next.should eq next_page
     end
   end
 
   context '#previous' do
-    it 'returns the page in the current section with the next-lowest number than the current page' do
-      current_section = FactoryGirl.create :section
-      current_page = FactoryGirl.create :page, :section => current_section, :number => 3
-      another_section = FactoryGirl.create :section
-      page_from_another_section = FactoryGirl.create :page, :section => another_section, :number => 2
-      previous_page = FactoryGirl.create :page, :section => current_section, :number => 1
+    it 'returns the page with the next-lowest number than the current page' do
+      current_page = FactoryGirl.create :page, :number => 2
+      previous_page = FactoryGirl.create :page, :number => 1
       current_page.previous.should eq previous_page
     end
   end
@@ -51,9 +45,8 @@ describe Page do
     end
 
     it 'returns true if there is a next page' do
-      current_section = FactoryGirl.create :section
-      current_page = FactoryGirl.create :page, :section => current_section, :number => 1
-      next_page = FactoryGirl.create :page, :section => current_section, :number => 2
+      current_page = FactoryGirl.create :page, :number => 1
+      next_page = FactoryGirl.create :page, :number => 2
       current_page.next_page?.should be_true
     end
   end
@@ -65,9 +58,8 @@ describe Page do
     end
 
     it 'returns true if there is a previous page' do
-      current_section = FactoryGirl.create :section
-      current_page = FactoryGirl.create :page, :section => current_section, :number => 2
-      previous_page = FactoryGirl.create :page, :section => current_section, :number => 1
+      current_page = FactoryGirl.create :page, :number => 2
+      previous_page = FactoryGirl.create :page, :number => 1
       current_page.previous_page?.should be_true
     end
   end
