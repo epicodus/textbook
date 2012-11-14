@@ -19,4 +19,12 @@ class Page < ActiveRecord::Base
   def previous
     Page.where(:section_id => section.id).where('number < ?', number).last
   end
+
+  def next_page?
+    self.next != nil
+  end
+
+  def previous_page?
+    self.previous != nil
+  end
 end

@@ -43,4 +43,32 @@ describe Page do
       current_page.previous.should eq previous_page
     end
   end
+
+  context '#next_page?' do
+    it 'returns false if there is no next page' do
+      current_page = FactoryGirl.create :page
+      current_page.next_page?.should be_false
+    end
+
+    it 'returns true if there is a next page' do
+      current_section = FactoryGirl.create :section
+      current_page = FactoryGirl.create :page, :section => current_section, :number => 1
+      next_page = FactoryGirl.create :page, :section => current_section, :number => 2
+      current_page.next_page?.should be_true
+    end
+  end
+
+  context '#previous_page?' do
+    it 'returns false if there is no previous page' do
+      current_page = FactoryGirl.create :page
+      current_page.previous_page?.should be_false
+    end
+
+    it 'returns true if there is a previous page' do
+      current_section = FactoryGirl.create :section
+      current_page = FactoryGirl.create :page, :section => current_section, :number => 2
+      previous_page = FactoryGirl.create :page, :section => current_section, :number => 1
+      current_page.previous_page?.should be_true
+    end
+  end
 end

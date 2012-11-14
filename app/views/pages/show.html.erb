@@ -13,11 +13,11 @@
     <div class="container">
       <div class="nav-collapse">
         <ul class="nav" id="main-menu-left">
-          <% if @page.next %>
+          <% if @page.next_page? %>
             <li><%= link_to 'Next page', @page.next %></li>
           <% end %>
 
-          <% if @page.previous %>
+          <% if @page.previous_page? %>
             <li><%= link_to 'Previous page', @page.previous %></li>
           <% end %>
         </ul>
