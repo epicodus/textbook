@@ -9,7 +9,7 @@ describe Section do
   it {should validate_presence_of :number}
   it {should validate_numericality_of(:number).only_integer}
 
-  it {should have_many :pages}
+  it {should have_many :lessons}
   it {should belong_to :chapter}
 
   it 'sorts by the number by default' do

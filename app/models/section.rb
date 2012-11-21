@@ -8,6 +8,6 @@ class Section < ActiveRecord::Base
   validates :name, :presence => true
   validates :number, :presence => true, :numericality => {:only_integer => true}
 
-  has_many :pages
+  has_many :lessons
   belongs_to :chapter
 end

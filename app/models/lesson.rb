@@ -1,4 +1,4 @@
-class Page < ActiveRecord::Base
+class Lesson < ActiveRecord::Base
   acts_as_paranoid
 
   default_scope order('number')
@@ -13,18 +13,18 @@ class Page < ActiveRecord::Base
   belongs_to :section
 
   def next
-    Page.where('number > ?', number).first
+    Lesson.where('number > ?', number).first
   end
 
   def previous
-    Page.where('number < ?', number).last
+    Lesson.where('number < ?', number).last
   end
 
-  def next_page?
+  def next_lesson?
     self.next != nil
   end
 
-  def previous_page?
+  def previous_lesson?
     self.previous != nil
   end
 end

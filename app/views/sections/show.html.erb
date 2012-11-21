@@ -1,8 +1,8 @@
 <h1><%= @section.name %></h1>
 
 <ul>
-  <% @section.pages.each do |page| %>
-    <li><%= link_to page.title, page %></li>
+  <% @section.lessons.each do |lesson| %>
+    <li><%= link_to lesson.title, lesson %></li>
   <% end %>
 </ul>
 
@@ -10,8 +10,8 @@
   <p><%= link_to "Edit #{@section.name}", edit_section_path(@section), :class => "btn btn-large" %></p>
 <% end %>
 
-<% if can? :create, Page %>
-  <p><%= link_to 'New page', new_page_path, :class => "btn btn-success btn-large" %></p>
+<% if can? :create, Lesson %>
+  <p><%= link_to 'New lesson', new_lesson_path, :class => "btn btn-success btn-large" %></p>
 <% end %>
 
 <div class="navbar navbar-fixed-bottom">

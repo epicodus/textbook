@@ -1,7 +1,7 @@
 <h1>Welcome to your new site</h1>
 
 <% unless user_signed_in? %>
-  <p><%= link_to 'Sign in', new_user_session_path %> to create your first page.</p>
+  <p><%= link_to 'Sign in', new_user_session_path %> to create your first lesson.</p>
 <% end %>
 
 <% if can? :create, Chapter %>
@@ -14,7 +14,7 @@
   <p><%= link_to 'New section', new_section_path, :class => "btn btn-warning btn-large" %></p>
 <% end %>
 
-<% if can? :create, Page %>
-  <p>Finally, create a page.</p>
-  <p><%= link_to 'New page', new_page_path, :class => "btn btn-success btn-large" %></p>
+<% if can? :create, Lesson %>
+  <p>Finally, create a lesson.</p>
+  <p><%= link_to 'New lesson', new_lesson_path, :class => "btn btn-success btn-large" %></p>
 <% end %>

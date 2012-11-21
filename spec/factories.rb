@@ -21,7 +21,7 @@ FactoryGirl.define do
     sequence(:number) {|n| n}
   end
 
-  factory :page do
+  factory :lesson do
     title {Faker::Lorem.words(3).join(" ")}
     body {Faker::Lorem.paragraph}
     association :section, :factory => :section

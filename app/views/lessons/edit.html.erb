@@ -1,0 +1,5 @@
+<h1>Edit <%= @lesson.title %></h1>
+
+<%= render 'form' %>
+
+<p><%= link_to "Delete #{@lesson.title}", @lesson, :confirm => 'Are you sure?', :method => :delete %></p>

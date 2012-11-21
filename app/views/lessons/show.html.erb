@@ -1,0 +1,35 @@
+<h1><%= @lesson.title %></h1>
+
+<p>
+  <%= raw @lesson.body %>
+</p>
+
+<% if can? :update, Lesson %>
+  <p><%= link_to "Edit #{@lesson.title}", edit_lesson_path(@lesson), :class => "btn btn-large" %></p>
+<% end %>
+
+<% if can? :create, Lesson %>
+  <p><%= link_to 'New lesson', new_lesson_path, :class => 'btn btn-success btn-large' %></p>
+<% end %>
+
+<div class="navbar navbar-fixed-bottom">
+  <div class="navbar-inner">
+    <div class="container">
+      <div class="nav-collapse">
+        <ul class="nav" id="main-menu-left">
+          <% if @lesson.previous_lesson? %>
+            <li><%= link_to 'Previous lesson', @lesson.previous %></li>
+          <% end %>
+
+          <% if @lesson.next_lesson? %>
+            <li><%= link_to 'Next lesson', @lesson.next %></li>
+          <% end %>
+        </ul>
+        <ul class="nav pull-right" id="main-menu-right">
+          <li><%= link_to 'Section contents', @lesson.section %>
+          <li><%= link_to 'Table of contents', chapters_path %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,5 +5,5 @@ Textbook::Application.routes.draw do
 
   resources :chapters
   resources :sections
-  resources :pages
+  resources :lessons
 end

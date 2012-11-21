@@ -1,38 +1,38 @@
 require 'spec_helper'
 
-describe Page do
+describe Lesson do
   it 'can be created by an author' do
     create_author_and_sign_in
     visit sections_path
-    page.should have_content 'New page'
-    visit new_page_path
-    page.should have_content 'New page'
+    page.should have_content 'New lesson'
+    visit new_lesson_path
+    page.should have_content 'New lesson'
   end
 
   it 'cannot be created by a student' do
     create_student_and_sign_in
     visit sections_path
-    page.should_not have_content 'New page'
-    visit new_page_path
-    page.should_not have_content 'New page'
+    page.should_not have_content 'New lesson'
+    visit new_lesson_path
+    page.should_not have_content 'New lesson'
   end
 
   it 'can be edited by an author' do
     create_author_and_sign_in
-    test_page = FactoryGirl.create :page
+    lesson = FactoryGirl.create :lesson
     visit sections_path
-    click_link test_page.title
-    click_link "Edit #{test_page.title}"
+    click_link lesson.title
+    click_link "Edit #{lesson.title}"
     page.should have_content 'Edit'
   end
 
   it 'cannot be edited by a student' do
     create_student_and_sign_in
-    test_page = FactoryGirl.create :page
+    lesson = FactoryGirl.create :lesson
     visit sections_path
-    click_link test_page.title
-    page.should_not have_content 'Edit page'
-    visit edit_page_path test_page
+    click_link lesson.title
+    page.should_not have_content 'Edit lesson'
+    visit edit_lesson_path lesson
     page.should_not have_content 'Edit'
   end
 end

@@ -9,8 +9,8 @@
           <li>
             <%= link_to section.name, section %>
             <ul>
-              <% section.pages.each do |page| %>
-                <li><%= link_to page.title, page %></li>
+              <% section.lessons.each do |lesson| %>
+                <li><%= link_to lesson.title, lesson %></li>
               <% end %>
             </ul>
           </li>
@@ -28,6 +28,6 @@
   <p><%= link_to 'New section', new_section_path, :class => "btn btn-warning btn-large" %></p>
 <% end %>
 
-<% if can? :create, Page %>
-  <p><%= link_to 'New page', new_page_path, :class => "btn btn-success btn-large" %></p>
+<% if can? :create, Lesson %>
+  <p><%= link_to 'New lesson', new_lesson_path, :class => "btn btn-success btn-large" %></p>
 <% end %>

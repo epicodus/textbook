@@ -1,8 +1,8 @@
 class HomeController < ApplicationController
   def show
-    if Page.any?
-      @page = Chapter.first.sections.first.pages.first
-      render '/pages/show'
+    if Lesson.any?
+      @lesson = Chapter.first.sections.first.lessons.first
+      render '/lessons/show'
     end
   end
 end
