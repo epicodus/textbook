@@ -11,7 +11,6 @@ Pull requests are welcome :)
 
 ##To do
 
-* As a user, the URL I see for each lesson should be the section or lesson name, not the ID number, so that the link to each lesson is more descriptive.
 * As a student, each lesson should show me how far along I am in the section, so that I know how much I've done and how much is left.
 * As a student, if I am signed in and visit the homepage, I should be redirected to the last lesson I visited, so that I don't have to bookmark or navigate back where I am each time I leave and come back.
 * As an author, I should be able to drag and drop lessons, sections, and chapters to change their order.

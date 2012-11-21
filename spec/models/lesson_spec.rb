@@ -12,6 +12,11 @@ describe Lesson do
   it {should validate_presence_of :number}
   it {should validate_numericality_of(:number).only_integer}
 
+  it 'validates uniqueness of name' do
+    FactoryGirl.create :lesson
+    should validate_uniqueness_of :name
+  end
+
   it {should belong_to :section}
 
   it 'sorts by the number by default' do
