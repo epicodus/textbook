@@ -1,0 +1,18 @@
+<% provide :left_nav do %>
+  <ul class="nav">
+    <% if @lesson.previous_lesson? %>
+      <li><%= link_to 'Previous lesson', @lesson.previous %></li>
+    <% end %>
+
+    <% if @lesson.next_lesson? %>
+      <li><%= link_to 'Next lesson', @lesson.next %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% provide :middle_nav do %>
+  <ul class="nav">
+    <li><%= link_to 'Section contents', @lesson.section %>
+    <li><%= link_to 'Table of contents', chapters_path %></li>
+  </ul>
+<% end %>

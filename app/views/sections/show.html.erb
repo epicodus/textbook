@@ -14,14 +14,4 @@
   <p><%= link_to 'New lesson', new_lesson_path, :class => "btn btn-success btn-large" %></p>
 <% end %>
 
-<div class="navbar navbar-fixed-bottom">
-  <div class="navbar-inner">
-    <div class="container">
-      <div class="nav-collapse">
-        <ul class="nav pull-right" id="main-menu-right">
-          <li><%= link_to 'Table of contents', sections_path %></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render 'navbar' %>
