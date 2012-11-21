@@ -1,9 +1,9 @@
-<% provide :title, "Edit #{@lesson.title}" %>
+<% provide :title, "Edit #{@lesson.name}" %>
 
-<h1>Edit <%= @lesson.title %></h1>
+<h1>Edit <%= @lesson.name %></h1>
 
 <%= render 'form' %>
 
-<p><%= link_to "Delete #{@lesson.title}", @lesson, :confirm => 'Are you sure?', :method => :delete %></p>
+<p><%= link_to "Delete #{@lesson.name}", @lesson, :confirm => 'Are you sure?', :method => :delete %></p>
 
 <%= render 'navbar' %>

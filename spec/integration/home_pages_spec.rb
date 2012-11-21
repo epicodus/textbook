@@ -12,7 +12,7 @@ describe 'when a visitor goes to the homepage' do
     it 'is the first page of the first section' do
       test_page = FactoryGirl.create :lesson
       visit '/'
-      page.should have_content test_page.title
+      page.should have_content test_page.name
     end
   end
 end

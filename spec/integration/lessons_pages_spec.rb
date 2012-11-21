@@ -21,8 +21,8 @@ describe Lesson do
     create_author_and_sign_in
     lesson = FactoryGirl.create :lesson
     visit sections_path
-    click_link lesson.title
-    click_link "Edit #{lesson.title}"
+    click_link lesson.name
+    click_link "Edit #{lesson.name}"
     page.should have_content 'Edit'
   end
 
@@ -30,7 +30,7 @@ describe Lesson do
     create_student_and_sign_in
     lesson = FactoryGirl.create :lesson
     visit sections_path
-    click_link lesson.title
+    click_link lesson.name
     page.should_not have_content 'Edit lesson'
     visit edit_lesson_path lesson
     page.should_not have_content 'Edit'

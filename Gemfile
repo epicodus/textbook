@@ -10,7 +10,7 @@ gem 'devise'
 gem 'cancan'
 gem 'responders'
 gem 'paranoia'
-
+gem 'friendly_id'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

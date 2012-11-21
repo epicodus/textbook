@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe Lesson do
-  it {should allow_mass_assignment_of :title}
-  it {should allow_mass_assignment_of :body}
+  it {should allow_mass_assignment_of :name}
+  it {should allow_mass_assignment_of :content}
   it {should allow_mass_assignment_of :section_id}
   it {should allow_mass_assignment_of :number}
 
-  it {should validate_presence_of :title}
-  it {should validate_presence_of :body}
+  it {should validate_presence_of :name}
+  it {should validate_presence_of :content}
   it {should validate_presence_of :section}
   it {should validate_presence_of :number}
   it {should validate_numericality_of(:number).only_integer}
