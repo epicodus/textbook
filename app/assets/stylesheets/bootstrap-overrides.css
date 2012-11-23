@@ -1,0 +1,12 @@
+body {
+  padding-top: 10px;
+  padding-bottom: 50px;
+}
+
+.container textarea {
+  width: 100%;
+}
+
+input, input.btn {
+  display: block;
+}
