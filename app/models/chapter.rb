@@ -1,6 +1,6 @@
 class Chapter < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :name
+  friendly_id :name, :use => :slugged
 
   acts_as_paranoid
 
