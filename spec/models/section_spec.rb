@@ -18,8 +18,7 @@ describe Section do
   it {should belong_to :chapter}
 
   it 'sorts by the number by default' do
-    last_section = FactoryGirl.create :section, :number => 9
-    (2..8).each {|number| FactoryGirl.create :section, :number => number}
+    last_section = FactoryGirl.create :section, :number => 2
     first_section = FactoryGirl.create :section, :number => 1
     Section.first.should eq first_section
     Section.last.should eq last_section
