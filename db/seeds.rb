@@ -2,4 +2,4 @@ student = User.create(email: 'student@learnhowtoprogram.com', password: 'iloveto
 author = User.create(email: 'author@learnhowtoprogram.com', password: 'ilovetoteach').update_column(:author, true)
 chapter = Chapter.create(name: 'Chapter 1', number: 1)
 section = Section.create(name: 'Section 1', number: 1, chapter_id: chapter.id)
-lesson = Lesson.create(title: 'Lesson 1', body: '<p>I am a lesson.</p>', number: 1, section_id: section.id)
+lesson = Lesson.create(name: 'Lesson 1', content: '<p>I am a lesson.</p>', number: 1, section_id: section.id)
