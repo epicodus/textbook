@@ -10,3 +10,25 @@ body {
 input, input.btn {
   display: block;
 }
+
+pre ul {
+  line-height: 0;
+  margin-bottom: -15px;
+}
+
+pre ul.irb li {
+  list-style-type: none;
+  margin-left: -25px;
+}
+
+pre ul.bash li {
+  list-style-type: none;
+  margin-left: -25px;
+}
+
+pre ul.irb li:before {
+  content: "\003E \0020";
+}
+pre ul.bash li:before {
+  content: "\0024 \0020";
+}
