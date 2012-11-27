@@ -1,9 +1,9 @@
 <%- if controller_name != 'sessions' %>
-  <%= link_to "If you already have an account, click here to sign in.", new_session_path(resource_name) %><br />
+  If you already have an account, <%= link_to "click here", new_session_path(resource_name) %> to sign in.<br>
 <% end -%>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "If you don't have an account, click here to sign up.", new_registration_path(resource_name) %><br />
+  If you don't have an account, <%= link_to "click here", new_registration_path(resource_name) %> to sign up.<br>
 <% end -%>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
