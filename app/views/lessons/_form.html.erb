@@ -8,5 +8,7 @@
   <%= f.text_area :content %>
   <%= f.label :section %>
   <%= f.select :section_id, options_from_collection_for_select(@sections, :id, :name, @lesson.section_id) %>
+  <%= f.check_box :public %>
+  <%= f.label :public %>
   <%= f.submit "Save", :class => "btn btn-primary" %>
 <% end %>

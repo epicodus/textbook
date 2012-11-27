@@ -6,7 +6,7 @@ class Lesson < ActiveRecord::Base
 
   default_scope order('number')
 
-  attr_accessible :name, :content, :section_id, :number
+  attr_accessible :name, :content, :section_id, :number, :public
 
   validates :name, :presence => true, :uniqueness => true
   validates :content, :presence => true

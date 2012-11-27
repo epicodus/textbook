@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121125200507) do
+ActiveRecord::Schema.define(:version => 20121127204818) do
 
   create_table "chapters", :force => true do |t|
     t.string   "name",       :null => false
@@ -23,14 +23,15 @@ ActiveRecord::Schema.define(:version => 20121125200507) do
   end
 
   create_table "lessons", :force => true do |t|
-    t.string   "name",       :null => false
-    t.text     "content",    :null => false
-    t.integer  "section_id", :null => false
-    t.integer  "number",     :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name",                          :null => false
+    t.text     "content",                       :null => false
+    t.integer  "section_id",                    :null => false
+    t.integer  "number",                        :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.datetime "deleted_at"
-    t.string   "slug",       :null => false
+    t.string   "slug",                          :null => false
+    t.boolean  "public",     :default => false, :null => false
   end
 
   create_table "sections", :force => true do |t|
