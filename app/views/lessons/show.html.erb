@@ -1,6 +1,6 @@
 <% provide :title, @lesson.name %>
 
-<h1><%= @lesson.name %></h1>
+<h1><%= yield :title %></h1>
 
 <p>
   <%= raw @lesson.content %>

@@ -1,4 +1,6 @@
-<h1>Forgot your password?</h1>
+<% provide :title, "Forgot your password?" %>
+
+<h1><%= yield :title %></h1>
 
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
   <% if devise_error_messages!.length > 0 %>

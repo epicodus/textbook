@@ -1,6 +1,6 @@
-<% provide :title, "Table of contents" %>
+<% provide :title, "Table of contents (chapters only)" %>
 
-<h1>Table of contents (chapters only)</h1>
+<h1><%= yield :title %></h1>
 
 <p>To see a list of all chapters and section, <%= link_to 'click here', sections_path %>.</p>
 

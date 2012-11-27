@@ -1,6 +1,6 @@
-<% provide :title, "Table of contents" %>
+<% provide :title, "Table of contents (chapters and sections)" %>
 
-<h1>Table of contents (chapters and sections)</h1>
+<h1><%= yield :title %></h1>
 
 <p>To see a list of all lessons, <%= link_to 'click here', lessons_path %>.</p>
 

@@ -1,6 +1,6 @@
 <% provide :title, "Edit #{@section.name}" %>
 
-<h1>Edit <%= @section.name %></h1>
+<h1><%= yield :title %></h1>
 
 <%= render 'form' %>
 

@@ -1,6 +1,6 @@
 <% provide :title, @chapter.name %>
 
-<h1><%= @chapter.name %></h1>
+<h1><%= yield :title %></h1>
 
 <ul>
   <% @chapter.sections.each do |section| %>

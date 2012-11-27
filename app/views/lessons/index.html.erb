@@ -1,6 +1,6 @@
-<% provide :title, "Table of contents" %>
+<% provide :title, "Table of contents (all lessons)" %>
 
-<h1>Table of contents (all lessons)</h1>
+<h1><%= yield :title %></h1>
 
 <ul>
   <% @chapters.each do |chapter| %>
