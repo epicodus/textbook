@@ -1,12 +1,24 @@
 <% provide :title, "Table of contents" %>
 
-<h1>Table of contents (chapters only)</h1>
-
-<p>To see a list of all chapters and section, <%= link_to 'click here', sections_path %>.</p>
+<h1>Table of contents (all lessons)</h1>
 
 <ul>
   <% @chapters.each do |chapter| %>
-    <li><%= link_to chapter.name, chapter %></li>
+    <li>
+      <%= link_to chapter.name, chapter %>
+      <ul>
+        <% chapter.sections.each do |section| %>
+          <li>
+            <%= link_to section.name, section %>
+            <ul>
+              <% section.lessons.each do |lesson| %>
+                <li><%= link_to lesson.name, lesson %></li>
+              <% end %>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </li>
   <% end%>
 </ul>
 

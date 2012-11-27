@@ -3,7 +3,7 @@ class LessonsController < ApplicationController
 
   def index
     @chapters = Chapter.all
-    render '/chapters/index'
+    respond_with @lessons = Lesson.all
   end
 
   def new

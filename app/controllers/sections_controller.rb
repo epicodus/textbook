@@ -3,7 +3,7 @@ class SectionsController < ApplicationController
 
   def index
     load_chapters
-    render '/chapters/index'
+    respond_with @sections = Section.all
   end
 
   def new

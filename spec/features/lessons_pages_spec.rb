@@ -20,8 +20,7 @@ describe Lesson do
   it 'can be edited by an author' do
     create_author_and_sign_in
     lesson = FactoryGirl.create :lesson
-    visit sections_path
-    click_link lesson.name
+    visit lesson_path lesson
     click_link "Edit #{lesson.name}"
     page.should have_content 'Edit'
   end
@@ -29,8 +28,7 @@ describe Lesson do
   it 'cannot be edited by a student' do
     create_student_and_sign_in
     lesson = FactoryGirl.create :lesson
-    visit sections_path
-    click_link lesson.name
+    visit lesson_path lesson
     page.should_not have_content 'Edit lesson'
     visit edit_lesson_path lesson
     page.should_not have_content 'Edit'
