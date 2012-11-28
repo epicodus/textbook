@@ -26,5 +26,6 @@ FactoryGirl.define do
     content {Faker::Lorem.paragraph}
     association :section, :factory => :section
     sequence(:number) {|n| n}
+    public true
   end
 end

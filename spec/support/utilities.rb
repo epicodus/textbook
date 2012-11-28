@@ -13,3 +13,11 @@ def create_student_and_sign_in
   fill_in 'Password', with: student.password
   click_button 'Sign in'
 end
+
+def create_beta_tester_student_and_sign_in
+  student = FactoryGirl.create :student, :beta_tester => true
+  visit new_user_session_path
+  fill_in 'Email', with: student.email
+  fill_in 'Password', with: student.password
+  click_button 'Sign in'
+end

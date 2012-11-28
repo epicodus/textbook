@@ -1,41 +1,41 @@
 class LessonsController < ApplicationController
-  authorize_resource
+  load_and_authorize_resource
 
   def index
     @chapters = Chapter.all
-    respond_with @lessons = Lesson.all
+    respond_with @lessons
   end
 
   def new
     load_sections
-    respond_with @lesson = Lesson.new
+    respond_with @lesson
   end
 
   def create
     load_sections
-    respond_with @lesson = Lesson.create(params[:lesson])
+    @lesson.save
+    respond_with @lesson
   end
 
   def show
     load_sections
-    respond_with @lesson = Lesson.find(params[:id])
+    respond_with @lesson
   end
 
   def edit
     load_sections
-    respond_with @lesson = Lesson.find(params[:id])
+    respond_with @lesson
   end
 
   def update
     load_sections
-    @lesson = Lesson.find(params[:id])
     @lesson.update_attributes(params[:lesson])
     respond_with @lesson
   end
 
   def destroy
     load_sections
-    respond_with @lesson = Lesson.find(params[:id]).destroy
+    respond_with @lesson.destroy
   end
 
   private

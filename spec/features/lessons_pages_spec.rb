@@ -33,4 +33,30 @@ describe Lesson do
     visit edit_lesson_path lesson
     page.should_not have_content 'Edit'
   end
+
+  context 'when it is not public' do
+    it 'is visible to an author' do
+      create_author_and_sign_in
+      lesson = FactoryGirl.create :lesson, :public => false
+      visit lesson_path lesson
+      page.should have_content lesson.name
+    end
+
+    it 'is visible to a student who is a beta tester' do
+      create_beta_tester_student_and_sign_in
+      lesson = FactoryGirl.create :lesson, :public => false
+      visit lesson_path lesson
+      page.should have_content lesson.name
+    end
+
+    context 'for a student who is not a beta tester' do
+      it 'is not visible' do
+        create_student_and_sign_in
+        private_lesson = FactoryGirl.create :lesson, :public => false
+        public_lesson = FactoryGirl.create :lesson
+        visit lesson_path private_lesson
+        page.should_not have_content private_lesson.name
+      end
+    end
+  end
 end

@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def show
     if Lesson.any?
-      redirect_to Chapter.first.sections.first.lessons.first
+      redirect_to Lesson.accessible_by(current_ability).first
     end
   end
 end

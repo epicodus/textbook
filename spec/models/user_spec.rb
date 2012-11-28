@@ -20,4 +20,18 @@ describe User do
       user.author?.should be_true
     end
   end
+
+  context '#beta_tester?' do
+    it 'should be false by default' do
+      user = User.new
+      user.beta_tester?.should be_false
+    end
+
+    it 'should be true if beta_tester is set to true' do
+      user = User.new
+      user.beta_tester = true
+      user.save
+      user.beta_tester?.should be_true
+    end
+  end
 end
