@@ -35,7 +35,8 @@ class LessonsController < ApplicationController
 
   def destroy
     load_sections
-    respond_with @lesson.destroy
+    @lesson.destroy
+    respond_with @lesson
   end
 
   private

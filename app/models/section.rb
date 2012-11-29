@@ -6,7 +6,7 @@ class Section < ActiveRecord::Base
 
   default_scope order('number')
 
-  attr_accessible :name, :number, :chapter_id
+  attr_accessible :name, :number, :chapter_id, :public
 
   validates :name, :presence => true, :uniqueness => true
   validates :number, :presence => true, :numericality => {:only_integer => true}

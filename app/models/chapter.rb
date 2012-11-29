@@ -6,7 +6,7 @@ class Chapter < ActiveRecord::Base
 
   default_scope order('number')
 
-  attr_accessible :name, :number
+  attr_accessible :name, :number, :public
 
   validates :name, :presence => true, :uniqueness => true
   validates :number, :presence => true, :numericality => {:only_integer => true}

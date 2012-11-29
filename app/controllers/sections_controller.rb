@@ -1,41 +1,42 @@
 class SectionsController < ApplicationController
-  authorize_resource
+  load_and_authorize_resource
 
   def index
     load_chapters
-    respond_with @sections = Section.all
+    respond_with @sections
   end
 
   def new
     load_chapters
-    respond_with @section = Section.new
+    respond_with @section
   end
 
   def create
     load_chapters
-    respond_with @section = Section.create(params[:section])
+    @section.save
+    respond_with @section
   end
 
   def show
     load_chapters
-    respond_with @section = Section.find(params[:id])
+    respond_with @section
   end
 
   def edit
     load_chapters
-    respond_with @section = Section.find(params[:id])
+    respond_with @section
   end
 
   def update
     load_chapters
-    @section = Section.find(params[:id])
     @section.update_attributes(params[:section])
     respond_with @section
   end
 
   def destroy
     load_chapters
-    respond_with @section = Section.find(params[:id]).destroy
+    @section.destroy
+    respond_with @section
   end
 
   private

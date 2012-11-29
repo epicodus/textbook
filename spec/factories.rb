@@ -12,12 +12,14 @@ FactoryGirl.define do
 
   factory :chapter do
     name {Faker::Lorem.words.join}
+    public true
     sequence(:number) {|n| n}
   end
 
   factory :section do
     name {Faker::Lorem.words.join}
     association :chapter, :factory => :chapter
+    public true
     sequence(:number) {|n| n}
   end
 
