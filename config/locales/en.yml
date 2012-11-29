@@ -6,4 +6,4 @@ en:
     manage:
       all: "You aren't allowed to make changes to the site's content."
     read:
-      all: "Only beta testers have access to that page. To become a beta tester, email michael@learnhowtoprogram.com."
+      all: "Only beta testers have access to that page. <a href='/users/sign_up'>Sign up</a> for an account and we will notify you when we are accepting new beta testers."
