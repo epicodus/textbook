@@ -8,9 +8,9 @@ gem 'thin'
 gem 'jquery-rails'
 gem 'devise'
 gem 'cancan'
-gem 'responders'
 gem 'paranoia'
 gem 'friendly_id'
+gem 'inherited_resources'
 
 group :assets do
   gem 'sass-rails'

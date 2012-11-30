@@ -13,4 +13,14 @@ class ApplicationController < ActionController::Base
       redirect_to chapters_path, :alert => exception.message.html_safe
     end
   end
+
+  private
+
+  def load_sections
+    @sections = Section.all
+  end
+
+  def load_chapters
+    @chapters = Chapter.all
+  end
 end
