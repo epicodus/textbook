@@ -3,7 +3,7 @@
 <h1><%= yield :title %></h1>
 
 <ul>
-  <% @chapters.each do |chapter| %>
+  <% chapters.each do |chapter| %>
     <li>
       <%= link_to chapter.name, chapter %>
       <ul>

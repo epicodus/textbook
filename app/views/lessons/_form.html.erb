@@ -7,7 +7,7 @@
   <%= f.label :content, "Body (use HTML)" %>
   <%= f.text_area :content %>
   <%= f.label :section %>
-  <%= f.select :section_id, options_from_collection_for_select(@sections, :id, :name, @lesson.section_id) %>
+  <%= f.select :section_id, options_from_collection_for_select(sections, :id, :name, @lesson.section_id) %>
   <%= f.label(:public, :class => "checkbox") do %>
     <%= f.check_box :public %>
     Public

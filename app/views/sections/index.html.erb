@@ -5,7 +5,7 @@
 <p>To see a list of all lessons, <%= link_to 'click here', lessons_path %>.</p>
 
 <ul>
-  <% @chapters.each do |chapter| %>
+  <% chapters.each do |chapter| %>
     <li>
       <%= link_to chapter.name, chapter %>
       <ul>

@@ -1,6 +1,16 @@
 class LessonsController < InheritedResources::Base
   load_and_authorize_resource
 
-  before_filter :load_sections
-  before_filter :load_chapters, :only => 'index'
+  helper_method :sections
+  helper_method :chapters
+
+  private
+
+  def sections
+    Section.all
+  end
+
+  def chapters
+    Chapter.all
+  end
 end

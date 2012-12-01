@@ -1,5 +1,11 @@
 class SectionsController < InheritedResources::Base
   load_and_authorize_resource
 
-  before_filter :load_chapters
+  helper_method :chapters
+
+  private
+
+  def chapters
+    Chapter.all
+  end
 end
