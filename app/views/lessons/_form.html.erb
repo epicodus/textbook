@@ -4,7 +4,7 @@
   <%= f.text_field :name %>
   <%= f.label :number, 'Lesson number' %>
   <%= f.text_field :number %>
-  <%= f.label :content, "Body (use HTML)" %>
+  <%= f.label :content, "Content (use HTML)" %>
   <%= f.text_area :content %>
   <%= f.label :section %>
   <%= f.select :section_id, options_from_collection_for_select(sections, :id, :name, @lesson.section_id) %>
