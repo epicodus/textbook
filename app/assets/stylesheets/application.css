@@ -11,5 +11,6 @@
  *= require_self
  *= require_tree .
  *= require bootstrap
+ *= require prettify
  *= require bootstrap-overrides
  */
