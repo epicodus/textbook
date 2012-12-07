@@ -65,6 +65,13 @@ Textbook::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  # Set hostname for emails from Devise (and anything else using ActionMailer)
-  config.action_mailer.default_url_options = { :host => 'learnhowtoprogram.com' }
+  config.action_mailer.default_url_options = { :host => ENV['ACTION_MAILER_DEFAULT_URL_HOST'] }
+  config.action_mailer.smtp_settings = {
+    :tls => :true,
+    :address => ENV['ACTION_MAILER_SMTP_ADDRESS'],
+    :port => ENV['ACTION_MAILER_SMTP_PORT'],
+    :domain => ENV['ACTION_MAILER_SMTP_DOMAIN'],
+    :user_name => ENV['ACTION_MAILER_SMTP_USER_NAME'],
+    :password => ENV['ACTION_MAILER_SMTP_PASSWORD']
+  }
 end
