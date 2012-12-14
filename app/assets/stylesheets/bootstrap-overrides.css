@@ -16,12 +16,7 @@ pre ul {
   margin-bottom: -15px;
 }
 
-pre ul.irb li {
-  list-style-type: none;
-  margin-left: -25px;
-}
-
-pre ul.bash li {
+pre ul.irb li, ul.bash li, ul.psql li {
   list-style-type: none;
   margin-left: -25px;
 }
@@ -31,4 +26,8 @@ pre ul.irb li:before {
 }
 pre ul.bash li:before {
   content: "\0024 \0020";
+}
+
+pre ul.psql li:before {
+  content: "\0023 \0020";
 }
