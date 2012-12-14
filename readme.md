@@ -10,6 +10,22 @@ The first lesson of the first section is used as the homepage. If no lessons exi
 
 Pull requests are welcome :)
 
+##Environmental variables
+
+Environmental variables can be set in .bashrc, a .env file for use with Foreman, or in Heroku's config. See the [Heroku documentation](https://devcenter.heroku.com/articles/config-vars) for more information.
+
+Here is a list of environmental variables that need to be set:
+
+* ACTION_MAILER_DEFAULT_URL_HOST
+* ACTION_MAILER_SMTP_ADDRESS
+* ACTION_MAILER_SMTP_DOMAIN
+* ACTION_MAILER_SMTP_PORT
+* ACTION_MAILER_SMTP_USER_NAME
+* ACTION_MAILER_SMTP_PASSWORD
+* DEVISE_MAILER_SENDER
+
+Currently, since they all relate to sending email, it is not necessary to set any of them in development or test environments.
+
 
 ##To do
 
