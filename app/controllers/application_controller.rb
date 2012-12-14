@@ -13,4 +13,12 @@ class ApplicationController < ActionController::Base
       redirect_to chapters_path, :alert => exception.message.html_safe
     end
   end
+
+  def after_sign_in_path_for(resource)
+    lessons_path
+  end
+
+  def after_sign_out_path_for(resource_or_scope)
+    request.referrer
+  end
 end
