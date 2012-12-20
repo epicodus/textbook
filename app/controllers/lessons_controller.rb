@@ -4,6 +4,11 @@ class LessonsController < InheritedResources::Base
   helper_method :sections
   helper_method :chapters
 
+  def index
+    @query = params[:search]
+    @results = Lesson.search(@query)
+  end
+
   private
 
   def sections

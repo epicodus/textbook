@@ -191,6 +191,8 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    texticle (2.0.3)
+      activerecord (~> 3.0)
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -236,5 +238,6 @@ DEPENDENCIES
   sass-rails
   shoulda-matchers
   spork-rails
+  texticle
   thin
   uglifier
