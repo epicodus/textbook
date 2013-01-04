@@ -23,6 +23,7 @@ Here is a list of environmental variables that need to be set:
 * ACTION_MAILER_SMTP_USER_NAME
 * ACTION_MAILER_SMTP_PASSWORD
 * DEVISE_MAILER_SENDER
+* RAILS_SECRET_TOKEN (a default value is provided for use in development, but this is not secure for production)
 
 Currently, since they all relate to sending email, it is not necessary to set any of them in development or test environments.
 

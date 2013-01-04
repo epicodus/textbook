@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Textbook::Application.config.secret_token = 'f3fa35a98f0f8b36d9ee352c8b499e1cc99a53c0899ca7684f786ce56fa5c6405f10ee67ec0c5ce659aa6430d16e0dbcf1c3f0a4c57f2918b7419461ae73a9dc'
+Textbook::Application.config.secret_token = ENV['RAILS_SECRET_TOKEN'] ||= '26f36753782bcb5406e8e83932a3f03cd424b43d909658c6dd4896bae97e4d87120e239cf72516236b8707e4f9678a67b7c00a09fc0fa3985a998577e65de37c'
