@@ -42,14 +42,14 @@ describe Lesson do
       page.should have_content lesson.name
     end
 
-    it 'is visible to a student who is a beta tester' do
-      create_beta_tester_student_and_sign_in
+    it 'is visible to a student who is paid' do
+      create_paid_student_and_sign_in
       lesson = FactoryGirl.create :lesson, :public => false
       visit lesson_path lesson
       page.should have_content lesson.name
     end
 
-    context 'for a student who is not a beta tester' do
+    context 'for a student who is not paid' do
       it 'is not visible' do
         create_student_and_sign_in
         private_lesson = FactoryGirl.create :lesson, :public => false

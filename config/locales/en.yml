@@ -6,4 +6,4 @@ en:
     manage:
       all: "You aren't allowed to make changes to the site's content."
     read:
-      all: "Only beta testers have access to that page. <a href='/users/sign_up'>Sign up</a> for an account and we will notify you when we are accepting new beta testers."
+      all: "Only Epicodus students and paid users have access to that page. <a href='http://www.epicodus.com/'>Sign up for Epicodus</a> or <a href='/users/sign_up'>create an account</a> and we will notify you when we are accepting paid users."

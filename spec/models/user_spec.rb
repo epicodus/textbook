@@ -21,17 +21,17 @@ describe User do
     end
   end
 
-  context '#beta_tester?' do
+  context '#paid?' do
     it 'should be false by default' do
       user = User.new
-      user.beta_tester?.should be_false
+      user.paid?.should be_false
     end
 
-    it 'should be true if beta_tester is set to true' do
+    it 'should be true if paid is set to true' do
       user = User.new
-      user.beta_tester = true
+      user.paid = true
       user.save
-      user.beta_tester?.should be_true
+      user.paid?.should be_true
     end
   end
 end

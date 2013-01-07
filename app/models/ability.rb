@@ -5,7 +5,7 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.author?
       can :manage, :all
-    elsif user.beta_tester?
+    elsif user.paid?
       can :read, :all
     else
       can :read, :all, :public => true
