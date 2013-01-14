@@ -6,7 +6,7 @@ class LessonsController < InheritedResources::Base
 
   def index
     @query = params[:search]
-    @results = Lesson.fuzzy_search(@query)
+    @results = Lesson.advanced_search(@query)
   end
 
   private
