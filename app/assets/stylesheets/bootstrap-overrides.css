@@ -31,3 +31,7 @@ pre ul.bash li:before {
 pre ul.psql li:before {
   content: "\0023 \0020";
 }
+
+.alert a {
+  text-decoration: underline;
+}
