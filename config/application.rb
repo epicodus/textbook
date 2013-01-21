@@ -70,5 +70,8 @@ module Textbook
     config.assets.initialize_on_precompile = false
     # on config/application.rb forcing your application to not access the DB
     # or load models when precompiling your assets.
+
+    # Put the following line in config/application.rb, so that jquery.js will be served from your server when CDN is not available.
+    config.assets.precompile += ['jquery.js']
   end
 end
