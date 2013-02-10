@@ -25,7 +25,7 @@ Here is a list of environmental variables that need to be set:
 * DEVISE_MAILER_SENDER
 * RAILS_SECRET_TOKEN (a default value is provided for use in development, but this is not secure for production)
 
-Currently, since they all relate to sending email, it is not necessary to set any of them in development or test environments.
+Currently it is not necessary to set any of them in development or test environments (since all but the last relates to sending email, and the last has a default value).
 
 
 ##To do
@@ -33,12 +33,9 @@ Currently, since they all relate to sending email, it is not necessary to set an
 * As a student, each lesson should show me how far along I am in the section, so that I know how much I've done and how much is left.
 * As a student, if I am signed in and visit the homepage, I should be redirected to the last lesson I visited, so that I don't have to bookmark or navigate back where I am each time I leave and come back.
 * As an author, I should be able to drag and drop lessons, sections, and chapters to change their order.
-* As an author, I should be able to put some or all of my content behind a paywall, so that I require users to pay me for the work I did to make my site.
-* As an author, I should be able to put the sign in/sign up links and navigation links in a different place on the homepage, so that I can have a marketing site as my homepage while the rest of the content is more textbook-style.
 * As an author, I should be able to un-delete my content from the user interface, so that I don't have to use the console if I need to un-delete something.
 * As an author, I should be able to restore a previous version of a lesson, so that I can see what changes I've made over time and undo accidental changes.
 * As a student, I should be able to give feedback on a lesson, so that I can point out if something isn't clear or tell the authors how much I like what they've written.
-* As an author, I should be able to provide custom CSS for my site, so that I can give it a unique look and feel. The current CSS is [Bootswatch Simplex](http://bootswatch.com/simplex/), built on [Bootstrap](http://twitter.github.com/bootstrap/).
 * As a user, I should be able to view the site on screens of different sizes without horizontal scrolling, so that I can visit it on a tablet, phone, or computer with a small screen. (Use bootstrap-responsive!)
 * As a student, I should have a list of key concepts I've learned on each lesson, as well as a list of all key concepts from the current section in a sidebar.
 
