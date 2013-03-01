@@ -12,7 +12,7 @@ gem 'cancan'
 gem 'paranoia'
 gem 'friendly_id'
 gem 'inherited_resources'
-gem 'texticle', :require => 'texticle/rails'
+gem 'textacular', :require => 'textacular/rails'
 
 group :assets do
   gem 'sass-rails'
