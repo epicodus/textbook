@@ -23,9 +23,11 @@ Here is a list of environmental variables that need to be set:
 * ACTION_MAILER_SMTP_USER_NAME
 * ACTION_MAILER_SMTP_PASSWORD
 * DEVISE_MAILER_SENDER
+* NEW_RELIC_LICENSE_KEY
+* NEW_RELIC_APP_NAME
 * RAILS_SECRET_TOKEN (a default value is provided for use in development, but this is not secure for production)
 
-Currently it is not necessary to set any of them in development or test environments (since all but the last relates to sending email, and the last has a default value).
+Currently it is not necessary to set any of them in development or test environments.
 
 
 ##To do
