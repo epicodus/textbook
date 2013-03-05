@@ -1,5 +1,5 @@
 class SectionsController < InheritedResources::Base
-  load_and_authorize_resource
+  load_and_authorize_resource :except => [:index, :show]
 
   helper_method :chapters
 

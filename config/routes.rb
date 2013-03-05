@@ -3,7 +3,7 @@ Textbook::Application.routes.draw do
 
   root :to => 'home#show'
 
-  resources :chapters
-  resources :sections
+  resources :chapters, :except => [:show]
+  resources :sections, :except => [:index, :show]
   resources :lessons
 end

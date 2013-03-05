@@ -1,31 +1,23 @@
-<% provide :title, @query.nil? ? "Table of contents" : "Lessons containing '#{@query}'" %>
+<% provide :title, "Lessons containing '#{@query}'" %>
 
 <h1><%= yield :title %></h1>
 
 <%= render 'search' %>
 
-<% if @query.nil? %>
+<% if @results.any? %>
   <ul>
-    <% chapters.each do |chapter| %>
-      <li>
-        <%= link_to chapter.name, chapter %>
-        <ul>
-          <% chapter.sections.each do |section| %>
-            <li>
-              <%= link_to section.name, section %>
-              <ul>
-                <% section.lessons.each do |lesson| %>
-                  <li><%= link_to lesson.name, lesson %></li>
-                <% end %>
-              </ul>
-            </li>
-          <% end %>
-        </ul>
-      </li>
-    <% end%>
+    <% @results.each do |lesson| %>
+      <li><%= link_to lesson.name, lesson %></li>
+    <% end %>
   </ul>
 <% else %>
-  <%= render 'results' %>
+  <p>No lessons found.</p>
+<% end %>
+
+<% provide :left_nav do %>
+  <ul class="nav">
+    <li><%= link_to 'Table of contents', lessons_path %></li>
+  </ul>
 <% end %>
 
 <% if can? :create, Chapter %>

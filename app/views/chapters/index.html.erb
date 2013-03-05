@@ -1,12 +1,32 @@
-<% provide :title, "Table of contents (chapters only)" %>
+<% provide :title, @query.nil? ? "Table of contents" : "Lessons containing '#{@query}'" %>
 
 <h1><%= yield :title %></h1>
 
-<p>To see a list of all chapters and section, <%= link_to 'click here', sections_path %>.</p>
+<%= render 'lessons/search' %>
 
-<ul>
+<ul class='chapter'>
   <% @chapters.each do |chapter| %>
-    <li><%= link_to chapter.name, chapter %></li>
+    <li class='chapter'>
+      <a class='chapter'><%= chapter.name %></a>
+      <% if can? :update, Chapter %>
+        <%= link_to "(edit)", edit_chapter_path(chapter), :id => "edit_chapter_#{chapter.id}" %>
+      <% end %>
+      <ul class='section'>
+        <% chapter.sections.each do |section| %>
+          <li class='section'>
+            <a class='section'><%= section.name %></a>
+            <% if can? :update, Section %>
+              <%= link_to "(edit)", edit_section_path(section), :id => "edit_section_#{section.id}" %>
+            <% end %>
+            <ul class='lesson'>
+              <% section.lessons.each do |lesson| %>
+                <li><%= link_to lesson.name, lesson, :class => 'lesson' %></li>
+              <% end %>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </li>
   <% end%>
 </ul>
 

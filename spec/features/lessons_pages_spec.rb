@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Lesson do
   it 'can be created by an author' do
     create_author_and_sign_in
-    visit sections_path
+    visit chapters_path
     page.should have_content 'New lesson'
     visit new_lesson_path
     page.should have_content 'New lesson'
@@ -11,7 +11,7 @@ describe Lesson do
 
   it 'cannot be created by a student' do
     create_student_and_sign_in
-    visit sections_path
+    visit chapters_path
     page.should_not have_content 'New lesson'
     visit new_lesson_path
     page.should_not have_content 'New lesson'
@@ -39,14 +39,14 @@ describe Lesson do
       create_author_and_sign_in
       lesson = FactoryGirl.create :lesson, :public => false
       visit lesson_path lesson
-      page.should have_content lesson.name
+      page.should have_content lesson.content
     end
 
     it 'is visible to a student who is paid' do
       create_paid_student_and_sign_in
       lesson = FactoryGirl.create :lesson, :public => false
       visit lesson_path lesson
-      page.should have_content lesson.name
+      page.should have_content lesson.content
     end
 
     context 'for a student who is not paid' do
@@ -55,7 +55,7 @@ describe Lesson do
         private_lesson = FactoryGirl.create :lesson, :public => false
         public_lesson = FactoryGirl.create :lesson
         visit lesson_path private_lesson
-        page.should_not have_content private_lesson.name
+        page.should_not have_content private_lesson.content
       end
     end
   end

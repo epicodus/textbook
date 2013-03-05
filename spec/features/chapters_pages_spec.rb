@@ -21,8 +21,7 @@ describe Chapter do
     create_author_and_sign_in
     chapter = FactoryGirl.create :chapter
     visit chapters_path
-    click_link chapter.name
-    click_link "Edit #{chapter.name}"
+    click_link "edit_chapter_#{chapter.id}"
     page.should have_content 'Edit'
   end
 
@@ -30,8 +29,7 @@ describe Chapter do
     create_student_and_sign_in
     chapter = FactoryGirl.create :chapter
     visit chapters_path
-    click_link chapter.name
-    page.should_not have_content 'Edit'
+    page.should_not have_content 'edit'
     visit edit_chapter_path chapter
     page.should_not have_content 'Edit'
   end

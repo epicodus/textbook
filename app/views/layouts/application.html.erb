@@ -12,10 +12,10 @@
   <![endif]-->
 
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= csrf_meta_tags %>
   <%= jquery_include_tag :google %>
   <%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js" %>
   <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
 
 </head>
 <body onload="prettyPrint()">
