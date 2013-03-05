@@ -33,7 +33,6 @@ end
 
 group :test, :development do
   gem 'rspec-rails'
-  gem 'capybara'
 end
 
 group :test do
@@ -41,4 +40,5 @@ group :test do
   gem 'ffaker'
   gem 'factory_girl_rails'
   gem 'poltergeist'
+  gem 'capybara'
 end
