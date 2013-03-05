@@ -40,4 +40,5 @@ group :test do
   gem 'shoulda-matchers'
   gem 'ffaker'
   gem 'factory_girl_rails'
+  gem 'poltergeist'
 end
