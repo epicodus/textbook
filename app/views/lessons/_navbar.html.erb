@@ -13,5 +13,6 @@
 <% provide :middle_nav do %>
   <ul class="nav">
     <li><%= link_to 'Table of contents', chapters_path %></li>
+    <li><%= link_to 'Section contents', @lesson.section %>
   </ul>
 <% end %>
