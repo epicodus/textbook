@@ -1,3 +1,7 @@
 ul.section, ul.lesson {
   display: none;
 }
+
+a.chapter, a.section {
+  cursor: pointer;
+}
