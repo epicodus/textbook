@@ -7,6 +7,7 @@ gem 'pg'
 gem 'thin'
 gem 'jquery-rails'
 gem 'jquery-rails-cdn'
+gem 'jquery-ui-rails'
 gem 'devise'
 gem 'cancan'
 gem 'paranoia'
@@ -41,4 +42,5 @@ group :test do
   gem 'factory_girl_rails'
   gem 'poltergeist'
   gem 'capybara'
+  gem 'launchy'
 end

@@ -13,12 +13,19 @@ Spork.prefork do
 
   Capybara.javascript_driver = :poltergeist
 
-
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
   RSpec.configure do |config|
+    # Make it so poltergeist (out of thread) tests can work with transactional fixtures
+    # REF http://opinionated-programmer.com/2011/02/capybara-and-selenium-with-rspec-and-rails-3/#comment-220
+    ActiveRecord::ConnectionAdapters::ConnectionPool.class_eval do
+      def current_connection_id
+        Thread.main.object_id
+      end
+    end
+
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
     config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
