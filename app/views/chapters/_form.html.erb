@@ -1,5 +1,5 @@
 <%= render :partial => '/layouts/errors', :locals => {:object => @chapter} %>
-<%= form_for @chapter do |f| %>
+<%= form_for @chapter, :remote => true do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.label :number, 'Chapter number' %>
@@ -8,5 +8,5 @@
     <%= f.check_box :public %>
     Public
   <% end %>
-  <%= f.submit 'Save', :class => 'btn btn-primary' %>
+  <%= f.submit :class => 'btn btn-primary' %>
 <% end %>

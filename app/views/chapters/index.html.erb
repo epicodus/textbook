@@ -4,34 +4,14 @@
 
 <%= render 'lessons/search' %>
 
-<ul class='chapter'>
+<ul class='chapter' id="sortable">
   <% @chapters.each do |chapter| %>
-    <li class='chapter'>
-      <a class='chapter'><%= chapter.name %></a>
-      <% if can? :update, Chapter %>
-        <%= link_to "(edit)", edit_chapter_path(chapter), :id => "edit_chapter_#{chapter.id}" %>
-      <% end %>
-      <ul class='section'>
-        <% chapter.sections.each do |section| %>
-          <li class='section'>
-            <a class='section'><%= section.name %></a>
-            <% if can? :update, Section %>
-              <%= link_to "(edit)", edit_section_path(section), :id => "edit_section_#{section.id}" %>
-            <% end %>
-            <ul class='lesson'>
-              <% section.lessons.each do |lesson| %>
-                <li><%= link_to lesson.name, lesson, :class => 'lesson' %></li>
-              <% end %>
-            </ul>
-          </li>
-        <% end %>
-      </ul>
-    </li>
+    <%= render chapter, :locals => {:chapter => chapter} %>
   <% end%>
 </ul>
 
 <% if can? :create, Chapter %>
-  <p><%= link_to 'New chapter', new_chapter_path, :class => "btn btn-primary btn-large"%>
+  <p><%= link_to 'New chapter', new_chapter_path, :remote => true, :class => "btn btn-primary btn-large", :id => "new_chapter_link" %>
 <% end%>
 
 <% if can? :create, Section %>
