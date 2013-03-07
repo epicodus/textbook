@@ -15,7 +15,7 @@
 <% end%>
 
 <% if can? :create, Section %>
-  <p><%= link_to 'New section', new_section_path, :class => "btn btn-warning btn-large" %></p>
+  <p><%= link_to 'New section', new_section_path, :remote => true, :class => "btn btn-warning btn-large", :id => "new_section_link" %></p>
 <% end %>
 
 <% if can? :create, Lesson %>

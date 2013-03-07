@@ -1,21 +1,11 @@
-<li class='chapter'>
-  <a class='chapter'><%= chapter.name %></a>
+<li class='chapter', id="chapter_<%= chapter.id %>">
+  <%= link_to chapter.name, chapter, :class => 'chapter' %>
   <% if can? :update, Chapter %>
     <%= link_to "(edit)", edit_chapter_path(chapter), :id => "edit_chapter_#{chapter.id}" %>
   <% end %>
   <ul class='section'>
     <% chapter.sections.each do |section| %>
-      <li class='section'>
-        <a class='section'><%= section.name %></a>
-        <% if can? :update, Section %>
-          <%= link_to "(edit)", edit_section_path(section), :id => "edit_section_#{section.id}" %>
-        <% end %>
-        <ul class='lesson'>
-          <% section.lessons.each do |lesson| %>
-            <li><%= link_to lesson.name, lesson, :class => 'lesson' %></li>
-          <% end %>
-        </ul>
-      </li>
+      <%= render section, :locals => {:section => section} %>
     <% end %>
   </ul>
 </li>

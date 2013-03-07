@@ -11,6 +11,7 @@ Spork.prefork do
   require 'rspec/autorun'
   require 'capybara/poltergeist'
 
+  Capybara.default_driver = :rack_test
   Capybara.javascript_driver = :poltergeist
 
   # Requires supporting ruby files with custom matchers and macros, etc,
