@@ -1,3 +1,3 @@
 class ChaptersController < InheritedResources::Base
-  load_and_authorize_resource :except => [:show]
+  load_and_authorize_resource
 end
