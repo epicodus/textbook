@@ -59,4 +59,42 @@ describe Lesson do
       end
     end
   end
+
+  context 'deleting and restoring' do
+    it 'is removed from the table of contents when it is deleted' do
+      lesson = FactoryGirl.create :lesson
+      lesson.destroy
+      visit chapters_path
+      click_link lesson.section.chapter.name
+      click_link lesson.section.name
+      page.should_not have_content lesson.name
+    end
+
+    it 'is listed on the deleted lessons page for an author' do
+      lesson = FactoryGirl.create :lesson
+      lesson.destroy
+      create_author_and_sign_in
+      visit lessons_path + "?deleted=true"
+      page.should have_content lesson.name
+    end
+
+    it 'is not visible to a student' do
+      lesson = FactoryGirl.create :lesson
+      lesson.destroy
+      create_student_and_sign_in
+      visit lessons_path + "?deleted=true"
+      click_link lesson.name
+      page.should_not have_content lesson.content
+    end
+
+    it 'can be restored' do
+      lesson = FactoryGirl.create :lesson
+      lesson.destroy
+      create_author_and_sign_in
+      visit lesson_path(lesson) + "?deleted=true"
+      click_button 'Restore'
+      visit chapters_path
+      page.should have_content lesson.name
+    end
+  end
 end

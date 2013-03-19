@@ -4,9 +4,9 @@ class Lesson < ActiveRecord::Base
 
   acts_as_paranoid
 
-  default_scope order('number')
+  default_scope order(:number)
 
-  attr_accessible :name, :content, :section_id, :number, :public
+  attr_accessible :name, :content, :section_id, :number, :public, :deleted_at
 
   validates :name, :presence => true, :uniqueness => true
   validates :content, :presence => true
@@ -14,6 +14,8 @@ class Lesson < ActiveRecord::Base
   validates :section, :presence => true
 
   belongs_to :section
+
+  before_destroy :set_private
 
   def next
     Lesson.where('number > ?', number).first
@@ -29,5 +31,11 @@ class Lesson < ActiveRecord::Base
 
   def previous_lesson?
     self.previous != nil
+  end
+
+  private
+
+  def set_private
+    update_attributes(:public => false)
   end
 end

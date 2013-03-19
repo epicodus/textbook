@@ -6,6 +6,7 @@ describe Lesson do
   it {should allow_mass_assignment_of :section_id}
   it {should allow_mass_assignment_of :number}
   it {should allow_mass_assignment_of :public}
+  it {should allow_mass_assignment_of :deleted_at}
 
   it {should validate_presence_of :name}
   it {should validate_presence_of :content}
@@ -67,6 +68,14 @@ describe Lesson do
       current_lesson = FactoryGirl.create :lesson, :number => 2
       previous_lesson = FactoryGirl.create :lesson, :number => 1
       current_lesson.previous_lesson?.should be_true
+    end
+  end
+
+  context 'callbacks' do
+    it 'sets public to false before deleting' do
+      lesson = FactoryGirl.create :lesson
+      lesson.destroy
+      lesson.should_not be_public
     end
   end
 end

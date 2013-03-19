@@ -6,4 +6,4 @@ en:
     manage:
       all: "You aren't allowed to make changes to the site's content."
     read:
-      all: "At the moment, only Epicodus studentshave access to that page. <a href='http://www.epicodus.com/'>Sign up for Epicodus</a> or <a href='/users/sign_up'>create an account</a> and we will notify you when we are providing public access."
+      all: "At the moment, only Epicodus students have access to that page. <a href='http://www.epicodus.com/'>Sign up for Epicodus</a> or <a href='/users/sign_up'>create an account</a> and we will notify you when we are providing public access."

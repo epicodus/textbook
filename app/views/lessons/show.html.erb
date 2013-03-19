@@ -2,12 +2,17 @@
 
 <h1><%= yield :title %></h1>
 
-<p>
-  <%= raw @lesson.content %>
-</p>
+<%= raw @lesson.content %>
 
 <% if can? :update, Lesson %>
-  <p><%= link_to "Edit #{@lesson.name}", edit_lesson_path(@lesson), :class => "btn btn-large" %></p>
+  <% if @lesson.deleted? %>
+    <%= form_for @lesson, :url => {:deleted => true} do |f| %>
+      <%= f.hidden_field :deleted_at, :value => nil %>
+      <%= f.submit "Restore", :class => "btn btn-large" %>
+    <% end %>
+  <% else %>
+    <p><%= link_to "Edit #{@lesson.name}", edit_lesson_path(@lesson), :class => "btn btn-large" %></p>
+  <% end %>
 <% end %>
 
 <% if can? :create, Lesson %>

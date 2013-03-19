@@ -1,0 +1,11 @@
+<% provide :title, "Deleted lessons" %>
+
+<h1><%= yield :title %></h1>
+
+<ul>
+  <% @lessons.each do |lesson| %>
+    <li><%= link_to lesson.name, lesson_path(lesson) + '?deleted=true' %></li>
+  <% end %>
+</ul>
+
+<%= render 'index_navbar' %>

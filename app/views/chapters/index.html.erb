@@ -1,4 +1,4 @@
-<% provide :title, @query.nil? ? "Table of contents" : "Lessons containing '#{@query}'" %>
+<% provide :title, "Table of contents" %>
 
 <h1><%= yield :title %></h1>
 
@@ -20,4 +20,8 @@
 
 <% if can? :create, Lesson %>
   <p><%= link_to 'New lesson', new_lesson_path, :class => "btn btn-success btn-large" %></p>
+<% end %>
+
+<% if can? :edit, Lesson %>
+  <%= link_to 'View deleted lessons', lessons_path + '?deleted=true' %>
 <% end %>
