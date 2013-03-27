@@ -9,7 +9,13 @@
   <% end %>
   <ul class='lesson'>
     <% section.lessons.each do |lesson| %>
-      <li><%= link_to lesson.name, lesson, :class => 'lesson' %></li>
-    <% end %>
+      <li>
+        <%= link_to lesson.name, lesson, :class => 'lesson' %>
+        <%= f.fields_for 'lessons_attributes[]', lesson do |ff| %>
+          <%= ff.hidden_field :id %>
+          <%= ff.hidden_field :number, :class => :lesson %>
+        <% end %>
+      <% end %>
+    </li>
   </ul>
 </li>
