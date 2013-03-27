@@ -15,7 +15,7 @@ describe Section do
     should validate_uniqueness_of :name
   end
 
-  it {should have_many :lessons}
+  it {should have_many(:lessons).dependent(:destroy)}
   it {should belong_to :chapter}
 
   it 'sorts by the number by default' do

@@ -16,7 +16,7 @@ describe Chapter do
     should validate_uniqueness_of :name
   end
 
-  it {should have_many :sections}
+  it {should have_many(:sections).dependent(:destroy)}
   it {should have_many(:lessons).through(:sections)}
 
   it 'sorts by the number by default' do

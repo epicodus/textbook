@@ -11,7 +11,7 @@ class Chapter < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
   validates :number, :presence => true, :numericality => {:only_integer => true}
 
-  has_many :sections
+  has_many :sections, :dependent => :destroy
   has_many :lessons, :through => :sections
 
   accepts_nested_attributes_for :sections
