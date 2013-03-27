@@ -34,6 +34,7 @@ end
 
 group :test, :development do
   gem 'rspec-rails'
+  gem 'jazz_hands'
 end
 
 group :test do
