@@ -6,10 +6,12 @@ class Chapter < ActiveRecord::Base
 
   default_scope order('number')
 
-  attr_accessible :name, :number, :public
+  attr_accessible :name, :number, :public, :sections_attributes
 
   validates :name, :presence => true, :uniqueness => true
   validates :number, :presence => true, :numericality => {:only_integer => true}
 
   has_many :sections
+
+  accepts_nested_attributes_for :sections
 end

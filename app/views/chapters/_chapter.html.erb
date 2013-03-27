@@ -4,11 +4,11 @@
     <%= link_to "(edit)", edit_chapter_path(chapter), :id => "edit_chapter_#{chapter.id}" %>
     <%= fields_for "chapters[]", chapter do |f| %>
       <%= f.hidden_field :number, :class => :chapter %>
+      <ul class='section'>
+        <% chapter.sections.each do |section| %>
+          <%= render :partial => section, :locals => {:section => section, :f => f} %>
+        <% end %>
+      </ul>
     <% end %>
   <% end %>
-  <ul class='section'>
-    <% chapter.sections.each do |section| %>
-      <%= render section, :locals => {:section => section} %>
-    <% end %>
-  </ul>
 </li>

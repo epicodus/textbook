@@ -1,0 +1,15 @@
+<li class='section', id='section_<%= section.id %>'>
+  <%= link_to section.name, section, :class => 'section' %>
+  <% if can? :update, Section %>
+    <%= link_to "(edit)", edit_section_path(section), :id => "edit_section_#{section.id}" %>
+    <%= f.fields_for 'sections_attributes[]', section do |ff| %>
+      <%= ff.hidden_field :id %>
+      <%= ff.hidden_field :number, :class => :section %>
+    <% end %>
+  <% end %>
+  <ul class='lesson'>
+    <% section.lessons.each do |lesson| %>
+      <li><%= link_to lesson.name, lesson, :class => 'lesson' %></li>
+    <% end %>
+  </ul>
+</li>
