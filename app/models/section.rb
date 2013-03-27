@@ -4,7 +4,7 @@ class Section < ActiveRecord::Base
 
   acts_as_paranoid
 
-  default_scope order(:number)
+  default_scope order :number
 
   attr_accessible :name, :number, :chapter_id, :public
 
