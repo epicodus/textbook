@@ -4,7 +4,8 @@
     <%= link_to "(edit)", edit_section_path(section), :id => "edit_section_#{section.id}" %>
     <%= f.fields_for 'sections_attributes[]', section do |ff| %>
       <%= ff.hidden_field :id %>
-      <%= ff.hidden_field :number, :class => :section %>
+      <%= ff.hidden_field :chapter_id, :class => :section_chapter_id %>
+      <%= ff.hidden_field :number, :class => :section_number %>
     <% end %>
   <% end %>
   <ul class='lesson'>
@@ -13,6 +14,7 @@
         <%= link_to lesson.name, lesson, :class => 'lesson' %>
         <%= f.fields_for 'lessons_attributes[]', lesson do |ff| %>
           <%= ff.hidden_field :id %>
+          <%= ff.hidden_field :section_id, :class => :lesson_section_id %>
           <%= ff.hidden_field :number, :class => :lesson %>
         <% end %>
       <% end %>

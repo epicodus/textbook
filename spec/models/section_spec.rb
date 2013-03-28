@@ -9,6 +9,8 @@ describe Section do
   it {should validate_presence_of :name}
   it {should validate_presence_of :number}
   it {should validate_numericality_of(:number).only_integer}
+  it {should validate_presence_of :chapter}
+
 
   it 'validates uniqueness of name' do
     FactoryGirl.create :section
