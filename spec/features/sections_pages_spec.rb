@@ -9,7 +9,6 @@ describe Section, :js => true do
     fill_in 'Name', :with => 'Awesome section'
     fill_in 'Section number', :with => '1'
     click_button 'Create Section'
-    click_link chapter.name
     page.should have_content 'Awesome section'
   end
 
@@ -32,7 +31,6 @@ describe Section, :js => true do
     create_author_and_sign_in
     section = FactoryGirl.create :section
     visit chapters_path
-    click_link section.chapter.name
     click_link "edit_section_#{section.id}"
     page.should have_content 'Edit'
   end

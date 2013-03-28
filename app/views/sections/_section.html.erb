@@ -1,7 +1,7 @@
 <% if defined?(f) %>
   <%= render :partial => 'sections/section_inner', :locals => {:f => f, :section => section} %>
 <% else %>
-  <%= fields_for "chapters[]", @section.chapter do |f| %>
-    <%= render :partial => 'section_inner', :locals => {:f => f, :section => section} %>
+  <%= fields_for "chapters[]", section.chapter do |f| %>
+    <%= render :partial => 'sections/section_inner', :locals => {:f => f, :section => section} %>
   <% end %>
 <% end %>

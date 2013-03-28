@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Lesson do
+describe Lesson, :js => true do
   context 'creating' do
     it 'can be created by an author' do
       create_author_and_sign_in
@@ -16,6 +16,17 @@ describe Lesson do
       page.should_not have_content 'New lesson'
       visit new_lesson_path
       page.should_not have_content 'New lesson'
+    end
+  end
+
+  context 'viewing' do
+    it 'can be viewed by a student' do
+      lesson = FactoryGirl.create :lesson
+      create_student_and_sign_in
+      visit chapters_path
+      click_link lesson.section.name
+      click_link lesson.name
+      page.should have_content lesson.content
     end
   end
 
@@ -69,7 +80,6 @@ describe Lesson do
       lesson = FactoryGirl.create :lesson
       lesson.destroy
       visit chapters_path
-      click_link lesson.section.chapter.name
       click_link lesson.section.name
       page.should_not have_content lesson.name
     end
@@ -98,6 +108,7 @@ describe Lesson do
       visit lesson_path(lesson) + "?deleted=true"
       click_button 'Restore'
       visit chapters_path
+      click_link lesson.section.name
       page.should have_content lesson.name
     end
   end

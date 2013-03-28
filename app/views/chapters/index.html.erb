@@ -1,4 +1,4 @@
-<% provide :title, "Table of contents" %>
+<% provide :title, 'Table of contents' %>
 
 <h1><%= yield :title %></h1>
 
@@ -6,29 +6,27 @@
 
 <% if can? :update, Chapter %>
   <%= form_tag update_multiple_chapters_path, :method => :put do %>
-    <ul class='chapter' id="chapter">
-      <%= render 'chapters' %>
+    <ul class='chapter' id='chapter'>
+      <%= render @chapters %>
     </ul>
-  <%= submit_tag 'Save order', :class => "btn btn-primary", :id => "save_order" %>
+  <%= submit_tag 'Save order', :class => 'btn btn-primary', :id => 'save_order' %>
   <% end %>
 <% else %>
   <ul class='chapter'>
-    <% @chapters.each do |chapter| %>
-      <%= render 'chapters' %>
-    <% end %>
+    <%= render @chapters %>
   </ul>
 <% end %>
 
 <% if can? :create, Chapter %>
-  <p><%= link_to 'New chapter', new_chapter_path, :remote => true, :class => "btn btn-primary btn-large", :id => "new_chapter_link" %>
+  <p><%= link_to 'New chapter', new_chapter_path, :remote => true, :class => 'btn btn-primary btn-large', :id => 'new_chapter_link' %>
 <% end%>
 
 <% if can? :create, Section %>
-  <p><%= link_to 'New section', new_section_path, :remote => true, :class => "btn btn-warning btn-large", :id => "new_section_link" %></p>
+  <p><%= link_to 'New section', new_section_path, :remote => true, :class => 'btn btn-warning btn-large', :id => 'new_section_link' %></p>
 <% end %>
 
 <% if can? :create, Lesson %>
-  <p><%= link_to 'New lesson', new_lesson_path, :class => "btn btn-success btn-large" %></p>
+  <p><%= link_to 'New lesson', new_lesson_path, :class => 'btn btn-success btn-large' %></p>
 <% end %>
 
 <% if can? :update, Lesson %>
