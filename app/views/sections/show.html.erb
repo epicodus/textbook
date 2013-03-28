@@ -2,6 +2,8 @@
 
 <h1><%= yield :title %></h1>
 
+<%= render 'lessons/search' %>
+
 <ul>
   <% @section.lessons.each do |lesson| %>
     <li><%= link_to lesson.name, lesson %></li>
