@@ -4,7 +4,7 @@ describe Lesson, :js => true do
   context 'creating' do
     it 'can be created by an author' do
       create_author_and_sign_in
-      visit chapters_path
+      visit table_of_contents_path
       page.should have_content 'New lesson'
       visit new_lesson_path
       page.should have_content 'New lesson'
@@ -12,7 +12,7 @@ describe Lesson, :js => true do
 
     it 'cannot be created by a student' do
       create_student_and_sign_in
-      visit chapters_path
+      visit table_of_contents_path
       page.should_not have_content 'New lesson'
       visit new_lesson_path
       page.should_not have_content 'New lesson'
@@ -23,7 +23,7 @@ describe Lesson, :js => true do
     it 'can be viewed by a student' do
       lesson = FactoryGirl.create :lesson
       create_student_and_sign_in
-      visit chapters_path
+      visit table_of_contents_path
       click_link lesson.section.name
       click_link lesson.name
       page.should have_content lesson.content
@@ -79,7 +79,7 @@ describe Lesson, :js => true do
     it 'is removed from the table of contents when it is deleted' do
       lesson = FactoryGirl.create :lesson
       lesson.destroy
-      visit chapters_path
+      visit table_of_contents_path
       click_link lesson.section.name
       page.should_not have_content lesson.name
     end
@@ -107,7 +107,7 @@ describe Lesson, :js => true do
       create_author_and_sign_in
       visit lesson_path(lesson) + "?deleted=true"
       click_button 'Restore'
-      visit chapters_path
+      visit table_of_contents_path
       click_link lesson.section.name
       page.should have_content lesson.name
     end

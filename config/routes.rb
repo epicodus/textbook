@@ -3,6 +3,8 @@ Textbook::Application.routes.draw do
 
   root :to => 'home#show'
 
+  match 'table_of_contents' => 'chapters#index'
+
   resources :chapters do
     collection do
       put :update_multiple

@@ -3,7 +3,7 @@ class ChaptersController < InheritedResources::Base
 
   def update_multiple
     Chapter.update(params[:chapters].keys, params[:chapters].values)
-    redirect_to chapters_path
+    redirect_to table_of_contents_path
     flash[:notice] = "Order updated."
   end
 end

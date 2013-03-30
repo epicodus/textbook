@@ -4,7 +4,7 @@ describe Section, :js => true do
   it 'can be created by an author' do
     create_author_and_sign_in
     chapter = FactoryGirl.create :chapter
-    visit chapters_path
+    visit table_of_contents_path
     click_link 'New section'
     fill_in 'Name', :with => 'Awesome section'
     fill_in 'Section number', :with => '1'
@@ -21,7 +21,7 @@ describe Section, :js => true do
 
   it 'cannot be created by a student' do
     create_student_and_sign_in
-    visit chapters_path
+    visit table_of_contents_path
     page.should_not have_content 'New section'
     visit new_section_path
     page.should_not have_content 'New'
@@ -30,7 +30,7 @@ describe Section, :js => true do
   it 'can be edited by an author' do
     create_author_and_sign_in
     section = FactoryGirl.create :section
-    visit chapters_path
+    visit table_of_contents_path
     click_link "edit_section_#{section.id}"
     page.should have_content 'Edit'
   end
@@ -38,7 +38,7 @@ describe Section, :js => true do
   it 'cannot be edited by a student' do
     create_student_and_sign_in
     section = FactoryGirl.create :section
-    visit chapters_path
+    visit table_of_contents_path
     page.should_not have_content 'edit'
     visit edit_section_path section
     page.should_not have_content 'Edit'
