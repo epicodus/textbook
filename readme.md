@@ -34,7 +34,6 @@ Currently it is not necessary to set any of them in development or test environm
 
 * As a student, I want each lesson to show me how far along I am in the section, so that I know how much I've done and how much is left.
 * As a student, if I am signed in and visit the homepage, I want to be redirected to the last lesson I visited, so that I don't have to bookmark or navigate back where I am each time I leave and come back.
-* As an author, I want to be able to drag and drop lessons, sections, and chapters to change their order, so that I don't have to deal with the annoyingness of choosing arbitrary numbers for the order.
 * As an author, I want to be able to restore a previous version of a lesson, so that I can see what changes I've made over time and undo accidental changes.
 * As a student, I want to be able to give feedback on a lesson, so that I can point out if something isn't clear or tell the authors how much I like what they've written.
 * As a user, I want to be able to view the site on screens of different sizes without horizontal scrolling, so that I can visit it on a tablet, phone, or computer with a small screen. (Use bootstrap-responsive!)
