@@ -14,6 +14,9 @@ class LessonsController < InheritedResources::Base
     elsif params[:deleted]
       @lessons = Lesson.only_deleted
       render :deleted
+    else
+      flash.keep
+      redirect_to table_of_contents_path
     end
   end
 
