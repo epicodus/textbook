@@ -3,6 +3,11 @@ class SectionsController < InheritedResources::Base
 
   helper_method :chapters
 
+  def index
+    flash.keep
+    redirect_to table_of_contents_path
+  end
+
   private
 
   def chapters

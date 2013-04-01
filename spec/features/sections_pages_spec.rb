@@ -43,4 +43,19 @@ describe Section, :js => true do
     visit edit_section_path section
     page.should_not have_content 'Edit'
   end
+
+  it 'can be deleted by an author' do
+    create_author_and_sign_in
+    section = FactoryGirl.create :section
+    visit table_of_contents_path
+    click_link "delete_section_#{section.id}"
+    page.should_not have_content section.name
+  end
+
+  it 'cannot be deleted by a student' do
+    create_student_and_sign_in
+    section = FactoryGirl.create :section
+    visit table_of_contents_path
+    page.should_not have_content 'delete'
+  end
 end

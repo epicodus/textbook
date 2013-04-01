@@ -2,6 +2,8 @@
   <%= link_to chapter.name, chapter, :class => 'chapter' %>
   <% if can? :update, Chapter %>
     <%= link_to "(edit)", edit_chapter_path(chapter), :id => "edit_chapter_#{chapter.id}" %>
+    <%= link_to "(delete)", chapter, :confirm => 'Are you sure?', :method => :delete, :id => "delete_chapter_#{chapter.id}"  %>
+
     <%= fields_for "chapters[]", chapter do |f| %>
       <%= f.hidden_field :number, :class => :chapter %>
       <ul class='section'>

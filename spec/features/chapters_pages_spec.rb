@@ -43,4 +43,19 @@ describe Chapter, :js => true do
     visit edit_chapter_path chapter
     page.should_not have_content 'Edit'
   end
+
+  it 'can be deleted by an author' do
+    create_author_and_sign_in
+    chapter = FactoryGirl.create :chapter
+    visit table_of_contents_path
+    click_link "delete_chapter_#{chapter.id}"
+    page.should_not have_content chapter.name
+  end
+
+  it 'cannot be deleted by a student' do
+    create_student_and_sign_in
+    chapter = FactoryGirl.create :chapter
+    visit table_of_contents_path
+    page.should_not have_content 'delete'
+  end
 end
