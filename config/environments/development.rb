@@ -37,4 +37,6 @@ Textbook::Application.configure do
 
   # Set hostname for emails from Devise (and anything else using ActionMailer)
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  config.secret_token = '26f36753782bcb5406e8e83932a3f03cd424b43d909658c6dd4896bae97e4d87120e239cf72516236b8707e4f9678a67b7c00a09fc0fa3985a998577e65de37c'
 end

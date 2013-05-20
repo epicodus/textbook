@@ -25,7 +25,7 @@ Here is a list of environmental variables that need to be set:
 * DEVISE_MAILER_SENDER
 * NEW_RELIC_LICENSE_KEY
 * NEW_RELIC_APP_NAME
-* RAILS_SECRET_TOKEN (a default value is provided for use in development, but this is not secure for production)
+* RAILS_SECRET_TOKEN (a default value is provided for development and test environments)
 
 Currently it is not necessary to set any of them in development or test environments.
 
