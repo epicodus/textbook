@@ -1,13 +1,13 @@
 FactoryGirl.define do
   factory :author, :class => User do
-    email {Faker::Internet.email}
-    password {Faker::Lorem.words.join}
+    email 'author@epicodus.com'
+    password 'password'
     author true
   end
 
   factory :student, :class => User do
-    email {Faker::Internet.email}
-    password {Faker::Lorem.words.join}
+    email 'student@epicodus.com'
+    password 'password'
   end
 
   factory :chapter do
