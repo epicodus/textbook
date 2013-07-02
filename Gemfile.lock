@@ -71,6 +71,7 @@ GEM
     diffy (2.1.4)
     erubis (2.7.0)
     eventmachine (1.0.3)
+    excon (0.25.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.2.0)
@@ -105,6 +106,11 @@ GEM
       guard (>= 1.1)
       spork (>= 0.8.4)
     has_scope (0.5.1)
+    heroku-api (0.3.13)
+      excon (~> 0.25.0)
+    heroku-headless (0.2.1)
+      heroku-api
+      rendezvous
     hike (1.2.3)
     hirb (0.7.1)
     http_parser.rb (0.5.3)
@@ -216,6 +222,7 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    rendezvous (0.0.2)
     responders (0.9.3)
       railties (~> 3.1)
     rspec (2.13.0)
@@ -286,6 +293,7 @@ DEPENDENCIES
   guard-bundler
   guard-rspec
   guard-spork
+  heroku-headless
   inherited_resources
   jazz_hands
   jquery-rails

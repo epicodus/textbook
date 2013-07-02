@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  database: textbook_development
+
+test:
+  adapter: postgresql
+  database: textbook_test
