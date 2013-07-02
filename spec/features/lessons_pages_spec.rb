@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Lesson, :js => true do
+describe Lesson do
   context 'creating' do
     it 'can be created by an author' do
       create_author_and_sign_in
@@ -16,6 +16,31 @@ describe Lesson, :js => true do
       page.should_not have_content 'New lesson'
       visit new_lesson_path
       page.should_not have_content 'New lesson'
+    end
+
+    it 'can have a video embedded in it' do
+      create_author_and_sign_in
+      lesson = FactoryGirl.build :lesson
+      visit new_lesson_path
+      fill_in 'Name', :with => lesson.name
+      fill_in 'Lesson number', :with => lesson.number
+      fill_in 'Content (use HTML)', :with => lesson.content
+      fill_in 'Video ID', :with => lesson.video_id
+      select lesson.section.name, :from => 'Section'
+      click_button 'Save'
+      page.html.should =~ /12345/
+    end
+
+    it "doesn't have to have video embedded in it" do
+      create_author_and_sign_in
+      lesson = FactoryGirl.build :lesson
+      visit new_lesson_path
+      fill_in 'Name', :with => lesson.name
+      fill_in 'Lesson number', :with => lesson.number
+      fill_in 'Content (use HTML)', :with => lesson.content
+      select lesson.section.name, :from => 'Section'
+      click_button 'Save'
+      page.html.should_not =~ /<div id="video">/
     end
   end
 

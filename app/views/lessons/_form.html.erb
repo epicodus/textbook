@@ -4,13 +4,15 @@
   <%= f.text_field :name %>
   <%= f.label :number, 'Lesson number' %>
   <%= f.text_field :number %>
-  <%= f.label :content, "Content (use HTML)" %>
-  <%= f.text_area :content %>
-  <%= f.label :section %>
+  <%= f.label :section_id, 'Section' %>
   <%= f.select :section_id, options_from_collection_for_select(sections, :id, :name, @lesson.section_id) %>
   <%= f.label(:public, :class => "checkbox") do %>
     <%= f.check_box :public %>
     Public
   <% end %>
+  <%= f.label :video_id, "Video ID" %>
+  <%= f.text_field :video_id %>
+  <%= f.label :content, "Content (use HTML)" %>
+  <%= f.text_area :content %>
   <%= f.submit "Save", :class => "btn btn-primary" %>
 <% end %>

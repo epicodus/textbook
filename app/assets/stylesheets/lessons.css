@@ -5,3 +5,7 @@ ul.lesson {
 a.chapter, a.section {
   cursor: pointer;
 }
+
+#video {
+  padding-bottom: 14px;
+}

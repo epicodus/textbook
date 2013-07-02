@@ -26,6 +26,7 @@ FactoryGirl.define do
   factory :lesson do
     name {Faker::Lorem.words.join}
     content {Faker::Lorem.paragraph}
+    video_id 12345
     association :section, :factory => :section
     sequence(:number) {|n| n}
     public true

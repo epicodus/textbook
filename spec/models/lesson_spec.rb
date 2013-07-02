@@ -7,6 +7,7 @@ describe Lesson do
   it {should allow_mass_assignment_of :number}
   it {should allow_mass_assignment_of :public}
   it {should allow_mass_assignment_of :deleted_at}
+  it {should allow_mass_assignment_of :video_id}
 
   it {should validate_presence_of :name}
   it {should validate_presence_of :content}
@@ -69,6 +70,18 @@ describe Lesson do
       current_lesson = FactoryGirl.create :lesson, :number => 2
       previous_lesson = FactoryGirl.create :lesson, :number => 1
       current_lesson.previous_lesson?.should be_true
+    end
+  end
+
+  context '#has_video?' do
+    it 'returns false if there is no video id' do
+      lesson = FactoryGirl.create :lesson, :video_id => nil
+      lesson.has_video?.should be_false
+    end
+
+    it 'returns true if there is a video id' do
+      lesson = FactoryGirl.create :lesson
+      lesson.has_video?.should be_true
     end
   end
 

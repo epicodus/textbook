@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130107045504) do
+ActiveRecord::Schema.define(:version => 20130702161401) do
 
   create_table "chapters", :force => true do |t|
     t.string   "name",                          :null => false
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(:version => 20130107045504) do
     t.boolean  "public",     :default => false, :null => false
   end
 
+  add_index "chapters", ["name"], :name => "index_chapters_on_name", :unique => true
+
   create_table "lessons", :force => true do |t|
     t.string   "name",                          :null => false
     t.text     "content",                       :null => false
@@ -33,7 +35,10 @@ ActiveRecord::Schema.define(:version => 20130107045504) do
     t.datetime "deleted_at"
     t.string   "slug",                          :null => false
     t.boolean  "public",     :default => false, :null => false
+    t.string   "video_id"
   end
+
+  add_index "lessons", ["name"], :name => "index_lessons_on_name", :unique => true
 
   create_table "sections", :force => true do |t|
     t.string   "name",                          :null => false
@@ -45,6 +50,8 @@ ActiveRecord::Schema.define(:version => 20130107045504) do
     t.string   "slug",                          :null => false
     t.boolean  "public",     :default => false, :null => false
   end
+
+  add_index "sections", ["name"], :name => "index_sections_on_name", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false

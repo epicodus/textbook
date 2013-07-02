@@ -3,4 +3,6 @@ $(function () {
     $(this).nextAll('ul').toggle();
     click.preventDefault();
   });
+
+  $("#video").fitVids();
 });

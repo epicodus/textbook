@@ -6,7 +6,7 @@ class Lesson < ActiveRecord::Base
 
   default_scope order :number
 
-  attr_accessible :name, :content, :section_id, :number, :public, :deleted_at
+  attr_accessible :name, :content, :section_id, :number, :public, :deleted_at, :video_id
 
   validates :name, :presence => true, :uniqueness => true
   validates :content, :presence => true
@@ -31,6 +31,10 @@ class Lesson < ActiveRecord::Base
 
   def previous_lesson?
     self.previous != nil
+  end
+
+  def has_video?
+    !video_id.blank?
   end
 
   private

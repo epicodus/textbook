@@ -2,6 +2,16 @@
 
 <h1><%= yield :title %></h1>
 
+<% if @lesson.has_video? %>
+  <div id="video">
+    <iframe src="http://player.vimeo.com/video/<%= @lesson.video_id %>"
+            frameborder="0"
+            webkitAllowFullScreen
+            mozallowfullscreen
+            allowFullScreen></iframe>
+  </div>
+<% end %>
+
 <%= raw @lesson.content %>
 
 <% if can? :update, Lesson %>
