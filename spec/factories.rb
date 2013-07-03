@@ -11,21 +11,21 @@ FactoryGirl.define do
   end
 
   factory :chapter do
-    name {Faker::Lorem.words.join}
+    sequence(:name) {|n| "Chapter #{n}"}
     public true
     sequence(:number) {|n| n}
   end
 
   factory :section do
-    name {Faker::Lorem.words.join}
+    sequence(:name) {|n| "Section #{n}"}
     association :chapter, :factory => :chapter
     public true
     sequence(:number) {|n| n}
   end
 
   factory :lesson do
-    name {Faker::Lorem.words.join}
-    content {Faker::Lorem.paragraph}
+    sequence(:name) {|n| "Lesson #{n}"}
+    content "A fantastic lesson indeed."
     video_id 12345
     association :section, :factory => :section
     sequence(:number) {|n| n}

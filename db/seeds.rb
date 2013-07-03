@@ -1,5 +1,4 @@
 require 'factory_girl_rails'
-require 'ffaker'
 
 FactoryGirl.create :author
 FactoryGirl.create :student
