@@ -70,4 +70,8 @@ pre ul.psql li:before {
   .navbar .container {
     padding-left: 24px;
   }
+
+  .navbar .nav > li > a {
+    padding: 10px 15px 0px;
+  }
 }
