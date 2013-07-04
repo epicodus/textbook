@@ -32,13 +32,9 @@ Currently it is not necessary to set any of them in development or test environm
 
 ##To do
 
-* As a student, I want each lesson to show me how far along I am in the section, so that I know how much I've done and how much is left.
-* As a student, if I am signed in and visit the homepage, I want to be redirected to the last lesson I visited, so that I don't have to bookmark or navigate back where I am each time I leave and come back.
 * As an author, I want to be able to restore a previous version of a lesson, so that I can see what changes I've made over time and undo accidental changes.
 * As a student, I want to be able to give feedback on a lesson, so that I can point out if something isn't clear or tell the authors how much I like what they've written.
-* As a user, I want to be able to view the site on screens of different sizes without horizontal scrolling, so that I can visit it on a tablet, phone, or computer with a small screen. (Use bootstrap-responsive!)
 * As a student, I want to have a list of key concepts I've learned on each lesson, as well as a list of all key concepts from the current section in a sidebar.
-* As a user, I want prettify.css and bootstrap.css to be loaded from cdnjs.com, so that they load faster.
 
 
 ##License
