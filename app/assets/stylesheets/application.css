@@ -9,8 +9,9 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
  *= require bootstrap
- *= require prettify
+ *= require bootstrap-responsive
  *= require bootstrap-overrides
+ *= require prettify
+ *= require_tree .
  */

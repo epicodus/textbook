@@ -35,3 +35,39 @@ pre ul.psql li:before {
 .alert a {
   text-decoration: underline;
 }
+
+.navbar-fixed-top, .navbar-fixed-bottom {
+  position: fixed;
+}
+
+.navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
+  padding: 0px;
+}
+
+@media (max-width: 979px) {
+  .navbar .container {
+    width: 724px;
+  }
+}
+
+@media (max-width: 979px) and (min-width: 768px) {
+  .span4 {
+    width: auto;
+  }
+}
+
+@media (max-width: 481px) {
+  .navbar .span4 {
+    float: left;
+  }
+
+  .navbar .nav.pull-right {
+    float: left;
+  }
+}
+
+@media (max-width: 979px) {
+  .navbar .container {
+    padding-left: 24px;
+  }
+}
