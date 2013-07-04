@@ -9,7 +9,7 @@
       <%= ff.hidden_field :number, :class => :section_number %>
     <% end %>
   <% end %>
-  <ul class='lesson'>
+  <ul <%= "class=lesson" if can? :update, Lesson %>>
     <% section.lessons.each do |lesson| %>
       <li>
         <%= link_to lesson.name, lesson, :class => 'lesson' %>

@@ -6,13 +6,13 @@
 
 <% if can? :update, Chapter %>
   <%= form_tag update_multiple_chapters_path, :method => :put do %>
-    <ul class='chapter' id='chapter'>
+    <ul class='chapter'>
       <%= render @chapters %>
     </ul>
   <%= submit_tag 'Save order', :class => 'btn btn-primary', :id => 'save_order' %>
   <% end %>
 <% else %>
-  <ul class='chapter'>
+  <ul>
     <%= render @chapters %>
   </ul>
 <% end %>
