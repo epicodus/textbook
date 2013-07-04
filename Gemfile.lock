@@ -134,8 +134,6 @@ GEM
     jquery-rails (3.0.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-rails-cdn (1.0.1)
-      jquery-rails
     jquery-ui-rails (4.0.3)
       jquery-rails
       railties (>= 3.1.0)
@@ -295,7 +293,6 @@ DEPENDENCIES
   inherited_resources
   jazz_hands
   jquery-rails
-  jquery-rails-cdn
   jquery-ui-rails
   launchy
   newrelic_rpm
