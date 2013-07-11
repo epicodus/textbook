@@ -2,8 +2,6 @@ class Section < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, :use => :slugged
 
-  acts_as_paranoid
-
   default_scope order :number
 
   attr_accessible :name, :number, :chapter_id, :public
