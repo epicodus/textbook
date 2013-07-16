@@ -68,7 +68,7 @@ GEM
       railties (>= 3.2.6, < 5)
       warden (~> 1.2.3)
     diff-lcs (1.2.4)
-    diffy (3.0.0)
+    diffy (3.0.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
     excon (0.25.1)
@@ -105,8 +105,8 @@ GEM
       guard (>= 1.1)
       spork (>= 0.8.4)
     has_scope (0.5.1)
-    heroku-api (0.3.13)
-      excon (~> 0.25.0)
+    heroku-api (0.3.14)
+      excon (~> 0.25.1)
     heroku-headless (0.2.1)
       heroku-api
       rendezvous
