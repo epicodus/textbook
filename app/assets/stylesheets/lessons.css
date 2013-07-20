@@ -9,3 +9,7 @@ a.chapter, a.section {
 #video {
   padding-bottom: 14px;
 }
+
+blockquote p {
+  margin-bottom: inherit;
+}
