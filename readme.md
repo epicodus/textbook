@@ -37,7 +37,7 @@ Currently it is not necessary to set any of them in development or test environm
 * As a student, I want to have a list of key concepts I've learned on each lesson, as well as a list of all key concepts from the current section in a sidebar.
 
 
-##License
+##MIT License
 
 Copyright (c) 2013 Michael Kaiser-Nyman
 
