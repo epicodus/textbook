@@ -2,7 +2,7 @@ class Section < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, :use => :slugged
 
-  default_scope order :number
+  default_scope -> {order :number}
 
   attr_accessible :name, :number, :chapter_id, :public
 

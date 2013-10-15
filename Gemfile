@@ -10,16 +10,14 @@ gem 'jquery-ui-rails'
 gem 'devise'
 gem 'cancan'
 gem 'paranoia'
-gem 'friendly_id'
+gem 'friendly_id', '5.0.0.beta4'
 gem 'inherited_resources'
 gem 'textacular', :require => 'textacular/rails'
 gem 'newrelic_rpm'
-
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-end
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
+gem 'protected_attributes'
 
 group :development do
   gem 'spork-rails'

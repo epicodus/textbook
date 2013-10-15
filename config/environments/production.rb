@@ -75,5 +75,7 @@ Textbook::Application.configure do
     :password => ENV['ACTION_MAILER_SMTP_PASSWORD']
   }
 
+  config.eager_load = true
+
   config.secret_token = ENV['RAILS_SECRET_TOKEN']
 end

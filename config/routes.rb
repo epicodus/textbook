@@ -3,7 +3,7 @@ Textbook::Application.routes.draw do
 
   root :to => 'home#show'
 
-  match 'table_of_contents' => 'chapters#index'
+  get 'table_of_contents' => 'chapters#index'
 
   resources :lessons
   resources :sections

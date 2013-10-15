@@ -4,7 +4,7 @@ class Lesson < ActiveRecord::Base
 
   acts_as_paranoid
 
-  default_scope order :number
+  default_scope -> {order :number}
 
   attr_accessible :name, :content, :section_id, :number, :public, :deleted_at, :video_id
 

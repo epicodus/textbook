@@ -11,9 +11,6 @@ Textbook::Application.configure do
   config.serve_static_assets = true
   config.static_cache_control = "public, max-age=3600"
 
-  # Log error messages when you accidentally call methods on nil
-  config.whiny_nils = true
-
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
@@ -29,15 +26,14 @@ Textbook::Application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
-  # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
-
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
   # Speed up tests by lowering BCrypt's cost function.
   require 'bcrypt'
   silence_warnings {BCrypt::Engine::DEFAULT_COST = BCrypt::Engine::MIN_COST}
+
+  config.eager_load = false
 
   config.secret_token = '26f36753782bcb5406e8e83932a3f03cd424b43d909658c6dd4896bae97e4d87120e239cf72516236b8707e4f9678a67b7c00a09fc0fa3985a998577e65de37c'
 end

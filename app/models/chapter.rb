@@ -2,7 +2,7 @@ class Chapter < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, :use => :slugged
 
-  default_scope order :number
+  default_scope -> {order :number}
 
   attr_accessible :name, :number, :public, :sections_attributes, :lessons_attributes
 
