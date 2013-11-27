@@ -10,9 +10,9 @@ gem 'jquery-ui-rails'
 gem 'devise'
 gem 'cancan'
 gem 'paranoia'
-gem 'friendly_id', '5.0.0.beta4'
+gem 'friendly_id'
 gem 'inherited_resources'
-gem 'textacular', :require => 'textacular/rails'
+gem 'textacular'
 gem 'newrelic_rpm'
 gem 'sass-rails'
 gem 'coffee-rails'
@@ -27,6 +27,8 @@ group :development do
   gem 'guard-bundler'
   gem 'rb-fsevent'
   gem 'quiet_assets'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :test, :development do
