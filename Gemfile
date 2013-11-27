@@ -43,3 +43,8 @@ group :test do
   gem 'launchy'
   gem 'heroku-headless'
 end
+
+group :production do
+  gem 'rails_12factor'
+end
+
