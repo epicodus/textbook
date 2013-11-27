@@ -2,7 +2,7 @@ env:
   global:
     - secure: "dSAIt3yK8VnwxISCRjdY9MJ2MprT+2eJwf0KE4g/wnB3CvDBhphrscXRQrBS\ng6Euf3/iJx2HiW/pxzo97UDbGIDL5GscsKnRe/3m7bB1hEaH3TRYJBdHfehf\nBcqv+hZRWGcHdpzU9nju84aA3U5P0Ox9CAtSoepeigovfBRzaxA="
 rvm:
-  - 1.9.3
+  - 2.0.0
 before_script:
   - rake db:create db:migrate db:test:prepare
 after_success:
