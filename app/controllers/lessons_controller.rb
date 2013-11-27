@@ -20,7 +20,7 @@ class LessonsController < InheritedResources::Base
     end
   end
 
-  private
+private
 
   def permitted_params
     params.permit(:lesson => [:name, :content, :section_id, :number, :public, :deleted_at, :video_id])

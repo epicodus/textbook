@@ -7,7 +7,7 @@ class ChaptersController < InheritedResources::Base
     flash[:notice] = "Order updated."
   end
 
-  private
+private
 
   def permitted_params
     params.permit(:chapter => [:name, :number, :public, :sections_attributes => [:name, :number, :chapter_id, :public], :lessons_attributes => [:name, :content, :section_id, :number, :public, :deleted_at, :video_id]])

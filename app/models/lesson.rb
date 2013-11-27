@@ -35,7 +35,7 @@ class Lesson < ActiveRecord::Base
     !video_id.blank?
   end
 
-  private
+private
 
   def set_private
     update_attributes(:public => false)

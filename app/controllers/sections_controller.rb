@@ -8,7 +8,7 @@ class SectionsController < InheritedResources::Base
     redirect_to table_of_contents_path
   end
 
-  private
+private
 
   def permitted_params
     params.permit(:section => [:name, :number, :chapter_id, :public])
