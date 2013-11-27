@@ -58,12 +58,6 @@ module Textbook
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    # [From Devise:]
-    # If you are deploying Rails 3.1 on Heroku, you may want to set:
-    config.assets.initialize_on_precompile = false
-    # on config/application.rb forcing your application to not access the DB
-    # or load models when precompiling your assets.
-
     # Put the following line in config/application.rb, so that jquery.js will be served from your server when CDN is not available.
     config.assets.precompile += ['jquery.js']
   end
