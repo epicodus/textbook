@@ -74,4 +74,5 @@ Textbook::Application.configure do
   config.eager_load = true
 
   config.secret_token = ENV['RAILS_SECRET_TOKEN']
+  config.secret_key_base = ENV['RAILS_SECRET_KEY_BASE']
 end
