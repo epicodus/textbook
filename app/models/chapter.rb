@@ -4,8 +4,6 @@ class Chapter < ActiveRecord::Base
 
   default_scope -> {order :number}
 
-  attr_accessible :name, :number, :public, :sections_attributes, :lessons_attributes
-
   validates :name, :presence => true, :uniqueness => true
   validates :number, :presence => true, :numericality => {:only_integer => true}
 

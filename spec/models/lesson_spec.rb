@@ -1,14 +1,6 @@
 require 'spec_helper'
 
 describe Lesson do
-  it {should allow_mass_assignment_of :name}
-  it {should allow_mass_assignment_of :content}
-  it {should allow_mass_assignment_of :section_id}
-  it {should allow_mass_assignment_of :number}
-  it {should allow_mass_assignment_of :public}
-  it {should allow_mass_assignment_of :deleted_at}
-  it {should allow_mass_assignment_of :video_id}
-
   it {should validate_presence_of :name}
   it {should validate_presence_of :content}
   it {should validate_presence_of :section}

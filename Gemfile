@@ -17,7 +17,6 @@ gem 'newrelic_rpm'
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
-gem 'protected_attributes'
 
 group :development do
   gem 'spork-rails'

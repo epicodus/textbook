@@ -1,12 +1,6 @@
 require 'spec_helper'
 
 describe Chapter do
-  it {should allow_mass_assignment_of :name}
-  it {should allow_mass_assignment_of :number}
-  it {should allow_mass_assignment_of :public}
-  it {should allow_mass_assignment_of :sections_attributes}
-  it {should allow_mass_assignment_of :lessons_attributes}
-
   it {should validate_presence_of :name}
   it {should validate_presence_of :number}
   it {should validate_numericality_of(:number).only_integer}

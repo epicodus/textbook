@@ -10,6 +10,10 @@ class SectionsController < InheritedResources::Base
 
   private
 
+  def permitted_params
+    params.permit(:section => [:name, :number, :chapter_id, :public])
+  end
+
   def chapters
     Chapter.all
   end
