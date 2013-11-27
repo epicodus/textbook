@@ -2,7 +2,7 @@
   <%= link_to section.name, section, :class => 'section' %>
   <% if can? :update, Section %>
     <%= link_to "(edit)", edit_section_path(section), :id => "edit_section_#{section.id}" %>
-    <%= link_to "(delete)", section, :confirm => 'Are you sure?', :method => :delete, :remote => true, :id => "delete_section_#{section.id}" %>
+    <%= link_to "(delete)", section, :data => { :confirm => 'Are you sure?' }, :method => :delete, :remote => true, :id => "delete_section_#{section.id}" %>
     <%= f.fields_for 'sections_attributes[]', section do |ff| %>
       <%= ff.hidden_field :id %>
       <%= ff.hidden_field :chapter_id, :class => :section_chapter_id %>
