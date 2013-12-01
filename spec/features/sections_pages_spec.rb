@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 describe Section, :js => true do
-  after do
-    page.driver.reset!
-  end
+  after { page.driver.reset! }
   
   it 'can be created by an author' do
     create_author_and_sign_in
