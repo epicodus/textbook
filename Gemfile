@@ -42,6 +42,7 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'heroku-headless'
+  gem 'rake'
 end
 
 group :production do
