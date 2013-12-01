@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Chapter, :js => true do
+  after do
+    page.driver.reset!
+  end
+  
   it 'can be created by an author' do
     create_author_and_sign_in
     visit table_of_contents_path
