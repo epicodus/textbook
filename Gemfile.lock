@@ -310,6 +310,7 @@ DEPENDENCIES
   quiet_assets
   rails
   rails_12factor
+  rake
   rb-fsevent
   rspec-rails
   sass-rails

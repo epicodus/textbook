@@ -1,7 +1,5 @@
 rvm:
 - 2.0.0
-before_script:
-- rake db:create db:migrate db:test:prepare
 deploy:
   provider: heroku
   api_key:
