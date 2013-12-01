@@ -41,7 +41,6 @@ group :test do
   gem 'poltergeist'
   gem 'capybara'
   gem 'launchy'
-  gem 'heroku-headless'
   gem 'rake'
 end
 
