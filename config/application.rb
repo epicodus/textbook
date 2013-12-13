@@ -60,5 +60,7 @@ module Textbook
 
     # Put the following line in config/application.rb, so that jquery.js will be served from your server when CDN is not available.
     config.assets.precompile += ['jquery.js']
+
+    config.i18n.enforce_available_locales = true
   end
 end
