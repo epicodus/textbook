@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe Section, :js => true do
-  after { page.driver.reset! }
-  
   it 'can be created by an author' do
     create_author_and_sign_in
     chapter = FactoryGirl.create :chapter
