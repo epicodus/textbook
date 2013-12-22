@@ -107,21 +107,12 @@ describe Lesson do
       page.should have_content lesson.content
     end
 
-    it 'is visible to a student who is paid' do
-      create_paid_student_and_sign_in
-      lesson = FactoryGirl.create :lesson, :public => false
-      visit lesson_path lesson
-      page.should have_content lesson.content
-    end
-
-    context 'for a student who is not paid' do
-      it 'is not visible' do
-        create_student_and_sign_in
-        private_lesson = FactoryGirl.create :lesson, :public => false
-        public_lesson = FactoryGirl.create :lesson
-        visit lesson_path private_lesson
-        page.should_not have_content private_lesson.content
-      end
+    it 'is not visible to a student' do
+      create_student_and_sign_in
+      private_lesson = FactoryGirl.create :lesson, :public => false
+      public_lesson = FactoryGirl.create :lesson
+      visit lesson_path private_lesson
+      page.should_not have_content private_lesson.content
     end
   end
 
