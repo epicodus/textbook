@@ -16,8 +16,8 @@ describe Lesson do
   it {should belong_to :section}
 
   it 'sorts by the number by default' do
-    last_lesson = FactoryGirl.create :lesson, :number => 9
-    (2..8).each {|number| FactoryGirl.create :lesson, :number => number}
+    last_lesson = FactoryGirl.create :lesson, :number => 4
+    (2..3).each {|number| FactoryGirl.create :lesson, :number => number}
     first_lesson = FactoryGirl.create :lesson, :number => 1
     Lesson.first.should eq first_lesson
     Lesson.last.should eq last_lesson
