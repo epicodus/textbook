@@ -5,6 +5,7 @@ body {
 
 .container textarea {
   width: 100%;
+  height: 50em;
 }
 
 input, input.btn {
