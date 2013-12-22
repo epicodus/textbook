@@ -17,19 +17,19 @@ FactoryGirl.define do
   end
 
   factory :section do
-    sequence(:name) {|n| "Section #{n}"}
+    sequence(:name) { |n| "Section #{n}" }
     association :chapter, :factory => :chapter
     public true
-    sequence(:number) {|n| n}
+    sequence(:number) { |n| n }
   end
 
   factory :lesson do
-    sequence(:name) {|n| "Lesson #{n}"}
+    sequence(:name) { |n| "Lesson #{n}" }
     content "A fantastic lesson indeed."
     cheat_sheet "Notes."
     video_id 12345
     association :section, :factory => :section
-    sequence(:number) {|n| n}
+    sequence(:number) { |n| n }
     public true
   end
 end

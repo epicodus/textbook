@@ -4,11 +4,11 @@ class Lesson < ActiveRecord::Base
 
   acts_as_paranoid
 
-  default_scope -> {order :number}
+  default_scope -> { order :number }
 
   validates :name, :presence => true, :uniqueness => true
   validates :content, :presence => true
-  validates :number, :presence => true, :numericality => {:only_integer => true}
+  validates :number, :presence => true, :numericality => { :only_integer => true }
   validates :section, :presence => true
 
   belongs_to :section

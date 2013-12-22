@@ -6,5 +6,5 @@
   $(".alert").remove();
   $("#new_section").remove();
   $("#new_section_link").show();
-  $("li#chapter_<%= @section.chapter.id %>").children("ul").append("<%= j render @section, :locals => {:section => @section} %>")
+  $("li#chapter_<%= @section.chapter.id %>").children("ul").append("<%= j render @section, :locals => { :section => @section } %>")
 <% end %>

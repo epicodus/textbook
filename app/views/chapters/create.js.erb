@@ -6,5 +6,5 @@
   $(".alert").remove();
   $("#new_chapter").remove();
   $("#new_chapter_link").show();
-  $("ul.chapter").append("<%= j render @chapter, :locals => {:chapter => @chapter} %>")
+  $("ul.chapter").append("<%= j render @chapter, :locals => { :chapter => @chapter } %>")
 <% end %>

@@ -7,7 +7,7 @@
     <%= fields_for "chapters[]", chapter do |f| %>
       <%= f.hidden_field :number, :class => :chapter %>
       <ul class='section'>
-        <%= render chapter.sections, :locals => {:f => f} %>
+        <%= render chapter.sections, :locals => { :f => f } %>
       </ul>
     <% end %>
   <% else %>

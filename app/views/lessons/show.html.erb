@@ -25,7 +25,7 @@
 
 <% if can? :update, Lesson %>
   <% if @lesson.deleted? %>
-    <%= form_for @lesson, :url => {:deleted => true} do |f| %>
+    <%= form_for @lesson, :url => { :deleted => true } do |f| %>
       <%= f.hidden_field :deleted_at, :value => nil %>
       <%= f.submit "Restore", :class => "btn btn-large" %>
     <% end %>

@@ -2,10 +2,10 @@ class Chapter < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, :use => [:slugged, :finders]
 
-  default_scope -> {order :number}
+  default_scope -> { order :number }
 
   validates :name, :presence => true, :uniqueness => true
-  validates :number, :presence => true, :numericality => {:only_integer => true}
+  validates :number, :presence => true, :numericality => { :only_integer => true }
 
   has_many :sections, :dependent => :destroy
   has_many :lessons, :through => :sections
