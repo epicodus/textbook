@@ -13,7 +13,7 @@ describe Lesson do
     should validate_uniqueness_of :name
   end
 
-  it {should belong_to :section}
+  it { should belong_to :section }
 
   it 'sorts by the number by default' do
     last_lesson = FactoryGirl.create :lesson, :number => 4
