@@ -1,7 +1,32 @@
-<% if defined?(f) %>
-  <%= render 'sections/section_inner', :f => f, :section => section %>
-<% else %>
-  <%= fields_for "chapters[]", section.chapter do |f| %>
-    <%= render 'sections/section_inner', :f => f, :section => section %>
-  <% end %>
+<%= fields_for "chapters[]", section.chapter do |chapter_form| %>
+  <li class='section', id='section_<%= section.id %>'>
+    <%= link_to section.name, section, :class => 'section' %>
+    <% if can? :update, Section %>
+      <%= link_to "(edit)", edit_section_path(section), :id => "edit_section_#{section.id}" %>
+      <%= link_to "(delete)", section, :data => { :confirm => 'Are you sure?' }, :method => :delete,
+                              :remote => true, :id => "delete_section_#{section.id}" %>
+      <%= chapter_form.fields_for 'sections_attributes[]', section do |section_form| %>
+        <%= section_form.hidden_field :id %>
+        <%= section_form.hidden_field :chapter_id, :class => :section_chapter_id %>
+        <%= section_form.hidden_field :number, :class => :section_number %>
+      <% end %>
+    <% end %>
+    <ul class=<% if can? :update, Lesson %>
+                "lesson lesson-sortable"
+              <% else %>
+                "lesson"
+              <% end %>
+              >
+      <% section.lessons.each do |lesson| %>
+        <li>
+          <%= link_to lesson.name, lesson, :class => 'lesson' %>
+          <%= chapter_form.fields_for 'lessons_attributes[]', lesson do |lesson_form| %>
+            <%= lesson_form.hidden_field :id %>
+            <%= lesson_form.hidden_field :section_id, :class => :lesson_section_id %>
+            <%= lesson_form.hidden_field :number, :class => :lesson %>
+          <% end %>
+        <% end %>
+      </li>
+    </ul>
+  </li>
 <% end %>
