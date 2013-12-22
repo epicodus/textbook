@@ -35,6 +35,10 @@ class Lesson < ActiveRecord::Base
     !video_id.blank?
   end
 
+  def has_cheat_sheet?
+    !cheat_sheet.blank?
+  end
+
 private
 
   def set_private

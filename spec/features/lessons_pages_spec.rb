@@ -42,6 +42,31 @@ describe Lesson do
       click_button 'Save'
       page.html.should_not =~ /<div id="video">/
     end
+
+    it 'can have a cheat sheet' do
+      create_author_and_sign_in
+      lesson = FactoryGirl.build :lesson
+      visit new_lesson_path
+      fill_in 'Name', :with => lesson.name
+      fill_in 'Lesson number', :with => lesson.number
+      fill_in 'Content (use HTML)', :with => lesson.content
+      fill_in 'Cheat sheet', :with => lesson.cheat_sheet
+      select lesson.section.name, :from => 'Section'
+      click_button 'Save'
+      page.should have_content lesson.cheat_sheet
+    end
+
+    it "doesn't have to have a cheat sheet" do
+      create_author_and_sign_in
+      lesson = FactoryGirl.build :lesson
+      visit new_lesson_path
+      fill_in 'Name', :with => lesson.name
+      fill_in 'Lesson number', :with => lesson.number
+      fill_in 'Content (use HTML)', :with => lesson.content
+      select lesson.section.name, :from => 'Section'
+      click_button 'Save'
+      page.should_not have_content 'Cheat sheet'
+    end
   end
 
   context 'viewing' do

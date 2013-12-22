@@ -77,6 +77,18 @@ describe Lesson do
     end
   end
 
+  context '#has_cheat_sheet?' do
+    it 'returns false if there is no cheat sheet' do
+      lesson = FactoryGirl.create :lesson, :cheat_sheet => nil
+      lesson.has_cheat_sheet?.should be_false
+    end
+
+    it 'returns true if there is a cheat sheet' do
+      lesson = FactoryGirl.create :lesson
+      lesson.has_cheat_sheet?.should be_true
+    end
+  end
+
   context 'callbacks' do
     it 'sets public to false before deleting' do
       lesson = FactoryGirl.create :lesson

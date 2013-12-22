@@ -17,6 +17,12 @@
 
 <%= raw @lesson.content %>
 
+<% if @lesson.has_cheat_sheet? %>
+  <h2>Cheat sheet:</h2>
+
+  <%= raw @lesson.cheat_sheet %>
+<% end %>
+
 <% if can? :update, Lesson %>
   <% if @lesson.deleted? %>
     <%= form_for @lesson, :url => {:deleted => true} do |f| %>

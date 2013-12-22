@@ -26,6 +26,7 @@ FactoryGirl.define do
   factory :lesson do
     sequence(:name) {|n| "Lesson #{n}"}
     content "A fantastic lesson indeed."
+    cheat_sheet "Notes."
     video_id 12345
     association :section, :factory => :section
     sequence(:number) {|n| n}
