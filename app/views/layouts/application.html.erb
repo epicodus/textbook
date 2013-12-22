@@ -36,21 +36,13 @@
     <div class="navbar-inner">
       <div class="container">
         <div class="row">
-          <div class="span4">
-            <%= yield :left_nav %>
+          <div class="span6">
+            <%= yield :forward_back %>
           </div>
-          <div class="span4">
-            <%= yield :middle_nav %>
-          </div>
-          <div class="span4">
+          <div class="span6">
             <ul class="nav pull-right">
-              <% if user_signed_in? %>
-                <li><%= link_to 'My account', edit_user_registration_path %></li>
-                <li><%= link_to 'Log out', destroy_user_session_path, :method => :delete %></li>
-              <% else %>
-                <li><%= link_to 'Sign up', new_user_registration_path %></li>
-                <li><%= link_to 'Sign in', new_user_session_path %></li>
-              <% end %>
+              <li><%= link_to 'Table of contents', table_of_contents_path %></li>
+              <%= yield :up %>
             </ul>
           </div>
         </div>

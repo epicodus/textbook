@@ -1,4 +1,4 @@
-<% provide :left_nav do %>
+<% provide :forward_back do %>
   <ul class="nav">
     <% if @lesson.previous_lesson? %>
       <li><%= link_to 'Previous lesson', @lesson.previous %></li>
@@ -10,9 +10,6 @@
   </ul>
 <% end %>
 
-<% provide :middle_nav do %>
-  <ul class="nav">
-    <li><%= link_to 'Table of contents', table_of_contents_path %></li>
-    <li><%= link_to 'Section contents', @lesson.section %>
-  </ul>
+<% provide :up do %>
+  <li><%= link_to 'Section contents', @lesson.section %>
 <% end %>
