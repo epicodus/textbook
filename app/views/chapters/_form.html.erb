@@ -1,4 +1,4 @@
-<%= render :partial => '/layouts/errors', :locals => { :object => @chapter } %>
+<%= render '/layouts/errors', :object => @chapter %>
 <%= form_for @chapter, :remote => true do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>

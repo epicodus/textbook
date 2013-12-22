@@ -1,10 +1,9 @@
+$(".alert").remove();
+$("#new_section").remove();
+
 <% if @section.errors.any? %>
-  $(".alert").remove();
-  $("#new_chapter").remove();
   $("#new_section_link").after("<%= j render('form') %>");
 <% else %>
-  $(".alert").remove();
-  $("#new_section").remove();
   $("#new_section_link").show();
-  $("li#chapter_<%= @section.chapter.id %>").children("ul").append("<%= j render @section, :locals => { :section => @section } %>")
+  $("li#chapter_<%= @section.chapter.id %>").children("ul").append("<%= j render @section, :section => @section %>")
 <% end %>

@@ -1,10 +1,9 @@
+$(".alert").remove();
+$("#new_chapter").remove();
+
 <% if @chapter.errors.any? %>
-  $(".alert").remove();
-  $("#new_chapter").remove();
   $("#new_chapter_link").after("<%= j render('form') %>");
 <% else %>
-  $(".alert").remove();
-  $("#new_chapter").remove();
   $("#new_chapter_link").show();
-  $("ul.chapter").append("<%= j render @chapter, :locals => { :chapter => @chapter } %>")
+  $("ul.chapter").append("<%= j render @chapter, :chapter => @chapter %>")
 <% end %>
