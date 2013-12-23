@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/vmg/redcarpet
+  revision: 52c5fa3c5753d2125e827f235cdf4cb730484902
+  specs:
+    redcarpet (3.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -211,7 +217,6 @@ GEM
     rb-fsevent (0.9.3)
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
-    redcarpet (3.0.0)
     responders (1.0.0)
       railties (>= 3.2, < 5)
     rspec (2.14.1)
@@ -305,7 +310,7 @@ DEPENDENCIES
   rails_12factor
   rake
   rb-fsevent
-  redcarpet
+  redcarpet!
   rspec-rails
   sass-rails
   shoulda-matchers
