@@ -39,6 +39,10 @@ class Lesson < ActiveRecord::Base
     !cheat_sheet.blank?
   end
 
+  def has_update_warning?
+    !update_warning.blank?
+  end
+
 private
 
   def set_private

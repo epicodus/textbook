@@ -89,6 +89,18 @@ describe Lesson do
     end
   end
 
+  context '#has_update_warning?' do
+    it 'returns false if there is no update warning' do
+      lesson = FactoryGirl.create :lesson, :update_warning => nil
+      lesson.has_update_warning?.should be_false
+    end
+
+    it 'returns true if there is a update warning' do
+      lesson = FactoryGirl.create :lesson
+      lesson.has_update_warning?.should be_true
+    end
+  end
+
   context 'callbacks' do
     it 'sets public to false before deleting' do
       lesson = FactoryGirl.create :lesson

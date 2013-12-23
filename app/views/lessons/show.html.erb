@@ -15,6 +15,12 @@
 
 <% end %>
 
+<% if @lesson.has_update_warning? %>
+  <div class="alert alert-danger">
+    <%= raw @lesson.update_warning %>
+  </div>
+<% end %>
+
 <%= raw @lesson.content %>
 
 <% if @lesson.has_cheat_sheet? %>

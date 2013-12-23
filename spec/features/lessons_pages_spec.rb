@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Lesson do
   context 'creating' do
-    it 'can be created by an author' do
+    it 'lets the author view the New page' do
       create_author_and_sign_in
       visit table_of_contents_path
       page.should have_content 'New lesson'
@@ -10,12 +10,24 @@ describe Lesson do
       page.should have_content 'New lesson'
     end
 
-    it 'cannot be created by a student' do
+    it 'does not let students view the New page' do
       create_student_and_sign_in
       visit table_of_contents_path
       page.should_not have_content 'New lesson'
       visit new_lesson_path
       page.should_not have_content 'New lesson'
+    end
+
+    it 'lets authors create a lesson' do
+      create_author_and_sign_in
+      lesson = FactoryGirl.build :lesson
+      visit new_lesson_path
+      fill_in 'Name', :with => lesson.name
+      fill_in 'Lesson number', :with => lesson.number
+      fill_in 'Content (use HTML)', :with => lesson.content
+      select lesson.section.name, :from => 'Section'
+      click_button 'Save'
+      page.should have_content lesson.content
     end
 
     it 'can have a video embedded in it' do
@@ -50,7 +62,7 @@ describe Lesson do
       fill_in 'Name', :with => lesson.name
       fill_in 'Lesson number', :with => lesson.number
       fill_in 'Content (use HTML)', :with => lesson.content
-      fill_in 'Cheat sheet', :with => lesson.cheat_sheet
+      fill_in 'Cheat sheet (use HTML)', :with => lesson.cheat_sheet
       select lesson.section.name, :from => 'Section'
       click_button 'Save'
       page.should have_content lesson.cheat_sheet
@@ -66,6 +78,31 @@ describe Lesson do
       select lesson.section.name, :from => 'Section'
       click_button 'Save'
       page.should_not have_content 'Cheat sheet'
+    end
+
+    it 'can have an update warning' do
+      create_author_and_sign_in
+      lesson = FactoryGirl.build :lesson
+      visit new_lesson_path
+      fill_in 'Name', :with => lesson.name
+      fill_in 'Lesson number', :with => lesson.number
+      fill_in 'Content (use HTML)', :with => lesson.content
+      fill_in 'Update warning (use HTML)', :with => lesson.update_warning
+      select lesson.section.name, :from => 'Section'
+      click_button 'Save'
+      page.should have_content lesson.update_warning
+    end
+
+    it "doesn't have to have an update warning" do
+      create_author_and_sign_in
+      lesson = FactoryGirl.build :lesson
+      visit new_lesson_path
+      fill_in 'Name', :with => lesson.name
+      fill_in 'Lesson number', :with => lesson.number
+      fill_in 'Content (use HTML)', :with => lesson.content
+      select lesson.section.name, :from => 'Section'
+      click_button 'Save'
+      page.html.should_not =~ /alert-danger/
     end
   end
 
