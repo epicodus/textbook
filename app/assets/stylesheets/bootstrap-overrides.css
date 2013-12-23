@@ -76,3 +76,7 @@ pre ul.psql li:before {
     padding: 10px 15px 0px;
   }
 }
+
+footer .container {
+  text-align: center;
+}
