@@ -214,8 +214,6 @@ GEM
     redcarpet (3.0.0)
     responders (1.0.0)
       railties (>= 3.2, < 5)
-    reverse_markdown (0.4.7)
-      nokogiri
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -308,7 +306,6 @@ DEPENDENCIES
   rake
   rb-fsevent
   redcarpet
-  reverse_markdown
   rspec-rails
   sass-rails
   shoulda-matchers
