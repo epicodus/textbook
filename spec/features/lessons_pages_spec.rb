@@ -111,10 +111,10 @@ describe Lesson do
       visit new_lesson_path
       fill_in 'Name', :with => lesson.name
       fill_in 'Lesson number', :with => lesson.number
-      fill_in 'Content (use Markdown)', :with => 'This `code` is Markdown.'
+      fill_in 'Content (use Markdown)', :with => '*This* is Markdown.'
       select lesson.section.name, :from => 'Section'
       click_button 'Save'
-      page.html.should =~ /<code>code<\/code>/
+      page.html.should =~ /<p><em>This<\/em> is Markdown.<\/p>/
     end
   end
 
