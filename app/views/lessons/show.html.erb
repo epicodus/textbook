@@ -6,13 +6,10 @@
   <div id="video">
     <iframe src="http://player.vimeo.com/video/<%= @lesson.video_id %>"
             frameborder="0"
-            webkitAllowFullScreen
-            mozallowfullscreen
-            allowFullScreen></iframe>
+            webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
   </div>
 
-<h2>Text version:</h2>
-
+  <h2>Text version:</h2>
 <% end %>
 
 <% if @lesson.has_update_warning? %>
@@ -25,7 +22,6 @@
 
 <% if @lesson.has_cheat_sheet? %>
   <h2>Cheat sheet:</h2>
-
   <%= raw @lesson.cheat_sheet %>
 <% end %>
 
