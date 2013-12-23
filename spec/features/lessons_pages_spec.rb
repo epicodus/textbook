@@ -24,7 +24,7 @@ describe Lesson do
       visit new_lesson_path
       fill_in 'Name', :with => lesson.name
       fill_in 'Lesson number', :with => lesson.number
-      fill_in 'Content (use HTML)', :with => lesson.content
+      fill_in 'Content (use Markdown)', :with => lesson.content
       select lesson.section.name, :from => 'Section'
       click_button 'Save'
       page.should have_content lesson.content
@@ -36,7 +36,7 @@ describe Lesson do
       visit new_lesson_path
       fill_in 'Name', :with => lesson.name
       fill_in 'Lesson number', :with => lesson.number
-      fill_in 'Content (use HTML)', :with => lesson.content
+      fill_in 'Content (use Markdown)', :with => lesson.content
       fill_in 'Video ID', :with => lesson.video_id
       select lesson.section.name, :from => 'Section'
       click_button 'Save'
@@ -49,7 +49,7 @@ describe Lesson do
       visit new_lesson_path
       fill_in 'Name', :with => lesson.name
       fill_in 'Lesson number', :with => lesson.number
-      fill_in 'Content (use HTML)', :with => lesson.content
+      fill_in 'Content (use Markdown)', :with => lesson.content
       select lesson.section.name, :from => 'Section'
       click_button 'Save'
       page.html.should_not =~ /<div id="video">/
@@ -61,8 +61,8 @@ describe Lesson do
       visit new_lesson_path
       fill_in 'Name', :with => lesson.name
       fill_in 'Lesson number', :with => lesson.number
-      fill_in 'Content (use HTML)', :with => lesson.content
-      fill_in 'Cheat sheet (use HTML)', :with => lesson.cheat_sheet
+      fill_in 'Content (use Markdown)', :with => lesson.content
+      fill_in 'Cheat sheet (use Markdown)', :with => lesson.cheat_sheet
       select lesson.section.name, :from => 'Section'
       click_button 'Save'
       page.should have_content lesson.cheat_sheet
@@ -74,7 +74,7 @@ describe Lesson do
       visit new_lesson_path
       fill_in 'Name', :with => lesson.name
       fill_in 'Lesson number', :with => lesson.number
-      fill_in 'Content (use HTML)', :with => lesson.content
+      fill_in 'Content (use Markdown)', :with => lesson.content
       select lesson.section.name, :from => 'Section'
       click_button 'Save'
       page.should_not have_content 'Cheat sheet'
@@ -86,8 +86,8 @@ describe Lesson do
       visit new_lesson_path
       fill_in 'Name', :with => lesson.name
       fill_in 'Lesson number', :with => lesson.number
-      fill_in 'Content (use HTML)', :with => lesson.content
-      fill_in 'Update warning (use HTML)', :with => lesson.update_warning
+      fill_in 'Content (use Markdown)', :with => lesson.content
+      fill_in 'Update warning (use Markdown)', :with => lesson.update_warning
       select lesson.section.name, :from => 'Section'
       click_button 'Save'
       page.should have_content lesson.update_warning
@@ -99,10 +99,22 @@ describe Lesson do
       visit new_lesson_path
       fill_in 'Name', :with => lesson.name
       fill_in 'Lesson number', :with => lesson.number
-      fill_in 'Content (use HTML)', :with => lesson.content
+      fill_in 'Content (use Markdown)', :with => lesson.content
       select lesson.section.name, :from => 'Section'
       click_button 'Save'
       page.html.should_not =~ /alert-danger/
+    end
+
+    it 'uses markdown to format lessons' do
+      create_author_and_sign_in
+      lesson = FactoryGirl.build :lesson
+      visit new_lesson_path
+      fill_in 'Name', :with => lesson.name
+      fill_in 'Lesson number', :with => lesson.number
+      fill_in 'Content (use Markdown)', :with => 'This `code` is Markdown.'
+      select lesson.section.name, :from => 'Section'
+      click_button 'Save'
+      page.html.should =~ /<code>code<\/code>/
     end
   end
 

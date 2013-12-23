@@ -14,15 +14,15 @@
 
 <% if @lesson.has_update_warning? %>
   <div class="alert alert-danger">
-    <%= raw @lesson.update_warning %>
+    <%= markdown @lesson.update_warning %>
   </div>
 <% end %>
 
-<%= raw @lesson.content %>
+<%= markdown @lesson.content %>
 
 <% if @lesson.has_cheat_sheet? %>
   <h2>Cheat sheet:</h2>
-  <%= raw @lesson.cheat_sheet %>
+  <%= markdown @lesson.cheat_sheet %>
 <% end %>
 
 <% if can? :update, Lesson %>

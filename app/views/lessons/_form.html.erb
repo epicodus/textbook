@@ -12,11 +12,11 @@
   <% end %>
   <%= f.label :video_id, "Video ID from Vimeo" %>
   <%= f.text_field :video_id %>
-  <%= f.label :content, "Content (use HTML)" %>
+  <%= f.label :content, "Content (use Markdown)" %>
   <%= f.text_area :content %>
-  <%= f.label :cheat_sheet, "Cheat sheet (use HTML)" %>
+  <%= f.label :cheat_sheet, "Cheat sheet (use Markdown)" %>
   <%= f.text_area :cheat_sheet %>
-  <%= f.label :update_warning, "Update warning (use HTML)" %>
+  <%= f.label :update_warning, "Update warning (use Markdown)" %>
   <%= f.text_area :update_warning %>
   <%= f.submit "Save", :class => "btn btn-primary" %>
 <% end %>

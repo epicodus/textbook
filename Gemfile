@@ -17,6 +17,7 @@ gem 'newrelic_rpm'
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
+gem 'redcarpet'
 
 group :development do
   gem 'spork-rails'
