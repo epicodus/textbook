@@ -33,8 +33,6 @@ Currently it is not necessary to set any of them in development or test environm
 ##To do
 
 * As an author, I want to be able to restore a previous version of a lesson, so that I can see what changes I've made over time and undo accidental changes.
-* As a student, I want to be able to give feedback on a lesson, so that I can point out if something isn't clear or tell the authors how much I like what they've written.
-* As a student, I want to have a list of key concepts I've learned on each lesson, as well as a list of all key concepts from the current section in a sidebar.
 
 
 ##MIT License
