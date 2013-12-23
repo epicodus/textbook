@@ -18,6 +18,7 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
 gem 'redcarpet'
+gem 'reverse_markdown'
 
 group :development do
   gem 'spork-rails'
