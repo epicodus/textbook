@@ -3,26 +3,31 @@
 <h1><%= yield :title %></h1>
 
 <% if @lesson.has_video? %>
-  <div id="video">
-    <iframe src="http://player.vimeo.com/video/<%= @lesson.video_id %>"
-            frameborder="0"
-            webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#video" data-toggle="tab">Video</a></li>
+    <li>               <a href="#text" data-toggle="tab">Text</a></li>
+    <li>               <a href="#cheat-sheet"  data-toggle="tab">Cheat sheet</a></li>
+  </ul>
+
+  <div id="myTabContent" class="tab-content">
+    <div class="tab-pane active in" id="video">
+      <iframe src="http://player.vimeo.com/video/<%= @lesson.video_id %>"
+              frameborder="0"
+              webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+    </div>
+    <div class="tab-pane" id="text">
+      <%= render 'content' %>
+    </div>
+    <div class="tab-pane" id="cheat-sheet">
+      <% if @lesson.has_cheat_sheet? %>
+        <%= markdown @lesson.cheat_sheet %>
+      <% else %>
+        <p>Coming soon!</p>
+      <% end %>
+    </div>
   </div>
-
-  <h2>Text version:</h2>
-<% end %>
-
-<% if @lesson.has_update_warning? %>
-  <div class="alert alert-danger">
-    <%= markdown @lesson.update_warning %>
-  </div>
-<% end %>
-
-<%= markdown @lesson.content %>
-
-<% if @lesson.has_cheat_sheet? %>
-  <h2>Cheat sheet:</h2>
-  <%= markdown @lesson.cheat_sheet %>
+<% else %>
+  <%= render 'content' %>
 <% end %>
 
 <% if can? :update, Lesson %>
