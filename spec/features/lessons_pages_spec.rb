@@ -62,6 +62,7 @@ describe Lesson do
       fill_in 'Name', :with => lesson.name
       fill_in 'Lesson number', :with => lesson.number
       fill_in 'Content (use Markdown)', :with => lesson.content
+      fill_in 'Video ID', :with => lesson.video_id
       fill_in 'Cheat sheet (use Markdown)', :with => lesson.cheat_sheet
       select lesson.section.name, :from => 'Section'
       click_button 'Save'
