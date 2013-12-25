@@ -11,19 +11,13 @@
 
   <div class="tab-content">
     <div class="tab-pane active in" id="video">
-      <iframe src="http://player.vimeo.com/video/<%= @lesson.video_id %>"
-              frameborder="0"
-              webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+      <%= render 'video' %>
     </div>
     <div class="tab-pane" id="text">
       <%= render 'content' %>
     </div>
     <div class="tab-pane" id="cheat-sheet">
-      <% if @lesson.has_cheat_sheet? %>
-        <%= markdown @lesson.cheat_sheet %>
-      <% else %>
-        <p>Coming soon!</p>
-      <% end %>
+      <%= render 'cheat_sheet' %>
     </div>
   </div>
 <% else %>

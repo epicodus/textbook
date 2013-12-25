@@ -1,0 +1,5 @@
+<% if @lesson.has_update_warning? %>
+  <div class="alert alert-danger">
+    <%= markdown @lesson.update_warning %>
+  </div>
+<% end %>

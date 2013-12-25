@@ -1,0 +1,5 @@
+<% if @lesson.has_cheat_sheet? %>
+  <%= markdown @lesson.cheat_sheet %>
+<% else %>
+  <p>Coming soon!</p>
+<% end %>
