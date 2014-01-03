@@ -35,17 +35,11 @@
   <div class="navbar navbar-fixed-bottom">
     <div class="navbar-inner">
       <div class="container">
-        <div class="row">
-          <div class="span6">
-            <%= yield :forward_back %>
-          </div>
-          <div class="span6">
-            <ul class="nav pull-right">
-              <%= yield :up %>
-              <li><%= link_to 'Table of contents', table_of_contents_path %></li>
-            </ul>
-          </div>
-        </div>
+        <%= yield :forward_back %>
+        <ul class="nav pull-right">
+          <%= yield :up %>
+          <li><%= link_to 'Table of contents', table_of_contents_path %></li>
+        </ul>
       </div>
     </div>
   </div>

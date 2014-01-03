@@ -45,35 +45,17 @@ pre ul.psql li:before {
   padding: 0px;
 }
 
-@media (max-width: 979px) {
-  .navbar .container {
-    width: 724px;
-  }
+.navbar .nav {
+  margin: 0 10px;
 }
 
-@media (max-width: 979px) and (min-width: 768px) {
-  .span4 {
-    width: auto;
-  }
+.navbar .nav.pull-right {
+  margin-right: 10px;
 }
 
 @media (max-width: 481px) {
-  .navbar .span4 {
-    float: left;
-  }
-
-  .navbar .nav.pull-right {
-    float: left;
-  }
-}
-
-@media (max-width: 979px) {
-  .navbar .container {
-    padding-left: 24px;
-  }
-
-  .navbar .nav > li > a {
-    padding: 10px 15px 0px;
+  .navbar .nav > li {
+    float: none;
   }
 }
 
