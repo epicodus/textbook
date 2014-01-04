@@ -3,7 +3,8 @@ Textbook::Application.routes.draw do
 
   root :to => 'home#show'
 
-  get 'table_of_contents' => 'chapters#index'
+  get 'table-of-contents' => 'chapters#index', :as => 'table_of_contents'
+  get 'table_of_contents' => redirect('table-of-contents')
 
   resources :lessons
   resources :sections
