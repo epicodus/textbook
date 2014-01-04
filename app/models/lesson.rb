@@ -46,6 +46,6 @@ class Lesson < ActiveRecord::Base
 private
 
   def set_private
-    update_attributes(:public => false)
+    update(:public => false)
   end
 end
