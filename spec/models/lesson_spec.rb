@@ -105,6 +105,7 @@ describe Lesson do
     it 'sets public to false before deleting' do
       lesson = FactoryGirl.create :lesson
       lesson.destroy
+      lesson.reload
       lesson.should_not be_public
     end
   end
