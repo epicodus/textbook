@@ -75,4 +75,6 @@ Textbook::Application.configure do
 
   config.secret_token = ENV['RAILS_SECRET_TOKEN']
   config.secret_key_base = ENV['RAILS_SECRET_KEY_BASE']
+
+  config.lograge.enabled = true
 end
