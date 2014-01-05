@@ -26,13 +26,9 @@ Here is a list of environmental variables that need to be set:
 * NEW_RELIC_LICENSE_KEY
 * NEW_RELIC_APP_NAME
 * RAILS_SECRET_TOKEN (a default value is provided for development and test environments)
+* WEB_CONCURRENCY (for Unicorn workers; defaults to 3)
 
 Currently it is not necessary to set any of them in development or test environments.
-
-
-##To do
-
-* As an author, I want to be able to restore a previous version of a lesson, so that I can see what changes I've made over time and undo accidental changes.
 
 
 ##MIT License
