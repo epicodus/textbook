@@ -8,6 +8,14 @@ body {
   height: 50em;
 }
 
+.container textarea.cheat-sheet {
+  height: 25em;
+}
+
+.container textarea.update-warning {
+  height: 10em;
+}
+
 input, input.btn {
   display: block;
 }

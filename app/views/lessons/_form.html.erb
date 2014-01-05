@@ -15,8 +15,8 @@
   <%= f.label :content, "Content (use Markdown)" %>
   <%= f.text_area :content %>
   <%= f.label :cheat_sheet, "Cheat sheet (use Markdown)" %>
-  <%= f.text_area :cheat_sheet %>
+  <%= f.text_area :cheat_sheet, :class => 'cheat-sheet' %>
   <%= f.label :update_warning, "Update warning (use Markdown)" %>
-  <%= f.text_area :update_warning %>
+  <%= f.text_area :update_warning, :class => 'update-warning' %>
   <%= f.submit "Save", :class => "btn btn-primary" %>
 <% end %>
