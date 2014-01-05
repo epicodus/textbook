@@ -203,4 +203,14 @@ describe Lesson do
       page.should have_content lesson.name
     end
   end
+
+  context 'searching' do
+    it 'lets you search for lessons' do
+      lesson = FactoryGirl.create :lesson
+      visit table_of_contents_path
+      fill_in 'Search for:', :with => lesson.content.split.last
+      click_button 'Search'
+      page.should have_content lesson.name
+    end
+  end
 end
