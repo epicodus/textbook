@@ -9,7 +9,7 @@ class LessonsController < InheritedResources::Base
   def index
     if params[:search]
       @query = params[:search]
-      @results = Lesson.advanced_search(@query)
+      @results = Lesson.basic_search(@query)
       render :search_results
     elsif params[:deleted]
       @lessons = Lesson.only_deleted
