@@ -23,6 +23,12 @@ describe Lesson do
     Lesson.last.should eq last_lesson
   end
 
+  it 'changes the slug on update' do
+    lesson = FactoryGirl.create :lesson
+    lesson.update(:name => 'New name')
+    lesson.slug.should eq 'new-name'
+  end
+
   context '#next' do
     it 'returns the lesson with the next-highest number than the current lesson' do
       current_lesson = FactoryGirl.create :lesson, :number => 1
