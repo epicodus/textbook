@@ -8,19 +8,12 @@ $(function () {
   });
 
   $("input#save_order").click(function (click) {
-    var count = 1;
-    $.each($('input.chapter'), function() {
-      $(this).val(count++)
-    });
-
-    var count = 1;
-    $.each($('input.section_number'), function() {
-      $(this).val(count++)
-    });
-
-    var count = 1;
-    $.each($('input.lesson'), function() {
-      $(this).val(count++)
+    var inputs = ['input.chapter', 'input.section_number', 'input.lesson'];
+    inputs.forEach(function(item) {
+      var count = 1;
+      $(item).each(function() {
+        $(this).val(count++)
+      });
     });
 
     $.each($('input.section_chapter_id'), function() {
