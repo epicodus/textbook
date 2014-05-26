@@ -10,7 +10,7 @@ Textbook::Application.routes.draw do
   resources :sections
   resources :chapters do
     collection do
-      put :update_multiple
+      put :update_multiple, :path => ''
     end
   end
 end
