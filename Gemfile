@@ -33,7 +33,7 @@ group :development do
 end
 
 group :test, :development do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 2.0'
   gem 'jazz_hands'
 end
 
@@ -51,4 +51,3 @@ group :production do
   gem 'lograge'
   gem 'bugsnag'
 end
-
