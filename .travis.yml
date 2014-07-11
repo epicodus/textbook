@@ -7,3 +7,4 @@ deploy:
   app: learnhowtoprogram
   on:
     repo: epicodus/textbook
+  run: "rake db:migrate"
