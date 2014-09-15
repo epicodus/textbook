@@ -1,5 +1,5 @@
 rvm:
-- 2.0.0
+- 2.1.2
 deploy:
   provider: heroku
   api_key:
