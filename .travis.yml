@@ -3,7 +3,8 @@ rvm:
 deploy:
   provider: heroku
   api_key:
-    secure: rZNcyNjt4dgRSTLrgp740fxdgvcdEIsx10EFHc/T0NH4YjRcBqmsVmEkzw2RHds2/BzGbQ6PZSzGAc0Sx2f+6cs0jrhj6hdHgDZqlWHUddytZHrTnxfE1ff/Ja4Pwpz/aHmKPqmoSccQRDJvDxaA7aYh/IBIOhCxK/VUUGGPB54=
+    secure: wMoEfuwYGWwcR/YXmc6vXawJqxT6Zo8xJxwZcUqkPjCvSG+SydM7kz2FjInFaiGnoWbhVpvF3WmdqAujaJwhEFI0r2p4WZ8BxvusdCFuVghV55QjrfVe4bzsf9dabYDEK2b8tm51xZZzkULwwA30tcURG5Pp1sz+yT7VH3VxAYs=
   app: learnhowtoprogram
   on:
     repo: epicodus/textbook
+  run: "rake db:migrate"

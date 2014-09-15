@@ -1,6 +1,7 @@
 #Textbook
 
-[![Code Climate](https://codeclimate.com/github/epicodus/textbook.png)](https://codeclimate.com/github/epicodus/textbook) [![Dependency Status](https://gemnasium.com/epicodus/textbook.png)](https://gemnasium.com/epicodus/textbook)
+[![Code Climate](https://codeclimate.com/github/epicodus/textbook.png)](https://codeclimate.com/github/epicodus/textbook) [![Dependency status](https://gemnasium.com/epicodus/textbook.png)](https://gemnasium.com/epicodus/textbook)
+[![Build status](https://travis-ci.org/epicodus/textbook.svg?branch=master)](https://travis-ci.org/epicodus/textbook)
 
 Textbook is a simple content management system for textbook-like sites. It organizes content into lessons, which are grouped into sections. A table of contents lists all of the sections, and each section index lists the lessons in the section. At the bottom of each lesson are navigation links to the next and previous lessons, as well as to the section index and the table of contents.
 

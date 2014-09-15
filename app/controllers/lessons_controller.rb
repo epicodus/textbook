@@ -24,7 +24,7 @@ private
 
   def permitted_params
     params.permit(:lesson => [:name, :content, :cheat_sheet, :update_warning, :section_id,
-                              :number, :public, :deleted_at, :video_id])
+                              :number, :public, :deleted_at, :video_id, :tutorial])
   end
 
   def sections

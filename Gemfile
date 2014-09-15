@@ -51,4 +51,3 @@ group :production do
   gem 'lograge'
   gem 'bugsnag'
 end
-
