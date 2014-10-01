@@ -77,4 +77,6 @@ Textbook::Application.configure do
   config.secret_key_base = ENV['RAILS_SECRET_KEY_BASE']
 
   config.lograge.enabled = true
+
+  config.middleware.use Oink::Middleware, :logger => Hodel3000CompliantLogger.new(STDOUT)
 end

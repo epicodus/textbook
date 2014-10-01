@@ -50,4 +50,5 @@ group :production do
   gem 'rails_12factor'
   gem 'lograge'
   gem 'bugsnag'
+  gem 'oink'
 end
