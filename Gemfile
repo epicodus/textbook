@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.1.2'
 
 gem 'rails', '~> 4.0.4'
 gem 'pg'
@@ -34,7 +34,7 @@ end
 
 group :test, :development do
   gem 'rspec-rails', '~> 2.0'
-  gem 'jazz_hands'
+  gem 'pry'
 end
 
 group :test do
