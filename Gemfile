@@ -15,8 +15,6 @@ gem 'friendly_id'
 gem 'inherited_resources'
 gem 'textacular'
 gem 'newrelic_rpm'
-gem 'sass-rails'
-gem 'coffee-rails'
 gem 'uglifier'
 gem 'redcarpet'
 
@@ -43,7 +41,6 @@ group :test do
   gem 'poltergeist'
   gem 'capybara'
   gem 'launchy'
-  gem 'rake'
 end
 
 group :production do
