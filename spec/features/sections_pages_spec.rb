@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Section, :js => true do
   it 'can be created by an author' do
-    create_author_and_sign_in
+    author = FactoryGirl.create :author
+    login_as(author, :scope => :user)
     chapter = FactoryGirl.create :chapter
     visit table_of_contents_path
     click_link 'New section'
@@ -13,7 +14,8 @@ describe Section, :js => true do
   end
 
   it 'displays errors if you try to save an invalid section' do
-    create_author_and_sign_in
+    author = FactoryGirl.create :author
+    login_as(author, :scope => :user)
     visit table_of_contents_path
     click_link 'New section'
     click_button 'Create Section'
@@ -21,7 +23,8 @@ describe Section, :js => true do
   end
 
   it 'cannot be created by a student' do
-    create_student_and_sign_in
+    student = FactoryGirl.create :student
+    login_as(student, :scope => :user)
     visit table_of_contents_path
     page.should_not have_content 'New section'
     visit new_section_path
@@ -29,7 +32,8 @@ describe Section, :js => true do
   end
 
   it 'can be edited by an author' do
-    create_author_and_sign_in
+    author = FactoryGirl.create :author
+    login_as(author, :scope => :user)
     section = FactoryGirl.create :section
     visit table_of_contents_path
     click_link "edit_section_#{section.id}"
@@ -37,7 +41,8 @@ describe Section, :js => true do
   end
 
   it 'cannot be edited by a student' do
-    create_student_and_sign_in
+    student = FactoryGirl.create :student
+    login_as(student, :scope => :user)
     section = FactoryGirl.create :section
     visit table_of_contents_path
     page.should_not have_content 'edit'
@@ -46,7 +51,8 @@ describe Section, :js => true do
   end
 
   it 'can be deleted by an author' do
-    create_author_and_sign_in
+    author = FactoryGirl.create :author
+    login_as(author, :scope => :user)
     section = FactoryGirl.create :section
     visit table_of_contents_path
     click_link "delete_section_#{section.id}"
@@ -54,7 +60,8 @@ describe Section, :js => true do
   end
 
   it 'cannot be deleted by a student' do
-    create_student_and_sign_in
+    student = FactoryGirl.create :student
+    login_as(student, :scope => :user)
     section = FactoryGirl.create :section
     visit table_of_contents_path
     page.should_not have_content 'delete'

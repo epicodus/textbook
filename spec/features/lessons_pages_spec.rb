@@ -3,7 +3,8 @@ require 'spec_helper'
 describe Lesson do
   context 'creating' do
     it 'lets the author view the New page' do
-      create_author_and_sign_in
+      author = FactoryGirl.create :author
+      login_as(author, :scope => :user)
       visit table_of_contents_path
       page.should have_content 'New lesson'
       visit new_lesson_path
@@ -11,7 +12,8 @@ describe Lesson do
     end
 
     it 'does not let students view the New page' do
-      create_student_and_sign_in
+      student = FactoryGirl.create :student
+      login_as(student, :scope => :user)
       visit table_of_contents_path
       page.should_not have_content 'New lesson'
       visit new_lesson_path
@@ -19,7 +21,8 @@ describe Lesson do
     end
 
     it 'lets authors create a lesson' do
-      create_author_and_sign_in
+      author = FactoryGirl.create :author
+      login_as(author, :scope => :user)
       lesson = FactoryGirl.build :lesson
       visit new_lesson_path
       fill_in 'Name', :with => lesson.name
@@ -31,7 +34,8 @@ describe Lesson do
     end
 
     it 'can have a video embedded in it' do
-      create_author_and_sign_in
+      author = FactoryGirl.create :author
+      login_as(author, :scope => :user)
       lesson = FactoryGirl.build :lesson
       visit new_lesson_path
       fill_in 'Name', :with => lesson.name
@@ -44,7 +48,8 @@ describe Lesson do
     end
 
     it "doesn't have to have video embedded in it" do
-      create_author_and_sign_in
+      author = FactoryGirl.create :author
+      login_as(author, :scope => :user)
       lesson = FactoryGirl.build :lesson
       visit new_lesson_path
       fill_in 'Name', :with => lesson.name
@@ -56,7 +61,8 @@ describe Lesson do
     end
 
     it 'can have a cheat sheet' do
-      create_author_and_sign_in
+      author = FactoryGirl.create :author
+      login_as(author, :scope => :user)
       lesson = FactoryGirl.build :lesson
       visit new_lesson_path
       fill_in 'Name', :with => lesson.name
@@ -70,7 +76,8 @@ describe Lesson do
     end
 
     it "doesn't have to have a cheat sheet" do
-      create_author_and_sign_in
+      author = FactoryGirl.create :author
+      login_as(author, :scope => :user)
       lesson = FactoryGirl.build :lesson
       visit new_lesson_path
       fill_in 'Name', :with => lesson.name
@@ -82,7 +89,8 @@ describe Lesson do
     end
 
     it 'can have an update warning' do
-      create_author_and_sign_in
+      author = FactoryGirl.create :author
+      login_as(author, :scope => :user)
       lesson = FactoryGirl.build :lesson
       visit new_lesson_path
       fill_in 'Name', :with => lesson.name
@@ -95,7 +103,8 @@ describe Lesson do
     end
 
     it "doesn't have to have an update warning" do
-      create_author_and_sign_in
+      author = FactoryGirl.create :author
+      login_as(author, :scope => :user)
       lesson = FactoryGirl.build :lesson
       visit new_lesson_path
       fill_in 'Name', :with => lesson.name
@@ -107,7 +116,8 @@ describe Lesson do
     end
 
     it 'uses markdown to format lessons' do
-      create_author_and_sign_in
+      author = FactoryGirl.create :author
+      login_as(author, :scope => :user)
       lesson = FactoryGirl.build :lesson
       visit new_lesson_path
       fill_in 'Name', :with => lesson.name
@@ -122,7 +132,8 @@ describe Lesson do
   context 'viewing' do
     it 'can be viewed by a student' do
       lesson = FactoryGirl.create :lesson
-      create_student_and_sign_in
+      student = FactoryGirl.create :student
+      login_as(student, :scope => :user)
       visit table_of_contents_path
       click_link lesson.section.name
       click_link lesson.name
@@ -132,7 +143,8 @@ describe Lesson do
 
   context 'editing' do
     it 'can be edited by an author' do
-      create_author_and_sign_in
+      author = FactoryGirl.create :author
+      login_as(author, :scope => :user)
       lesson = FactoryGirl.create :lesson
       visit lesson_path lesson
       click_link "Edit #{lesson.name}"
@@ -140,7 +152,8 @@ describe Lesson do
     end
 
     it 'cannot be edited by a student' do
-      create_student_and_sign_in
+      student = FactoryGirl.create :student
+      login_as(student, :scope => :user)
       lesson = FactoryGirl.create :lesson
       visit lesson_path lesson
       page.should_not have_content 'Edit lesson'
@@ -151,14 +164,16 @@ describe Lesson do
 
   context 'when it is not public' do
     it 'is visible to an author' do
-      create_author_and_sign_in
+      author = FactoryGirl.create :author
+      login_as(author, :scope => :user)
       lesson = FactoryGirl.create :lesson, :public => false
       visit lesson_path lesson
       page.should have_content lesson.content
     end
 
     it 'is not visible to a student' do
-      create_student_and_sign_in
+      student = FactoryGirl.create :student
+      login_as(student, :scope => :user)
       private_lesson = FactoryGirl.create :lesson, :public => false
       public_lesson = FactoryGirl.create :lesson
       visit lesson_path private_lesson
@@ -178,7 +193,8 @@ describe Lesson do
     it 'is listed on the deleted lessons page for an author' do
       lesson = FactoryGirl.create :lesson
       lesson.destroy
-      create_author_and_sign_in
+      author = FactoryGirl.create :author
+      login_as(author, :scope => :user)
       visit lessons_path + "?deleted=true"
       page.should have_content lesson.name
     end
@@ -186,7 +202,8 @@ describe Lesson do
     it 'is not visible to a student' do
       lesson = FactoryGirl.create :lesson
       lesson.destroy
-      create_student_and_sign_in
+      student = FactoryGirl.create :student
+      login_as(student, :scope => :user)
       visit lessons_path + "?deleted=true"
       click_link lesson.name
       page.should_not have_content lesson.content
@@ -195,7 +212,8 @@ describe Lesson do
     it 'can be restored' do
       lesson = FactoryGirl.create :lesson
       lesson.destroy
-      create_author_and_sign_in
+      author = FactoryGirl.create :author
+      login_as(author, :scope => :user)
       visit lesson_path(lesson) + "?deleted=true"
       click_button 'Restore'
       visit table_of_contents_path
