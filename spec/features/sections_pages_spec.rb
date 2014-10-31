@@ -14,6 +14,7 @@ describe Section, :js => true do
 
   it 'displays errors if you try to save an invalid section' do
     create_author_and_sign_in
+    visit table_of_contents_path
     click_link 'New section'
     click_button 'Create Section'
     page.should have_content "Please correct these problems:"

@@ -9,6 +9,9 @@ require 'capybara/poltergeist'
 Capybara.default_driver = :rack_test
 Capybara.javascript_driver = :poltergeist
 
+include Warden::Test::Helpers
+Warden.test_mode!
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
