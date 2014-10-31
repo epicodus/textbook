@@ -19,12 +19,6 @@ gem 'uglifier'
 gem 'redcarpet'
 
 group :development do
-  gem 'spork-rails'
-  gem 'guard'
-  gem 'guard-spork'
-  gem 'guard-rspec'
-  gem 'guard-bundler'
-  gem 'rb-fsevent'
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'binding_of_caller'
