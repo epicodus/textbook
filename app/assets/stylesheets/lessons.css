@@ -12,6 +12,8 @@ a.chapter, a.section {
 
 blockquote p {
   margin-bottom: inherit;
+  line-height: inherit;
+  font-size: 14px;
 }
 
 .filename {
