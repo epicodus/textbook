@@ -5,5 +5,5 @@ $("#new_chapter").remove();
   $("#new_chapter_link").after("<%= j render('form') %>");
 <% else %>
   $("#new_chapter_link").show();
-  $("ul.chapter").append("<%= j render @chapter, :chapter => @chapter %>")
+  $(".chapter").append("<%= j render @chapter, :chapter => @chapter, :chapter_counter => @chapter.number %>");
 <% end %>

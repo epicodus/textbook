@@ -5,16 +5,14 @@
 <%= render 'lessons/search' %>
 
 <% if can? :update, Chapter %>
-  <%= form_tag update_multiple_chapters_path, :method => :put do %>
-    <ul class='chapter'>
+  <div class="chapter">
+    <%= form_tag update_multiple_chapters_path, :method => :put do %>
       <%= render @chapters %>
-    </ul>
-  <%= submit_tag 'Save order', :class => 'btn btn-primary', :id => 'save_order' %>
-  <% end %>
+    <%= submit_tag 'Save order', :class => 'btn btn-primary', :id => 'save_order' %>
+    <% end %>
+  </div>
 <% else %>
-  <ul>
-    <%= render @chapters %>
-  </ul>
+  <%= render @chapters %>
 <% end %>
 
 <% if can? :create, Chapter %>

@@ -1,18 +1,30 @@
-<li id="chapter_<%= chapter.id %>">
-  <%= link_to chapter.name, chapter, :class => 'chapter' %>
-  <% if can? :update, Chapter %>
-    <%= link_to "(edit)", edit_chapter_path(chapter), :id => "edit_chapter_#{chapter.id}" %>
-    <%= link_to "(delete)", chapter, :data => { :confirm => 'Are you sure?' }, :method => :delete, :remote => true, :id => "delete_chapter_#{chapter.id}"  %>
+<% if chapter_counter % 3 == 0 %>
+  <div class="row">
+<% end %>
 
-    <%= fields_for "chapters[]", chapter do |chapter_form| %>
-      <%= chapter_form.hidden_field :number, :class => :chapter %>
-      <ul class='section'>
+<div class="span4">
+  <div class="well" id="chapter_<%= chapter.id %>">
+    <h3><%= chapter.name %></h3>
+    <% if can? :update, Chapter %>
+      <p>
+        <%= link_to "edit", edit_chapter_path(chapter), :id => "edit_chapter_#{chapter.id}", :class => 'btn btn-mini btn-info' %>
+        <%= link_to "delete", chapter, :data => { :confirm => 'Are you sure?' }, :method => :delete, :remote => true, :id => "delete_chapter_#{chapter.id}", :class => 'btn btn-mini btn-danger' %>
+      </p>
+
+      <%= fields_for "chapters[]", chapter do |chapter_form| %>
+        <%= chapter_form.hidden_field :number, :class => :chapter %>
+        <ul class='section'>
+          <%= render chapter.sections %>
+        </ul>
+      <% end %>
+    <% else %>
+      <ul>
         <%= render chapter.sections %>
       </ul>
     <% end %>
-  <% else %>
-    <ul>
-      <%= render chapter.sections %>
-    </ul>
-  <% end %>
-</li>
+  </div>
+</div>
+
+<% if (chapter_counter + 1) % 3 == 0 || (chapter_counter + 1) == @chapters.try(:length) %>
+  </div>
+<% end %>

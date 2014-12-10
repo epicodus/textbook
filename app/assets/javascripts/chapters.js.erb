@@ -1,5 +1,7 @@
 $(function () {
-  $("ul.chapter").sortable();
+  $(".chapter").sortable({
+    items: '.span4'
+  });
   $("ul.section").sortable({
     connectWith: 'ul.section'
   });
