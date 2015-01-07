@@ -1,8 +1,8 @@
-<% if chapter_counter % 3 == 0 %>
+<% if chapter_counter % 2 == 0 %>
   <div class="row">
 <% end %>
 
-<div class="span4">
+<div class="span6">
   <div class="well" id="chapter_<%= chapter.id %>">
     <h3><%= chapter.name %></h3>
     <% if can? :update, Chapter %>
@@ -25,6 +25,6 @@
   </div>
 </div>
 
-<% if (chapter_counter + 1) % 3 == 0 || (chapter_counter + 1) == @chapters.try(:length) %>
+<% if (chapter_counter + 1) % 2 == 0 || (chapter_counter + 1) == @chapters.try(:length) %>
   </div>
 <% end %>
