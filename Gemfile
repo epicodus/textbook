@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.4'
+ruby '2.2.1'
 
 gem 'rails', '~> 4.0.4'
 gem 'pg'
@@ -35,6 +35,7 @@ group :test do
   gem 'poltergeist'
   gem 'capybara'
   gem 'launchy'
+  gem 'test-unit' # can be removed when we upgrade rspec
 end
 
 group :production do
