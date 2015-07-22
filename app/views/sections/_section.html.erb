@@ -20,7 +20,7 @@
       <% section.lessons.each do |lesson| %>
         <li>
           <% if lesson.tutorial? %>
-            <i class="icon-facetime-video"></i> 
+            <i class="icon-book"></i> 
           <% end %>
           <%= link_to lesson.name, lesson, :class => 'lesson' %>
           <%= chapter_form.fields_for 'lessons_attributes[]', lesson do |lesson_form| %>
