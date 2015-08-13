@@ -5,7 +5,6 @@ ruby '2.2.2'
 gem 'rails', '~> 4.0.4'
 gem 'pg'
 gem 'unicorn'
-gem 'rack-timeout'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'devise'
@@ -42,5 +41,4 @@ group :production do
   gem 'rails_12factor'
   gem 'lograge'
   gem 'bugsnag'
-  gem 'oink'
 end
