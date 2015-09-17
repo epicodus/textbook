@@ -14,3 +14,4 @@
 # Ignore .env files.
 .env
 .env_test
+.DS_store

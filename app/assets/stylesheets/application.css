@@ -15,3 +15,10 @@
  *= require prettify
  *= require_tree .
  */
+
+
+ /*loading button*/
+
+#refresh {
+  display: none;
+}

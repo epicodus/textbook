@@ -6,9 +6,10 @@
 
 <% if can? :update, Chapter %>
   <div class="chapter">
-    <%= form_tag update_multiple_chapters_path, :method => :put do %>
+    <%= form_tag update_multiple_chapters_path, :method => :put, :remote => true  do%>
       <%= render @chapters %>
     <%= submit_tag 'Save order', :class => 'btn btn-primary', :id => 'save_order' %>
+    <span id="refresh"><%= image_tag("refresh.gif") %></span> 
     <% end %>
   </div>
 <% else %>
