@@ -29,7 +29,7 @@ group :test, :development do
 end
 
 group :test do
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', '~> 2.8.0'
   gem 'factory_girl_rails'
   gem 'poltergeist'
   gem 'capybara'

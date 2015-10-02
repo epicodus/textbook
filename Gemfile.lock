@@ -211,7 +211,7 @@ DEPENDENCIES
   rails_12factor
   redcarpet
   rspec-rails (~> 2.0)
-  shoulda-matchers
+  shoulda-matchers (~> 2.8.0)
   test-unit
   textacular
   uglifier
