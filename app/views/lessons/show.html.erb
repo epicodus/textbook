@@ -2,27 +2,39 @@
 
 <h1><%= yield :title %></h1>
 
-<% if @lesson.has_video? %>
-  <ul class="nav nav-tabs">
+<ul class="nav nav-tabs">
+  <% if @lesson.has_video? %>
     <li class="active"><a href="#video" data-toggle="tab">Video</a></li>
-    <li>               <a href="#text" data-toggle="tab">Text</a></li>
-    <li>               <a href="#cheat-sheet"  data-toggle="tab">Cheat sheet</a></li>
-  </ul>
+    <li               ><a href="#text" data-toggle="tab">Text</a></li>
+  <% else %>
+    <li class="active"><a href="#text" data-toggle="tab">Text</a></li>
+  <% end %>
 
-  <div class="tab-content">
+  <% if @lesson.has_cheat_sheet? %>
+    <li><a href="#cheat-sheet"  data-toggle="tab">Cheat sheet</a></li>
+  <% end %>
+</ul>
+
+<div class="tab-content">
+  <% if @lesson.has_video? %>
     <div class="tab-pane active in" id="video">
       <%= render 'video' %>
     </div>
     <div class="tab-pane" id="text">
       <%= render 'content' %>
     </div>
+  <% else %>
+    <div class="tab-pane active in" id="text">
+      <%= render 'content' %>
+    </div>
+  <% end %>
+
+  <% if @lesson.has_cheat_sheet? %>
     <div class="tab-pane" id="cheat-sheet">
       <%= render 'cheat_sheet' %>
     </div>
-  </div>
-<% else %>
-  <%= render 'content' %>
-<% end %>
+  <% end %>
+</div>
 
 <% if can? :update, Lesson %>
   <% if @lesson.deleted? %>
