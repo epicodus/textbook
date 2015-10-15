@@ -54,13 +54,13 @@ ActiveRecord::Schema.define(version: 20151015231438) do
   add_index "lessons", ["name"], name: "index_lessons_on_name", unique: true, using: :btree
 
   create_table "sections", force: true do |t|
-    t.string   "name",                           null: false
-    t.integer  "number",                         null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "old_chapter_id"
-    t.string   "slug",                           null: false
-    t.boolean  "public",         default: false, null: false
+    t.string   "name",                       null: false
+    t.integer  "number",                     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "chapter_id",                 null: false
+    t.string   "slug",                       null: false
+    t.boolean  "public",     default: false, null: false
   end
 
   add_index "sections", ["name"], name: "index_sections_on_name", unique: true, using: :btree
