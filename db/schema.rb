@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140711204759) do
+ActiveRecord::Schema.define(version: 20151015231438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,10 +27,17 @@ ActiveRecord::Schema.define(version: 20140711204759) do
 
   add_index "chapters", ["name"], name: "index_chapters_on_name", unique: true, using: :btree
 
+  create_table "lesson_sections", force: true do |t|
+    t.integer  "lesson_id"
+    t.integer  "section_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "lessons", force: true do |t|
     t.string   "name",                           null: false
     t.text     "content",                        null: false
-    t.integer  "section_id",                     null: false
+    t.integer  "old_section_id"
     t.integer  "number",                         null: false
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
@@ -47,13 +54,13 @@ ActiveRecord::Schema.define(version: 20140711204759) do
   add_index "lessons", ["name"], name: "index_lessons_on_name", unique: true, using: :btree
 
   create_table "sections", force: true do |t|
-    t.string   "name",                       null: false
-    t.integer  "number",                     null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "chapter_id",                 null: false
-    t.string   "slug",                       null: false
-    t.boolean  "public",     default: false, null: false
+    t.string   "name",                           null: false
+    t.integer  "number",                         null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "old_chapter_id"
+    t.string   "slug",                           null: false
+    t.boolean  "public",         default: false, null: false
   end
 
   add_index "sections", ["name"], name: "index_sections_on_name", unique: true, using: :btree
