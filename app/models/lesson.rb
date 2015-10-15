@@ -9,12 +9,26 @@ class Lesson < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
   validates :content, :presence => true
   validates :number, :presence => true, :numericality => { :only_integer => true }
-  # validates :section, :presence => true
+  validate :lesson_has_section
 
   has_many :lesson_sections
   has_many :sections, through: :lesson_sections
 
   before_destroy :set_private
+
+  def section=(new_section)
+    if new_section.nil?
+      # do nothing
+    elsif new_section.class == Section
+      sections.push(new_section)
+    else
+      sections.push(Section.find(new_section))
+    end
+  end
+
+  def section_id=(new_section)
+    sections.push(Section.find(new_section))
+  end
 
   def next
     Lesson.where('number > ?', number).first
@@ -45,6 +59,13 @@ class Lesson < ActiveRecord::Base
   end
 
 private
+
+  def lesson_has_section
+    unless sections.present?
+      errors.add(:section, "cannot be blank")
+      false
+    end
+  end
 
   def set_private
     update(:public => false)

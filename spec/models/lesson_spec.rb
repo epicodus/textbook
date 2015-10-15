@@ -3,17 +3,20 @@ require 'spec_helper'
 describe Lesson do
   it { should validate_presence_of :name }
   it { should validate_presence_of :content }
-  it { should validate_presence_of :section }
   it { should validate_presence_of :number }
   it { should validate_numericality_of(:number).only_integer }
 
+  it "validates that a lesson is created with a section" do
+    lesson = FactoryGirl.build(:lesson, section: nil)
+    expect(lesson.valid?).to be false
+  end
 
   it 'validates uniqueness of name' do
     FactoryGirl.create :lesson
     should validate_uniqueness_of :name
   end
 
-  it { should belong_to :section }
+  it { should have_many(:sections).through(:lesson_sections) }
 
   it 'sorts by the number by default' do
     last_lesson = FactoryGirl.create :lesson, :number => 4
