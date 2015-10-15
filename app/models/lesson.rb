@@ -9,9 +9,10 @@ class Lesson < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
   validates :content, :presence => true
   validates :number, :presence => true, :numericality => { :only_integer => true }
-  validates :section, :presence => true
+  # validates :section, :presence => true
 
-  belongs_to :section
+  has_many :lesson_sections
+  has_many :sections, through: :lesson_sections
 
   before_destroy :set_private
 
