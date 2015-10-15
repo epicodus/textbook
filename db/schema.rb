@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20151015231438) do
   create_table "lesson_sections", force: true do |t|
     t.integer  "lesson_id"
     t.integer  "section_id"
+    t.integer  "number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
