@@ -8,6 +8,10 @@ class SectionsController < InheritedResources::Base
     redirect_to table_of_contents_path
   end
 
+  def show
+    @section = Section.find(params[:id])
+  end
+
 private
 
   def permitted_params
