@@ -1,15 +1,15 @@
 <% provide :forward_back do %>
   <ul class="nav">
     <% if @lesson.previous_lesson? %>
-      <li><%= link_to 'Previous lesson', @lesson.previous %></li>
+      <li><%= link_to 'Previous lesson', section_lesson_path(@section, @lesson.previous) %></li>
     <% end %>
 
     <% if @lesson.next_lesson? %>
-      <li><%= link_to 'Next lesson', @lesson.next %></li>
+      <li><%= link_to 'Next lesson', section_lesson_path(@section, @lesson.next) %></li>
     <% end %>
   </ul>
 <% end %>
 
 <% provide :up do %>
-  <li><%= link_to 'Section contents', @lesson.section %>
+  <li><%= link_to 'Section contents', @section %>
 <% end %>
