@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20151015231438) do
   create_table "chapters", force: true do |t|
     t.string   "name",                       null: false
     t.integer  "number",                     null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.string   "slug",                       null: false
     t.boolean  "public",     default: false, null: false
   end
@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(version: 20151015231438) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.boolean  "author",                 default: false
   end
 
