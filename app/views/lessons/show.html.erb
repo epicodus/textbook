@@ -43,7 +43,7 @@
       <%= f.submit "Restore", :class => "btn btn-large" %>
     <% end %>
   <% else %>
-    <p><%= link_to "Edit #{@lesson.name}", edit_lesson_path(@lesson), :class => "btn btn-large" %></p>
+    <p><%= link_to "Edit #{@lesson.name}", edit_section_lesson_path(@section, @lesson), :class => "btn btn-large" %></p>
   <% end %>
 <% end %>
 

@@ -133,9 +133,10 @@ describe Lesson do
     it 'can be viewed by a student' do
       lesson = FactoryGirl.create :lesson
       student = FactoryGirl.create :student
+      section = lesson.sections.first
       login_as(student, :scope => :user)
       visit table_of_contents_path
-      click_link lesson.section.name
+      click_link section.name
       click_link lesson.name
       page.should have_content lesson.content
     end
@@ -167,7 +168,8 @@ describe Lesson do
       author = FactoryGirl.create :author
       login_as(author, :scope => :user)
       lesson = FactoryGirl.create :lesson, :public => false
-      visit lesson_path lesson
+      section = lesson.sections.first
+      visit section_lesson_path(section, lesson)
       page.should have_content lesson.content
     end
 
@@ -176,7 +178,8 @@ describe Lesson do
       login_as(student, :scope => :user)
       private_lesson = FactoryGirl.create :lesson, :public => false
       public_lesson = FactoryGirl.create :lesson
-      visit lesson_path private_lesson
+      section = private_lesson.sections.first
+      visit section_lesson_path(section, private_lesson)
       page.should_not have_content private_lesson.content
     end
   end
