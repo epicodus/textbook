@@ -147,7 +147,8 @@ describe Lesson do
       author = FactoryGirl.create :author
       login_as(author, :scope => :user)
       lesson = FactoryGirl.create :lesson
-      visit lesson_path lesson
+      section = lesson.sections.first
+      visit section_lesson_path(section, lesson)
       click_link "Edit #{lesson.name}"
       page.should have_content 'Edit'
     end
@@ -156,9 +157,10 @@ describe Lesson do
       student = FactoryGirl.create :student
       login_as(student, :scope => :user)
       lesson = FactoryGirl.create :lesson
-      visit lesson_path lesson
+      section = lesson.sections.first
+      visit section_lesson_path(section, lesson)
       page.should_not have_content 'Edit lesson'
-      visit edit_lesson_path lesson
+      visit edit_section_lesson_path(section, lesson)
       page.should_not have_content 'Edit'
     end
   end
@@ -187,40 +189,44 @@ describe Lesson do
   context 'deleting and restoring' do
     it 'is removed from the table of contents when it is deleted' do
       lesson = FactoryGirl.create :lesson
+      section = lesson.sections.first
       lesson.destroy
       visit table_of_contents_path
-      click_link lesson.section.name
+      click_link section.name
       page.should_not have_content lesson.name
     end
 
     it 'is listed on the deleted lessons page for an author' do
       lesson = FactoryGirl.create :lesson
+      section = lesson.sections.first
       lesson.destroy
       author = FactoryGirl.create :author
       login_as(author, :scope => :user)
-      visit lessons_path + "?deleted=true"
+      visit section_lessons_path(section) + "?deleted=true"
       page.should have_content lesson.name
     end
 
     it 'is not visible to a student' do
       lesson = FactoryGirl.create :lesson
+      section = lesson.sections.first
       lesson.destroy
       student = FactoryGirl.create :student
       login_as(student, :scope => :user)
-      visit lessons_path + "?deleted=true"
+      visit section_lessons_path(section) + "?deleted=true"
       click_link lesson.name
       page.should_not have_content lesson.content
     end
 
     it 'can be restored' do
       lesson = FactoryGirl.create :lesson
+      section = lesson.sections.first
       lesson.destroy
       author = FactoryGirl.create :author
       login_as(author, :scope => :user)
-      visit lesson_path(lesson) + "?deleted=true"
+      visit section_lesson_path(section, lesson) + "?deleted=true"
       click_button 'Restore'
       visit table_of_contents_path
-      click_link lesson.section.name
+      click_link section.name
       page.should have_content lesson.name
     end
   end

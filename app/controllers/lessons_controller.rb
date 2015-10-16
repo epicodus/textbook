@@ -7,12 +7,13 @@ class LessonsController < InheritedResources::Base
   helper_method :chapters
 
   def index
+    @section = Section.find(params[:section_id])
     if params[:search]
       @query = params[:search]
       @results = Lesson.basic_search(@query)
       render :search_results
     elsif params[:deleted]
-      @lessons = Lesson.only_deleted
+      @lessons = @section.lessons.only_deleted
       render :deleted
     else
       flash.keep
@@ -21,7 +22,6 @@ class LessonsController < InheritedResources::Base
   end
 
   def show
-    @lesson = Lesson.find(params[:id])
     @section = Section.find(params[:section_id])
   end
 

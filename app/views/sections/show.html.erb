@@ -19,5 +19,5 @@
 <% end %>
 
 <% if can? :update, Lesson %>
-  <%= link_to 'View deleted lessons', lessons_path + '?deleted=true' %>
+  <%= link_to 'View deleted lessons', section_lessons_path(@section) + '?deleted=true' %>
 <% end %>
