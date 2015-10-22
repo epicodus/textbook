@@ -28,7 +28,7 @@ describe Lesson do
       fill_in 'Name', :with => lesson.name
       fill_in 'Lesson number', :with => lesson.number
       fill_in 'Content (use Markdown)', :with => lesson.content
-      select lesson.section.name, :from => 'Section'
+      select lesson.sections.first.name, :from => 'Section'
       click_button 'Save'
       page.should have_content lesson.content
     end
@@ -42,7 +42,7 @@ describe Lesson do
       fill_in 'Lesson number', :with => lesson.number
       fill_in 'Content (use Markdown)', :with => lesson.content
       fill_in 'Video ID', :with => lesson.video_id
-      select lesson.section.name, :from => 'Section'
+      select lesson.sections.first.name, :from => 'Section'
       click_button 'Save'
       page.html.should =~ /12345/
     end
@@ -55,7 +55,7 @@ describe Lesson do
       fill_in 'Name', :with => lesson.name
       fill_in 'Lesson number', :with => lesson.number
       fill_in 'Content (use Markdown)', :with => lesson.content
-      select lesson.section.name, :from => 'Section'
+      select lesson.sections.first.name, :from => 'Section'
       click_button 'Save'
       page.html.should_not =~ /<div id="video">/
     end
@@ -70,7 +70,7 @@ describe Lesson do
       fill_in 'Content (use Markdown)', :with => lesson.content
       fill_in 'Video ID', :with => lesson.video_id
       fill_in 'Cheat sheet (use Markdown)', :with => lesson.cheat_sheet
-      select lesson.section.name, :from => 'Section'
+      select lesson.sections.first.name, :from => 'Section'
       click_button 'Save'
       page.should have_content lesson.cheat_sheet
     end
@@ -83,7 +83,7 @@ describe Lesson do
       fill_in 'Name', :with => lesson.name
       fill_in 'Lesson number', :with => lesson.number
       fill_in 'Content (use Markdown)', :with => lesson.content
-      select lesson.section.name, :from => 'Section'
+      select lesson.sections.first.name, :from => 'Section'
       click_button 'Save'
       page.should_not have_content 'Cheat sheet'
     end
@@ -97,7 +97,7 @@ describe Lesson do
       fill_in 'Lesson number', :with => lesson.number
       fill_in 'Content (use Markdown)', :with => lesson.content
       fill_in 'Update warning (use Markdown)', :with => lesson.update_warning
-      select lesson.section.name, :from => 'Section'
+      select lesson.sections.first.name, :from => 'Section'
       click_button 'Save'
       page.should have_content lesson.update_warning
     end
@@ -110,7 +110,7 @@ describe Lesson do
       fill_in 'Name', :with => lesson.name
       fill_in 'Lesson number', :with => lesson.number
       fill_in 'Content (use Markdown)', :with => lesson.content
-      select lesson.section.name, :from => 'Section'
+      select lesson.sections.first.name, :from => 'Section'
       click_button 'Save'
       page.html.should_not =~ /alert-danger/
     end
@@ -123,7 +123,7 @@ describe Lesson do
       fill_in 'Name', :with => lesson.name
       fill_in 'Lesson number', :with => lesson.number
       fill_in 'Content (use Markdown)', :with => '*This* is Markdown.'
-      select lesson.section.name, :from => 'Section'
+      select lesson.sections.first.name, :from => 'Section'
       click_button 'Save'
       page.html.should =~ /<p><em>This<\/em> is Markdown.<\/p>/
     end
