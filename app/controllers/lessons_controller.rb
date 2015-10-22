@@ -21,15 +21,26 @@ class LessonsController < InheritedResources::Base
     end
   end
 
+  def create
+    section = Section.find(params[:lesson][:section_ids])
+    lesson = Lesson.new(lesson_params)
+    if lesson.save
+      redirect_to section_lesson_path(section, lesson)
+    else
+      flash[:alert] = "Lesson not saved."
+      redirect_to new_lesson_path
+    end
+  end
+
   def show
     @section = Section.find(params[:section_id])
   end
 
 private
 
-  def permitted_params
-    params.permit(:lesson => [:name, :content, :cheat_sheet, :update_warning, :section_id,
-                              :number, :public, :deleted_at, :video_id, :tutorial])
+  def lesson_params
+    params.require(:lesson).permit([:name, :content, :cheat_sheet, :update_warning,
+                                    :number, :public, :deleted_at, :video_id, :tutorial, :section_ids])
   end
 
   def sections
