@@ -7,9 +7,9 @@ Textbook::Application.routes.draw do
   get 'table_of_contents' => redirect('table-of-contents')
 
   resources :sections do
-    resources :lessons, except: [:new]
+    resources :lessons, except: [:new, :create]
   end
-  resources :lessons, only: [:new]
+  resources :lessons, only: [:new, :create]
   resources :chapters do
     collection do
       put :update_multiple, :path => ''
