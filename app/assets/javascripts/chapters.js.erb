@@ -10,6 +10,8 @@ $(function () {
   });
 
   $("input#save_order").click(function (click) {
+    $(this).hide();
+    $('#refresh').show();
     var inputs = ['input.chapter', 'input.section_number', 'input.lesson'];
     inputs.forEach(function(item) {
       var count = 1;
@@ -19,7 +21,7 @@ $(function () {
     });
 
     $.each($('input.section_chapter_id'), function() {
-      var chapter_id = $(this).parents('li.chapter').attr('id');
+      var chapter_id = $(this).parents('div.well').attr('id');
       var id = chapter_id.substr(8);
       $(this).val(id);
     });

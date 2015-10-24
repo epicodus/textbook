@@ -65,4 +65,19 @@ describe Chapter, :js => true do
     visit table_of_contents_path
     page.should_not have_content 'delete'
   end
+
+  it "be able to drag a lesson" do
+    author = FactoryGirl.create :author
+    login_as(author, :scope => :user)
+    chapter = FactoryGirl.create :chapter
+    section_one = FactoryGirl.create :section, :chapter_id => chapter.id
+    section_two = FactoryGirl.create :section, :chapter_id => chapter.id
+    lesson_one = FactoryGirl.create :lesson, :section_id => section_one.id
+    lesson_two = FactoryGirl.create :lesson, :section_id => section_two.id
+    visit table_of_contents_path
+    first_sortable = page.all('li.ui-sortable-handle')[0]
+    second_sortable = page.all('li.ui-sortable-handle')[1]
+    first_sortable.drag_to(second_sortable)
+    expect(page.all('li.ui-sortable-handle')[0]).to eq second_sortable
+  end
 end
