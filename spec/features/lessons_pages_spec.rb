@@ -150,7 +150,23 @@ describe Lesson do
       section = lesson.sections.first
       visit section_lesson_path(section, lesson)
       click_link "Edit #{lesson.name}"
-      page.should have_content 'Edit'
+      fill_in 'Name', with: 'Updated lesson'
+      fill_in 'Lesson number', with: lesson.number + 1
+      click_button 'Save'
+      page.should have_content 'Lesson updated'
+    end
+
+    it "doesn't update when name and/or number are blank" do
+      author = FactoryGirl.create :author
+      login_as(author, :scope => :user)
+      lesson = FactoryGirl.create :lesson
+      section = lesson.sections.first
+      visit section_lesson_path(section, lesson)
+      click_link "Edit #{lesson.name}"
+      fill_in 'Name', with: ''
+      fill_in 'Lesson number', with: ''
+      click_button 'Save'
+      page.should have_content 'Lesson not updated'
     end
 
     it 'cannot be edited by a student' do
