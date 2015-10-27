@@ -27,19 +27,31 @@ class LessonsController < InheritedResources::Base
     if lesson.save
       lesson_section = LessonSection.find_by(section_id: section.id, lesson_id: lesson.id)
       lesson_section.update(number: params[:lesson][:number])
-      redirect_to section_lesson_path(section, lesson)
+      redirect_to section_lesson_path(section, lesson), notice: 'Lesson saved.'
     else
-      flash[:alert] = "Lesson not saved."
-      redirect_to new_lesson_path
+      redirect_to new_lesson_path, alert: 'Lesson not saved.'
     end
-  end
-
-  def edit
-    @section = Section.find(params[:section_id])
   end
 
   def show
     @section = Section.find(params[:section_id])
+  end
+
+  def edit
+    @section = Section.find(params[:section_id])
+    @lesson_section = LessonSection.find_by(section_id: @section.id, lesson_id: @lesson.id)
+  end
+
+  def update
+    lesson = Lesson.find(params[:id])
+    if lesson.update(lesson_params)
+      section = Section.find(params[:lesson][:section_ids])
+      lesson_section = LessonSection.find_by(section_id: section.id, lesson_id: lesson.id)
+      lesson_section.update(number: params[:lesson][:number])
+      redirect_to section_lesson_path(section, lesson), notice: 'Lesson updated.'
+    else
+      redirect_to :back, alert: 'Lesson not updated.'
+    end
   end
 
 private
