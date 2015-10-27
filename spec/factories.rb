@@ -32,5 +32,9 @@ FactoryGirl.define do
     association :section, :factory => :section
     sequence(:number) { |n| n }
     public true
+    after(:create) do |lesson|
+      lesson_section = LessonSection.find_by(section_id: lesson.sections.first.id, lesson_id: lesson.id)
+      lesson_section.update(number: lesson.number)
+    end
   end
 end

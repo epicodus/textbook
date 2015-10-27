@@ -38,64 +38,63 @@ describe Lesson do
   end
 
   context '#next' do
-    let!(:current_lesson) { FactoryGirl.create(:lesson, number: 1) }
+    let!(:section) { FactoryGirl.create(:section) }
+    let!(:current_lesson) { FactoryGirl.create(:lesson, number: 1, section: section) }
 
     before { LessonSection.first.update(number: current_lesson.number) }
 
     it 'returns the lesson with the next-highest number than the current lesson' do
-      next_lesson = FactoryGirl.create :lesson, number: 2, section: current_lesson.sections.first
+      next_lesson = FactoryGirl.create :lesson, number: 2, section: section
       LessonSection.last.update(number: next_lesson.number)
-      current_lesson.next(current_lesson.sections.first).should eq next_lesson
+      current_lesson.next(section).should eq next_lesson
     end
 
     it 'returns nil when there is only one lesson in a section' do
-      current_lesson.next(current_lesson.sections.first).should eq nil
+      current_lesson.next(section).should eq nil
     end
   end
 
   context '#previous' do
-    let!(:current_lesson) { FactoryGirl.create(:lesson, number: 2) }
-
-    before { LessonSection.first.update(number: current_lesson.number) }
+    let!(:section) { FactoryGirl.create(:section) }
+    let!(:current_lesson) { FactoryGirl.create(:lesson, number: 2, section: section) }
 
     it 'returns the lesson with the next-lowest number than the current lesson' do
-      previous_lesson = FactoryGirl.create :lesson, :number => 1, section: current_lesson.sections.first
-      LessonSection.last.update(number: previous_lesson.number)
-      current_lesson.previous(current_lesson.sections.first).should eq previous_lesson
+      previous_lesson = FactoryGirl.create :lesson, :number => 1, section: section
+      current_lesson.previous(section).should eq previous_lesson
     end
 
     it 'returns nil when there is only one lesson in a section' do
-      current_lesson.previous(current_lesson.sections.first).should eq nil
+      current_lesson.previous(section).should eq nil
     end
   end
 
   context '#next_lesson?' do
+    let!(:section) { FactoryGirl.create(:section) }
+
     it 'returns false if there is no next lesson' do
-      current_lesson = FactoryGirl.create :lesson
-      current_lesson.next_lesson?(current_lesson.sections.first).should be false
+      current_lesson = FactoryGirl.create :lesson, section: section
+      current_lesson.next_lesson?(section).should be false
     end
 
     it 'returns true if there is a next lesson' do
-      current_lesson = FactoryGirl.create :lesson, :number => 1
-      LessonSection.first.update(number: current_lesson.number)
-      next_lesson = FactoryGirl.create :lesson, :number => 2, section: current_lesson.sections.first
-      LessonSection.last.update(number: next_lesson.number)
-      current_lesson.next_lesson?(current_lesson.sections.first).should be true
+      current_lesson = FactoryGirl.create :lesson, :number => 1, section: section
+      next_lesson = FactoryGirl.create :lesson, :number => 2, section: section
+      current_lesson.next_lesson?(section).should be true
     end
   end
 
   context '#previous_lesson?' do
+    let!(:section) { FactoryGirl.create(:section) }
+
     it 'returns false if there is no previous lesson' do
-      current_lesson = FactoryGirl.create :lesson
-      current_lesson.previous_lesson?(current_lesson.sections.first).should be false
+      current_lesson = FactoryGirl.create :lesson, section: section
+      current_lesson.previous_lesson?(section).should be false
     end
 
     it 'returns true if there is a previous lesson' do
-      current_lesson = FactoryGirl.create :lesson, :number => 2
-      LessonSection.first.update(number: current_lesson.number)
-      previous_lesson = FactoryGirl.create :lesson, :number => 1, section: current_lesson.sections.first
-      LessonSection.last.update(number: previous_lesson.number)
-      current_lesson.previous_lesson?(current_lesson.sections.first).should be true
+      current_lesson = FactoryGirl.create :lesson, :number => 2, section: section
+      previous_lesson = FactoryGirl.create :lesson, :number => 1, section: section
+      current_lesson.previous_lesson?(section).should be true
     end
   end
 
