@@ -2,8 +2,8 @@
 
 <h1><%= yield :title %></h1>
 
-<%= render 'form' %>
+<%= render 'edit_form' %>
 
-<p><%= link_to "Delete #{@lesson.name}", @lesson, :data => { :confirm => 'Are you sure?' }, :method => :delete %></p>
+<p><%= link_to "Delete #{@lesson.name}", section_lesson_path(@section, @lesson), :data => { :confirm => 'Are you sure?' }, :method => :delete %></p>
 
 <%= render 'navbar' %>
