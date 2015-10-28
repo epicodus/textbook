@@ -4,6 +4,7 @@ class CreateLessonSections < ActiveRecord::Migration
       t.integer :lesson_id
       t.integer :section_id
       t.integer :number
+      t.datetime :deleted_at
 
       t.timestamps
     end
