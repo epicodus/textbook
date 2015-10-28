@@ -1,30 +1,33 @@
-<% if chapter_counter % 2 == 0 %>
-  <div class="row">
-<% end %>
+<%= form_tag update_multiple_chapters_path, :method => :put do %>
+  <% if chapter_counter % 2 == 0 %>
+    <div class="row">
+  <% end %>
 
-<div class="span6">
-  <div class="well" id="chapter_<%= chapter.id %>">
-    <h3><%= chapter.name %></h3>
-    <% if can? :update, Chapter %>
-      <p>
-        <%= link_to "edit", edit_chapter_path(chapter), :id => "edit_chapter_#{chapter.id}", :class => 'btn btn-mini btn-info' %>
-        <%= link_to "delete", chapter, :data => { :confirm => 'Are you sure?' }, :method => :delete, :remote => true, :id => "delete_chapter_#{chapter.id}", :class => 'btn btn-mini btn-danger' %>
-      </p>
+  <div class="span6">
+    <div class="well" id="chapter_<%= chapter.id %>">
+      <h3><%= link_to chapter.name, chapter_path(chapter), { class: 'chapter-link' } %></h3>
+      <% if can? :update, Chapter %>
+        <p>
+          <%= link_to "edit", edit_chapter_path(chapter), :id => "edit_chapter_#{chapter.id}", :class => 'btn btn-mini btn-info' %>
+          <%= link_to "delete", chapter, :data => { :confirm => 'Are you sure?' }, :method => :delete, :remote => true, :id => "delete_chapter_#{chapter.id}", :class => 'btn btn-mini btn-danger' %>
+        </p>
 
-      <%= fields_for "chapters[]", chapter do |chapter_form| %>
-        <%= chapter_form.hidden_field :number, :class => :chapter %>
-        <ul class='section'>
+        <%= fields_for "chapters[]", chapter do |chapter_form| %>
+          <%= chapter_form.hidden_field :number, :class => :chapter %>
+          <ul class='section'>
+            <%= render chapter.sections %>
+          </ul>
+        <% end %>
+      <% else %>
+        <ul>
           <%= render chapter.sections %>
         </ul>
       <% end %>
-    <% else %>
-      <ul>
-        <%= render chapter.sections %>
-      </ul>
-    <% end %>
+      <%= submit_tag 'Save order', :class => 'btn btn-primary', :id => 'save_order' %>
+    </div>
   </div>
-</div>
 
-<% if (chapter_counter + 1) % 2 == 0 || (chapter_counter + 1) == @chapters.try(:length) %>
-  </div>
+  <% if (chapter_counter + 1) % 2 == 0 || (chapter_counter + 1) == @chapters.try(:length) %>
+    </div>
+  <% end %>
 <% end %>
