@@ -23,7 +23,9 @@
           <%= render chapter.sections %>
         </ul>
       <% end %>
-      <%= submit_tag 'Save order', :class => 'btn btn-primary', :id => 'save_order' %>
+      <% if can? :update, Chapter %>
+        <%= submit_tag 'Save order', :class => 'btn btn-primary', :id => 'save_order' %>
+      <% end %>
     </div>
   </div>
 
