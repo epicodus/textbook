@@ -7,7 +7,7 @@ class LessonsController < InheritedResources::Base
   helper_method :chapters
 
   def index
-    @section = Section.find(params[:section_id])
+    @section = Section.find(params[:section_id]) if params[:section_id]
     if params[:search]
       @query = params[:search]
       @results = Lesson.basic_search(@query)
