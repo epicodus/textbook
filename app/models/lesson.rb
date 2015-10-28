@@ -32,7 +32,7 @@ class Lesson < ActiveRecord::Base
 
   def next(current_section)
     lesson_number = LessonSection.find_by(section_id: current_section.try(:id), lesson_id: id).try(:number)
-    next_lesson = LessonSection.where(section_id: current_section.try(:id)).where('number > ?', lesson_number).first
+    next_lesson = LessonSection.where(deleted_at: nil).where(section_id: current_section.try(:id)).where('number > ?', lesson_number).first
     if next_lesson.nil?
       # do nothing
     else
@@ -42,7 +42,7 @@ class Lesson < ActiveRecord::Base
 
   def previous(current_section)
     lesson_number = LessonSection.find_by(section_id: current_section.try(:id), lesson_id: id).try(:number)
-    previous_lesson = LessonSection.where(section_id: current_section.try(:id)).where('number < ?', lesson_number).last
+    previous_lesson = LessonSection.where(deleted_at: nil).where(section_id: current_section.try(:id)).where('number < ?', lesson_number).last
     if previous_lesson.nil?
       # do nothing
     else
