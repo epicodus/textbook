@@ -11,7 +11,7 @@ class Lesson < ActiveRecord::Base
   validate :lesson_has_section
   validate :lesson_has_number
 
-  has_many :lesson_sections
+  has_many :lesson_sections, dependent: :destroy
   has_many :sections, through: :lesson_sections
 
   before_destroy :set_private
