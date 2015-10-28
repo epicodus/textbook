@@ -222,6 +222,16 @@ describe Lesson do
       page.should have_content lesson.name
     end
 
+    it 'can be deleted' do
+      lesson = FactoryGirl.create :lesson
+      section = lesson.sections.first
+      author = FactoryGirl.create :author
+      login_as(author, :scope => :user)
+      visit edit_section_lesson_path(section, lesson)
+      click_link 'Delete ' + lesson.name
+      expect(page).to have_content 'Lesson deleted.'
+    end
+
     it 'is not visible to a student' do
       lesson = FactoryGirl.create :lesson
       section = lesson.sections.first
