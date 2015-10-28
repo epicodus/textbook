@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20151022171303) do
     t.integer  "lesson_id"
     t.integer  "section_id"
     t.integer  "number"
+    t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
