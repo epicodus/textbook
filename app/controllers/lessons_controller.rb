@@ -11,6 +11,8 @@ class LessonsController < InheritedResources::Base
     if params[:search]
       @query = params[:search]
       @results = Lesson.basic_search(@query)
+      lesson_sections = LessonSection.where(lesson_id: @results.map(&:id))
+      @sections = Section.where(id: lesson_sections.map(&:section_id))
       render :search_results
     elsif params[:deleted]
       @lessons = @section.lessons.only_deleted
