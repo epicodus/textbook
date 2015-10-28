@@ -15,7 +15,9 @@ class LessonsController < InheritedResources::Base
       @sections = Section.where(id: lesson_sections.map(&:section_id))
       render :search_results
     elsif params[:deleted]
-      @lessons = @section.lessons.only_deleted
+      @lessons = Lesson.only_deleted
+      lesson_sections = LessonSection.where(lesson_id: @lessons.map(&:id))
+      @sections = Section.where(id: lesson_sections.map(&:section_id))
       render :deleted
     else
       flash.keep
@@ -45,14 +47,37 @@ class LessonsController < InheritedResources::Base
   end
 
   def update
-    lesson = Lesson.find(params[:id])
-    if lesson.update(lesson_params)
-      section = Section.find(params[:lesson][:section_ids])
-      lesson_section = LessonSection.find_by(section_id: section.id, lesson_id: lesson.id)
-      lesson_section.update(number: params[:lesson][:number])
-      redirect_to section_lesson_path(section, lesson), notice: 'Lesson updated.'
+    lesson = Lesson.with_deleted.find(params[:id])
+    if params[:deleted]
+      section = Section.find(params[:section_id])
+      if lesson.restore
+        lesson_section = LessonSection.find_by(section_id: section.id, lesson_id: lesson.id)
+        lesson_section.update(deleted_at: nil)
+        redirect_to section_path(section), notice: 'Lesson restored.'
+      else
+        redirect_to :back, alert: 'Lesson not restored.'
+      end
     else
-      redirect_to :back, alert: 'Lesson not updated.'
+      if lesson.update(lesson_params)
+        section = Section.find(params[:lesson][:section_ids])
+        lesson_section = LessonSection.find_by(section_id: section.id, lesson_id: lesson.id)
+        lesson_section.update(number: params[:lesson][:number])
+        redirect_to section_lesson_path(section, lesson), notice: 'Lesson updated.'
+      else
+        redirect_to :back, alert: 'Lesson not updated.'
+      end
+    end
+  end
+
+  def destroy
+    lesson = Lesson.find(params[:id])
+    section = Section.find(params[:section_id])
+    lesson_section = LessonSection.find_by(section_id: section.id, lesson_id: lesson.id)
+    if lesson.destroy
+      lesson_section.update(deleted_at: Time.zone.now)
+      redirect_to section_path(section), notice: 'Lesson deleted.'
+    else
+      redirect_to :back, alert: 'Lesson not deleted.'
     end
   end
 
