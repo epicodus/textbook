@@ -1,0 +1,9 @@
+.chapter-link {
+  color: #555555;
+  text-decoration: none;
+}
+
+.chapter-link:hover {
+  color: #d9230f;
+  text-decoration: none;
+}
