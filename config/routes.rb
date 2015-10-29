@@ -9,7 +9,7 @@ Textbook::Application.routes.draw do
   resources :sections do
     resources :lessons, except: [:new, :create]
   end
-  resources :lessons, only: [:new, :create]
+  resources :lessons, only: [:new, :create, :index]
   resources :chapters do
     collection do
       put :update_multiple, :path => ''
