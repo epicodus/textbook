@@ -2,16 +2,18 @@
   <% unless params[:deleted] %>
     <ul class="nav">
       <% if @lesson.previous_lesson?(@section) %>
-        <li><%= link_to 'Previous lesson', section_lesson_path(@section, @lesson.previous(@section)) %></li>
+        <li><%= link_to 'Previous lesson', lesson_show_path(@section, @lesson.previous(@section)) %></li>
       <% end %>
 
       <% if @lesson.next_lesson?(@section) %>
-        <li><%= link_to 'Next lesson', section_lesson_path(@section, @lesson.next(@section)) %></li>
+        <li><%= link_to 'Next lesson', lesson_show_path(@section, @lesson.next(@section)) %></li>
       <% end %>
     </ul>
   <% end %>
 <% end %>
 
 <% provide :up do %>
-  <li><%= link_to 'Section contents', @section %>
+  <% if @section %>
+    <li><%= link_to 'Section contents', section_show_path(@section) %>
+  <% end %>
 <% end %>

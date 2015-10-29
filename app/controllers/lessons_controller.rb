@@ -31,7 +31,7 @@ class LessonsController < InheritedResources::Base
     if lesson.save
       lesson_section = LessonSection.find_by(section_id: section.id, lesson_id: lesson.id)
       lesson_section.update(number: params[:lesson][:number])
-      redirect_to section_lesson_path(section, lesson), notice: 'Lesson saved.'
+      redirect_to lesson_show_path(section, lesson), notice: 'Lesson saved.'
     else
       redirect_to new_lesson_path, alert: 'Lesson not saved.'
     end
@@ -53,7 +53,7 @@ class LessonsController < InheritedResources::Base
       if lesson.restore
         lesson_section = LessonSection.find_by(section_id: section.id, lesson_id: lesson.id)
         lesson_section.update(deleted_at: nil)
-        redirect_to section_path(section), notice: 'Lesson restored.'
+        redirect_to section_show_path(section), notice: 'Lesson restored.'
       else
         redirect_to :back, alert: 'Lesson not restored.'
       end
@@ -62,7 +62,7 @@ class LessonsController < InheritedResources::Base
         section = Section.find(params[:lesson][:section_ids])
         lesson_section = LessonSection.find_by(section_id: section.id, lesson_id: lesson.id)
         lesson_section.update(number: params[:lesson][:number])
-        redirect_to section_lesson_path(section, lesson), notice: 'Lesson updated.'
+        redirect_to lesson_show_path(section, lesson), notice: 'Lesson updated.'
       else
         redirect_to :back, alert: 'Lesson not updated.'
       end
@@ -76,7 +76,7 @@ class LessonsController < InheritedResources::Base
     lesson.number = lesson_section.number
     if lesson.destroy
       lesson_section.update(deleted_at: Time.zone.now)
-      redirect_to section_path(section), notice: 'Lesson deleted.'
+      redirect_to section_show_path(section), notice: 'Lesson deleted.'
     else
       redirect_to :back, alert: 'Lesson not deleted.'
     end
