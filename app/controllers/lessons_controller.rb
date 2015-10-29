@@ -73,6 +73,7 @@ class LessonsController < InheritedResources::Base
     lesson = Lesson.find(params[:id])
     section = Section.find(params[:section_id])
     lesson_section = LessonSection.find_by(section_id: section.id, lesson_id: lesson.id)
+    lesson.number = lesson_section.number
     if lesson.destroy
       lesson_section.update(deleted_at: Time.zone.now)
       redirect_to section_path(section), notice: 'Lesson deleted.'

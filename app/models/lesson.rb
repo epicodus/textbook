@@ -14,7 +14,7 @@ class Lesson < ActiveRecord::Base
   has_many :lesson_sections
   has_many :sections, through: :lesson_sections
 
-  # before_destroy :set_private
+  before_destroy :set_private
 
   def section=(new_section)
     if new_section.nil?
