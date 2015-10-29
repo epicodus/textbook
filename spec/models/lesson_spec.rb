@@ -1,9 +1,21 @@
 require 'spec_helper'
 
 describe Lesson do
-  it { should validate_presence_of :name }
-  it { should validate_presence_of :content }
-  it { should have_many(:sections).through(:lesson_sections) }
+  describe 'shoulda matchers validations' do
+    subject { FactoryGirl.build :lesson, name: 'Lesson 1' }
+    it { should validate_presence_of :content }
+    it { should have_many(:sections).through(:lesson_sections) }
+  end
+
+  it "validates the presence of name" do
+    lesson = FactoryGirl.build(:lesson, name: nil)
+    expect(lesson.valid?).to be false
+  end
+
+  it 'validates that the name is not lesson' do
+    lesson = FactoryGirl.build(:lesson, name: 'Lesson')
+    expect(lesson.valid?).to be false
+  end
 
   it "validates that a lesson is created with a section" do
     lesson = FactoryGirl.build(:lesson, section: nil)

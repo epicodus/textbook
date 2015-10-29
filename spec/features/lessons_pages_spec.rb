@@ -148,7 +148,7 @@ describe Lesson do
       login_as(author, :scope => :user)
       lesson = FactoryGirl.create :lesson
       section = lesson.sections.first
-      visit section_lesson_path(section, lesson)
+      visit lesson_show_path(section, lesson)
       click_link "Edit #{lesson.name}"
       fill_in 'Name', with: 'Updated lesson'
       fill_in 'Lesson number', with: lesson.number + 1
@@ -161,7 +161,7 @@ describe Lesson do
       login_as(author, :scope => :user)
       lesson = FactoryGirl.create :lesson
       section = lesson.sections.first
-      visit section_lesson_path(section, lesson)
+      visit lesson_show_path(section, lesson)
       click_link "Edit #{lesson.name}"
       fill_in 'Name', with: ''
       fill_in 'Lesson number', with: ''
@@ -174,7 +174,7 @@ describe Lesson do
       login_as(student, :scope => :user)
       lesson = FactoryGirl.create :lesson
       section = lesson.sections.first
-      visit section_lesson_path(section, lesson)
+      visit lesson_show_path(section, lesson)
       page.should_not have_content 'Edit lesson'
       visit edit_section_lesson_path(section, lesson)
       page.should_not have_content 'Edit'
@@ -187,7 +187,7 @@ describe Lesson do
       login_as(author, :scope => :user)
       lesson = FactoryGirl.create :lesson, :public => false
       section = lesson.sections.first
-      visit section_lesson_path(section, lesson)
+      visit lesson_show_path(section, lesson)
       page.should have_content lesson.content
     end
 
@@ -197,7 +197,7 @@ describe Lesson do
       private_lesson = FactoryGirl.create :lesson, :public => false
       public_lesson = FactoryGirl.create :lesson
       section = private_lesson.sections.first
-      visit section_lesson_path(section, private_lesson)
+      visit lesson_show_path(section, private_lesson)
       page.should_not have_content private_lesson.content
     end
   end
@@ -249,7 +249,7 @@ describe Lesson do
       lesson.destroy
       author = FactoryGirl.create :author
       login_as(author, :scope => :user)
-      visit section_lesson_path(section, lesson) + "?deleted=true"
+      visit lesson_show_path(section, lesson) + "?deleted=true"
       click_button 'Restore'
       visit table_of_contents_path
       click_link section.name
