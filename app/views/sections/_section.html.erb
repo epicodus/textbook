@@ -25,7 +25,9 @@
           <%= link_to lesson.name, section_lesson_path(section, lesson), :class => 'lesson' %>
           <%= chapter_form.fields_for 'lessons_attributes[]', lesson do |lesson_form| %>
             <%= lesson_form.hidden_field :id %>
-            <%= lesson_form.hidden_field :number, :class => :lesson %>
+            <% if can? :update, Lesson %>
+              <%= lesson_form.hidden_field :number, { value: LessonSection.find_by(section_id: section.id, lesson_id: lesson.id).number, class: :lesson } %>
+            <% end %>
           <% end %>
         <% end %>
       </li>
