@@ -1,6 +1,10 @@
 class ChaptersController < InheritedResources::Base
   load_and_authorize_resource
 
+  def index
+    @chapters = Chapter.includes([:sections, :lessons])
+  end
+
   def update_multiple
     Chapter.update(params[:chapters].keys, params[:chapters].values)
     sections = params[:chapters].first[1][:sections_attributes].map { |section| Section.find(section[1][:id]) }
