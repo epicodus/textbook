@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Lesson do
   it { should validate_presence_of :name }
   it { should validate_presence_of :content }
+  it { should have_many(:sections).through(:lesson_sections) }
 
   it "validates that a lesson is created with a section" do
     lesson = FactoryGirl.build(:lesson, section: nil)
@@ -28,8 +29,6 @@ describe Lesson do
     FactoryGirl.create :lesson
     should validate_uniqueness_of :name
   end
-
-  it { should have_many(:sections).through(:lesson_sections) }
 
   it 'changes the slug on update' do
     lesson = FactoryGirl.create :lesson
