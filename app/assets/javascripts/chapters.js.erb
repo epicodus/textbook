@@ -3,9 +3,11 @@ $(function () {
     items: '.span4'
   });
   $("ul.section").sortable({
+    containment: 'parent',
     connectWith: 'ul.section'
   });
   $("ul.lesson-sortable").sortable({
+    containment: 'parent',
     connectWith: 'ul.lesson'
   });
 
