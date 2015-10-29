@@ -6,8 +6,8 @@ Textbook::Application.routes.draw do
   get 'table-of-contents' => 'chapters#index', :as => 'table_of_contents'
   get 'table_of_contents' => redirect('table-of-contents')
 
-  resources :sections do
-    resources :lessons, except: [:new, :create]
+  resources :sections, except: [:show] do
+    resources :lessons, except: [:new, :create, :show]
   end
   resources :lessons, only: [:new, :create, :index]
   resources :chapters do
@@ -15,4 +15,6 @@ Textbook::Application.routes.draw do
       put :update_multiple, :path => ''
     end
   end
+  get '/:id', to: 'sections#show', as: :section_show
+  get '/:section_id/:id', to: 'lessons#show', as: :lesson_show
 end
