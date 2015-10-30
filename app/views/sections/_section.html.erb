@@ -1,4 +1,4 @@
-<%= fields_for "chapters[]", section.chapter do |chapter_form| %>
+<%= fields_for section.chapter do |chapter_form| %>
   <li class='section', id='section_<%= section.id %>'>
     <%= link_to section.name, section_show_path(section), :class => 'section' %>
     <% if can? :update, Section %>
