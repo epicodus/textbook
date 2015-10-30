@@ -31,32 +31,20 @@ class Lesson < ActiveRecord::Base
     sections.push(Section.find(new_section))
   end
 
-  def next(current_section)
+  def navigate_to(current_section, position)
     lesson_number = LessonSection.find_by(section_id: current_section.try(:id), lesson_id: id).try(:number)
-    next_lesson = LessonSection.where(deleted_at: nil).where(section_id: current_section.try(:id)).where('number > ?', lesson_number).first
-    if next_lesson.nil?
-      # do nothing
-    else
-      Lesson.find(next_lesson.try(:lesson_id))
+    current_section_lessons = LessonSection.where(deleted_at: nil).where(section_id: current_section.try(:id))
+    if position == 'next'
+      next_lesson = current_section_lessons.where('number > ?', lesson_number).first
+      Lesson.find(next_lesson.lesson_id) unless next_lesson.nil?
+    elsif position == 'previous'
+      previous_lesson = current_section_lessons.where('number < ?', lesson_number).last
+      Lesson.find(previous_lesson.lesson_id) unless previous_lesson.nil?
     end
   end
 
-  def previous(current_section)
-    lesson_number = LessonSection.find_by(section_id: current_section.try(:id), lesson_id: id).try(:number)
-    previous_lesson = LessonSection.where(deleted_at: nil).where(section_id: current_section.try(:id)).where('number < ?', lesson_number).last
-    if previous_lesson.nil?
-      # do nothing
-    else
-      Lesson.find(previous_lesson.try(:lesson_id))
-    end
-  end
-
-  def next_lesson?(current_section)
-    self.next(current_section) != nil
-  end
-
-  def previous_lesson?(current_section)
-    self.previous(current_section) != nil
+  def navigating_lesson?(current_section, position)
+    self.navigate_to(current_section, position) != nil
   end
 
   def has_video?
