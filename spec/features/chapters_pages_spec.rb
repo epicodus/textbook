@@ -34,9 +34,10 @@ describe Chapter, :js => true do
     author = FactoryGirl.create :author
     login_as(author, :scope => :user)
     chapter = FactoryGirl.create :chapter
-    visit table_of_contents_path
-    click_link "edit_chapter_#{chapter.id}"
-    page.should have_content 'Edit'
+    visit edit_chapter_path(chapter)
+    fill_in 'Name', with: 'New awesome chapter'
+    click_button 'Update Chapter'
+    expect(page).to have_content 'Chapter updated'
   end
 
   it 'cannot be edited by a student' do
