@@ -2,9 +2,9 @@ class Lesson < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, :use => [:slugged, :finders]
 
-  attr_accessor :number
-
   acts_as_paranoid
+
+  attr_accessor :number
 
   validates :name, :presence => true, :uniqueness => true
   validates :content, :presence => true
