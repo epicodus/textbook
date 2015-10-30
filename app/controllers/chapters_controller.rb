@@ -22,7 +22,9 @@ class ChaptersController < InheritedResources::Base
 private
 
   def chapter_params
-    params.require(:chapter).permit(:name, :number, :public, :sections_attributes => [:name, :number, :chapter_id, :public], :lessons_attributes => [:name, :content, :section_id, :number, :public, :deleted_at, :video_id])
+    params.require(:chapter).permit(:name, :number, :public,
+                                    sections_attributes: [:name, :number, :chapter_id, :public],
+                                    lessons_attributes: [:name, :content, :section_id, :number, :public, :deleted_at, :video_id])
   end
 
   def update_section_and_lesson_order

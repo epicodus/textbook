@@ -86,7 +86,7 @@ private
 
   def lesson_params
     params.require(:lesson).permit(:name, :content, :cheat_sheet, :update_warning,
-                                    :number, :public, :deleted_at, :video_id, :tutorial, :section_ids)
+                                   :number, :public, :deleted_at, :video_id, :tutorial, :section_ids)
   end
 
   def sections

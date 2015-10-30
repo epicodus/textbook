@@ -14,8 +14,8 @@ class SectionsController < InheritedResources::Base
 
 private
 
-  def permitted_params
-    params.permit(:section => [:name, :number, :chapter_id, :public])
+  def section_params
+    params.require(:section).permit(:name, :number, :chapter_id, :public)
   end
 
   def chapters
