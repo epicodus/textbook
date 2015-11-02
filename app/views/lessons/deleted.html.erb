@@ -2,10 +2,10 @@
 
 <h1><%= yield :title %></h1>
 
-<% @sections.each do |section| %>
-  <h3><%= section.name %></h3>
+<% @chapters.each do |chapter| %>
+  <h3><%= chapter.name %></h3>
   <ul>
-    <% section.lessons.with_deleted.where(id: @lessons.map(&:id)).each do |lesson| %>
+    <% chapter.lessons.with_deleted.where(id: @lessons.map(&:id)).each do |lesson| %>
       <li><%= link_to lesson.name, lesson_path(lesson) + '?deleted=true' %></li>
     <% end %>
   </ul>

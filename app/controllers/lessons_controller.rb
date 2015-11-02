@@ -96,7 +96,8 @@ private
   def find_deleted_lessons
     @lessons = Lesson.only_deleted
     lesson_sections = LessonSection.where(lesson_id: @lessons.map(&:id))
-    @sections = Section.where(id: lesson_sections.map(&:section_id))
+    sections = Section.where(id: lesson_sections.map(&:section_id))
+    @chapters = sections.map { |section| Chapter.find(section.chapter_id) }.uniq
     render :deleted
   end
 
