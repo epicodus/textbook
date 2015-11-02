@@ -12,11 +12,6 @@ describe Lesson do
     expect(lesson.valid?).to be false
   end
 
-  it 'validates that the name is not lesson' do
-    lesson = FactoryGirl.build(:lesson, name: 'Lesson')
-    expect(lesson.valid?).to be false
-  end
-
   it "validates that a lesson is created with a section" do
     lesson = FactoryGirl.build(:lesson, section: nil)
     expect(lesson.valid?).to be false

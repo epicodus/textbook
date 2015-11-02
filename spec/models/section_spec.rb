@@ -15,9 +15,23 @@ describe Section do
     expect(section.valid?).to be false
   end
 
-  it 'validates that the name is not section' do
-    section = FactoryGirl.build(:section, name: 'Section')
-    expect(section.valid?).to be false
+  describe 'validates that name is not a top-level route' do
+    it 'validates that name is not sections' do
+      section = FactoryGirl.build(:section, name: 'Sections')
+      expect(section.valid?).to be false
+    end
+    it 'validates that name is not lessons' do
+      section = FactoryGirl.build(:section, name: 'Lessons')
+      expect(section.valid?).to be false
+    end
+    it 'validates that name is not chapters' do
+      section = FactoryGirl.build(:section, name: 'Chapters')
+      expect(section.valid?).to be false
+    end
+    it 'validates that name is not table of contents' do
+      section = FactoryGirl.build(:section, name: 'Table of contents')
+      expect(section.valid?).to be false
+    end
   end
 
   it 'validates uniqueness of name' do

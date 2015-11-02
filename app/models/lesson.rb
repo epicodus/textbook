@@ -10,7 +10,6 @@ class Lesson < ActiveRecord::Base
   validates :content, :presence => true
   validate :lesson_has_section
   validate :lesson_has_number
-  validate :not_named_lesson
 
   has_many :lesson_sections
   has_many :sections, through: :lesson_sections
@@ -60,13 +59,6 @@ class Lesson < ActiveRecord::Base
   end
 
 private
-
-  def not_named_lesson
-    if name.try(:downcase) == 'lesson'
-      errors.add(:name, "cannot be lesson")
-      false
-    end
-  end
 
   def lesson_has_number
     unless number.present? && !number.is_a?(Float) && number.to_i.is_a?(Integer) && number.to_i > 0
