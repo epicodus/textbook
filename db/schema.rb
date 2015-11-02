@@ -36,6 +36,10 @@ ActiveRecord::Schema.define(version: 20151022171303) do
     t.datetime "updated_at"
   end
 
+  add_index "lesson_sections", ["lesson_id"], name: "index_lesson_sections_on_lesson_id", using: :btree
+  add_index "lesson_sections", ["number"], name: "index_lesson_sections_on_number", using: :btree
+  add_index "lesson_sections", ["section_id"], name: "index_lesson_sections_on_section_id", using: :btree
+
   create_table "lessons", force: true do |t|
     t.string   "name",                           null: false
     t.text     "content",                        null: false

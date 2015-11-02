@@ -8,5 +8,10 @@ class CreateLessonSections < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :lesson_sections, :lesson_id
+    add_index :lesson_sections, :section_id
+    add_index :lesson_sections, :number
+
   end
 end
