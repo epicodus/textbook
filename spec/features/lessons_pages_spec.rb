@@ -217,11 +217,11 @@ describe Lesson do
 
     it 'can be restored' do
       lesson.destroy
-      visit lesson_show_path(section, lesson) + "?deleted=true"
-      click_button 'Restore'
       visit table_of_contents_path
-      click_link section.name
-      page.should have_content lesson.name
+      click_link 'View deleted lessons'
+      click_link lesson.name
+      click_button 'Restore'
+      expect(page).to have_content 'Lesson restored'
     end
   end
 

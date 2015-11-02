@@ -31,7 +31,7 @@ class LessonsController < InheritedResources::Base
   end
 
   def show
-    @section = Section.find(params[:section_id])
+    @section = Section.find(params[:section_id]) if params[:section_id]
   end
 
   def edit
@@ -76,11 +76,10 @@ private
   end
 
   def restore_lesson(lesson)
-    section = Section.find(params[:section_id])
     if lesson.restore
-      lesson_section = LessonSection.find_by(section_id: section.id, lesson_id: lesson.id)
-      lesson_section.update(deleted_at: nil)
-      redirect_to section_show_path(section), notice: 'Lesson restored.'
+      lesson_sections = LessonSection.where(lesson_id: lesson.id)
+      lesson_sections.each { |lesson_section| lesson_section.update(deleted_at: nil) }
+      redirect_to table_of_contents_path, notice: 'Lesson restored.'
     else
       redirect_to :back, alert: 'Lesson not restored.'
     end

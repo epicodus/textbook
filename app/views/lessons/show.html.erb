@@ -38,7 +38,7 @@
 
 <% if can? :update, Lesson %>
   <% if @lesson.deleted? %>
-    <%= form_for @lesson, url: section_lesson_path(@section, @lesson, deleted: true), method: :patch do |f| %>
+    <%= form_for @lesson, url: lesson_path(@lesson, deleted: true), method: :patch do |f| %>
       <%= f.hidden_field :deleted_at, :value => nil %>
       <%= f.submit "Restore", :class => "btn btn-large" %>
     <% end %>
