@@ -3,12 +3,8 @@ require 'spec_helper'
 describe Lesson do
   it { should validate_presence_of :content }
   it { should validate_presence_of :name }
+  it { should validate_presence_of :sections }
   it { should have_many(:sections).through(:lesson_sections) }
-
-  it "validates that a lesson is created with a section" do
-    lesson = FactoryGirl.build(:lesson, section: nil)
-    expect(lesson.valid?).to be false
-  end
 
   it "validates that a lesson is created with a number" do
     lesson = FactoryGirl.build(:lesson, number: nil)

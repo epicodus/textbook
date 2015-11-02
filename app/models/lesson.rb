@@ -8,7 +8,7 @@ class Lesson < ActiveRecord::Base
 
   validates :name, :presence => true, :uniqueness => true
   validates :content, :presence => true
-  validate :lesson_has_section
+  validates :sections, presence: true
   validate :lesson_has_number
 
   has_many :lesson_sections
@@ -63,13 +63,6 @@ private
   def lesson_has_number
     unless number.present? && !number.is_a?(Float) && number.to_i.is_a?(Integer) && number.to_i > 0
       errors.add(:number, "cannot be blank")
-      false
-    end
-  end
-
-  def lesson_has_section
-    unless sections.present?
-      errors.add(:section, "cannot be blank")
       false
     end
   end
