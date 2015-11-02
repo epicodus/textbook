@@ -4,7 +4,7 @@
 
 <ul>
   <% @chapter.sections.each do |section| %>
-    <li><%= link_to section.name, section_show_path(section) %></li>
+    <h3><%= link_to section.name, section_show_path(section), class: 'header-link' %></h3>
     <ul>
       <% section.lessons.each do |lesson| %>
         <li><%= link_to lesson.name, lesson_show_path(section, lesson) %></li>

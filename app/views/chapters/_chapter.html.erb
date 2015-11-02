@@ -5,7 +5,7 @@
 
   <div class="span6">
     <div class="well" id="chapter_<%= chapter.id %>">
-      <h3><%= link_to chapter.name, chapter_path(chapter), { class: 'chapter-link' } %></h3>
+      <h3><%= link_to chapter.name, chapter_path(chapter), { class: 'header-link' } %></h3>
       <% if can? :update, Chapter %>
         <p>
           <%= link_to "edit", edit_chapter_path(chapter), :id => "edit_chapter_#{chapter.id}", :class => 'btn btn-mini btn-info' %>
