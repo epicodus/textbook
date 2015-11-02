@@ -34,9 +34,10 @@ describe Section, js: true do
 
   it 'can be edited by an author' do
     login_as(author, scope: :user)
-    visit table_of_contents_path
-    click_link "edit_section_#{section.id}"
-    page.should have_content 'Edit'
+    visit edit_section_path(section)
+    fill_in 'Name', with: 'New awesome section'
+    click_button 'Update Section'
+    expect(page).to have_content 'Section updated'
   end
 
   it 'cannot be edited by a student' do

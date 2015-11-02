@@ -12,6 +12,15 @@ class SectionsController < InheritedResources::Base
     @section = Section.find(params[:id])
   end
 
+  def update
+    section = Section.find(params[:id])
+    if section.update(section_params)
+      redirect_to section_show_path(section), notice: "Section updated."
+    else
+      redirect_to :back, alert: "Section not updated."
+    end
+  end
+
 private
 
   def section_params
