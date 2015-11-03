@@ -2,7 +2,7 @@
 
 <h1><%= yield :title %></h1>
 
-<%= render 'edit_form' %>
+<%= render 'form' %>
 
 <p><%= link_to "Delete #{@lesson.name}", section_lesson_path(@section, @lesson), data: { confirm: 'Are you sure?' }, method: :delete %></p>
 

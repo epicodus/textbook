@@ -1,11 +1,11 @@
 <%= render 'layouts/errors', :object => @lesson %>
-<%= form_for @lesson do |f| %>
+<%= lesson_form do |f| %>
   <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= f.text_field :name, class: 'span5' %>
   <%= f.label :number, 'Lesson number' %>
-  <%= f.text_field :number %>
+  <%= f.text_field :number, value: @lesson_section.try(:number) %>
   <%= f.label :section_ids, 'Section' %>
-  <%= f.select :section_ids, options_from_collection_for_select(sections, :id, :name) %>
+  <%= f.select :section_ids, options_from_collection_for_select(sections, :id, :name, @section.try(:id)), {}, { class: 'span5' } %>
   <%= f.label :video_id, "Video ID from Vimeo" %>
   <%= f.text_field :video_id %>
   <%= f.label(:tutorial, :class => "checkbox") do %>
@@ -15,7 +15,8 @@
   <%= f.label(:public, :class => "checkbox") do %>
     <%= f.check_box :public %>
     Public
-  <% end %>  <%= f.label :content, "Content (use Markdown)" %>
+  <% end %>
+  <%= f.label :content, "Content (use Markdown)" %>
   <%= f.text_area :content %>
   <%= f.label :cheat_sheet, "Cheat sheet (use Markdown)" %>
   <%= f.text_area :cheat_sheet, :class => 'cheat-sheet' %>
