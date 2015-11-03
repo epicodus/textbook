@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe LessonSection do
+
+  it { should validate_presence_of :section }
+  it { should validate_presence_of :lesson }
+
   describe 'default scope' do
     let(:section) { FactoryGirl.create(:section) }
     let(:last_lesson) { FactoryGirl.create :lesson, number: 4, section: section }

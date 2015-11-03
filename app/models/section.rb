@@ -9,7 +9,7 @@ class Section < ActiveRecord::Base
   validates :chapter, :presence => true
   validate :name_does_not_conflict_with_routes
 
-  has_many :lesson_sections
+  has_many :lesson_sections, inverse_of: :section
   has_many :lessons, through: :lesson_sections
   belongs_to :chapter
 
