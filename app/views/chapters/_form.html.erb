@@ -1,9 +1,9 @@
 <%= render '/layouts/errors', :object => @chapter %>
 <%= chapter_and_section_form(@chapter) do |f| %>
   <%= f.label :name %>
-  <%= f.text_field :name, required: true %>
+  <%= f.text_field :name %>
   <%= f.label :number, 'Chapter number' %>
-  <%= f.text_field :number, required: true %>
+  <%= f.text_field :number %>
   <%= f.label(:public, :class => "checkbox") do %>
     <%= f.check_box :public %>
     Public

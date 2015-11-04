@@ -1,7 +1,7 @@
 <%= render 'layouts/errors', :object => @lesson %>
 <%= lesson_form do |f| %>
   <%= f.label :name %>
-  <%= f.text_field :name, class: 'span5', required: true %>
+  <%= f.text_field :name, class: 'span5' %>
   <%= f.label :section_ids, 'Section' %>
   <%= f.select :section_ids, options_from_collection_for_select(sections, :id, :name, @section.try(:id)), {}, { class: 'span5' } %>
   <%= f.label :video_id, "Video ID from Vimeo" %>
@@ -15,7 +15,7 @@
     Public
   <% end %>
   <%= f.label :content, "Content (use Markdown)" %>
-  <%= f.text_area :content, required: true %>
+  <%= f.text_area :content %>
   <%= f.label :cheat_sheet, "Cheat sheet (use Markdown)" %>
   <%= f.text_area :cheat_sheet, :class => 'cheat-sheet' %>
   <%= f.label :update_warning, "Update warning (use Markdown)" %>
