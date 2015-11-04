@@ -5,12 +5,6 @@ describe LessonSection do
   it { should validate_presence_of :section }
 
   describe 'validations' do
-    it 'validates that a lesson section is created with a lesson' do
-      section = FactoryGirl.create(:section)
-      lesson_section = LessonSection.new(section_id: section.id, lesson_id: nil)
-      expect(lesson_section.valid?).to be false
-    end
-
     it 'validates that a lesson section always has a number' do
       section = FactoryGirl.create(:section)
       lesson = FactoryGirl.create(:lesson)

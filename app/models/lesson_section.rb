@@ -5,7 +5,6 @@ class LessonSection < ActiveRecord::Base
   before_validation :set_number, on: :create
 
   validates :section, presence: true
-  validates :lesson, presence: true
   validates :number, presence: true, numericality: { only_integer: true }
 
   default_scope -> { order :number }
