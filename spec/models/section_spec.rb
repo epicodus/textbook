@@ -1,14 +1,11 @@
 require 'spec_helper'
 
 describe Section do
-  describe 'shoulda matchers validations' do
-    subject { FactoryGirl.build :section, name: 'Section 1' }
-    it { should validate_presence_of :number }
-    it { should validate_numericality_of(:number).only_integer }
-    it { should validate_presence_of :chapter }
-    it { should have_many(:lessons).through(:lesson_sections) }
-    it { should belong_to :chapter }
-  end
+  it { should validate_presence_of :number }
+  it { should validate_numericality_of(:number).only_integer }
+  it { should validate_presence_of :chapter }
+  it { should have_many(:lessons).through(:lesson_sections) }
+  it { should belong_to :chapter }
 
   it "validates the presence of name" do
     section = FactoryGirl.build(:section, name: nil)
