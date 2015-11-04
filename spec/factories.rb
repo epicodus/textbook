@@ -30,11 +30,6 @@ FactoryGirl.define do
     update_warning "This is the update warning."
     video_id 12345
     association :section, :factory => :section
-    sequence(:number) { |n| n }
     public true
-    after(:create) do |lesson|
-      lesson_section = LessonSection.find_by(section_id: lesson.sections.first.id, lesson_id: lesson.id)
-      lesson_section.update(number: lesson.number)
-    end
   end
 end
