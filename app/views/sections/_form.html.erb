@@ -1,9 +1,9 @@
 <%= render 'layouts/errors', :object => @section %>
-<%= ajax_form_for(@section) do |f| %>
+<%= chapter_and_section_form(@section) do |f| %>
   <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= f.text_field :name, required: true %>
   <%= f.label :number, 'Section number' %>
-  <%= f.text_field :number %>
+  <%= f.text_field :number, required: true %>
   <%= f.label :chapter %>
   <%= f.select :chapter_id, options_from_collection_for_select(chapters, :id, :name, @section.chapter_id) %>
   <%= f.label(:public, :class => "checkbox") do %>
