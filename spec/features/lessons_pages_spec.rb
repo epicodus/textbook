@@ -27,7 +27,6 @@ describe Lesson do
     it 'lets authors create a lesson' do
       visit new_lesson_path
       fill_in 'Name', with: lesson.name
-      fill_in 'Lesson number', with: lesson.number
       fill_in 'Content (use Markdown)', with: lesson.content
       select section.name, from: 'Section'
       click_button 'Save'
@@ -37,7 +36,6 @@ describe Lesson do
     it 'can have a video embedded in it' do
       visit new_lesson_path
       fill_in 'Name', with: lesson.name
-      fill_in 'Lesson number', with: lesson.number
       fill_in 'Content (use Markdown)', with: lesson.content
       fill_in 'Video ID', with: lesson.video_id
       select section.name, from: 'Section'
@@ -48,7 +46,6 @@ describe Lesson do
     it "doesn't have to have video embedded in it" do
       visit new_lesson_path
       fill_in 'Name', with: lesson.name
-      fill_in 'Lesson number', with: lesson.number
       fill_in 'Content (use Markdown)', with: lesson.content
       select section.name, from: 'Section'
       click_button 'Save'
@@ -58,7 +55,6 @@ describe Lesson do
     it 'can have a cheat sheet' do
       visit new_lesson_path
       fill_in 'Name', with: lesson.name
-      fill_in 'Lesson number', with: lesson.number
       fill_in 'Content (use Markdown)', with: lesson.content
       fill_in 'Video ID', with: lesson.video_id
       fill_in 'Cheat sheet (use Markdown)', with: lesson.cheat_sheet
@@ -70,7 +66,6 @@ describe Lesson do
     it "doesn't have to have a cheat sheet" do
       visit new_lesson_path
       fill_in 'Name', with: lesson.name
-      fill_in 'Lesson number', with: lesson.number
       fill_in 'Content (use Markdown)', with: lesson.content
       select section.name, from: 'Section'
       click_button 'Save'
@@ -80,7 +75,6 @@ describe Lesson do
     it 'can have an update warning' do
       visit new_lesson_path
       fill_in 'Name', with: lesson.name
-      fill_in 'Lesson number', with: lesson.number
       fill_in 'Content (use Markdown)', with: lesson.content
       fill_in 'Update warning (use Markdown)', with: lesson.update_warning
       select section.name, from: 'Section'
@@ -91,7 +85,6 @@ describe Lesson do
     it "doesn't have to have an update warning" do
       visit new_lesson_path
       fill_in 'Name', with: lesson.name
-      fill_in 'Lesson number', with: lesson.number
       fill_in 'Content (use Markdown)', with: lesson.content
       select section.name, from: 'Section'
       click_button 'Save'
@@ -101,7 +94,6 @@ describe Lesson do
     it 'uses markdown to format lessons' do
       visit new_lesson_path
       fill_in 'Name', with: lesson.name
-      fill_in 'Lesson number', with: lesson.number
       fill_in 'Content (use Markdown)', with: '*This* is Markdown.'
       select section.name, from: 'Section'
       click_button 'Save'
@@ -135,7 +127,6 @@ describe Lesson do
       visit lesson_show_path(section, lesson)
       click_link "Edit #{lesson.name}"
       fill_in 'Name', with: 'Updated lesson'
-      fill_in 'Lesson number', with: lesson.number + 1
       click_button 'Save'
       page.should have_content 'Lesson updated'
     end
@@ -144,9 +135,8 @@ describe Lesson do
       visit lesson_show_path(section, lesson)
       click_link "Edit #{lesson.name}"
       fill_in 'Name', with: ''
-      fill_in 'Lesson number', with: ''
       click_button 'Save'
-      page.should have_content 'Lesson not updated'
+      page.should have_content "Edit #{lesson.name}" 
     end
 
     it 'cannot be edited by a student' do
