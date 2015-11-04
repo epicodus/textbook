@@ -136,7 +136,7 @@ describe Lesson do
       click_link "Edit #{lesson.name}"
       fill_in 'Name', with: ''
       click_button 'Save'
-      page.should have_content "Edit #{lesson.name}" 
+      page.should have_content "Edit #{lesson.name}"
     end
 
     it 'cannot be edited by a student' do
