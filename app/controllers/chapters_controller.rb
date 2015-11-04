@@ -14,7 +14,7 @@ class ChaptersController < InheritedResources::Base
       if chapter.update(chapter_params)
         redirect_to chapter_path(chapter), notice: "Chapter updated."
       else
-        redirect_to :back, alert: "Chapter not updated."
+        render 'edit'
       end
     end
   end

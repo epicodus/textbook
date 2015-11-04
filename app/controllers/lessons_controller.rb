@@ -22,11 +22,9 @@ class LessonsController < InheritedResources::Base
     section = Section.find(params[:lesson][:section_ids])
     lesson = Lesson.new(lesson_params)
     if lesson.save
-      lesson_section = LessonSection.find_by(section_id: section.id, lesson_id: lesson.id)
-      lesson_section.update(number: params[:lesson][:number])
       redirect_to lesson_show_path(section, lesson), notice: 'Lesson saved.'
     else
-      redirect_to new_lesson_path, alert: 'Lesson not saved.'
+      render 'new'
     end
   end
 
@@ -46,11 +44,10 @@ class LessonsController < InheritedResources::Base
     else
       if lesson.update(lesson_params)
         section = Section.find(params[:lesson][:section_ids])
-        lesson_section = LessonSection.find_by(section_id: section.id, lesson_id: lesson.id)
-        lesson_section.update(number: params[:lesson][:number])
         redirect_to lesson_show_path(section, lesson), notice: 'Lesson updated.'
       else
-        redirect_to :back, alert: 'Lesson not updated.'
+        @section = Section.find(params[:lesson][:section_ids])
+        render 'edit'
       end
     end
   end
@@ -59,26 +56,20 @@ class LessonsController < InheritedResources::Base
     lesson = Lesson.find(params[:id])
     section = Section.find(params[:section_id])
     lesson_section = LessonSection.find_by(section_id: section.id, lesson_id: lesson.id)
-    lesson.number = lesson_section.number
-    if lesson.destroy
-      lesson_section.update(deleted_at: Time.zone.now)
-      redirect_to section_show_path(section), notice: 'Lesson deleted.'
-    else
-      redirect_to :back, alert: 'Lesson not deleted.'
-    end
+    lesson.destroy
+    lesson_section.update(deleted_at: Time.zone.now) #fixme
+    redirect_to section_show_path(section), notice: 'Lesson deleted.'
   end
 
 private
 
   def lesson_params
     params.require(:lesson).permit(:name, :content, :cheat_sheet, :update_warning,
-                                   :number, :public, :deleted_at, :video_id, :tutorial, :section_ids)
+                                   :public, :deleted_at, :video_id, :tutorial, :section_ids)
   end
 
   def restore_lesson(lesson)
     if lesson.restore
-      lesson_sections = LessonSection.where(lesson_id: lesson.id)
-      lesson_sections.each { |lesson_section| lesson_section.update(deleted_at: nil) }
       redirect_to table_of_contents_path, notice: 'Lesson restored.'
     else
       redirect_to :back, alert: 'Lesson not restored.'
