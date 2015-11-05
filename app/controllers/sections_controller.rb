@@ -8,10 +8,23 @@ class SectionsController < InheritedResources::Base
     redirect_to table_of_contents_path
   end
 
+  def show
+    @section = Section.find(params[:id])
+  end
+
+  def update
+    section = Section.find(params[:id])
+    if section.update(section_params)
+      redirect_to section_show_path(section), notice: "Section updated."
+    else
+      render 'edit'
+    end
+  end
+
 private
 
-  def permitted_params
-    params.permit(:section => [:name, :number, :chapter_id, :public])
+  def section_params
+    params.require(:section).permit(:name, :number, :chapter_id, :public)
   end
 
   def chapters

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140711204759) do
+ActiveRecord::Schema.define(version: 20151022171303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,11 +27,24 @@ ActiveRecord::Schema.define(version: 20140711204759) do
 
   add_index "chapters", ["name"], name: "index_chapters_on_name", unique: true, using: :btree
 
+  create_table "lesson_sections", force: true do |t|
+    t.integer  "lesson_id"
+    t.integer  "section_id"
+    t.integer  "number"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "lesson_sections", ["lesson_id"], name: "index_lesson_sections_on_lesson_id", using: :btree
+  add_index "lesson_sections", ["number"], name: "index_lesson_sections_on_number", using: :btree
+  add_index "lesson_sections", ["section_id"], name: "index_lesson_sections_on_section_id", using: :btree
+
   create_table "lessons", force: true do |t|
     t.string   "name",                           null: false
     t.text     "content",                        null: false
-    t.integer  "section_id",                     null: false
-    t.integer  "number",                         null: false
+    t.integer  "old_section_id"
+    t.integer  "old_number"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.datetime "deleted_at"

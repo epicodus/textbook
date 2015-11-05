@@ -2,9 +2,14 @@ require 'spec_helper'
 
 describe Lesson do
   context 'creating' do
+    let(:author) { FactoryGirl.create :author }
+    let(:student) { FactoryGirl.create :student }
+    let!(:section) { FactoryGirl.create :section }
+    let!(:lesson) { FactoryGirl.build :lesson, section: section }
+
+    before { login_as(author, scope: :user) }
+
     it 'lets the author view the New page' do
-      author = FactoryGirl.create :author
-      login_as(author, :scope => :user)
       visit table_of_contents_path
       page.should have_content 'New lesson'
       visit new_lesson_path
@@ -12,8 +17,7 @@ describe Lesson do
     end
 
     it 'does not let students view the New page' do
-      student = FactoryGirl.create :student
-      login_as(student, :scope => :user)
+      login_as(student, scope: :user)
       visit table_of_contents_path
       page.should_not have_content 'New lesson'
       visit new_lesson_path
@@ -21,212 +25,202 @@ describe Lesson do
     end
 
     it 'lets authors create a lesson' do
-      author = FactoryGirl.create :author
-      login_as(author, :scope => :user)
-      lesson = FactoryGirl.build :lesson
       visit new_lesson_path
-      fill_in 'Name', :with => lesson.name
-      fill_in 'Lesson number', :with => lesson.number
-      fill_in 'Content (use Markdown)', :with => lesson.content
-      select lesson.section.name, :from => 'Section'
+      fill_in 'Name', with: lesson.name
+      fill_in 'Content (use Markdown)', with: lesson.content
+      select section.name, from: 'Section'
       click_button 'Save'
       page.should have_content lesson.content
     end
 
     it 'can have a video embedded in it' do
-      author = FactoryGirl.create :author
-      login_as(author, :scope => :user)
-      lesson = FactoryGirl.build :lesson
       visit new_lesson_path
-      fill_in 'Name', :with => lesson.name
-      fill_in 'Lesson number', :with => lesson.number
-      fill_in 'Content (use Markdown)', :with => lesson.content
-      fill_in 'Video ID', :with => lesson.video_id
-      select lesson.section.name, :from => 'Section'
+      fill_in 'Name', with: lesson.name
+      fill_in 'Content (use Markdown)', with: lesson.content
+      fill_in 'Video ID', with: lesson.video_id
+      select section.name, from: 'Section'
       click_button 'Save'
       page.html.should =~ /12345/
     end
 
     it "doesn't have to have video embedded in it" do
-      author = FactoryGirl.create :author
-      login_as(author, :scope => :user)
-      lesson = FactoryGirl.build :lesson
       visit new_lesson_path
-      fill_in 'Name', :with => lesson.name
-      fill_in 'Lesson number', :with => lesson.number
-      fill_in 'Content (use Markdown)', :with => lesson.content
-      select lesson.section.name, :from => 'Section'
+      fill_in 'Name', with: lesson.name
+      fill_in 'Content (use Markdown)', with: lesson.content
+      select section.name, from: 'Section'
       click_button 'Save'
       page.html.should_not =~ /<div id="video">/
     end
 
     it 'can have a cheat sheet' do
-      author = FactoryGirl.create :author
-      login_as(author, :scope => :user)
-      lesson = FactoryGirl.build :lesson
       visit new_lesson_path
-      fill_in 'Name', :with => lesson.name
-      fill_in 'Lesson number', :with => lesson.number
-      fill_in 'Content (use Markdown)', :with => lesson.content
-      fill_in 'Video ID', :with => lesson.video_id
-      fill_in 'Cheat sheet (use Markdown)', :with => lesson.cheat_sheet
-      select lesson.section.name, :from => 'Section'
+      fill_in 'Name', with: lesson.name
+      fill_in 'Content (use Markdown)', with: lesson.content
+      fill_in 'Video ID', with: lesson.video_id
+      fill_in 'Cheat sheet (use Markdown)', with: lesson.cheat_sheet
+      select section.name, from: 'Section'
       click_button 'Save'
       page.should have_content lesson.cheat_sheet
     end
 
     it "doesn't have to have a cheat sheet" do
-      author = FactoryGirl.create :author
-      login_as(author, :scope => :user)
-      lesson = FactoryGirl.build :lesson
       visit new_lesson_path
-      fill_in 'Name', :with => lesson.name
-      fill_in 'Lesson number', :with => lesson.number
-      fill_in 'Content (use Markdown)', :with => lesson.content
-      select lesson.section.name, :from => 'Section'
+      fill_in 'Name', with: lesson.name
+      fill_in 'Content (use Markdown)', with: lesson.content
+      select section.name, from: 'Section'
       click_button 'Save'
       page.should_not have_content 'Cheat sheet'
     end
 
     it 'can have an update warning' do
-      author = FactoryGirl.create :author
-      login_as(author, :scope => :user)
-      lesson = FactoryGirl.build :lesson
       visit new_lesson_path
-      fill_in 'Name', :with => lesson.name
-      fill_in 'Lesson number', :with => lesson.number
-      fill_in 'Content (use Markdown)', :with => lesson.content
-      fill_in 'Update warning (use Markdown)', :with => lesson.update_warning
-      select lesson.section.name, :from => 'Section'
+      fill_in 'Name', with: lesson.name
+      fill_in 'Content (use Markdown)', with: lesson.content
+      fill_in 'Update warning (use Markdown)', with: lesson.update_warning
+      select section.name, from: 'Section'
       click_button 'Save'
       page.should have_content lesson.update_warning
     end
 
     it "doesn't have to have an update warning" do
-      author = FactoryGirl.create :author
-      login_as(author, :scope => :user)
-      lesson = FactoryGirl.build :lesson
       visit new_lesson_path
-      fill_in 'Name', :with => lesson.name
-      fill_in 'Lesson number', :with => lesson.number
-      fill_in 'Content (use Markdown)', :with => lesson.content
-      select lesson.section.name, :from => 'Section'
+      fill_in 'Name', with: lesson.name
+      fill_in 'Content (use Markdown)', with: lesson.content
+      select section.name, from: 'Section'
       click_button 'Save'
       page.html.should_not =~ /alert-danger/
     end
 
     it 'uses markdown to format lessons' do
-      author = FactoryGirl.create :author
-      login_as(author, :scope => :user)
-      lesson = FactoryGirl.build :lesson
       visit new_lesson_path
-      fill_in 'Name', :with => lesson.name
-      fill_in 'Lesson number', :with => lesson.number
-      fill_in 'Content (use Markdown)', :with => '*This* is Markdown.'
-      select lesson.section.name, :from => 'Section'
+      fill_in 'Name', with: lesson.name
+      fill_in 'Content (use Markdown)', with: '*This* is Markdown.'
+      select section.name, from: 'Section'
       click_button 'Save'
       page.html.should =~ /<p><em>This<\/em> is Markdown.<\/p>/
     end
   end
 
   context 'viewing' do
+    let(:student) { FactoryGirl.create :student }
+    let!(:section) { FactoryGirl.create :section }
+    let!(:lesson) { FactoryGirl.create :lesson, section: section }
+
     it 'can be viewed by a student' do
-      lesson = FactoryGirl.create :lesson
-      student = FactoryGirl.create :student
-      login_as(student, :scope => :user)
+      login_as(student, scope: :user)
       visit table_of_contents_path
-      click_link lesson.section.name
+      click_link section.name
       click_link lesson.name
       page.should have_content lesson.content
     end
   end
 
   context 'editing' do
+    let(:author) { FactoryGirl.create :author }
+    let(:student) { FactoryGirl.create :student }
+    let!(:section) { FactoryGirl.create :section }
+    let!(:lesson) { FactoryGirl.create :lesson, section: section }
+
+    before { login_as(author, scope: :user) }
+
     it 'can be edited by an author' do
-      author = FactoryGirl.create :author
-      login_as(author, :scope => :user)
-      lesson = FactoryGirl.create :lesson
-      visit lesson_path lesson
+      visit lesson_show_path(section, lesson)
       click_link "Edit #{lesson.name}"
-      page.should have_content 'Edit'
+      fill_in 'Name', with: 'Updated lesson'
+      click_button 'Save'
+      page.should have_content 'Lesson updated'
+    end
+
+    it "doesn't update when name and/or number are blank" do
+      visit lesson_show_path(section, lesson)
+      click_link "Edit #{lesson.name}"
+      fill_in 'Name', with: ''
+      click_button 'Save'
+      page.should have_content "Edit #{lesson.name}"
     end
 
     it 'cannot be edited by a student' do
-      student = FactoryGirl.create :student
-      login_as(student, :scope => :user)
-      lesson = FactoryGirl.create :lesson
-      visit lesson_path lesson
+      login_as(student, scope: :user)
+      visit lesson_show_path(section, lesson)
       page.should_not have_content 'Edit lesson'
-      visit edit_lesson_path lesson
+      visit edit_section_lesson_path(section, lesson)
       page.should_not have_content 'Edit'
     end
   end
 
   context 'when it is not public' do
+    let(:author) { FactoryGirl.create :author }
+    let(:student) { FactoryGirl.create :student }
+    let!(:section) { FactoryGirl.create :section }
+
+    before { login_as(author, scope: :user) }
+
     it 'is visible to an author' do
-      author = FactoryGirl.create :author
-      login_as(author, :scope => :user)
-      lesson = FactoryGirl.create :lesson, :public => false
-      visit lesson_path lesson
+      lesson = FactoryGirl.create :lesson, section: section, public: false
+      visit lesson_show_path(section, lesson)
       page.should have_content lesson.content
     end
 
     it 'is not visible to a student' do
-      student = FactoryGirl.create :student
-      login_as(student, :scope => :user)
-      private_lesson = FactoryGirl.create :lesson, :public => false
-      public_lesson = FactoryGirl.create :lesson
-      visit lesson_path private_lesson
+      login_as(student, scope: :user)
+      private_lesson = FactoryGirl.create :lesson, section: section, public: false
+      public_lesson = FactoryGirl.create :lesson, section: section
+      visit lesson_show_path(section, private_lesson)
       page.should_not have_content private_lesson.content
     end
   end
 
   context 'deleting and restoring' do
+    let(:author) { FactoryGirl.create :author }
+    let(:student) { FactoryGirl.create :student }
+    let!(:section) { FactoryGirl.create :section }
+    let!(:lesson) { FactoryGirl.create :lesson, section: section }
+
+    before { login_as(author, scope: :user) }
+
     it 'is removed from the table of contents when it is deleted' do
-      lesson = FactoryGirl.create :lesson
       lesson.destroy
       visit table_of_contents_path
-      click_link lesson.section.name
+      click_link section.name
       page.should_not have_content lesson.name
     end
 
     it 'is listed on the deleted lessons page for an author' do
-      lesson = FactoryGirl.create :lesson
       lesson.destroy
-      author = FactoryGirl.create :author
-      login_as(author, :scope => :user)
-      visit lessons_path + "?deleted=true"
+      visit section_lessons_path(section) + "?deleted=true"
       page.should have_content lesson.name
     end
 
+    it 'can be deleted' do
+      visit edit_section_lesson_path(section, lesson)
+      click_link 'Delete ' + lesson.name
+      expect(page).to have_content 'Lesson deleted.'
+    end
+
     it 'is not visible to a student' do
-      lesson = FactoryGirl.create :lesson
       lesson.destroy
-      student = FactoryGirl.create :student
-      login_as(student, :scope => :user)
-      visit lessons_path + "?deleted=true"
+      login_as(student, scope: :user)
+      visit section_lessons_path(section) + "?deleted=true"
       click_link lesson.name
       page.should_not have_content lesson.content
     end
 
     it 'can be restored' do
-      lesson = FactoryGirl.create :lesson
       lesson.destroy
-      author = FactoryGirl.create :author
-      login_as(author, :scope => :user)
-      visit lesson_path(lesson) + "?deleted=true"
-      click_button 'Restore'
       visit table_of_contents_path
-      click_link lesson.section.name
-      page.should have_content lesson.name
+      click_link 'View deleted lessons'
+      click_link lesson.name
+      click_button 'Restore'
+      expect(page).to have_content 'Lesson restored'
     end
   end
 
   context 'searching' do
+    let!(:lesson) { FactoryGirl.create :lesson }
+
     it 'lets you search for lessons' do
-      lesson = FactoryGirl.create :lesson
       visit table_of_contents_path
-      fill_in 'Search for:', :with => lesson.content.split.last
+      fill_in 'Search for:', with: lesson.content.split.last
       click_button 'Search'
       page.should have_content lesson.name
     end

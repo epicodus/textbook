@@ -1,15 +1,19 @@
 <% provide :forward_back do %>
-  <ul class="nav">
-    <% if @lesson.previous_lesson? %>
-      <li><%= link_to 'Previous lesson', @lesson.previous %></li>
-    <% end %>
+  <% unless params[:deleted] %>
+    <ul class="nav">
+      <% if @lesson.can_navigate_to(:previous, @section) %>
+        <li><%= link_to 'Previous lesson', lesson_show_path(@section, @lesson.navigate_to(:previous, @section)) %></li>
+      <% end %>
 
-    <% if @lesson.next_lesson? %>
-      <li><%= link_to 'Next lesson', @lesson.next %></li>
-    <% end %>
-  </ul>
+      <% if @lesson.can_navigate_to(:next, @section) %>
+        <li><%= link_to 'Next lesson', lesson_show_path(@section, @lesson.navigate_to(:next, @section)) %></li>
+      <% end %>
+    </ul>
+  <% end %>
 <% end %>
 
 <% provide :up do %>
-  <li><%= link_to 'Section contents', @lesson.section %>
+  <% if @section %>
+    <li><%= link_to 'Section contents', section_show_path(@section) %>
+  <% end %>
 <% end %>

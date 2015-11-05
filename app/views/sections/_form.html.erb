@@ -1,5 +1,5 @@
 <%= render 'layouts/errors', :object => @section %>
-<%= form_for @section, :remote => true do |f| %>
+<%= chapter_and_section_form(@section) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.label :number, 'Section number' %>

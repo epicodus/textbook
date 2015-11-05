@@ -38,12 +38,12 @@
 
 <% if can? :update, Lesson %>
   <% if @lesson.deleted? %>
-    <%= form_for @lesson, :url => { :deleted => true } do |f| %>
+    <%= form_for @lesson, url: lesson_path(@lesson, deleted: true), method: :patch do |f| %>
       <%= f.hidden_field :deleted_at, :value => nil %>
       <%= f.submit "Restore", :class => "btn btn-large" %>
     <% end %>
   <% else %>
-    <p><%= link_to "Edit #{@lesson.name}", edit_lesson_path(@lesson), :class => "btn btn-large" %></p>
+    <p><%= link_to "Edit #{@lesson.name}", edit_section_lesson_path(@section, @lesson), :class => "btn btn-large" %></p>
   <% end %>
 <% end %>
 

@@ -30,7 +30,6 @@ FactoryGirl.define do
     update_warning "This is the update warning."
     video_id 12345
     association :section, :factory => :section
-    sequence(:number) { |n| n }
     public true
   end
 end

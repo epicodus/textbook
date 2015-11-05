@@ -1,26 +1,14 @@
 require 'spec_helper'
 
 describe Lesson do
-  it { should validate_presence_of :name }
   it { should validate_presence_of :content }
-  it { should validate_presence_of :section }
-  it { should validate_presence_of :number }
-  it { should validate_numericality_of(:number).only_integer }
-
+  it { should validate_presence_of :name }
+  it { should validate_presence_of :sections }
+  it { should have_many(:sections).through(:lesson_sections) }
 
   it 'validates uniqueness of name' do
     FactoryGirl.create :lesson
     should validate_uniqueness_of :name
-  end
-
-  it { should belong_to :section }
-
-  it 'sorts by the number by default' do
-    last_lesson = FactoryGirl.create :lesson, :number => 4
-    (2..3).each {|number| FactoryGirl.create :lesson, :number => number}
-    first_lesson = FactoryGirl.create :lesson, :number => 1
-    Lesson.first.should eq first_lesson
-    Lesson.last.should eq last_lesson
   end
 
   it 'changes the slug on update' do
@@ -29,45 +17,64 @@ describe Lesson do
     lesson.slug.should eq 'new-name'
   end
 
-  context '#next' do
+  context 'navigate to next lesson' do
+    let!(:section) { FactoryGirl.create(:section) }
+    let!(:current_lesson) { FactoryGirl.create(:lesson, section: section) }
+
     it 'returns the lesson with the next-highest number than the current lesson' do
-      current_lesson = FactoryGirl.create :lesson, :number => 1
-      next_lesson = FactoryGirl.create :lesson, :number => 2
-      current_lesson.next.should eq next_lesson
+      next_lesson = FactoryGirl.create :lesson, section: section
+      current_lesson.navigate_to(:next, section).should eq next_lesson
+    end
+
+    it 'returns nil when there is only one lesson in a section' do
+      current_lesson.navigate_to(:next, section).should eq nil
     end
   end
 
-  context '#previous' do
+  context 'navigate to previous lesson' do
+    let!(:section) { FactoryGirl.create(:section) }
+    let!(:previous_lesson) { FactoryGirl.create(:lesson, section: section) }
+    let!(:current_lesson) { FactoryGirl.create(:lesson, section: section) }
+    let!(:next_lesson) { FactoryGirl.create(:lesson, section: section) }
+
     it 'returns the lesson with the next-lowest number than the current lesson' do
-      current_lesson = FactoryGirl.create :lesson, :number => 2
-      previous_lesson = FactoryGirl.create :lesson, :number => 1
-      current_lesson.previous.should eq previous_lesson
+      current_lesson.navigate_to(:previous, section).should eq previous_lesson
+    end
+
+    it 'returns nil when there is only one lesson in a section' do
+      new_section = FactoryGirl.create(:section)
+      solo_lesson = FactoryGirl.create(:lesson, section: new_section)
+      solo_lesson.navigate_to(:previous, section).should eq nil
     end
   end
 
-  context '#next_lesson?' do
+  context 'next navigation lesson exists' do
+    let!(:section) { FactoryGirl.create(:section) }
+
     it 'returns false if there is no next lesson' do
-      current_lesson = FactoryGirl.create :lesson
-      current_lesson.next_lesson?.should be false
+      current_lesson = FactoryGirl.create :lesson, section: section
+      current_lesson.can_navigate_to(:next, section).should be false
     end
 
     it 'returns true if there is a next lesson' do
-      current_lesson = FactoryGirl.create :lesson, :number => 1
-      next_lesson = FactoryGirl.create :lesson, :number => 2
-      current_lesson.next_lesson?.should be true
+      current_lesson = FactoryGirl.create :lesson, section: section
+      next_lesson = FactoryGirl.create :lesson, section: section
+      current_lesson.can_navigate_to(:next, section).should be true
     end
   end
 
-  context '#previous_lesson?' do
+  context 'previous navigating lesson exists' do
+    let!(:section) { FactoryGirl.create(:section) }
+
     it 'returns false if there is no previous lesson' do
-      current_lesson = FactoryGirl.create :lesson
-      current_lesson.previous_lesson?.should be false
+      current_lesson = FactoryGirl.create :lesson, section: section
+      current_lesson.can_navigate_to(:previous, section).should be false
     end
 
     it 'returns true if there is a previous lesson' do
-      current_lesson = FactoryGirl.create :lesson, :number => 2
-      previous_lesson = FactoryGirl.create :lesson, :number => 1
-      current_lesson.previous_lesson?.should be true
+      previous_lesson = FactoryGirl.create :lesson, section: section
+      current_lesson = FactoryGirl.create :lesson, section: section
+      current_lesson.can_navigate_to(:previous, section).should be true
     end
   end
 

@@ -7,24 +7,91 @@ class LessonsController < InheritedResources::Base
   helper_method :chapters
 
   def index
+    @section = Section.find(params[:section_id]) if params[:section_id]
     if params[:search]
-      @query = params[:search]
-      @results = Lesson.basic_search(@query)
-      render :search_results
+      find_search_results
     elsif params[:deleted]
-      @lessons = Lesson.only_deleted
-      render :deleted
+      find_deleted_lessons
     else
       flash.keep
       redirect_to table_of_contents_path
     end
   end
 
+  def create
+    section = Section.find(params[:lesson][:section_ids])
+    lesson = Lesson.new(lesson_params)
+    if lesson.save
+      redirect_to lesson_show_path(section, lesson), notice: 'Lesson saved.'
+    else
+      render 'new'
+    end
+  end
+
+  def show
+    @section = Section.find(params[:section_id]) if params[:section_id]
+  end
+
+  def edit
+    @section = Section.find(params[:section_id])
+    @lesson_section = LessonSection.find_by(section_id: @section.id, lesson_id: @lesson.id)
+  end
+
+  def update
+    lesson = Lesson.with_deleted.find(params[:id])
+    if params[:deleted]
+      restore_lesson(lesson)
+    else
+      if lesson.update(lesson_params)
+        section = Section.find(params[:lesson][:section_ids])
+        redirect_to lesson_show_path(section, lesson), notice: 'Lesson updated.'
+      else
+        @section = Section.find(params[:lesson][:section_ids])
+        render 'edit'
+      end
+    end
+  end
+
+  def destroy
+    lesson = Lesson.find(params[:id])
+    section = Section.find(params[:section_id])
+    lesson_section = LessonSection.find_by(section_id: section.id, lesson_id: lesson.id)
+    lesson.destroy
+    lesson_section.update(deleted_at: Time.zone.now)
+    redirect_to section_show_path(section), notice: 'Lesson deleted.'
+  end
+
 private
 
-  def permitted_params
-    params.permit(:lesson => [:name, :content, :cheat_sheet, :update_warning, :section_id,
-                              :number, :public, :deleted_at, :video_id, :tutorial])
+  def lesson_params
+    params.require(:lesson).permit(:name, :content, :cheat_sheet, :update_warning,
+                                   :public, :deleted_at, :video_id, :tutorial, :section_ids)
+  end
+
+  def restore_lesson(lesson)
+    if lesson.restore
+      lesson_sections = LessonSection.where(lesson_id: lesson.id)
+      lesson_sections.each { |lesson_section| lesson_section.update(deleted_at: nil) }
+      redirect_to table_of_contents_path, notice: 'Lesson restored.'
+    else
+      redirect_to :back, alert: 'Lesson not restored.'
+    end
+  end
+
+  def find_search_results
+    @query = params[:search]
+    @results = Lesson.basic_search(@query)
+    lesson_sections = LessonSection.where(lesson_id: @results.map(&:id))
+    @sections = Section.where(id: lesson_sections.map(&:section_id))
+    render :search_results
+  end
+
+  def find_deleted_lessons
+    @lessons = Lesson.only_deleted
+    lesson_sections = LessonSection.where(lesson_id: @lessons.map(&:id))
+    sections = Section.where(id: lesson_sections.map(&:section_id))
+    @chapters = sections.map { |section| Chapter.find(section.chapter_id) }.uniq
+    render :deleted
   end
 
   def sections

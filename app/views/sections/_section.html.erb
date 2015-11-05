@@ -1,6 +1,6 @@
-<%= fields_for "chapters[]", section.chapter do |chapter_form| %>
+<%= fields_for section.chapter do |chapter_form| %>
   <li class='section', id='section_<%= section.id %>'>
-    <%= link_to section.name, section, :class => 'section' %>
+    <%= link_to section.name, section_show_path(section), :class => 'section' %>
     <% if can? :update, Section %>
       <%= link_to "(edit)", edit_section_path(section), :id => "edit_section_#{section.id}" %>
       <%= link_to "(delete)", section, :data => { :confirm => 'Are you sure?' }, :method => :delete,
@@ -22,11 +22,12 @@
           <% if lesson.tutorial? %>
             <i class="icon-book"></i> 
           <% end %>
-          <%= link_to lesson.name, lesson, :class => 'lesson' %>
+          <%= link_to lesson.name, lesson_show_path(section, lesson), :class => 'lesson' %>
           <%= chapter_form.fields_for 'lessons_attributes[]', lesson do |lesson_form| %>
             <%= lesson_form.hidden_field :id %>
-            <%= lesson_form.hidden_field :section_id, :class => :lesson_section_id %>
-            <%= lesson_form.hidden_field :number, :class => :lesson %>
+            <% if can? :update, Lesson %>
+              <%= lesson_form.hidden_field :number, { value: LessonSection.find_by(section_id: section.id, lesson_id: lesson.id).number, class: :lesson } %>
+            <% end %>
           <% end %>
         <% end %>
       </li>
