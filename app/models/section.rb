@@ -5,7 +5,7 @@ class Section < ActiveRecord::Base
   default_scope -> { order :number }
 
   validates :name, :presence => true, :uniqueness => true
-  validates :number, :presence => true, :numericality => { :only_integer => true }
+  validates :number, :presence => true
   validates :chapter, :presence => true
   validate :name_does_not_conflict_with_routes
 
