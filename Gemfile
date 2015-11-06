@@ -2,13 +2,13 @@ source 'https://rubygems.org'
 
 ruby '2.2.3'
 
-gem 'rails', '~> 4.0.4'
+gem 'rails', '~> 4.2.1'
 gem 'pg'
 gem 'unicorn'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'devise'
-gem 'cancan'
+gem 'cancancan'
 gem 'paranoia'
 gem 'friendly_id'
 gem 'inherited_resources'
@@ -24,17 +24,16 @@ group :development do
 end
 
 group :test, :development do
-  gem 'rspec-rails', '~> 2.0'
+  gem 'rspec-rails'
   gem 'pry'
 end
 
 group :test do
-  gem 'shoulda-matchers', '~> 2.8.0'
+  gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'poltergeist'
   gem 'capybara'
   gem 'launchy'
-  gem 'test-unit' # can be removed when we upgrade rspec
 end
 
 group :production do

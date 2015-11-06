@@ -1,6 +1,9 @@
 language: ruby
 rvm:
   - 2.2.3
+cache: bundler
+before_script:
+  - "bundle exec rake db:create db:schema:load"
 deploy:
   provider: heroku
   api_key:

@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Section do
   it { should validate_presence_of :number }
-  it { should validate_numericality_of(:number).only_integer }
   it { should validate_presence_of :chapter }
   it { should have_many(:lessons).through(:lesson_sections) }
   it { should belong_to :chapter }
@@ -39,7 +38,7 @@ describe Section do
   it 'sorts by the number by default' do
     last_section = FactoryGirl.create :section, :number => 2
     first_section = FactoryGirl.create :section, :number => 1
-    Section.first.should eq first_section
-    Section.last.should eq last_section
+    expect(Section.first).to eq first_section
+    expect(Section.last).to eq last_section
   end
 end

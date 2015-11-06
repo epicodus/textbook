@@ -11,17 +11,17 @@ describe Lesson do
 
     it 'lets the author view the New page' do
       visit table_of_contents_path
-      page.should have_content 'New lesson'
+      expect(page).to have_content 'New lesson'
       visit new_lesson_path
-      page.should have_content 'New lesson'
+      expect(page).to have_content 'New lesson'
     end
 
     it 'does not let students view the New page' do
       login_as(student, scope: :user)
       visit table_of_contents_path
-      page.should_not have_content 'New lesson'
+      expect(page).to_not have_content 'New lesson'
       visit new_lesson_path
-      page.should_not have_content 'New lesson'
+      expect(page).to_not have_content 'New lesson'
     end
 
     it 'lets authors create a lesson' do
@@ -30,7 +30,7 @@ describe Lesson do
       fill_in 'Content (use Markdown)', with: lesson.content
       select section.name, from: 'Section'
       click_button 'Save'
-      page.should have_content lesson.content
+      expect(page).to have_content lesson.content
     end
 
     it 'can have a video embedded in it' do
@@ -40,7 +40,7 @@ describe Lesson do
       fill_in 'Video ID', with: lesson.video_id
       select section.name, from: 'Section'
       click_button 'Save'
-      page.html.should =~ /12345/
+      expect(page.html).to match /12345/
     end
 
     it "doesn't have to have video embedded in it" do
@@ -49,7 +49,7 @@ describe Lesson do
       fill_in 'Content (use Markdown)', with: lesson.content
       select section.name, from: 'Section'
       click_button 'Save'
-      page.html.should_not =~ /<div id="video">/
+      expect(page.html).to_not match /<div id="video">/
     end
 
     it 'can have a cheat sheet' do
@@ -60,7 +60,7 @@ describe Lesson do
       fill_in 'Cheat sheet (use Markdown)', with: lesson.cheat_sheet
       select section.name, from: 'Section'
       click_button 'Save'
-      page.should have_content lesson.cheat_sheet
+      expect(page).to have_content lesson.cheat_sheet
     end
 
     it "doesn't have to have a cheat sheet" do
@@ -69,7 +69,7 @@ describe Lesson do
       fill_in 'Content (use Markdown)', with: lesson.content
       select section.name, from: 'Section'
       click_button 'Save'
-      page.should_not have_content 'Cheat sheet'
+      expect(page).to_not have_content 'Cheat sheet'
     end
 
     it 'can have an update warning' do
@@ -79,7 +79,7 @@ describe Lesson do
       fill_in 'Update warning (use Markdown)', with: lesson.update_warning
       select section.name, from: 'Section'
       click_button 'Save'
-      page.should have_content lesson.update_warning
+      expect(page).to have_content lesson.update_warning
     end
 
     it "doesn't have to have an update warning" do
@@ -88,7 +88,7 @@ describe Lesson do
       fill_in 'Content (use Markdown)', with: lesson.content
       select section.name, from: 'Section'
       click_button 'Save'
-      page.html.should_not =~ /alert-danger/
+      expect(page.html).to_not match /alert-danger/
     end
 
     it 'uses markdown to format lessons' do
@@ -97,7 +97,7 @@ describe Lesson do
       fill_in 'Content (use Markdown)', with: '*This* is Markdown.'
       select section.name, from: 'Section'
       click_button 'Save'
-      page.html.should =~ /<p><em>This<\/em> is Markdown.<\/p>/
+      expect(page.html).to match /<p><em>This<\/em> is Markdown.<\/p>/
     end
   end
 
@@ -111,7 +111,7 @@ describe Lesson do
       visit table_of_contents_path
       click_link section.name
       click_link lesson.name
-      page.should have_content lesson.content
+      expect(page).to have_content lesson.content
     end
   end
 
@@ -128,7 +128,7 @@ describe Lesson do
       click_link "Edit #{lesson.name}"
       fill_in 'Name', with: 'Updated lesson'
       click_button 'Save'
-      page.should have_content 'Lesson updated'
+      expect(page).to have_content 'Lesson updated'
     end
 
     it "doesn't update when name and/or number are blank" do
@@ -136,15 +136,15 @@ describe Lesson do
       click_link "Edit #{lesson.name}"
       fill_in 'Name', with: ''
       click_button 'Save'
-      page.should have_content "Edit #{lesson.name}"
+      expect(page).to have_content "Edit #{lesson.name}"
     end
 
     it 'cannot be edited by a student' do
       login_as(student, scope: :user)
       visit lesson_show_path(section, lesson)
-      page.should_not have_content 'Edit lesson'
+      expect(page).to_not have_content 'Edit lesson'
       visit edit_section_lesson_path(section, lesson)
-      page.should_not have_content 'Edit'
+      expect(page).to_not have_content 'Edit'
     end
   end
 
@@ -158,7 +158,7 @@ describe Lesson do
     it 'is visible to an author' do
       lesson = FactoryGirl.create :lesson, section: section, public: false
       visit lesson_show_path(section, lesson)
-      page.should have_content lesson.content
+      expect(page).to have_content lesson.content
     end
 
     it 'is not visible to a student' do
@@ -166,7 +166,7 @@ describe Lesson do
       private_lesson = FactoryGirl.create :lesson, section: section, public: false
       public_lesson = FactoryGirl.create :lesson, section: section
       visit lesson_show_path(section, private_lesson)
-      page.should_not have_content private_lesson.content
+      expect(page).to_not have_content private_lesson.content
     end
   end
 
@@ -182,13 +182,13 @@ describe Lesson do
       lesson.destroy
       visit table_of_contents_path
       click_link section.name
-      page.should_not have_content lesson.name
+      expect(page).to_not have_content lesson.name
     end
 
     it 'is listed on the deleted lessons page for an author' do
       lesson.destroy
       visit section_lessons_path(section) + "?deleted=true"
-      page.should have_content lesson.name
+      expect(page).to have_content lesson.name
     end
 
     it 'can be deleted' do
@@ -202,7 +202,7 @@ describe Lesson do
       login_as(student, scope: :user)
       visit section_lessons_path(section) + "?deleted=true"
       click_link lesson.name
-      page.should_not have_content lesson.content
+      expect(page).to_not have_content lesson.content
     end
 
     it 'can be restored' do
@@ -222,7 +222,7 @@ describe Lesson do
       visit table_of_contents_path
       fill_in 'Search for:', with: lesson.content.split.last
       click_button 'Search'
-      page.should have_content lesson.name
+      expect(page).to have_content lesson.name
     end
   end
 end

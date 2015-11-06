@@ -5,7 +5,7 @@ class Chapter < ActiveRecord::Base
   default_scope -> { order :number }
 
   validates :name, :presence => true, :uniqueness => true
-  validates :number, :presence => true, :numericality => { :only_integer => true }
+  validates :number, :presence => true
 
   has_many :sections, :dependent => :destroy
   has_many :lessons, :through => :sections

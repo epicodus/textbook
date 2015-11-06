@@ -7,6 +7,6 @@ describe 'logging in' do
     fill_in 'Email', with: student.email
     fill_in 'Password', with: student.password
     click_button 'Sign in'
-    page.should have_content "Signed in successfully."
+    expect(page).to have_content "Signed in successfully."
   end
 end

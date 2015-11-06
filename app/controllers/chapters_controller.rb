@@ -1,10 +1,6 @@
 class ChaptersController < InheritedResources::Base
   load_and_authorize_resource
 
-  def index
-    @chapters = Chapter.includes([:sections, :lessons])
-  end
-
   def update
     if params[:commit] == 'Save order'
       update_section_and_lesson_order

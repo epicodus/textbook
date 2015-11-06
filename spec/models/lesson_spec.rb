@@ -14,7 +14,7 @@ describe Lesson do
   it 'changes the slug on update' do
     lesson = FactoryGirl.create :lesson
     lesson.update(:name => 'New name')
-    lesson.slug.should eq 'new-name'
+    expect(lesson.slug).to eq 'new-name'
   end
 
   context 'navigate to next lesson' do
@@ -23,11 +23,11 @@ describe Lesson do
 
     it 'returns the lesson with the next-highest number than the current lesson' do
       next_lesson = FactoryGirl.create :lesson, section: section
-      current_lesson.navigate_to(:next, section).should eq next_lesson
+      expect(current_lesson.navigate_to(:next, section)).to eq next_lesson
     end
 
     it 'returns nil when there is only one lesson in a section' do
-      current_lesson.navigate_to(:next, section).should eq nil
+      expect(current_lesson.navigate_to(:next, section)).to eq nil
     end
   end
 
@@ -38,13 +38,13 @@ describe Lesson do
     let!(:next_lesson) { FactoryGirl.create(:lesson, section: section) }
 
     it 'returns the lesson with the next-lowest number than the current lesson' do
-      current_lesson.navigate_to(:previous, section).should eq previous_lesson
+      expect(current_lesson.navigate_to(:previous, section)).to eq previous_lesson
     end
 
     it 'returns nil when there is only one lesson in a section' do
       new_section = FactoryGirl.create(:section)
       solo_lesson = FactoryGirl.create(:lesson, section: new_section)
-      solo_lesson.navigate_to(:previous, section).should eq nil
+      expect(solo_lesson.navigate_to(:previous, section)).to eq nil
     end
   end
 
@@ -53,13 +53,13 @@ describe Lesson do
 
     it 'returns false if there is no next lesson' do
       current_lesson = FactoryGirl.create :lesson, section: section
-      current_lesson.can_navigate_to(:next, section).should be false
+      expect(current_lesson.can_navigate_to(:next, section)).to be false
     end
 
     it 'returns true if there is a next lesson' do
       current_lesson = FactoryGirl.create :lesson, section: section
       next_lesson = FactoryGirl.create :lesson, section: section
-      current_lesson.can_navigate_to(:next, section).should be true
+      expect(current_lesson.can_navigate_to(:next, section)).to be true
     end
   end
 
@@ -68,49 +68,49 @@ describe Lesson do
 
     it 'returns false if there is no previous lesson' do
       current_lesson = FactoryGirl.create :lesson, section: section
-      current_lesson.can_navigate_to(:previous, section).should be false
+      expect(current_lesson.can_navigate_to(:previous, section)).to be false
     end
 
     it 'returns true if there is a previous lesson' do
       previous_lesson = FactoryGirl.create :lesson, section: section
       current_lesson = FactoryGirl.create :lesson, section: section
-      current_lesson.can_navigate_to(:previous, section).should be true
+      expect(current_lesson.can_navigate_to(:previous, section)).to be true
     end
   end
 
   context '#has_video?' do
     it 'returns false if there is no video id' do
       lesson = FactoryGirl.create :lesson, :video_id => nil
-      lesson.has_video?.should be false
+      expect(lesson.has_video?).to be false
     end
 
     it 'returns true if there is a video id' do
       lesson = FactoryGirl.create :lesson
-      lesson.has_video?.should be true
+      expect(lesson.has_video?).to be true
     end
   end
 
   context '#has_cheat_sheet?' do
     it 'returns false if there is no cheat sheet' do
       lesson = FactoryGirl.create :lesson, :cheat_sheet => nil
-      lesson.has_cheat_sheet?.should be false
+      expect(lesson.has_cheat_sheet?).to be false
     end
 
     it 'returns true if there is a cheat sheet' do
       lesson = FactoryGirl.create :lesson
-      lesson.has_cheat_sheet?.should be true
+      expect(lesson.has_cheat_sheet?).to be true
     end
   end
 
   context '#has_update_warning?' do
     it 'returns false if there is no update warning' do
       lesson = FactoryGirl.create :lesson, :update_warning => nil
-      lesson.has_update_warning?.should be false
+      expect(lesson.has_update_warning?).to be false
     end
 
     it 'returns true if there is a update warning' do
       lesson = FactoryGirl.create :lesson
-      lesson.has_update_warning?.should be true
+      expect(lesson.has_update_warning?).to be true
     end
   end
 
@@ -119,7 +119,7 @@ describe Lesson do
       lesson = FactoryGirl.create :lesson
       lesson.destroy
       lesson.reload
-      lesson.should_not be_public
+      expect(lesson).to_not be_public
     end
   end
 end
