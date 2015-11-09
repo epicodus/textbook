@@ -1,5 +1,10 @@
 <%= fields_for section.course do |course_form| %>
   <li class='section', id='section_<%= section.id %>'>
+    <% if section.week == 0 %>
+      (Pre-Work)
+    <% elsif section.week %>
+      (Week <%= section.week %>)
+    <% end %>
     <%= link_to section.name, section_show_path(section), :class => 'section' %>
     <% if can? :update, Section %>
       <%= link_to "(edit)", edit_section_path(section), :id => "edit_section_#{section.id}" %>

@@ -21,6 +21,7 @@ FactoryGirl.define do
     association :course, :factory => :course
     public true
     sequence(:number) { |n| n }
+    sequence(:week) { |n| n }
   end
 
   factory :lesson do

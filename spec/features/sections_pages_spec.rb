@@ -12,6 +12,7 @@ describe Section, js: true do
     click_link 'New section'
     fill_in 'Name', with: 'Awesome section'
     fill_in 'Section number', with: '1'
+    fill_in 'Section week', with: '1'
     click_button 'Create Section'
     expect(page).to have_content 'Awesome section'
   end
@@ -36,6 +37,7 @@ describe Section, js: true do
     login_as(author, scope: :user)
     visit edit_section_path(section)
     fill_in 'Name', with: 'New awesome section'
+    fill_in 'Section week', with: '3'
     click_button 'Update Section'
     expect(page).to have_content 'Section updated'
   end
