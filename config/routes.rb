@@ -1,10 +1,9 @@
 Textbook::Application.routes.draw do
   devise_for :users
 
-  root :to => 'home#show'
+  root to: 'home#show'
 
-  get 'table-of-contents' => 'courses#index', :as => 'table_of_contents'
-  get 'table_of_contents' => redirect('table-of-contents')
+  get 'table-of-contents', to: redirect('courses')
 
   resources :sections, except: [:show] do
     resources :lessons, except: [:new, :create, :show]

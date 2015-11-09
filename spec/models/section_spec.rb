@@ -24,10 +24,6 @@ describe Section do
       section = FactoryGirl.build(:section, name: 'Courses')
       expect(section.valid?).to be false
     end
-    it 'validates that name is not table of contents' do
-      section = FactoryGirl.build(:section, name: 'Table of contents')
-      expect(section.valid?).to be false
-    end
   end
 
   it 'validates uniqueness of name' do

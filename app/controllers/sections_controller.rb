@@ -5,7 +5,7 @@ class SectionsController < InheritedResources::Base
 
   def index
     flash.keep
-    redirect_to table_of_contents_path
+    redirect_to courses_path
   end
 
   def show

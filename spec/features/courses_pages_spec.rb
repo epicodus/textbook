@@ -7,7 +7,7 @@ describe Course, js: true do
 
   it 'can be created by an author' do
     login_as(author, scope: :user)
-    visit table_of_contents_path
+    visit courses_path
     click_link 'New course'
     fill_in 'Name', with: 'Awesome course'
     fill_in 'Course number', with: '1'
@@ -17,7 +17,7 @@ describe Course, js: true do
 
   it 'displays errors if you try to save an invalid course' do
     login_as(author, scope: :user)
-    visit table_of_contents_path
+    visit courses_path
     click_link 'New course'
     click_button 'Create Course'
     expect(page).to have_content "Please correct these problems:"
@@ -25,7 +25,7 @@ describe Course, js: true do
 
   it 'cannot be created by a student' do
     login_as(student, scope: :user)
-    visit table_of_contents_path
+    visit courses_path
     expect(page).to_not have_content 'New course'
     visit new_course_path
     expect(page).to_not have_content 'New'
@@ -41,7 +41,7 @@ describe Course, js: true do
 
   it 'cannot be edited by a student' do
     login_as(student, scope: :user)
-    visit table_of_contents_path
+    visit courses_path
     expect(page).to_not have_content 'edit'
     visit edit_course_path course
     expect(page).to_not have_content 'Edit'
@@ -49,14 +49,14 @@ describe Course, js: true do
 
   it 'can be deleted by an author' do
     login_as(author, scope: :user)
-    visit table_of_contents_path
+    visit courses_path
     click_link "delete_course_#{course.id}"
     expect(page).to_not have_content course.name
   end
 
   it 'cannot be deleted by a student' do
     login_as(student, scope: :user)
-    visit table_of_contents_path
+    visit courses_path
     expect(page).to_not have_content 'delete'
   end
 end
