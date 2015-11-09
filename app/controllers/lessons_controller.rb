@@ -4,7 +4,7 @@ class LessonsController < InheritedResources::Base
   load_and_authorize_resource
 
   helper_method :sections
-  helper_method :chapters
+  helper_method :courses
 
   def index
     @section = Section.find(params[:section_id]) if params[:section_id]
@@ -90,7 +90,7 @@ private
     @lessons = Lesson.only_deleted
     lesson_sections = LessonSection.where(lesson_id: @lessons.map(&:id))
     sections = Section.where(id: lesson_sections.map(&:section_id))
-    @chapters = sections.map { |section| Chapter.find(section.chapter_id) }.uniq
+    @courses = sections.map { |section| Course.find(section.course_id) }.uniq
     render :deleted
   end
 
@@ -98,8 +98,8 @@ private
     Section.all
   end
 
-  def chapters
-    Chapter.all
+  def courses
+    Course.all
   end
 
   def find_deleted_lesson

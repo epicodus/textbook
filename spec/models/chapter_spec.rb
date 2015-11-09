@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Chapter do
+describe Course do
   it { should validate_presence_of :name }
   it { should validate_presence_of :number }
 
   it 'validates uniqueness of name' do
-    FactoryGirl.create :chapter
+    FactoryGirl.create :course
     should validate_uniqueness_of :name
   end
 
@@ -13,11 +13,11 @@ describe Chapter do
   it { should have_many(:lessons).through(:sections) }
 
   it 'sorts by the number by default' do
-    last_chapter = FactoryGirl.create :chapter, :number => 9
-    (2..8).each { |number| FactoryGirl.create :chapter, :number => number }
-    first_chapter = FactoryGirl.create :chapter, :number => 1
-    expect(Chapter.first).to eq first_chapter
-    expect(Chapter.last).to eq last_chapter
+    last_course = FactoryGirl.create :course, :number => 9
+    (2..8).each { |number| FactoryGirl.create :course, :number => number }
+    first_course = FactoryGirl.create :course, :number => 1
+    expect(Course.first).to eq first_course
+    expect(Course.last).to eq last_course
   end
 
 end

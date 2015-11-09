@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe Section do
   it { should validate_presence_of :number }
-  it { should validate_presence_of :chapter }
+  it { should validate_presence_of :course }
   it { should have_many(:lessons).through(:lesson_sections) }
-  it { should belong_to :chapter }
+  it { should belong_to :course }
 
   it "validates the presence of name" do
     section = FactoryGirl.build(:section, name: nil)
@@ -20,8 +20,8 @@ describe Section do
       section = FactoryGirl.build(:section, name: 'Lessons')
       expect(section.valid?).to be false
     end
-    it 'validates that name is not chapters' do
-      section = FactoryGirl.build(:section, name: 'Chapters')
+    it 'validates that name is not courses' do
+      section = FactoryGirl.build(:section, name: 'Courses')
       expect(section.valid?).to be false
     end
     it 'validates that name is not table of contents' do

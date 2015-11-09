@@ -1,7 +1,7 @@
 class SectionsController < InheritedResources::Base
   load_and_authorize_resource :except => [:index]
 
-  helper_method :chapters
+  helper_method :courses
 
   def index
     flash.keep
@@ -24,10 +24,10 @@ class SectionsController < InheritedResources::Base
 private
 
   def section_params
-    params.require(:section).permit(:name, :number, :chapter_id, :public)
+    params.require(:section).permit(:name, :number, :course_id, :public)
   end
 
-  def chapters
-    Chapter.all
+  def courses
+    Course.all
   end
 end

@@ -1,9 +1,0 @@
-$(".alert").remove();
-$("#new_chapter").remove();
-
-<% if @chapter.errors.any? %>
-  $("#new_chapter_link").after("<%= j render('form') %>");
-<% else %>
-  $("#new_chapter_link").show();
-  $(".chapter").append("<%= j render @chapter, :chapter => @chapter, :chapter_counter => @chapter.number %>");
-<% end %>

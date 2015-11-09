@@ -1,5 +1,5 @@
 module FormHelper
-  def chapter_and_section_form(object_type, &block)
+  def course_and_section_form(object_type, &block)
     if params[:action] == 'edit' || params[:action] == 'update'
       form_for object_type, &block
     elsif params[:action] == 'new' || params[:action] == 'create'

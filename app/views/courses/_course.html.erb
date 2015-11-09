@@ -1,0 +1,33 @@
+<%= form_for course, method: :put do |f| %>
+  <% if course_counter % 2 == 0 %>
+    <div class="row">
+  <% end %>
+
+  <div class="span6">
+    <div class="well" id="course_<%= course.id %>">
+      <h3><%= link_to course.name, course_path(course), { class: 'header-link' } %></h3>
+      <% if can? :update, course %>
+        <p>
+          <%= link_to "edit", edit_course_path(course), :id => "edit_course_#{course.id}", :class => 'btn btn-mini btn-info' %>
+          <%= link_to "delete", course, :data => { :confirm => 'Are you sure?' }, :method => :delete, :remote => true, :id => "delete_course_#{course.id}", :class => 'btn btn-mini btn-danger' %>
+        </p>
+
+        <%= f.hidden_field :number, class: :course %>
+        <ul class='section'>
+          <%= render course.sections %>
+        </ul>
+      <% else %>
+        <ul>
+          <%= render course.sections %>
+        </ul>
+      <% end %>
+      <% if can? :update, Course %>
+        <%= submit_tag 'Save order', :class => 'btn btn-primary', :id => 'save_order' %>
+      <% end %>
+    </div>
+  </div>
+
+  <% if (course_counter + 1) % 2 == 0 || (course_counter + 1) == @courses.try(:length) %>
+    </div>
+  <% end %>
+<% end %>

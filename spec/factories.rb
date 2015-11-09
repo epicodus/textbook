@@ -10,15 +10,15 @@ FactoryGirl.define do
     password 'password'
   end
 
-  factory :chapter do
-    sequence(:name) {|n| "Chapter #{n}"}
+  factory :course do
+    sequence(:name) {|n| "Course #{n}"}
     public true
     sequence(:number) {|n| n}
   end
 
   factory :section do
     sequence(:name) { |n| "Section #{n}" }
-    association :chapter, :factory => :chapter
+    association :course, :factory => :course
     public true
     sequence(:number) { |n| n }
   end
