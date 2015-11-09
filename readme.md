@@ -3,7 +3,7 @@
 [![Code Climate](https://codeclimate.com/github/epicodus/textbook.png)](https://codeclimate.com/github/epicodus/textbook) [![Dependency status](https://gemnasium.com/epicodus/textbook.png)](https://gemnasium.com/epicodus/textbook)
 [![Build status](https://travis-ci.org/epicodus/textbook.svg?branch=master)](https://travis-ci.org/epicodus/textbook)
 
-Textbook is a simple content management system for textbook-like sites. It organizes content into lessons, which are grouped into sections. A table of contents lists all of the sections, and each section index lists the lessons in the section. At the bottom of each lesson are navigation links to the next and previous lessons, as well as to the section index and the table of contents.
+Textbook is a simple content management system for textbook-like sites. It organizes content into lessons, which are grouped into sections. A courses page lists all of the sections, and each section index lists the lessons in the section. At the bottom of each lesson are navigation links to the next and previous lessons, as well as to the section index and the courses index.
 
 To create new sections and lessons, a user must be signed in and have the `author` attribute set to `true`. This attribute can only be set from the Rails console. If an author deletes a lesson, the content is maintained in the database via the [Paranoia](https://github.com/radar/paranoia) gem to allow recovery from accidental deletions.
 

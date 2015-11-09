@@ -8,7 +8,7 @@ describe Section, js: true do
 
   it 'can be created by an author' do
     login_as(author, scope: :user)
-    visit table_of_contents_path
+    visit courses_path
     click_link 'New section'
     fill_in 'Name', with: 'Awesome section'
     fill_in 'Section number', with: '1'
@@ -18,7 +18,7 @@ describe Section, js: true do
 
   it 'displays errors if you try to save an invalid section' do
     login_as(author, scope: :user)
-    visit table_of_contents_path
+    visit courses_path
     click_link 'New section'
     click_button 'Create Section'
     expect(page).to have_content "Please correct these problems:"
@@ -26,7 +26,7 @@ describe Section, js: true do
 
   it 'cannot be created by a student' do
     login_as(student, scope: :user)
-    visit table_of_contents_path
+    visit courses_path
     expect(page).to_not have_content 'New section'
     visit new_section_path
     expect(page).to_not have_content 'New'
@@ -42,7 +42,7 @@ describe Section, js: true do
 
   it 'cannot be edited by a student' do
     login_as(student, scope: :user)
-    visit table_of_contents_path
+    visit courses_path
     expect(page).to_not have_content 'edit'
     visit edit_section_path section
     expect(page).to_not have_content 'Edit'
@@ -50,14 +50,14 @@ describe Section, js: true do
 
   it 'can be deleted by an author' do
     login_as(author, scope: :user)
-    visit table_of_contents_path
+    visit courses_path
     click_link "delete_section_#{section.id}"
     expect(page).to_not have_content section.name
   end
 
   it 'cannot be deleted by a student' do
     login_as(student, scope: :user)
-    visit table_of_contents_path
+    visit courses_path
     expect(page).to_not have_content 'delete'
   end
 end

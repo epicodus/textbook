@@ -10,12 +10,12 @@ class ApplicationController < ActionController::Base
     begin
       redirect_to :back, :alert => exception.message.html_safe
     rescue ActionController::RedirectBackError
-      redirect_to table_of_contents_path, :alert => exception.message.html_safe
+      redirect_to courses_path, :alert => exception.message.html_safe
     end
   end
 
   def after_sign_in_path_for(resource)
-    table_of_contents_path
+    courses_path
   end
 
   def after_sign_out_path_for(resource_or_scope)

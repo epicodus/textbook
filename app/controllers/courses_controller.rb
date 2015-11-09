@@ -4,7 +4,7 @@ class CoursesController < InheritedResources::Base
   def update
     if params[:commit] == 'Save order'
       update_section_and_lesson_order
-      redirect_to table_of_contents_path, notice: "Order updated."
+      redirect_to courses_path, notice: "Order updated."
     else
       course = Course.find(params[:id])
       if course.update(course_params)

@@ -10,7 +10,7 @@ describe Lesson do
     before { login_as(author, scope: :user) }
 
     it 'lets the author view the New page' do
-      visit table_of_contents_path
+      visit courses_path
       expect(page).to have_content 'New lesson'
       visit new_lesson_path
       expect(page).to have_content 'New lesson'
@@ -18,7 +18,7 @@ describe Lesson do
 
     it 'does not let students view the New page' do
       login_as(student, scope: :user)
-      visit table_of_contents_path
+      visit courses_path
       expect(page).to_not have_content 'New lesson'
       visit new_lesson_path
       expect(page).to_not have_content 'New lesson'
@@ -108,7 +108,7 @@ describe Lesson do
 
     it 'can be viewed by a student' do
       login_as(student, scope: :user)
-      visit table_of_contents_path
+      visit courses_path
       click_link section.name
       click_link lesson.name
       expect(page).to have_content lesson.content
@@ -178,9 +178,9 @@ describe Lesson do
 
     before { login_as(author, scope: :user) }
 
-    it 'is removed from the table of contents when it is deleted' do
+    it 'is removed from the courses page when it is deleted' do
       lesson.destroy
-      visit table_of_contents_path
+      visit courses_path
       click_link section.name
       expect(page).to_not have_content lesson.name
     end
@@ -207,7 +207,7 @@ describe Lesson do
 
     it 'can be restored' do
       lesson.destroy
-      visit table_of_contents_path
+      visit courses_path
       click_link 'View deleted lessons'
       click_link lesson.name
       click_button 'Restore'
@@ -219,7 +219,7 @@ describe Lesson do
     let!(:lesson) { FactoryGirl.create :lesson }
 
     it 'lets you search for lessons' do
-      visit table_of_contents_path
+      visit courses_path
       fill_in 'Search for:', with: lesson.content.split.last
       click_button 'Search'
       expect(page).to have_content lesson.name
