@@ -1,9 +1,9 @@
-<% provide :title, @chapter.name %>
+<% provide :title, @course.name %>
 
 <h1><%= yield :title %></h1>
 
 <ul>
-  <% @chapter.sections.each do |section| %>
+  <% @course.sections.each do |section| %>
     <h3><%= link_to section.name, section_show_path(section), class: 'header-link' %></h3>
     <ul>
       <% section.lessons.each do |lesson| %>
@@ -13,8 +13,8 @@
   <% end %>
 </ul>
 
-<% if can? :update, Chapter %>
-  <p><%= link_to "Edit #{@chapter.name}", edit_chapter_path(@chapter), :class => "btn btn-large" %></p>
+<% if can? :update, Course %>
+  <p><%= link_to "Edit #{@course.name}", edit_course_path(@course), :class => "btn btn-large" %></p>
 <% end%>
 
 <% if can? :create, Section %>

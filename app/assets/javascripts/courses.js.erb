@@ -1,5 +1,5 @@
 $(function () {
-  $(".chapter").sortable({
+  $(".course").sortable({
     items: '.span4'
   });
   $("ul.section").sortable({
@@ -12,7 +12,7 @@ $(function () {
   });
 
   $("input#save_order").click(function (click) {
-    var inputs = ['input.chapter', 'input.section_number', 'input.lesson'];
+    var inputs = ['input.course', 'input.section_number', 'input.lesson'];
     inputs.forEach(function(item) {
       var count = 1;
       $(item).each(function() {
@@ -20,9 +20,9 @@ $(function () {
       });
     });
 
-    $.each($('input.section_chapter_id'), function() {
-      var chapter_id = $(this).parents('li.chapter').attr('id');
-      var id = chapter_id.substr(8);
+    $.each($('input.section_course_id'), function() {
+      var course_id = $(this).parents('li.course').attr('id');
+      var id = course_id.substr(8);
       $(this).val(id);
     });
 

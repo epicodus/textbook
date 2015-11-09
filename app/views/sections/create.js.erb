@@ -5,5 +5,5 @@ $("#new_section").remove();
   $("#new_section_link").after("<%= j render('form') %>");
 <% else %>
   $("#new_section_link").show();
-  $("#chapter_<%= @section.chapter.id %>").children("ul").append("<%= j render @section, :section => @section %>")
+  $("#course_<%= @section.course.id %>").children("ul").append("<%= j render @section, :section => @section %>")
 <% end %>

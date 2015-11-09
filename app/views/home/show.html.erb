@@ -6,13 +6,13 @@
   <p><%= link_to 'Sign in', new_user_session_path %> to create your first lesson.</p>
 <% end %>
 
-<% if can? :create, Chapter %>
-  <p>First, create a chapter.</p>
-  <p><%= link_to 'New chapter', new_chapter_path, :class => "btn btn-primary btn-large"%>
+<% if can? :create, Course %>
+  <p>First, create a course.</p>
+  <p><%= link_to 'New course', new_course_path, :class => "btn btn-primary btn-large"%>
 <% end %>
 
 <% if can? :create, Section %>
-  <p>Next, create a section in your chapter.</p>
+  <p>Next, create a section in your course.</p>
   <p><%= link_to 'New section', new_section_path, :class => "btn btn-warning btn-large" %></p>
 <% end %>
 

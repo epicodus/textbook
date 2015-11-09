@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Section, js: true do
   let(:author) { FactoryGirl.create(:author) }
   let(:student) { FactoryGirl.create(:student) }
-  let!(:chapter) { FactoryGirl.create(:chapter) }
+  let!(:course) { FactoryGirl.create(:course) }
   let!(:section) { FactoryGirl.create(:section) }
 
   it 'can be created by an author' do

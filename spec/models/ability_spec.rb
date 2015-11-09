@@ -4,7 +4,7 @@ require 'cancan/matchers'
 describe 'User' do
   subject(:ability) { Ability.new(user) }
   
-  models = [:lesson, :section, :chapter]
+  models = [:lesson, :section, :course]
 
   context 'who is not signed in' do
     let(:user) { User.new }

@@ -2,7 +2,7 @@ ul.lesson {
   display: none;
 }
 
-a.chapter, a.section {
+a.course, a.section {
   cursor: pointer;
 }
 
