@@ -31,5 +31,8 @@ private
       lesson_section = lesson_sections.find_by(lesson_id: lesson[1][:id])
       lesson_section.update(number: lesson[1][:number])
     end
+    params[:course][:sections_attributes].each do |section|
+      Section.find(section[1][:id]).update(number: section[1][:number])
+    end
   end
 end
