@@ -16,6 +16,7 @@ gem 'textacular'
 gem 'newrelic_rpm'
 gem 'uglifier'
 gem 'redcarpet'
+gem 'bootstrap-multiselect-rails'
 
 group :development do
   gem 'quiet_assets'

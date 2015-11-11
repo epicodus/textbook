@@ -13,5 +13,6 @@
  *= require bootstrap-responsive
  *= require bootstrap-overrides
  *= require prettify
+ *= require bootstrap-multiselect
  *= require_tree .
  */
