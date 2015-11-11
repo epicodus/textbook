@@ -3,6 +3,7 @@ class Course < ActiveRecord::Base
   friendly_id :name, :use => [:slugged, :finders]
 
   default_scope -> { order :number }
+  scope :with_sections, -> { includes(:sections).where.not(sections: { id: nil }) }
 
   validates :name, :presence => true, :uniqueness => true
   validates :number, :presence => true
