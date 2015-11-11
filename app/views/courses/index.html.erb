@@ -4,16 +4,12 @@
 
 <%= render 'lessons/search' %>
 
-<% if can? :update, Course %>
-  <div class="course">
-    <%= render @courses %>
-  </div>
-<% else %>
-  <%= render @courses %>
+<% @courses.each do |course| %>
+  <h3><%= link_to course.name, course_path(course), class: 'header-link' %></h3>
 <% end %>
 
 <% if can? :create, Course %>
-  <p><%= link_to 'New course', new_course_path, :remote => true, :class => 'btn btn-primary btn-large', :id => 'new_course_link' %>
+  <p><%= link_to 'New course', new_course_path, :class => 'btn btn-primary btn-large', :id => 'new_course_link' %>
 <% end%>
 
 <% if can? :create, Lesson %>

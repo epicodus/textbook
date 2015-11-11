@@ -1,6 +1,15 @@
 class CoursesController < InheritedResources::Base
   load_and_authorize_resource
 
+  def create
+    course = Course.new(course_params)
+    if course.save
+      redirect_to courses_path, notice: 'Course saved.'
+    else
+      render 'new'
+    end
+  end
+
   def update
     if params[:commit] == 'Save order'
       update_section_and_lesson_order
