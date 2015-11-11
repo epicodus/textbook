@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Section do
-  it { should validate_presence_of :number }
   it { should validate_presence_of :course }
   it { should have_many(:lessons).through(:lesson_sections) }
   it { should belong_to :course }
@@ -9,6 +8,11 @@ describe Section do
   it "validates the presence of name" do
     section = FactoryGirl.build(:section, name: nil)
     expect(section.valid?).to be false
+  end
+
+  it 'validates that a section always has a number' do
+    section = FactoryGirl.create(:section)
+    expect(section.update(number: nil)).to be false
   end
 
   describe 'validates that name is not a top-level route' do
@@ -32,8 +36,9 @@ describe Section do
   end
 
   it 'sorts by the number by default' do
-    last_section = FactoryGirl.create :section, :number => 2
-    first_section = FactoryGirl.create :section, :number => 1
+    course = FactoryGirl.create :course
+    first_section = FactoryGirl.create :section, course: course
+    last_section = FactoryGirl.create :section, course: course
     expect(Section.first).to eq first_section
     expect(Section.last).to eq last_section
   end

@@ -44,7 +44,7 @@ class SectionsController < InheritedResources::Base
 private
 
   def section_params
-    params.require(:section).permit(:name, :number, :course_id, :public, :week)
+    params.require(:section).permit(:name, :course_id, :public, :week)
   end
 
   def courses
