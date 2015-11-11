@@ -1,16 +1,15 @@
 <%= render 'layouts/errors', :object => @section %>
-<%= course_and_section_form(@section) do |f| %>
+<%= form_for [@course, @section] do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.label :number, 'Section number' %>
   <%= f.text_field :number %>
   <%= f.label :week, 'Section week' %>
   <%= f.text_field :week %>
-  <%= f.label :course %>
-  <%= f.select :course_id, options_from_collection_for_select(courses, :id, :name, @section.course_id) %>
   <%= f.label(:public, :class => "checkbox") do %>
     <%= f.check_box :public %>
     Public
+  <%= f.hidden_field :course_id, value: @course.id %>
   <% end %>
   <%= f.submit :class => "btn btn-primary" %>
 <% end %>
