@@ -7,7 +7,7 @@
     <% end %>
     <%= link_to section.name, section_show_path(section), :class => 'section' %>
     <% if can? :update, Section %>
-      <%= link_to "(edit)", edit_section_path(section), :id => "edit_section_#{section.id}" %>
+      <%= link_to "(edit)", edit_course_section_path(section.course, section), :id => "edit_section_#{section.id}" %>
       <%= link_to "(delete)", section, :data => { :confirm => 'Are you sure?' }, :method => :delete,
                               :remote => true, :id => "delete_section_#{section.id}" %>
       <%= course_form.fields_for 'sections_attributes[]', section do |section_form| %>

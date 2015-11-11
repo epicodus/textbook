@@ -18,5 +18,5 @@
 <% end%>
 
 <% if can? :create, Section %>
-  <p><%= link_to "New section", new_section_path, :class => "btn btn-warning btn-large" %></p>
+  <p><%= link_to "New section", new_course_section_path(@course), :class => "btn btn-warning btn-large" %></p>
 <% end %>

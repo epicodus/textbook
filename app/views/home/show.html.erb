@@ -11,11 +11,6 @@
   <p><%= link_to 'New course', new_course_path, :class => "btn btn-primary btn-large"%>
 <% end %>
 
-<% if can? :create, Section %>
-  <p>Next, create a section in your course.</p>
-  <p><%= link_to 'New section', new_section_path, :class => "btn btn-warning btn-large" %></p>
-<% end %>
-
 <% if can? :create, Lesson %>
   <p>Finally, create a lesson.</p>
   <p><%= link_to 'New lesson', new_lesson_path, :class => "btn btn-success btn-large" %></p>
