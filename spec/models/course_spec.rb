@@ -20,4 +20,10 @@ describe Course do
     expect(Course.last).to eq last_course
   end
 
+  it 'returns courses that have sections' do
+    course_with_section = FactoryGirl.create(:course)
+    course_without_section = FactoryGirl.create(:course)
+    section = FactoryGirl.create(:section, course: course_with_section)
+    expect(Course.with_sections).to eq [course_with_section]
+  end
 end
