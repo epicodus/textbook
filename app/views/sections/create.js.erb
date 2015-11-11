@@ -1,9 +1,0 @@
-$(".alert").remove();
-$("#new_section").remove();
-
-<% if @section.errors.any? %>
-  $("#new_section_link").after("<%= j render('form') %>");
-<% else %>
-  $("#new_section_link").show();
-  $("#course_<%= @section.course.id %>").children("ul").append("<%= j render @section, :section => @section %>")
-<% end %>

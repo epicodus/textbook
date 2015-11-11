@@ -1,9 +1,0 @@
-$(".alert").remove();
-$("#new_course").remove();
-
-<% if @course.errors.any? %>
-  $("#new_course_link").after("<%= j render('form') %>");
-<% else %>
-  $("#new_course_link").show();
-  $(".course").append("<%= j render @course, :course => @course, :course_counter => @course.number %>");
-<% end %>
