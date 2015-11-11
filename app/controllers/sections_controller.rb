@@ -13,13 +13,12 @@ class SectionsController < InheritedResources::Base
   end
 
   def create
-    course = Course.find(params[:course_id])
-    section = Section.new(section_params)
-    if section.save
-      redirect_to course_path(course), notice: 'Section saved.'
+    @course = Course.find(params[:course_id])
+    @section = Section.new(section_params)
+    if @section.save
+      redirect_to course_path(@course), notice: 'Section saved.'
     else
-      @course = Course.find(params[:course_id])
-      render 'new'
+      render :new
     end
   end
 
@@ -32,12 +31,12 @@ class SectionsController < InheritedResources::Base
   end
 
   def update
-    section = Section.find(params[:id])
-    if section.update(section_params)
-      redirect_to section_show_path(section), notice: "Section updated."
+    @section = Section.find(params[:id])
+    if @section.update(section_params)
+      redirect_to section_show_path(@section), notice: "Section updated."
     else
       @course = Course.find(params[:course_id])
-      render 'edit'
+      render :edit
     end
   end
 

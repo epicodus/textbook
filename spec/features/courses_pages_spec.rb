@@ -15,7 +15,7 @@ describe Course, js: true do
     expect(page).to have_content 'Awesome course'
   end
 
-  xit 'displays errors if you try to save an invalid course' do
+  it 'displays errors if you try to save an invalid course' do
     login_as(author, scope: :user)
     visit courses_path
     click_link 'New course'
@@ -39,7 +39,7 @@ describe Course, js: true do
     expect(page).to have_content 'Course updated'
   end
 
-  xit 'displays errors if you try to save an invalid course when editing' do
+  it 'displays errors if you try to save an invalid course when editing' do
     login_as(author, scope: :user)
     visit edit_course_path(course)
     fill_in 'Name', with: ''

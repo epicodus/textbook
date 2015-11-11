@@ -2,11 +2,11 @@ class CoursesController < InheritedResources::Base
   load_and_authorize_resource
 
   def create
-    course = Course.new(course_params)
-    if course.save
+    @course = Course.new(course_params)
+    if @course.save
       redirect_to courses_path, notice: 'Course saved.'
     else
-      render 'new'
+      render :new
     end
   end
 
@@ -15,11 +15,11 @@ class CoursesController < InheritedResources::Base
       update_section_and_lesson_order
       redirect_to courses_path, notice: "Order updated."
     else
-      course = Course.find(params[:id])
-      if course.update(course_params)
-        redirect_to course_path(course), notice: "Course updated."
+      @course = Course.find(params[:id])
+      if @course.update(course_params)
+        redirect_to course_path(@course), notice: "Course updated."
       else
-        render 'edit'
+        render :edit
       end
     end
   end

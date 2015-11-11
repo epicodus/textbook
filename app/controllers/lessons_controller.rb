@@ -19,11 +19,11 @@ class LessonsController < InheritedResources::Base
   end
 
   def create
-    lesson = Lesson.new(lesson_params)
-    if lesson.save
-      redirect_to lesson_path(lesson), notice: 'Lesson saved.'
+    @lesson = Lesson.new(lesson_params)
+    if @lesson.save
+      redirect_to lesson_path(@lesson), notice: 'Lesson saved.'
     else
-      render 'new'
+      render :new
     end
   end
 
@@ -32,14 +32,14 @@ class LessonsController < InheritedResources::Base
   end
 
   def update
-    lesson = Lesson.with_deleted.find(params[:id])
+    @lesson = Lesson.with_deleted.find(params[:id])
     if params[:deleted]
-      restore_lesson(lesson)
+      restore_lesson(@lesson)
     else
-      if lesson.update(lesson_params)
-        redirect_to lesson_path(lesson), notice: 'Lesson updated.'
+      if @lesson.update(lesson_params)
+        redirect_to lesson_path(@lesson), notice: 'Lesson updated.'
       else
-        render 'edit'
+        render :edit
       end
     end
   end

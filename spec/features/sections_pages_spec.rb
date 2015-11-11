@@ -16,7 +16,7 @@ describe Section, js: true do
     expect(page).to have_content 'Awesome section'
   end
 
-  xit 'displays errors if you try to save an invalid section' do
+  it 'displays errors if you try to save an invalid section' do
     login_as(author, scope: :user)
     visit course_path(course)
     click_link 'New section'
@@ -41,7 +41,7 @@ describe Section, js: true do
     expect(page).to have_content 'Section updated'
   end
 
-  xit 'displays errors if you try to save an invalid section when editing' do
+  it 'displays errors if you try to save an invalid section when editing' do
     login_as(author, scope: :user)
     visit edit_course_section_path(course, section)
     fill_in 'Name', with: ''

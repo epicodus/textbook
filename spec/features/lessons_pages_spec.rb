@@ -33,7 +33,7 @@ describe Lesson do
       expect(page).to have_content lesson.content
     end
 
-    xit 'displays errors if you try to save an invalid lesson' do
+    it 'displays errors if you try to save an invalid lesson' do
       login_as(author, scope: :user)
       visit new_lesson_path
       fill_in 'Name', with: ''
@@ -139,7 +139,7 @@ describe Lesson do
       expect(page).to have_content 'Lesson updated'
     end
 
-    xit "displays errors if you try to save an invalid lesson when editing" do
+    it "displays errors if you try to save an invalid lesson when editing" do
       visit edit_lesson_path(lesson)
       fill_in 'Name', with: ''
       click_button 'Save'
