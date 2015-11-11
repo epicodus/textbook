@@ -59,7 +59,7 @@ describe Section, js: true do
 
   it 'can be deleted by an author' do
     login_as(author, scope: :user)
-    visit courses_path
+    visit course_path(section.course)
     click_link "delete_section_#{section.id}"
     expect(page).to_not have_content section.name
   end

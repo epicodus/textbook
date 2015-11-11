@@ -28,9 +28,17 @@ describe Lesson do
       visit new_lesson_path
       fill_in 'Name', with: lesson.name
       fill_in 'Content (use Markdown)', with: lesson.content
-      select section.name, from: 'Section'
+      select section.name, from: 'Sections'
       click_button 'Save'
       expect(page).to have_content lesson.content
+    end
+
+    xit 'displays errors if you try to save an invalid lesson' do
+      login_as(author, scope: :user)
+      visit new_lesson_path
+      fill_in 'Name', with: ''
+      click_button 'Save'
+      expect(page).to have_content "Please correct these problems:"
     end
 
     it 'can have a video embedded in it' do
@@ -108,7 +116,7 @@ describe Lesson do
 
     it 'can be viewed by a student' do
       login_as(student, scope: :user)
-      visit courses_path
+      visit course_path(section.course)
       click_link section.name
       click_link lesson.name
       expect(page).to have_content lesson.content
@@ -131,12 +139,11 @@ describe Lesson do
       expect(page).to have_content 'Lesson updated'
     end
 
-    it "doesn't update when name and/or number are blank" do
-      visit section_lesson_show_path(section, lesson)
-      click_link "Edit #{lesson.name}"
+    xit "displays errors if you try to save an invalid lesson when editing" do
+      visit edit_lesson_path(lesson)
       fill_in 'Name', with: ''
       click_button 'Save'
-      expect(page).to have_content "Edit #{lesson.name}"
+      expect(page).to have_content "Please correct these problems:"
     end
 
     it 'cannot be edited by a student' do
@@ -180,7 +187,7 @@ describe Lesson do
 
     it 'is removed from the courses page when it is deleted' do
       lesson.destroy
-      visit courses_path
+      visit course_path(section.course)
       click_link section.name
       expect(page).to_not have_content lesson.name
     end
