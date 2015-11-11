@@ -1,4 +1,4 @@
-<%= render 'layouts/errors', :object => @section %>
+<%= render 'layouts/errors', object: @section %>
 <%= form_for [@course, @section] do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
