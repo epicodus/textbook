@@ -19,10 +19,9 @@ class LessonsController < InheritedResources::Base
   end
 
   def create
-    section = Section.find(params[:lesson][:section_ids])
     lesson = Lesson.new(lesson_params)
     if lesson.save
-      redirect_to lesson_show_path(section, lesson), notice: 'Lesson saved.'
+      redirect_to lesson_path(lesson), notice: 'Lesson saved.'
     else
       render 'new'
     end
@@ -32,21 +31,14 @@ class LessonsController < InheritedResources::Base
     @section = Section.find(params[:section_id]) if params[:section_id]
   end
 
-  def edit
-    @section = Section.find(params[:section_id])
-    @lesson_section = LessonSection.find_by(section_id: @section.id, lesson_id: @lesson.id)
-  end
-
   def update
     lesson = Lesson.with_deleted.find(params[:id])
     if params[:deleted]
       restore_lesson(lesson)
     else
       if lesson.update(lesson_params)
-        section = Section.find(params[:lesson][:section_ids])
-        redirect_to lesson_show_path(section, lesson), notice: 'Lesson updated.'
+        redirect_to lesson_path(lesson), notice: 'Lesson updated.'
       else
-        @section = Section.find(params[:lesson][:section_ids])
         render 'edit'
       end
     end
@@ -54,18 +46,17 @@ class LessonsController < InheritedResources::Base
 
   def destroy
     lesson = Lesson.find(params[:id])
-    section = Section.find(params[:section_id])
-    lesson_section = LessonSection.find_by(section_id: section.id, lesson_id: lesson.id)
+    lesson_sections = LessonSection.where(lesson_id: lesson.id)
     lesson.destroy
-    lesson_section.update(deleted_at: Time.zone.now)
-    redirect_to section_show_path(section), notice: 'Lesson deleted.'
+    lesson_sections.each { |lesson_section| lesson_section.update(deleted_at: Time.zone.now) }
+    redirect_to courses_path, notice: 'Lesson deleted.'
   end
 
 private
 
   def lesson_params
     params.require(:lesson).permit(:name, :content, :cheat_sheet, :update_warning,
-                                   :public, :deleted_at, :video_id, :tutorial, :section_ids)
+                                   :public, :deleted_at, :video_id, :tutorial, section_ids: [])
   end
 
   def restore_lesson(lesson)
