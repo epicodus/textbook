@@ -7,7 +7,7 @@
     <h3><%= link_to section.name, section_show_path(section), class: 'header-link' %></h3>
     <ul>
       <% section.lessons.each do |lesson| %>
-        <li><%= link_to lesson.name, lesson_show_path(section, lesson) %></li>
+        <li><%= link_to lesson.name, section_lesson_show_path(section, lesson) %></li>
       <% end %>
     </ul>
   <% end %>
