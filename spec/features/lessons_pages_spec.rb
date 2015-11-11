@@ -124,7 +124,7 @@ describe Lesson do
     before { login_as(author, scope: :user) }
 
     it 'can be edited by an author' do
-      visit lesson_show_path(section, lesson)
+      visit section_lesson_show_path(section, lesson)
       click_link "Edit #{lesson.name}"
       fill_in 'Name', with: 'Updated lesson'
       click_button 'Save'
@@ -132,7 +132,7 @@ describe Lesson do
     end
 
     it "doesn't update when name and/or number are blank" do
-      visit lesson_show_path(section, lesson)
+      visit section_lesson_show_path(section, lesson)
       click_link "Edit #{lesson.name}"
       fill_in 'Name', with: ''
       click_button 'Save'
@@ -141,9 +141,9 @@ describe Lesson do
 
     it 'cannot be edited by a student' do
       login_as(student, scope: :user)
-      visit lesson_show_path(section, lesson)
+      visit section_lesson_show_path(section, lesson)
       expect(page).to_not have_content 'Edit lesson'
-      visit edit_section_lesson_path(section, lesson)
+      visit edit_lesson_path(lesson)
       expect(page).to_not have_content 'Edit'
     end
   end
@@ -157,7 +157,7 @@ describe Lesson do
 
     it 'is visible to an author' do
       lesson = FactoryGirl.create :lesson, section: section, public: false
-      visit lesson_show_path(section, lesson)
+      visit section_lesson_show_path(section, lesson)
       expect(page).to have_content lesson.content
     end
 
@@ -165,7 +165,7 @@ describe Lesson do
       login_as(student, scope: :user)
       private_lesson = FactoryGirl.create :lesson, section: section, public: false
       public_lesson = FactoryGirl.create :lesson, section: section
-      visit lesson_show_path(section, private_lesson)
+      visit section_lesson_show_path(section, private_lesson)
       expect(page).to_not have_content private_lesson.content
     end
   end
@@ -192,7 +192,7 @@ describe Lesson do
     end
 
     it 'can be deleted' do
-      visit edit_section_lesson_path(section, lesson)
+      visit edit_lesson_path(lesson)
       click_link 'Delete ' + lesson.name
       expect(page).to have_content 'Lesson deleted.'
     end
