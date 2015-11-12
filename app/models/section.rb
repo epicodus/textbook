@@ -4,6 +4,8 @@ class Section < ActiveRecord::Base
 
   default_scope -> { order :number }
 
+  before_validation :set_number, on: :create
+
   validates :name, :presence => true, :uniqueness => true
   validates :number, :presence => true
   validates :course, :presence => true
@@ -14,6 +16,10 @@ class Section < ActiveRecord::Base
   belongs_to :course
 
 private
+
+  def set_number
+    self.number = course.try(:sections).try(:last).try(:number).to_i + 1
+  end
 
   def name_does_not_conflict_with_routes
     conflicting_names = ['sections', 'lessons', 'courses']

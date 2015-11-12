@@ -20,7 +20,6 @@ FactoryGirl.define do
     sequence(:name) { |n| "Section #{n}" }
     association :course, :factory => :course
     public true
-    sequence(:number) { |n| n }
     sequence(:week) { |n| n }
   end
 

@@ -1,13 +1,7 @@
-class LessonsController < InheritedResources::Base
-  before_filter :find_deleted_lesson, :only => [:show, :edit, :update]
-
-  load_and_authorize_resource
-
-  helper_method :sections
-  helper_method :courses
+class LessonsController < ApplicationController
+  authorize_resource
 
   def index
-    @section = Section.find(params[:section_id]) if params[:section_id]
     if params[:search]
       find_search_results
     elsif params[:deleted]
@@ -18,26 +12,36 @@ class LessonsController < InheritedResources::Base
     end
   end
 
+  def new
+    @lesson = Lesson.new
+  end
+
   def create
-    lesson = Lesson.new(lesson_params)
-    if lesson.save
-      redirect_to lesson_path(lesson), notice: 'Lesson saved.'
+    @lesson = Lesson.new(lesson_params)
+    if @lesson.save
+      redirect_to lesson_path(@lesson), notice: 'Lesson saved.'
     else
       render 'new'
     end
   end
 
   def show
+    @lesson = Lesson.with_deleted.find(params[:id])
     @section = Section.find(params[:section_id]) if params[:section_id]
+    authorize! :read, @lesson
+  end
+
+  def edit
+    @lesson = Lesson.with_deleted.find(params[:id])
   end
 
   def update
-    lesson = Lesson.with_deleted.find(params[:id])
+    @lesson = Lesson.with_deleted.find(params[:id])
     if params[:deleted]
-      restore_lesson(lesson)
+      restore_lesson(@lesson)
     else
-      if lesson.update(lesson_params)
-        redirect_to lesson_path(lesson), notice: 'Lesson updated.'
+      if @lesson.update(lesson_params)
+        redirect_to lesson_path(@lesson), notice: 'Lesson updated.'
       else
         render 'edit'
       end
@@ -83,17 +87,5 @@ private
     sections = Section.where(id: lesson_sections.map(&:section_id))
     @courses = sections.map { |section| Course.find(section.course_id) }.uniq
     render :deleted
-  end
-
-  def sections
-    Section.all
-  end
-
-  def courses
-    Course.all
-  end
-
-  def find_deleted_lesson
-    @lesson = Lesson.with_deleted.find(params[:id]) if params[:deleted]
   end
 end

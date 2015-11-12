@@ -1,5 +1,5 @@
-<%= render '/layouts/errors', :object => @course %>
-<%= course_and_section_form(@course) do |f| %>
+<%= render 'layouts/errors', object: @course %>
+<%= form_for @course do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.label :number, 'Course number' %>

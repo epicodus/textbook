@@ -39,6 +39,14 @@ describe Course, js: true do
     expect(page).to have_content 'Course updated'
   end
 
+  it 'displays errors if you try to save an invalid course when editing' do
+    login_as(author, scope: :user)
+    visit edit_course_path(course)
+    fill_in 'Name', with: ''
+    click_button 'Update Course'
+    expect(page).to have_content "Please correct these problems:"
+  end
+
   it 'cannot be edited by a student' do
     login_as(student, scope: :user)
     visit courses_path
@@ -49,7 +57,7 @@ describe Course, js: true do
 
   it 'can be deleted by an author' do
     login_as(author, scope: :user)
-    visit courses_path
+    visit course_path(course)
     click_link "delete_course_#{course.id}"
     expect(page).to_not have_content course.name
   end
@@ -58,5 +66,19 @@ describe Course, js: true do
     login_as(student, scope: :user)
     visit courses_path
     expect(page).to_not have_content 'delete'
+  end
+
+  it 'is visible to an author' do
+    login_as(author, scope: :user)
+    private_course = FactoryGirl.create :course, public: false
+    visit course_path(private_course)
+    expect(page).to have_content private_course.name
+  end
+
+  it 'is not visible to a student' do
+    login_as(student, scope: :user)
+    private_course = FactoryGirl.create :course, public: false
+    visit course_path(private_course)
+    expect(page).to have_content "Sorry, that course isn't finished yet."
   end
 end

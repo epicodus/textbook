@@ -1,18 +1,50 @@
-class CoursesController < InheritedResources::Base
-  load_and_authorize_resource
+class CoursesController < ApplicationController
+  authorize_resource
+
+  def index
+    @courses = Course.all
+  end
+
+  def new
+    @course = Course.new
+  end
+
+  def create
+    @course = Course.new(course_params)
+    if @course.save
+      redirect_to courses_path, notice: 'Course saved.'
+    else
+      render 'new'
+    end
+  end
+
+  def show
+    @course = Course.find(params[:id])
+    authorize! :read, @course
+  end
+
+  def edit
+    @course = Course.find(params[:id])
+  end
 
   def update
+    @course = Course.find(params[:id])
     if params[:commit] == 'Save order'
       update_section_and_lesson_order
-      redirect_to courses_path, notice: "Order updated."
+      redirect_to course_path(@course), notice: "Order updated."
     else
-      course = Course.find(params[:id])
-      if course.update(course_params)
-        redirect_to course_path(course), notice: "Course updated."
+      if @course.update(course_params)
+        redirect_to course_path(@course), notice: "Course updated."
       else
         render 'edit'
       end
     end
+  end
+
+  def destroy
+    course = Course.find(params[:id])
+    course.destroy
+    redirect_to courses_path, notice: 'Course deleted.'
   end
 
 private
