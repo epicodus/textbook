@@ -81,6 +81,6 @@ describe Section, js: true do
     login_as(student, scope: :user)
     private_section = FactoryGirl.create :section, course: course, public: false
     visit section_show_path(private_section)
-    expect(page).to_not have_content private_section.name
+    expect(page).to have_content "Sorry, that section isn't finished yet."
   end
 end

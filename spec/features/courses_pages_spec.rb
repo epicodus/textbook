@@ -79,6 +79,6 @@ describe Course, js: true do
     login_as(student, scope: :user)
     private_course = FactoryGirl.create :course, public: false
     visit course_path(private_course)
-    expect(page).to_not have_content private_course.name
+    expect(page).to have_content "Sorry, that course isn't finished yet."
   end
 end

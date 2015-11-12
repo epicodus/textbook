@@ -171,7 +171,7 @@ describe Lesson do
       private_lesson = FactoryGirl.create :lesson, section: section, public: false
       public_lesson = FactoryGirl.create :lesson, section: section
       visit section_lesson_show_path(section, private_lesson)
-      expect(page).to_not have_content private_lesson.content
+      expect(page).to have_content "Sorry, that lesson isn't finished yet."
     end
   end
 
