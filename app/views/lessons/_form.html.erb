@@ -3,7 +3,7 @@
   <%= f.label :name %>
   <%= f.text_field :name, class: 'span5' %>
   <%= f.label :section_ids, 'Sections' %>
-  <%= f.grouped_collection_select :section_ids, Course.with_sections, :sections, :name, :id, :name, {}, { class: 'multiselect-dropdown', multiple: true, include_hidden: false } %>
+  <%= f.grouped_collection_select :section_ids, Course.with_sections.unscoped.order(:name), :sections, :name, :id, :name, {}, { class: 'multiselect-dropdown', multiple: true, include_hidden: false } %>
   <%= f.label :video_id, "Video ID from Vimeo" %>
   <%= f.text_field :video_id %>
   <%= f.label(:tutorial, :class => "checkbox") do %>
