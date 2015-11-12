@@ -5,7 +5,7 @@
 <%= render 'lessons/search' %>
 
 <ul>
-  <% @section.lessons.each do |lesson| %>
+  <% public_lessons_helper(@section) do |lesson| %>
     <li><%= link_to lesson.name, section_lesson_show_path(@section, lesson) %></li>
   <% end %>
 </ul>

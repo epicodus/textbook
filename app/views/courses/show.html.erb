@@ -18,7 +18,7 @@
           </ul>
         <% else %>
           <ul>
-            <%= render @course.sections %>
+            <%= render @course.sections.only_public %>
           </ul>
         <% end %>
         <% if can? :update, Course %>

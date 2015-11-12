@@ -173,6 +173,22 @@ describe Lesson do
       visit section_lesson_show_path(section, private_lesson)
       expect(page).to have_content "Sorry, that lesson isn't finished yet."
     end
+
+    it 'is not visible on the course show page' do
+      login_as(student, scope: :user)
+      private_lesson = FactoryGirl.create :lesson, section: section, public: false
+      public_lesson = FactoryGirl.create :lesson, section: section
+      visit course_path(section.course)
+      expect(page).to_not have_content private_lesson.content
+    end
+
+    it 'is not visible on the section show page' do
+      login_as(student, scope: :user)
+      private_lesson = FactoryGirl.create :lesson, section: section, public: false
+      public_lesson = FactoryGirl.create :lesson, section: section
+      visit section_show_path(section)
+      expect(page).to_not have_content private_lesson.content
+    end
   end
 
   context 'deleting and restoring' do
