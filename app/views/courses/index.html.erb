@@ -12,10 +12,6 @@
   <p><%= link_to 'New course', new_course_path, :class => 'btn btn-primary btn-large', :id => 'new_course_link' %>
 <% end%>
 
-<% if can? :create, Lesson %>
-  <p><%= link_to 'New lesson', new_lesson_path, :class => 'btn btn-success btn-large' %></p>
-<% end %>
-
 <% if can? :update, Lesson %>
-  <%= link_to 'View deleted lessons', lessons_path + '?deleted=true' %>
+  <p><%= link_to 'View deleted lessons', lessons_path + '?deleted=true' %></p>
 <% end %>

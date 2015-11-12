@@ -10,8 +10,6 @@ describe Lesson do
     before { login_as(author, scope: :user) }
 
     it 'lets the author view the New page' do
-      visit courses_path
-      expect(page).to have_content 'New lesson'
       visit new_lesson_path
       expect(page).to have_content 'New lesson'
     end
