@@ -4,9 +4,11 @@
 
 <%= render 'lessons/search' %>
 
-<% @courses.each do |course| %>
-  <h3><%= link_to course.name, course_path(course), class: 'header-link' %></h3>
-<% end %>
+<ul class="unstyled-list">
+  <% @courses.each do |course| %>
+    <li><%= link_to course.name, course_path(course), class: 'main-course-link' %></li>
+  <% end %>
+</ul>
 
 <% if can? :create, Course %>
   <p><%= link_to 'New course', new_course_path, :class => 'btn btn-primary btn-large', :id => 'new_course_link' %>
