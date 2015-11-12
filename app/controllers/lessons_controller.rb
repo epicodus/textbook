@@ -23,7 +23,7 @@ class LessonsController < InheritedResources::Base
     if @lesson.save
       redirect_to lesson_path(@lesson), notice: 'Lesson saved.'
     else
-      render :new
+      render 'new'
     end
   end
 
@@ -39,7 +39,7 @@ class LessonsController < InheritedResources::Base
       if @lesson.update(lesson_params)
         redirect_to lesson_path(@lesson), notice: 'Lesson updated.'
       else
-        render :edit
+        render 'edit'
       end
     end
   end

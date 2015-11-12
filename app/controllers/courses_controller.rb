@@ -6,7 +6,7 @@ class CoursesController < InheritedResources::Base
     if @course.save
       redirect_to courses_path, notice: 'Course saved.'
     else
-      render :new
+      render 'new'
     end
   end
 
@@ -19,7 +19,7 @@ class CoursesController < InheritedResources::Base
       if @course.update(course_params)
         redirect_to course_path(@course), notice: "Course updated."
       else
-        render :edit
+        render 'edit'
       end
     end
   end
