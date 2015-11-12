@@ -5,7 +5,7 @@ Textbook::Application.routes.draw do
 
   get 'table-of-contents', to: redirect('courses')
 
-  resources :sections, except: [:show, :new, :create, :edit, :update] do
+  resources :sections, only: [:index, :destroy] do
     resources :lessons, only: [:index]
   end
   resources :lessons
