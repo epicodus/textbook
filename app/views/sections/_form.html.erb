@@ -1,3 +1,5 @@
+<h3>Course: <%= @course.name %></h3>
+
 <%= render 'layouts/errors', object: @section %>
 <%= form_for [@course, @section] do |f| %>
   <%= f.label :name %>

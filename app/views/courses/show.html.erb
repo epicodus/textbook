@@ -22,7 +22,7 @@
           </ul>
         <% end %>
         <% if can? :update, Course %>
-          <%= submit_tag 'Save order', class: 'btn btn-primary', id: 'save_order' %>
+          <%= f.submit 'Save order', class: 'btn btn-primary', id: 'save_order' %>
         <% end %>
       </div>
     </div>
