@@ -3,6 +3,7 @@ class Section < ActiveRecord::Base
   friendly_id :name, :use => [:slugged, :finders]
 
   default_scope -> { order :number }
+  scope :only_public, -> { where(public: true) }
 
   before_validation :set_number, on: :create
 
