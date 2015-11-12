@@ -1,5 +1,5 @@
 class SectionsController < ApplicationController
-  authorize_resource except: [:index]
+  authorize_resource
 
   def index
     flash.keep

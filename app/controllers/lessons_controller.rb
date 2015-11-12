@@ -1,8 +1,5 @@
 class LessonsController < ApplicationController
-  before_filter :find_deleted_lesson, :only => [:show, :edit, :update]
-
-  authorize_resource except: :show
-  load_and_authorize_resource only: :show
+  authorize_resource
 
   def index
     if params[:search]
@@ -29,11 +26,12 @@ class LessonsController < ApplicationController
   end
 
   def show
+    @lesson = Lesson.with_deleted.find(params[:id])
     @section = Section.find(params[:section_id]) if params[:section_id]
   end
 
   def edit
-    @lesson = Lesson.find(params[:id])
+    @lesson = Lesson.with_deleted.find(params[:id])
   end
 
   def update
@@ -88,9 +86,5 @@ private
     sections = Section.where(id: lesson_sections.map(&:section_id))
     @courses = sections.map { |section| Course.find(section.course_id) }.uniq
     render :deleted
-  end
-
-  def find_deleted_lesson
-    @lesson = Lesson.with_deleted.find(params[:id]) if params[:deleted]
   end
 end
