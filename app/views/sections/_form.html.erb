@@ -1,7 +1,5 @@
-<h3>Course: <%= @course.name %></h3>
-
 <%= render 'layouts/errors', object: @section %>
-<%= form_for [@course, @section] do |f| %>
+<%= section_form do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.label :week, 'Section week' %>
@@ -9,7 +7,6 @@
   <%= f.label(:public, :class => "checkbox") do %>
     <%= f.check_box :public %>
     Public
-  <%= f.hidden_field :course_id, value: @course.id %>
   <% end %>
   <%= f.submit :class => "btn btn-primary" %>
 <% end %>

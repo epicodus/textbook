@@ -8,14 +8,14 @@ class SectionsController < ApplicationController
 
   def new
     @section = Section.new
-    @course = Course.find(params[:course_id])
+    @section.course = Course.find(params[:course_id])
   end
 
   def create
-    @course = Course.find(params[:course_id])
     @section = Section.new(section_params)
+    @section.course = Course.find(params[:course_id])
     if @section.save
-      redirect_to course_path(@course), notice: 'Section saved.'
+      redirect_to course_path(@section.course), notice: 'Section saved.'
     else
       render 'new'
     end
@@ -27,7 +27,6 @@ class SectionsController < ApplicationController
 
   def edit
     @section = Section.find(params[:id])
-    @course = Course.find(params[:course_id])
   end
 
   def update
@@ -35,7 +34,6 @@ class SectionsController < ApplicationController
     if @section.update(section_params)
       redirect_to section_show_path(@section), notice: "Section updated."
     else
-      @course = Course.find(params[:course_id])
       render 'edit'
     end
   end
