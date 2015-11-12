@@ -69,4 +69,18 @@ describe Section, js: true do
     visit courses_path
     expect(page).to_not have_content 'delete'
   end
+
+  it 'is visible to an author' do
+    login_as(author, scope: :user)
+    private_section = FactoryGirl.create :section, course: course, public: false
+    visit section_show_path(private_section)
+    expect(page).to have_content private_section.name
+  end
+
+  it 'is not visible to a student' do
+    login_as(student, scope: :user)
+    private_section = FactoryGirl.create :section, course: course, public: false
+    visit section_show_path(private_section)
+    expect(page).to_not have_content private_section.name
+  end
 end

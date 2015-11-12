@@ -67,4 +67,18 @@ describe Course, js: true do
     visit courses_path
     expect(page).to_not have_content 'delete'
   end
+
+  it 'is visible to an author' do
+    login_as(author, scope: :user)
+    private_course = FactoryGirl.create :course, public: false
+    visit course_path(private_course)
+    expect(page).to have_content private_course.name
+  end
+
+  it 'is not visible to a student' do
+    login_as(student, scope: :user)
+    private_course = FactoryGirl.create :course, public: false
+    visit course_path(private_course)
+    expect(page).to_not have_content private_course.name
+  end
 end
