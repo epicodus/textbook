@@ -1,4 +1,4 @@
-class LessonsController < InheritedResources::Base
+class LessonsController < ApplicationController
   before_filter :find_deleted_lesson, :only => [:show, :edit, :update]
 
   load_and_authorize_resource

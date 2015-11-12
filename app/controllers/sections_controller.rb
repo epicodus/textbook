@@ -1,4 +1,4 @@
-class SectionsController < InheritedResources::Base
+class SectionsController < ApplicationController
   load_and_authorize_resource :except => [:index]
 
   helper_method :courses

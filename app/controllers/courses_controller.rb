@@ -1,4 +1,4 @@
-class CoursesController < InheritedResources::Base
+class CoursesController < ApplicationController
   load_and_authorize_resource
 
   def create
@@ -22,6 +22,12 @@ class CoursesController < InheritedResources::Base
         render 'edit'
       end
     end
+  end
+
+  def destroy
+    course = Course.find(params[:id])
+    course.destroy
+    redirect_to courses_path, notice: 'Course deleted.'
   end
 
 private
