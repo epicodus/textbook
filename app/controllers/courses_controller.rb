@@ -28,11 +28,11 @@ class CoursesController < ApplicationController
   end
 
   def update
+    @course = Course.find(params[:id])
     if params[:commit] == 'Save order'
       update_section_and_lesson_order
-      redirect_to courses_path, notice: "Order updated."
+      redirect_to course_path(@course), notice: "Order updated."
     else
-      @course = Course.find(params[:id])
       if @course.update(course_params)
         redirect_to course_path(@course), notice: "Course updated."
       else
