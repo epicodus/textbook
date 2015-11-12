@@ -207,7 +207,7 @@ describe Lesson do
       login_as(student, scope: :user)
       visit section_lessons_path(section) + "?deleted=true"
       click_link lesson.name
-      expect(page).to_not have_content lesson.content
+      expect(page).to have_content "Sorry, that lesson isn't finished yet."
     end
 
     it 'can be restored' do
