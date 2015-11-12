@@ -1,5 +1,13 @@
 class CoursesController < ApplicationController
-  load_and_authorize_resource
+  authorize_resource
+
+  def index
+    @courses = Course.all
+  end
+
+  def new
+    @course = Course.new
+  end
 
   def create
     @course = Course.new(course_params)
@@ -8,6 +16,14 @@ class CoursesController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def show
+    @course = Course.find(params[:id])
+  end
+
+  def edit
+    @course = Course.find(params[:id])
   end
 
   def update

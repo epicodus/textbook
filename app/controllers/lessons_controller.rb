@@ -1,13 +1,10 @@
 class LessonsController < ApplicationController
   before_filter :find_deleted_lesson, :only => [:show, :edit, :update]
 
-  load_and_authorize_resource
-
-  helper_method :sections
-  helper_method :courses
+  authorize_resource except: :show
+  load_and_authorize_resource only: :show
 
   def index
-    @section = Section.find(params[:section_id]) if params[:section_id]
     if params[:search]
       find_search_results
     elsif params[:deleted]
@@ -16,6 +13,10 @@ class LessonsController < ApplicationController
       flash.keep
       redirect_to courses_path
     end
+  end
+
+  def new
+    @lesson = Lesson.new
   end
 
   def create
@@ -29,6 +30,10 @@ class LessonsController < ApplicationController
 
   def show
     @section = Section.find(params[:section_id]) if params[:section_id]
+  end
+
+  def edit
+    @lesson = Lesson.find(params[:id])
   end
 
   def update
@@ -83,14 +88,6 @@ private
     sections = Section.where(id: lesson_sections.map(&:section_id))
     @courses = sections.map { |section| Course.find(section.course_id) }.uniq
     render :deleted
-  end
-
-  def sections
-    Section.all
-  end
-
-  def courses
-    Course.all
   end
 
   def find_deleted_lesson

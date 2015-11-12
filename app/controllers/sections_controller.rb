@@ -1,7 +1,5 @@
 class SectionsController < ApplicationController
-  load_and_authorize_resource :except => [:index]
-
-  helper_method :courses
+  authorize_resource except: [:index]
 
   def index
     flash.keep
@@ -9,6 +7,7 @@ class SectionsController < ApplicationController
   end
 
   def new
+    @section = Section.new
     @course = Course.find(params[:course_id])
   end
 
@@ -22,7 +21,12 @@ class SectionsController < ApplicationController
     end
   end
 
+  def show
+    @section = Section.find(params[:id])
+  end
+
   def edit
+    @section = Section.find(params[:id])
     @course = Course.find(params[:course_id])
   end
 
@@ -36,13 +40,17 @@ class SectionsController < ApplicationController
     end
   end
 
+  def destroy
+    @section = Section.find(params[:id])
+    @section.destroy
+    respond_to do |format|
+      format.js { render 'destroy' }
+    end
+  end
+
 private
 
   def section_params
     params.require(:section).permit(:name, :course_id, :public, :week)
-  end
-
-  def courses
-    Course.all
   end
 end
