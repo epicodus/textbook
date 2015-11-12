@@ -33,7 +33,6 @@ class LessonsController < ApplicationController
 
   def edit
     @lesson = Lesson.with_deleted.find(params[:id])
-    authorize! :read, @lesson
   end
 
   def update

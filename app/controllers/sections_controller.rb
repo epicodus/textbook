@@ -28,7 +28,6 @@ class SectionsController < ApplicationController
 
   def edit
     @section = Section.find(params[:id])
-    authorize! :read, @section
   end
 
   def update

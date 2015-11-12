@@ -25,7 +25,6 @@ class CoursesController < ApplicationController
 
   def edit
     @course = Course.find(params[:id])
-    authorize! :read, @course
   end
 
   def update
