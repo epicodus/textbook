@@ -20,10 +20,12 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
+    authorize! :read, @course
   end
 
   def edit
     @course = Course.find(params[:id])
+    authorize! :read, @course
   end
 
   def update

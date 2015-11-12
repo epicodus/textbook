@@ -23,10 +23,12 @@ class SectionsController < ApplicationController
 
   def show
     @section = Section.find(params[:id])
+    authorize! :read, @section
   end
 
   def edit
     @section = Section.find(params[:id])
+    authorize! :read, @section
   end
 
   def update

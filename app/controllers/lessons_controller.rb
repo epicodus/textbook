@@ -28,10 +28,12 @@ class LessonsController < ApplicationController
   def show
     @lesson = Lesson.with_deleted.find(params[:id])
     @section = Section.find(params[:section_id]) if params[:section_id]
+    authorize! :read, @lesson
   end
 
   def edit
     @lesson = Lesson.with_deleted.find(params[:id])
+    authorize! :read, @lesson
   end
 
   def update
