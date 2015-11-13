@@ -13,4 +13,10 @@ class Course < ActiveRecord::Base
 
   accepts_nested_attributes_for :sections
   accepts_nested_attributes_for :lessons
+
+private
+
+  def should_generate_new_friendly_id?
+    slug.blank? || name_changed?
+  end
 end

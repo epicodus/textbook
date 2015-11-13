@@ -26,4 +26,10 @@ describe Course do
     section = FactoryGirl.create(:section, course: course_with_section)
     expect(Course.with_sections).to eq [course_with_section]
   end
+
+  it 'updates the slug when a course name is updated' do
+    course = FactoryGirl.create(:course)
+    course.update(name: 'New awesome course')
+    expect(course.slug).to eq 'new-awesome-course'
+  end
 end

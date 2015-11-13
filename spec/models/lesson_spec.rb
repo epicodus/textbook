@@ -78,6 +78,12 @@ describe Lesson do
     end
   end
 
+  it 'updates the slug when a lesson name is updated' do
+    lesson = FactoryGirl.create(:lesson)
+    lesson.update(name: 'New awesome lesson')
+    expect(lesson.slug).to eq 'new-awesome-lesson'
+  end
+
   context '#has_video?' do
     it 'returns false if there is no video id' do
       lesson = FactoryGirl.create :lesson, :video_id => nil

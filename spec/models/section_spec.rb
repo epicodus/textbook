@@ -42,4 +42,10 @@ describe Section do
     expect(Section.first).to eq first_section
     expect(Section.last).to eq last_section
   end
+
+  it 'updates the slug when a section name is updated' do
+    section = FactoryGirl.create(:section)
+    section.update(name: 'New awesome section')
+    expect(section.slug).to eq 'new-awesome-section'
+  end
 end

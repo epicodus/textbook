@@ -18,7 +18,7 @@
           </ul>
         <% else %>
           <ul>
-            <%= render @course.sections %>
+            <%= render @course.sections.accessible_by(current_ability) %>
           </ul>
         <% end %>
         <% if can? :update, Course %>
