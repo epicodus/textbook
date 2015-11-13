@@ -21,3 +21,7 @@
 <% if can? :update, Lesson %>
   <p><%= link_to 'View deleted lessons', lessons_path + '?deleted=true' %></p>
 <% end %>
+
+<% if user_signed_in? %>
+  <%= link_to('Log out', destroy_user_session_path, method: :delete, class: 'btn btn-small btn-info') %>
+<% end %>
