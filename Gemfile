@@ -34,6 +34,8 @@ group :test do
   gem 'poltergeist'
   gem 'capybara'
   gem 'launchy'
+  gem 'simplecov', require: false
+  gem 'coveralls', require: false
 end
 
 group :production do
