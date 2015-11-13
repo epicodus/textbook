@@ -128,4 +128,22 @@ describe Lesson do
       expect(lesson).to_not be_public
     end
   end
+
+  context 'setter methods' do
+    it 'adds a section for the lesson with section_id=' do
+      section = FactoryGirl.create(:section)
+      section_2 = FactoryGirl.create(:section)
+      lesson = FactoryGirl.create(:lesson, section: section)
+      lesson.section_id=(section_2.id)
+      expect(lesson.sections).to eq [section, section_2]
+    end
+
+    it 'adds a section for the lesson with section=' do
+      section = FactoryGirl.create(:section)
+      section_2 = FactoryGirl.create(:section)
+      lesson = FactoryGirl.create(:lesson, section: section)
+      lesson.section=(section_2.id)
+      expect(lesson.sections).to eq [section, section_2]
+    end
+  end
 end

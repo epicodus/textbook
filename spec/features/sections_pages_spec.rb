@@ -91,4 +91,9 @@ describe Section, js: true do
     visit course_path(course)
     expect(page).to_not have_content private_section.name
   end
+
+  it 'redirects from lessons index to courses index when there are no params' do
+    visit sections_path
+    expect(page.current_path).to eq courses_path
+  end
 end
