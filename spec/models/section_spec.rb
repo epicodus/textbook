@@ -49,4 +49,10 @@ describe Section do
     private_section = FactoryGirl.create(:section, public: false)
     expect(Section.only_public).to eq [public_section_1, public_section_2]
   end
+
+  it 'updates the slug when a section name is updated' do
+    section = FactoryGirl.create(:section)
+    section.update(name: 'New awesome section')
+    expect(section.slug).to eq 'new-awesome-section'
+  end
 end

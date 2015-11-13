@@ -18,6 +18,10 @@ class Section < ActiveRecord::Base
 
 private
 
+  def should_generate_new_friendly_id?
+    slug.blank? || name_changed?
+  end
+
   def set_number
     self.number = course.try(:sections).try(:last).try(:number).to_i + 1
   end

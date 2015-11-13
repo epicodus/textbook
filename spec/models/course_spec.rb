@@ -33,4 +33,10 @@ describe Course do
     private_course = FactoryGirl.create(:course, public: false)
     expect(Course.only_public).to eq [public_course_1, public_course_2]
   end
+
+  it 'updates the slug when a course name is updated' do
+    course = FactoryGirl.create(:course)
+    course.update(name: 'New awesome course')
+    expect(course.slug).to eq 'new-awesome-course'
+  end
 end
