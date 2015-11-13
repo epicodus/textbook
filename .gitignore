@@ -14,3 +14,6 @@
 # Ignore .env files.
 .env
 .env_test
+
+# Ignore simplecov files.
+coverage
