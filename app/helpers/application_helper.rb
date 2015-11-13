@@ -7,4 +7,12 @@ module ApplicationHelper
       object.lessons.only_public.each &block
     end
   end
+
+  def public_courses_helper(object, &block)
+    if can? :manage, Course
+      object.each &block
+    else
+      object.only_public.each &block
+    end
+  end
 end

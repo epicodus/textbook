@@ -5,7 +5,7 @@
 <%= render 'lessons/search' %>
 
 <ul class="unstyled-list">
-  <% @courses.each do |course| %>
+  <% public_courses_helper(@courses) do |course| %>
     <li><%= link_to course.name, course_path(course), class: 'main-course-link' %></li>
   <% end %>
 </ul>

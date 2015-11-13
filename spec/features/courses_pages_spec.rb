@@ -81,4 +81,12 @@ describe Course, js: true do
     visit course_path(private_course)
     expect(page).to have_content "Sorry, that course isn't finished yet."
   end
+
+  it 'is not visible on the course index page when private' do
+    login_as(student, scope: :user)
+    private_course = FactoryGirl.create :course, public: false
+    public_course = FactoryGirl.create :course
+    visit courses_path
+    expect(page).to_not have_content private_course.name
+  end
 end

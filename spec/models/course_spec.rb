@@ -26,4 +26,11 @@ describe Course do
     section = FactoryGirl.create(:section, course: course_with_section)
     expect(Course.with_sections).to eq [course_with_section]
   end
+
+  it 'returns courses that are public' do
+    public_course_1 = FactoryGirl.create(:course)
+    public_course_2 = FactoryGirl.create(:course)
+    private_course = FactoryGirl.create(:course, public: false)
+    expect(Course.only_public).to eq [public_course_1, public_course_2]
+  end
 end

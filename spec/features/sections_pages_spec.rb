@@ -84,7 +84,7 @@ describe Section, js: true do
     expect(page).to have_content "Sorry, that section isn't finished yet."
   end
 
-  it 'is not visible on the course show page' do
+  it 'is not visible on the course show page when private' do
     login_as(student, scope: :user)
     private_section = FactoryGirl.create :section, course: course, public: false
     public_section = FactoryGirl.create :section, course: course

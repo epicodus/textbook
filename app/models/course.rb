@@ -4,6 +4,7 @@ class Course < ActiveRecord::Base
 
   default_scope -> { order :number }
   scope :with_sections, -> { includes(:sections).where.not(sections: { id: nil }) }
+  scope :only_public, -> { where(public: true) }
 
   validates :name, :presence => true, :uniqueness => true
   validates :number, :presence => true
