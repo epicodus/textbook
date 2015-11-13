@@ -22,7 +22,7 @@
                 "lesson"
               <% end %>
               >
-      <% public_lessons_helper(section) do |lesson| %>
+      <% section.lessons.accessible_by(current_ability).each do |lesson| %>
         <li>
           <% if lesson.tutorial? %>
             <i class="icon-book"></i>

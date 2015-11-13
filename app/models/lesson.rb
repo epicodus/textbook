@@ -4,8 +4,6 @@ class Lesson < ActiveRecord::Base
 
   acts_as_paranoid
 
-  scope :only_public, -> { where(public: true) }
-
   validates :name, :presence => true, :uniqueness => true
   validates :content, :presence => true
   validates :sections, presence: true

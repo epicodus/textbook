@@ -17,13 +17,6 @@ describe Lesson do
     expect(lesson.slug).to eq 'new-name'
   end
 
-  it 'returns lessons that are public' do
-    public_lesson_1 = FactoryGirl.create(:lesson)
-    public_lesson_2 = FactoryGirl.create(:lesson)
-    private_lesson = FactoryGirl.create(:lesson, public: false)
-    expect(Lesson.only_public).to eq [public_lesson_1, public_lesson_2]
-  end
-
   context 'navigate to next lesson' do
     let!(:section) { FactoryGirl.create(:section) }
     let!(:current_lesson) { FactoryGirl.create(:lesson, section: section) }

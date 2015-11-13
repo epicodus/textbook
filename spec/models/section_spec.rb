@@ -43,13 +43,6 @@ describe Section do
     expect(Section.last).to eq last_section
   end
 
-  it 'returns sections that are public' do
-    public_section_1 = FactoryGirl.create(:section)
-    public_section_2 = FactoryGirl.create(:section)
-    private_section = FactoryGirl.create(:section, public: false)
-    expect(Section.only_public).to eq [public_section_1, public_section_2]
-  end
-
   it 'updates the slug when a section name is updated' do
     section = FactoryGirl.create(:section)
     section.update(name: 'New awesome section')

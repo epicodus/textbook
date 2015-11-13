@@ -5,7 +5,7 @@
 <%= render 'lessons/search' %>
 
 <ul>
-  <% public_lessons_helper(@section) do |lesson| %>
+  <% @section.lessons.accessible_by(current_ability).each do |lesson| %>
     <li><%= link_to lesson.name, section_lesson_show_path(@section, lesson) %></li>
   <% end %>
 </ul>
