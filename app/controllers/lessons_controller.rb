@@ -64,7 +64,7 @@ private
   end
 
   def restore_lesson(lesson)
-    lesson.restore
+    lesson.restore!
     lesson_sections = LessonSection.where(lesson_id: lesson.id)
     lesson_sections.each { |lesson_section| lesson_section.update(deleted_at: nil) }
     redirect_to courses_path, notice: 'Lesson restored.'

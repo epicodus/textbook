@@ -57,9 +57,8 @@ private
   end
 
   def update_section_order
-    params[:course][:sections_attributes].each do |section|
-      Section.find(section[1][:id]).update(number: section[1][:number])
-    end
+    sections_params = params[:course][:sections_attributes]
+    @course.sections.update(sections_params.keys, sections_params.values)
   end
 
   def update_lesson_order
