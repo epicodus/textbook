@@ -10,7 +10,6 @@
  *
  *= require_self
  *= require bootstrap
- *= require bootstrap-responsive
  *= require bootstrap-overrides
  *= require prettify
  *= require bootstrap-multiselect
