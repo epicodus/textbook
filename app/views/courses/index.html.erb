@@ -1,8 +1,9 @@
 <% provide :title, 'Courses' %>
 
 <h1><%= yield :title %></h1>
-
+<br>
 <%= render 'lessons/search' %>
+<br>
 
 <ul class="unstyled-list">
   <% @courses.accessible_by(current_ability).each do |course| %>
