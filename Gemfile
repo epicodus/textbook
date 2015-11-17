@@ -15,10 +15,10 @@ gem 'textacular'
 gem 'newrelic_rpm'
 gem 'uglifier'
 gem 'redcarpet'
-gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'bootstrap-multiselect-rails'
-gem 'sass-rails', '>= 3.2'
+gem 'sass-rails'
 
 group :development do
   gem 'quiet_assets'

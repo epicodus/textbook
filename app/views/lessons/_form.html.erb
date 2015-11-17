@@ -1,6 +1,5 @@
 <%= render 'layouts/errors', object: @lesson %>
 <%= lesson_form do |f| %>
-<form>
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field :name, class: 'form-control' %>
@@ -44,5 +43,4 @@
   <div class="form-group">
     <%= f.submit "Save", :class => "btn btn-primary" %>
   </div>
-</form>
 <% end %>

@@ -256,7 +256,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-multiselect-rails
-  bootstrap-sass (~> 3.3.5)
+  bootstrap-sass
   bootswatch-rails
   bugsnag
   cancancan
@@ -279,7 +279,7 @@ DEPENDENCIES
   rails_12factor
   redcarpet
   rspec-rails
-  sass-rails (>= 3.2)
+  sass-rails
   shoulda-matchers
   simplecov
   textacular
