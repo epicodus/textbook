@@ -1,18 +1,21 @@
-<% provide :title, "Lessons containing '#{@query}'" %>
-
-<h1><%= yield :title %></h1>
-
-<%= render 'search' %>
-
-<% if @results.any? %>
-  <% @sections.each do |section| %>
-    <h3><%= section.name %></h3>
-    <ul>
-      <% section.lessons.where(id: @results.map(&:id)).each do |lesson| %>
-        <li><%= link_to lesson.name, section_lesson_show_path(section, lesson) %></li>
+<div class="container">
+  <div class="form-group">
+    <% provide :title, "Lessons containing '#{@query}'" %>
+    <h1><%= yield :title %></h1>
+  </div>
+    <%= render 'search' %>
+  <div class="form-group">
+    <% if @results.any? %>
+      <% @sections.each do |section| %>
+        <h3><%= section.name %></h3>
+        <ul>
+          <% section.lessons.where(id: @results.map(&:id)).each do |lesson| %>
+            <li><%= link_to lesson.name, section_lesson_show_path(section, lesson) %></li>
+          <% end %>
+        </ul>
       <% end %>
-    </ul>
-  <% end %>
-<% else %>
-  <p>No lessons found.</p>
-<% end %>
+    <% else %>
+      <p>No lessons found.</p>
+    <% end %>
+  </div>
+</div>
