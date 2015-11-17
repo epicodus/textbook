@@ -1,18 +1,27 @@
-<% provide :title, "Forgot your password?" %>
+<div class="container">
+  <div class="form-group">
+    <% provide :title, "Forgot your password?" %>
 
-<h1><%= yield :title %></h1>
+    <h1><%= yield :title %></h1>
+  </div>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-  <% if devise_error_messages!.length > 0 %>
-    <div class="alert alert-error">
-      <%= devise_error_messages! %>
-    </div>
+  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+    <form>
+      <% if devise_error_messages!.length > 0 %>
+        <div class="alert alert-error">
+          <%= devise_error_messages! %>
+        </div>
+      <% end %>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email %>
+      </div>
+      <div class="form-group">
+        <%= f.submit "Send me reset password instructions", :class => "btn btn-primary" %>
+      </div>
+    </form>
   <% end %>
-
-  <%= f.label :email %>
-  <%= f.email_field :email %>
-
-  <%= f.submit "Send me reset password instructions", :class => "btn btn-primary" %>
-<% end %>
-
-<%= render "devise/shared/links" %>
+  <div class="form-group">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

@@ -11,15 +11,15 @@ describe Lesson do
 
     it 'lets the author view the New page' do
       visit new_lesson_path
-      expect(page).to have_content 'New lesson'
+      expect(page).to have_content 'New Lesson'
     end
 
     it 'does not let students view the New page' do
       login_as(student, scope: :user)
       visit courses_path
-      expect(page).to_not have_content 'New lesson'
+      expect(page).to_not have_content 'New Lesson'
       visit new_lesson_path
-      expect(page).to_not have_content 'New lesson'
+      expect(page).to_not have_content 'New Lesson'
     end
 
     it 'lets authors create a lesson' do
