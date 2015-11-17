@@ -6,6 +6,14 @@ a.course, a.section {
   cursor: pointer;
 }
 
+a.section:hover {
+  color: #575250;
+}
+
+a.lesson:hover {
+  color: #575250;
+}
+
 #video {
   padding-bottom: 14px;
 }
@@ -14,6 +22,14 @@ blockquote p {
   margin-bottom: inherit;
   line-height: inherit;
   font-size: 14px;
+}
+
+a {
+  color: #3399ff;
+}
+
+a:hover {
+  color: #575250;
 }
 
 .filename {

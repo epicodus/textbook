@@ -1,7 +1,11 @@
 .main-course-link {
   font-size: 2em;
-  font-family: 'Josefin Sans';
   font-weight: 500;
+  color: #3a54a4;
+}
+
+.main-course-link:hover {
+  color: #575250;
 }
 
 .unstyled-list {

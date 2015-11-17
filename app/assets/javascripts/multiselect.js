@@ -1,5 +1,5 @@
 $(function () {
   $('.multiselect-dropdown').multiselect({
-    buttonClass: 'btn btn-primary'
+    buttonClass: 'btn btn-info'
   });
 });
