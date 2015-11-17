@@ -1,24 +1,28 @@
-<% provide :title, 'Courses' %>
+<div class="container">
+  <div class="form-group">
+    <% provide :title, 'Courses' %>
 
-<h1><%= yield :title %></h1>
-<br>
-<%= render 'lessons/search' %>
-<br>
+    <h1><%= yield :title %></h1>
+  </div>
+  <div class="form-group">
+    <%= render 'lessons/search' %>
+  </div>
 
-<ul class="unstyled-list">
-  <% @courses.accessible_by(current_ability).each do |course| %>
-    <li><%= link_to course.name, course_path(course), class: 'main-course-link' %></li>
+    <ul class="unstyled-list">
+      <% @courses.accessible_by(current_ability).each do |course| %>
+        <li><%= link_to course.name, course_path(course), class: 'main-course-link' %></li>
+      <% end %>
+    </ul>
+   
+  <% if can? :create, Course %>
+    <p><%= link_to 'New course', new_course_path, :class => 'btn btn-primary btn-large', :id => 'new_course_link' %>
+  <% end%>
+
+  <% if can? :create, Lesson %>
+    <p><%= link_to 'New lesson', new_lesson_path, :class => "btn btn-success btn-large" %></p>
   <% end %>
-</ul>
 
-<% if can? :create, Course %>
-  <p><%= link_to 'New course', new_course_path, :class => 'btn btn-primary btn-large', :id => 'new_course_link' %>
-<% end%>
-
-<% if can? :create, Lesson %>
-  <p><%= link_to 'New lesson', new_lesson_path, :class => "btn btn-success btn-large" %></p>
-<% end %>
-
-<% if can? :update, Lesson %>
-  <p><%= link_to 'View deleted lessons', lessons_path + '?deleted=true' %></p>
-<% end %>
+  <% if can? :update, Lesson %>
+    <p><%= link_to 'View deleted lessons', lessons_path + '?deleted=true' %></p>
+  <% end %>
+</div>
