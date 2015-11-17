@@ -1,19 +1,24 @@
-<% provide :title, @section.name %>
+<div class="container">
+  <div class="form-group">
+    <% provide :title, @section.name %>
+    <h1><%= yield :title %></h1>
+  </div>
 
-<h1><%= yield :title %></h1>
+  <div class="form-group">
+    <%= render 'lessons/search' %>
+  </div>
 
-<%= render 'lessons/search' %>
+  <ul>
+    <% @section.lessons.accessible_by(current_ability).each do |lesson| %>
+      <li><%= link_to lesson.name, section_lesson_show_path(@section, lesson) %></li>
+    <% end %>
+  </ul>
 
-<ul>
-  <% @section.lessons.accessible_by(current_ability).each do |lesson| %>
-    <li><%= link_to lesson.name, section_lesson_show_path(@section, lesson) %></li>
+  <% if can? :update, Section %>
+    <p><%= link_to "Edit #{@section.name}", edit_course_section_path(@section.course, @section), :class => "btn btn-large" %></p>
   <% end %>
-</ul>
 
-<% if can? :update, Section %>
-  <p><%= link_to "Edit #{@section.name}", edit_course_section_path(@section.course, @section), :class => "btn btn-large" %></p>
-<% end %>
-
-<% if can? :create, Lesson %>
-  <p><%= link_to 'New lesson', new_lesson_path, :class => "btn btn-success btn-large" %></p>
-<% end %>
+  <% if can? :create, Lesson %>
+    <p><%= link_to 'New lesson', new_lesson_path, :class => "btn btn-success btn-large" %></p>
+  <% end %>
+</div>

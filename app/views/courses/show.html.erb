@@ -1,38 +1,40 @@
-<% provide :title, @course.name %>
+<div class="container">
+  <div class="form-group"><br>
+    <% provide :title, @course.name %>
+    <h1><%= yield :title %></h1> 
+  </div>
+  <%= form_for @course, method: :put do |f| %>
+    <div class="row">
+      <div class="span6">
+        <div id="course_<%= @course.id %>">
+          <% if can? :update, @course %>
+            <p>
+              <%= link_to "edit", edit_course_path(@course), id: "edit_course_#{@course.id}", class: 'btn btn-mini btn-info' %>
+              <%= link_to "delete", @course, data: { confirm: 'Are you sure?' }, method: :delete, id: "delete_course_#{@course.id}", class: 'btn btn-mini btn-danger' %>
+            </p>
 
-<h1><%= yield :title %></h1>
-
-<%= form_for @course, method: :put do |f| %>
-  <div class="row">
-    <div class="span6">
-      <div id="course_<%= @course.id %>">
-        <% if can? :update, @course %>
-          <p>
-            <%= link_to "edit", edit_course_path(@course), id: "edit_course_#{@course.id}", class: 'btn btn-mini btn-info' %>
-            <%= link_to "delete", @course, data: { confirm: 'Are you sure?' }, method: :delete, id: "delete_course_#{@course.id}", class: 'btn btn-mini btn-danger' %>
-          </p>
-
-          <%= f.hidden_field :number, class: :course %>
-          <ul class='section'>
-            <%= render @course.sections %>
-          </ul>
-        <% else %>
-          <ul>
-            <%= render @course.sections.accessible_by(current_ability) %>
-          </ul>
-        <% end %>
-        <% if can? :update, Course %>
-          <%= f.submit 'Save order', class: 'btn btn-primary', id: 'save_order' %>
-        <% end %>
+            <%= f.hidden_field :number, class: :course %>
+            <ul class='section'>
+              <%= render @course.sections %>
+            </ul>
+          <% else %>
+            <ul>
+              <%= render @course.sections.accessible_by(current_ability) %>
+            </ul>
+          <% end %>
+          <% if can? :update, Course %>
+            <%= f.submit 'Save order', class: 'btn btn-primary', id: 'save_order' %>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
 
-<% if can? :update, Course %>
-  <p><%= link_to "Edit #{@course.name}", edit_course_path(@course), :class => "btn btn-large" %></p>
-<% end%>
+  <% if can? :update, Course %>
+    <p><%= link_to "Edit #{@course.name}", edit_course_path(@course), :class => "btn btn-large" %></p>
+  <% end%>
 
-<% if can? :create, Section %>
-  <p><%= link_to "New section", new_course_section_path(@course), :class => "btn btn-warning btn-large" %></p>
-<% end %>
+  <% if can? :create, Section %>
+    <p><%= link_to "New section", new_course_section_path(@course), :class => "btn btn-warning btn-large" %></p>
+  <% end %>
+</div>
