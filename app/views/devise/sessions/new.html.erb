@@ -5,20 +5,32 @@
 <br>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <%= f.label :email %>
-  <%= f.email_field :email %>
+  <form>
+    <div class="container">
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: "form-control" %>
+      </div>
 
-  <%= f.label :password %>
-  <%= f.password_field :password %>
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
 
-  <% if devise_mapping.rememberable? -%>
-    <%= f.label(:remember_me, :class => "checkbox") do %>
-      <%= f.check_box :remember_me %>
-      Remember me
-    <% end %>
-  <% end -%>
+      <div class="form-group">
+        <% if devise_mapping.rememberable? -%>
+          <%= f.label(:remember_me, :class => "checkbox") do %>
+            <%= f.check_box :remember_me %>
+            Remember me
+          <% end %>
+        <% end -%>
+      </div>
 
-  <%= f.submit "Sign in", :class => "btn btn-primary" %>
+      <div class="form-group">
+        <%= f.submit "Sign in", :class => "btn btn-primary" %>
+      </div>
+    </div>
+  </form>
 <% end %>
 <br>
 <%= render "devise/shared/links" %>

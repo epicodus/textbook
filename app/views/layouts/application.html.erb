@@ -32,20 +32,25 @@
     </div>
   </div>
 
-  <div class="navbar navbar-fixed-bottom">
-    <div class="navbar-inner">
-      <div class="container">
+  <nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
         <%= yield :forward_back %>
         <ul class="nav pull-right">
-          <%= yield :up %>
-          <li><%= link_to 'Courses', courses_path %></li>
           <% if user_signed_in? %>
-            <li><%= link_to 'Log out', destroy_user_session_path, data: { confirm: 'Are you sure?' }, method: :delete%></li>
+            <li><%= link_to 'Logout', destroy_user_session_path, data: { confirm: 'Are you sure?' }, method: :delete%></li>
           <% end %>
         </ul>
-      </div>
+
+        <ul class="nav pull-right">
+          <li><%= link_to 'Courses', courses_path %></li>
+        </ul>
+
+        <ul class="nav pull-right">
+          <li><%= yield :up %></li>
+        </ul>
     </div>
-  </div>
+  </nav>
+
 
   <footer class="footer">
     <div class="container">
