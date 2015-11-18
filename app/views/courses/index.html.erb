@@ -10,7 +10,7 @@
 
     <ul class="unstyled-list">
       <% @courses.accessible_by(current_ability).each do |course| %>
-        <li><%= link_to course.name, course_path(course), class: 'main-course-link' %></li>
+        <li><%= link_to course.name, course_path(course), class: 'main-course-link' %></li><br>
       <% end %>
     </ul>
 
