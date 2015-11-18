@@ -36,6 +36,18 @@ a.btn.btn-large:hover {
   color: #575250;
 }
 
+a.btn.btn-info:hover {
+  color: #575250;
+}
+
+#save_order.btn.btn-info:hover {
+  color: #575250;
+}
+
+a.btn.btn-mini.btn-primary:hover {
+  color: #575250;
+}
+
 .filename {
   border-top: 1px solid rgba(0, 0, 0, 0.15);
   border-left: 1px solid rgba(0, 0, 0, 0.15);
