@@ -1,7 +1,9 @@
 <div class="container">
-  <div class="form-group"><br>
-    <% provide :title, @course.name %>
-    <h1><%= yield :title %></h1>
+  <div class="row"><br>
+    <div class="span6">
+      <% provide :title, @course.name %>
+      <h1><%= yield :title %></h1><br>
+    </div>
   </div>
   <%= form_for @course, method: :put do |f| %>
     <div class="row">
@@ -23,18 +25,22 @@
             </ul>
           <% end %>
           <% if can? :update, Course %>
-            <%= f.submit 'Save order', class: 'btn btn-info', id: 'save_order' %>
+            <%= f.submit 'Save order', class: 'btn btn-info', id: 'save_order' %><br>
           <% end %>
         </div>
       </div>
     </div>
   <% end %>
 
-  <% if can? :update, Course %>
-    <p><%= link_to "Edit #{@course.name}", edit_course_path(@course), :class => "btn btn-large" %></p>
-  <% end%>
+  <div class="row">
+    <div class="span6">
+      <% if can? :update, Course %>
+        <p><%= link_to "Edit #{@course.name}", edit_course_path(@course), :class => "btn btn-large" %></p>
+      <% end%>
 
-  <% if can? :create, Section %>
-    <p><%= link_to "New section", new_course_section_path(@course), :class => "btn btn-success btn-large" %></p>
-  <% end %>
+      <% if can? :create, Section %>
+        <p><%= link_to "New section", new_course_section_path(@course), :class => "btn btn-success btn-large" %></p>
+      <% end %>
+    </div>
+  </div>
 </div>
