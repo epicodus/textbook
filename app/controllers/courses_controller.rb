@@ -53,7 +53,7 @@ private
   def course_params
     params.require(:course).permit(:name, :number, :public,
                                     sections_attributes: [:name, :number, :course_id, :public],
-                                    lessons_attributes: [:name, :content, :section_id, :number, :public, :deleted_at, :video_id])
+                                    lessons_attributes: [:name, :content, :section_id, :public, :deleted_at, :video_id])
   end
 
   def update_section_order
@@ -62,12 +62,9 @@ private
   end
 
   def update_lesson_order
-    sections = params[:course][:sections_attributes].map { |section| Section.find(section[1][:id]) }
-    lessons = params[:course][:lessons_attributes].map { |lesson| Lesson.find(lesson[1][:id]) }
-    lesson_sections = LessonSection.where(section_id: sections.map(&:id), lesson_id: lessons.map(&:id))
+    lesson_sections = LessonSection.where(lesson_id: @course.lessons.map(&:id))
     params[:course][:lessons_attributes].each do |lesson|
-      lesson_section = lesson_sections.find_by(lesson_id: lesson[1][:id])
-      lesson_section.update(number: lesson[1][:number])
+      lesson_sections.find_by(lesson_id: lesson[1][:id]).update(number: lesson[1][:number])
     end
   end
 end
