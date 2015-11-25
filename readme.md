@@ -1,6 +1,6 @@
 #Textbook
 
-[![Code Climate](https://codeclimate.com/github/epicodus/textbook.png)](https://codeclimate.com/github/epicodus/textbook)
+[![Code Climate](https://codeclimate.com/github/epicodus/textbook/badges/gpa.svg)](https://codeclimate.com/github/epicodus/textbook)
 [![Coverage Status](https://coveralls.io/repos/epicodus/textbook/badge.svg)](https://coveralls.io/github/epicodus/textbook)
 [![Dependency status](https://gemnasium.com/epicodus/textbook.png)](https://gemnasium.com/epicodus/textbook)
 [![Build status](https://travis-ci.org/epicodus/textbook.svg?branch=master)](https://travis-ci.org/epicodus/textbook)
