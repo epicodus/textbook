@@ -2,54 +2,10 @@ ul.lesson {
   display: none;
 }
 
-a.course, a.section {
-  cursor: pointer;
-}
-
-a.section:hover {
-  color: #575250;
-}
-
-a.lesson:hover {
-  color: #575250;
-}
-
-#video {
-  padding-bottom: 14px;
-}
-
 blockquote p {
   margin-bottom: inherit;
   line-height: inherit;
   font-size: 14px;
-}
-
-a {
-  color: #3399ff;
-}
-
-a:hover {
-  color: #575250;
-}
-
-a.btn.btn-large:hover {
-  color: #575250;
-}
-
-a.btn.btn-info:hover {
-  color: #575250;
-}
-
-#save_order.btn.btn-info:hover {
-  color: #575250;
-}
-
-a.btn.btn-mini.btn-primary:hover {
-  color: #575250;
-}
-
-input.btn.btn-info:hover {
-  color: #575250;
 }
 
 .filename {

@@ -1,5 +1,8 @@
-<%= form_tag '/lessons', :method => 'get' do %>
-  <%= text_field_tag :search, nil, placeholder: 'Search Keywords' %>
-  <br>
-  <%= submit_tag 'Search', :class => 'btn btn-info' %>
+<%= form_tag '/lessons', method: 'get' do %>
+  <div class="input-group">
+    <%= text_field_tag :search, nil, placeholder: 'Search lessons', class: 'form-control' %>
+    <div class="input-group-btn">
+      <%= submit_tag 'Search', class: 'btn btn-info' %>
+    </div>
+  </div>
 <% end %>

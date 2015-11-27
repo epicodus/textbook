@@ -1,7 +1,9 @@
 <% provide :title, "New Lesson" %>
 
-<h1><%= yield :title %></h1><br>
+<h1><%= yield :title %></h1>
 
-<%= render 'form' %>
-
-<%= render 'navbar' %>
+<div class="row">
+	<div class="col-xs-6">
+		<%= render 'form' %>
+	</div>
+</div>
