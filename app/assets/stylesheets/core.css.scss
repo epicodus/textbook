@@ -1,0 +1,24 @@
+body {
+  font-size: 1.6rem !important;
+  padding-top: 60px;
+}
+
+li, a {
+  font-size: 1.6rem;
+}
+
+ul.breadcrumb {
+  padding-left: 0px;
+}
+
+.breadcrumb > li, .breadcrumb > li > a {
+  font-size: 2rem;
+}
+
+.btn-group {
+  margin-bottom: 1rem;
+}
+
+#search-section {
+  margin-top: 4rem;
+}

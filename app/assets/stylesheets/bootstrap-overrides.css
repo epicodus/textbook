@@ -1,8 +1,3 @@
-body {
-  padding-top: 10px;
-  padding-bottom: 50px;
-}
-
 .container textarea {
   width: 100%;
   height: 50em;
@@ -14,10 +9,6 @@ body {
 
 .container textarea.update-warning {
   height: 10em;
-}
-
-input, input.btn {
-  display: block;
 }
 
 pre ul {
@@ -41,32 +32,6 @@ pre ul.psql li:before {
   content: "\0023 \0020";
 }
 
-.alert a {
-  text-decoration: underline;
-}
-
-.navbar-fixed-top, .navbar-fixed-bottom {
-  position: fixed;
-}
-
-.navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
-  padding: 0px;
-}
-
-.navbar .nav {
-  margin: 0 10px;
-}
-
-.navbar .nav.pull-right {
-  margin-right: 10px;
-}
-
-@media (max-width: 481px) {
-  .navbar .nav > li {
-    float: none;
-  }
-}
-
 footer .container {
   text-align: center;
 }
@@ -77,8 +42,4 @@ footer .container {
   border-bottom: 1px solid #ddd;
   padding: 10px;
   margin-bottom: 10px;
-}
-
-.nav {
-  margin-bottom: 0px;
 }
