@@ -1,7 +1,6 @@
 <%= render 'layouts/errors', object: @course %>
 <%= form_for @course do |f| %>
-<form>
-  <div class="form-group"
+  <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field :name, class: 'form-control' %>
   </div>
@@ -10,13 +9,12 @@
     <%= f.text_field :number, class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= f.label(:public, :class => "checkbox") do %>
-      <%= f.check_box :public %>
-      Public
-    <% end %>
+    <div class="checkbox">
+      <%= f.label :public, class: "checkbox" do %>
+        <%= f.check_box :public %>
+        Public
+      <% end %>
+    </div>
   </div>
-  <div class="form-group">
-      <%= f.submit :class => 'btn btn-info' %>
-    <% end %>
-  </div>
-</form>
+  <%= f.submit :class => 'btn btn-info' %>
+<% end %>
