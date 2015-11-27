@@ -25,7 +25,7 @@
       <% section.lessons.accessible_by(current_ability).each do |lesson| %>
         <li>
           <% if lesson.tutorial? %>
-            <i class="icon-book"></i>
+            <i class="glyphicon glyphicon-book"></i>
           <% end %>
           <%= link_to lesson.name, section_lesson_show_path(section, lesson), :class => 'lesson' %>
           <%= course_form.fields_for 'lessons_attributes[]', lesson do |lesson_form| %>

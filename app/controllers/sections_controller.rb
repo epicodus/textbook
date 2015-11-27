@@ -43,6 +43,7 @@ class SectionsController < ApplicationController
     @section = Section.find(params[:id])
     @section.destroy
     respond_to do |format|
+      format.html { redirect_to course_path(@section.course), notice: 'Section deleted.' }
       format.js { render 'destroy' }
     end
   end
