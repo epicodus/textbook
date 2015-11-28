@@ -1,3 +1,6 @@
+<% provide :title, @lesson.name %>
+<h1><%= yield :title %></h1>
+
 <% unless params[:deleted] %>
   <ul class="breadcrumb">
     <% if @section %>

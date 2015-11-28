@@ -1,3 +1,6 @@
+<% provide :title, @course.name %>
+<h1><%= yield :title %></h1>
+
 <ul class="breadcrumb">
   <li class="active"><%= @course.name %></li>
 </ul>
