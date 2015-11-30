@@ -9,7 +9,7 @@ describe Section, js: true do
   it 'can be created by an author' do
     login_as(author, scope: :user)
     visit course_path(course)
-    click_link 'New section'
+    click_link 'New Section'
     fill_in 'Name', with: 'Awesome section'
     fill_in 'Section week', with: '1'
     click_button 'Create Section'
@@ -19,7 +19,7 @@ describe Section, js: true do
   it 'displays errors if you try to save an invalid section' do
     login_as(author, scope: :user)
     visit course_path(course)
-    click_link 'New section'
+    click_link 'New Section'
     click_button 'Create Section'
     expect(page).to have_content "Please correct these problems:"
   end
@@ -27,7 +27,7 @@ describe Section, js: true do
   it 'cannot be created by a student' do
     login_as(student, scope: :user)
     visit courses_path
-    expect(page).to_not have_content 'New section'
+    expect(page).to_not have_content 'New Section'
     visit new_course_section_path(course)
     expect(page).to_not have_content 'New'
   end

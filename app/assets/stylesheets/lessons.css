@@ -2,14 +2,6 @@ ul.lesson {
   display: none;
 }
 
-a.course, a.section {
-  cursor: pointer;
-}
-
-#video {
-  padding-bottom: 14px;
-}
-
 blockquote p {
   margin-bottom: inherit;
   line-height: inherit;

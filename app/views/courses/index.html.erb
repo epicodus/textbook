@@ -1,23 +1,24 @@
 <% provide :title, 'Courses' %>
-
 <h1><%= yield :title %></h1>
 
-<%= render 'lessons/search' %>
+<% if can? :manage, :all %>
+  <div class="btn-group">
+    <% if can? :create, Course %>
+      <%= link_to 'New Course', new_course_path, class: 'btn btn-info', id: 'new_course_link' %>
+    <% end%>
 
-<ul class="unstyled-list">
+    <% if can? :create, Lesson %>
+      <%= link_to 'New Lesson', new_lesson_path, class: "btn btn-success" %>
+    <% end %>
+
+    <% if can? :update, Lesson %>
+      <%= link_to 'View Deleted Lessons', lessons_path + '?deleted=true', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+<% end %>
+
+<ul class="list-unstyled">
   <% @courses.accessible_by(current_ability).each do |course| %>
-    <li><%= link_to course.name, course_path(course), class: 'main-course-link' %></li>
+    <li><%= link_to course.name, course_path(course) %></li>
   <% end %>
 </ul>
-
-<% if can? :create, Course %>
-  <p><%= link_to 'New course', new_course_path, :class => 'btn btn-primary btn-large', :id => 'new_course_link' %>
-<% end%>
-
-<% if can? :create, Lesson %>
-  <p><%= link_to 'New lesson', new_lesson_path, :class => "btn btn-success btn-large" %></p>
-<% end %>
-
-<% if can? :update, Lesson %>
-  <p><%= link_to 'View deleted lessons', lessons_path + '?deleted=true' %></p>
-<% end %>

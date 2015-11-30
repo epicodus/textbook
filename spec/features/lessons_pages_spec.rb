@@ -11,15 +11,15 @@ describe Lesson do
 
     it 'lets the author view the New page' do
       visit new_lesson_path
-      expect(page).to have_content 'New lesson'
+      expect(page).to have_content 'New Lesson'
     end
 
     it 'does not let students view the New page' do
       login_as(student, scope: :user)
       visit courses_path
-      expect(page).to_not have_content 'New lesson'
+      expect(page).to_not have_content 'New Lesson'
       visit new_lesson_path
-      expect(page).to_not have_content 'New lesson'
+      expect(page).to_not have_content 'New Lesson'
     end
 
     it 'lets authors create a lesson' do
@@ -131,7 +131,7 @@ describe Lesson do
 
     it 'can be edited by an author' do
       visit section_lesson_show_path(section, lesson)
-      click_link "Edit #{lesson.name}"
+      click_link "Edit"
       fill_in 'Name', with: 'Updated lesson'
       click_button 'Save'
       expect(page).to have_content 'Lesson updated'
@@ -213,8 +213,8 @@ describe Lesson do
     end
 
     it 'can be deleted' do
-      visit edit_lesson_path(lesson)
-      click_link 'Delete ' + lesson.name
+      visit section_lesson_show_path(lesson.sections.first, lesson)
+      click_link 'Delete'
       expect(page).to have_content 'Lesson deleted.'
     end
 
@@ -229,7 +229,7 @@ describe Lesson do
     it 'can be restored' do
       lesson.destroy
       visit courses_path
-      click_link 'View deleted lessons'
+      click_link 'View Deleted Lessons'
       click_link lesson.name
       click_button 'Restore'
       expect(page).to have_content 'Lesson restored'
@@ -241,7 +241,7 @@ describe Lesson do
 
     it 'lets you search for lessons' do
       visit courses_path
-      fill_in 'Search for:', with: lesson.content.split.last
+      fill_in 'Search lessons', with: lesson.content.split.last
       click_button 'Search'
       expect(page).to have_content lesson.name
     end

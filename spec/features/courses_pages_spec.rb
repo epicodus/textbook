@@ -8,7 +8,7 @@ describe Course, js: true do
   it 'can be created by an author' do
     login_as(author, scope: :user)
     visit courses_path
-    click_link 'New course'
+    click_link 'New Course'
     fill_in 'Name', with: 'Awesome course'
     fill_in 'Course number', with: '1'
     click_button 'Create Course'
@@ -18,7 +18,7 @@ describe Course, js: true do
   it 'displays errors if you try to save an invalid course' do
     login_as(author, scope: :user)
     visit courses_path
-    click_link 'New course'
+    click_link 'New Course'
     click_button 'Create Course'
     expect(page).to have_content "Please correct these problems:"
   end
@@ -41,7 +41,9 @@ describe Course, js: true do
 
   it 'displays errors if you try to save an invalid course when editing' do
     login_as(author, scope: :user)
-    visit edit_course_path(course)
+    course = FactoryGirl.create(:course)
+    visit course_path(course)
+    click_link 'Edit'
     fill_in 'Name', with: ''
     click_button 'Update Course'
     expect(page).to have_content "Please correct these problems:"

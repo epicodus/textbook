@@ -9,10 +9,11 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require bootstrap
- *= require bootstrap-responsive
- *= require bootstrap-overrides
  *= require prettify
  *= require bootstrap-multiselect
  *= require_tree .
  */
+ @import "bootswatch/simplex/variables";
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+ @import "bootswatch/simplex/bootswatch";

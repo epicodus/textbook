@@ -13,13 +13,14 @@
 
   <%= csrf_meta_tags %>
   <%= stylesheet_link_tag "application", :media => "all" %>
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700" rel="stylesheet" type="text/css">
   <%= javascript_include_tag "application" %>
 
 </head>
 <body>
   <div class="container">
     <div class="row">
-      <div class="span12">
+      <div class="col-xs-12">
         <% if notice %>
           <div class="alert alert-info"><%= notice %></div>
         <% end %>
@@ -32,20 +33,41 @@
     </div>
   </div>
 
-  <div class="navbar navbar-fixed-bottom">
-    <div class="navbar-inner">
-      <div class="container">
-        <%= yield :forward_back %>
-        <ul class="nav pull-right">
-          <%= yield :up %>
-          <li><%= link_to 'Courses', courses_path %></li>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <%= link_to 'Courses', courses_path, class: 'navbar-brand' %>
+      </div>
+      <div id='navbar' class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><%= yield :forward_back %></li>
+        </ul>
+
+        <ul class="nav navbar-nav pull-right">
+          <li id="navbar-search">
+          <%= form_tag '/lessons', method: 'get', class: 'navbar-form navbar-left' do %>
+            <div class="input-group">
+              <%= text_field_tag :search, nil, placeholder: 'Search lessons', class: 'form-control' %>
+              <div class="input-group-btn">
+                <%= submit_tag 'Search', class: 'btn btn-info' %>
+              </div>
+            </div>
+          <% end %>
+          </li>
+
           <% if user_signed_in? %>
-            <li><%= link_to 'Log out', destroy_user_session_path, data: { confirm: 'Are you sure?' }, method: :delete%></li>
+            <li><%= link_to 'Logout', destroy_user_session_path, data: { confirm: 'Are you sure?' }, method: :delete%></li>
           <% end %>
         </ul>
       </div>
     </div>
-  </div>
+  </nav>
 
   <footer class="footer">
     <div class="container">

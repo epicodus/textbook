@@ -3,8 +3,8 @@
 <h1><%= yield :title %></h1>
 
 <% @courses.each do |course| %>
-  <h3><%= course.name %></h3>
-  <ul>
+  <h2><%= course.name %></h2>
+  <ul class="list-unstyled">
     <% course.lessons.with_deleted.where(id: @lessons.map(&:id)).each do |lesson| %>
       <li><%= link_to lesson.name, lesson_path(lesson) + '?deleted=true' %></li>
     <% end %>
