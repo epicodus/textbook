@@ -11,8 +11,12 @@ ul.breadcrumb {
   padding-left: 0px;
 }
 
+.breadcrumb > li {
+  color: #444 !important;
+}
+
 .breadcrumb > li, .breadcrumb > li > a {
-  font-size: 2rem;
+  font-size: 3rem;
 }
 
 .btn-group {
