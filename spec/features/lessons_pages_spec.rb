@@ -246,4 +246,11 @@ describe Lesson do
       expect(page).to have_content lesson.name
     end
   end
+
+  context 'redirecting' do
+    it 'redirects from lessons index to courses index when there are no params' do
+      visit lessons_path
+      expect(page.current_path).to eq courses_path
+    end
+  end
 end
