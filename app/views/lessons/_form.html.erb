@@ -1,16 +1,20 @@
 <%= render 'layouts/errors', object: @lesson %>
 <%= lesson_form do |f| %>
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control' %>
+  <div class="row">
+    <div class="form-group col-xs-6">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
   </div>
   <div class="form-group">
     <%= f.label :section_ids, 'Sections' %>
     <%= f.grouped_collection_select :section_ids, Course.with_sections.unscoped.order(:name), :sections, :name, :id, :name, {}, { class: 'multiselect-dropdown', multiple: true, include_hidden: false } %>
   </div>
-  <div class="form-group">
-    <%= f.label :video_id, "Video ID from Vimeo" %>
-    <%= f.text_field :video_id, class: 'form-control' %>
+  <div class="row">
+    <div class="form-group col-xs-2">
+      <%= f.label :video_id, "Video ID from Vimeo" %>
+      <%= f.text_field :video_id, class: 'form-control' %>
+    </div>
   </div>
   <div class="form-group">
     <div class="checkbox">
