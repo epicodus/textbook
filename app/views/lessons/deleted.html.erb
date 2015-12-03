@@ -6,7 +6,7 @@
   <h2><%= course.name %></h2>
   <ul class="list-unstyled">
     <% course.lessons.with_deleted.where(id: @lessons.map(&:id)).each do |lesson| %>
-      <li><%= link_to lesson.name, lesson_path(lesson) + '?deleted=true' %></li>
+      <li><%= link_to lesson.name, section_lesson_show_path(lesson.sections.first, lesson) + '?deleted=true' %></li>
     <% end %>
   </ul>
 <% end %>

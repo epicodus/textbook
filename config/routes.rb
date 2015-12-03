@@ -8,7 +8,7 @@ Textbook::Application.routes.draw do
   resources :sections, only: [:index, :destroy] do
     resources :lessons, only: [:index]
   end
-  resources :lessons
+  resources :lessons, except: [:show]
   resources :courses do
     resources :sections, only: [:new, :create, :edit, :update]
   end
