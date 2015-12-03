@@ -105,6 +105,20 @@ describe Lesson do
       click_button 'Save'
       expect(page.html).to match /<p><em>This<\/em> is Markdown.<\/p>/
     end
+
+    it 'allows authors to create lessons with the same name' do
+      visit new_lesson_path
+      fill_in 'Name', with: 'Same lesson name'
+      fill_in 'Content (use Markdown)', with: '*This* is Markdown.'
+      select section.name, from: 'Section'
+      click_button 'Save'
+      visit new_lesson_path
+      fill_in 'Name', with: 'Same lesson name'
+      fill_in 'Content (use Markdown)', with: '*This* is Markdown.'
+      select section.name, from: 'Section'
+      click_button 'Save'
+      expect(page.html).to match /<p><em>This<\/em> is Markdown.<\/p>/
+    end
   end
 
   context 'viewing' do

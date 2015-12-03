@@ -6,15 +6,19 @@ describe Lesson do
   it { should validate_presence_of :sections }
   it { should have_many(:sections).through(:lesson_sections) }
 
-  it 'validates uniqueness of name' do
-    FactoryGirl.create :lesson
-    should validate_uniqueness_of :name
-  end
+  describe 'creating and updating the slug' do
+    it 'allows for duplicate lesson slugs' do
+      lesson = FactoryGirl.create :lesson, name: 'Same lesson name'
+      lesson_2 = FactoryGirl.create :lesson, name: 'Same lesson name'
+      expect(lesson.slug).to eq 'same-lesson-name'
+      expect(lesson_2.slug).to eq 'same-lesson-name'
+    end
 
-  it 'changes the slug on update' do
-    lesson = FactoryGirl.create :lesson
-    lesson.update(:name => 'New name')
-    expect(lesson.slug).to eq 'new-name'
+    it 'changes the slug on update' do
+      lesson = FactoryGirl.create :lesson
+      lesson.update(:name => 'New name')
+      expect(lesson.slug).to eq 'new-name'
+    end
   end
 
   context 'navigate to next lesson' do
