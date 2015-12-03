@@ -4,7 +4,7 @@ class Lesson < ActiveRecord::Base
 
   acts_as_paranoid
 
-  validates :name, :presence => true, :uniqueness => true
+  validates :name, :presence => true
   validates :content, :presence => true
   validates :sections, presence: true
 
@@ -56,6 +56,10 @@ class Lesson < ActiveRecord::Base
   end
 
 private
+
+  def resolve_friendly_id_conflict(candidates)
+    candidates.first
+  end
 
   def set_private
     update(:public => false)

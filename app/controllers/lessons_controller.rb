@@ -19,7 +19,7 @@ class LessonsController < ApplicationController
   def create
     @lesson = Lesson.new(lesson_params)
     if @lesson.save
-      redirect_to lesson_path(@lesson), notice: 'Lesson saved.'
+      redirect_to section_lesson_show_path(@lesson.sections.first, @lesson), notice: 'Lesson saved.'
     else
       render 'new'
     end
@@ -41,7 +41,7 @@ class LessonsController < ApplicationController
       restore_lesson(@lesson)
     else
       if @lesson.update(lesson_params)
-        redirect_to lesson_path(@lesson), notice: 'Lesson updated.'
+        redirect_to section_lesson_show_path(@lesson.sections.first, @lesson), notice: 'Lesson updated.'
       else
         render 'edit'
       end
@@ -67,7 +67,7 @@ private
     lesson.restore!
     lesson_sections = LessonSection.where(lesson_id: lesson.id)
     lesson_sections.each { |lesson_section| lesson_section.update(deleted_at: nil) }
-    redirect_to lesson_path(lesson), notice: 'Lesson restored.'
+    redirect_to section_lesson_show_path(@lesson.sections.first, lesson), notice: 'Lesson restored.'
   end
 
   def find_search_results
