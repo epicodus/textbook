@@ -1,32 +1,20 @@
 $(function () {
-  $(".course").sortable({
-  });
-  $("ul.section").sortable({
-    connectWith: 'ul.section'
+  $("ul.section-sortable").sortable({
   });
   $("ul.lesson-sortable").sortable({
-    connectWith: 'ul.lesson'
   });
 
   $("input#save_order").click(function (click) {
-    var inputs = ['input.course', 'input.section_number', 'input.lesson'];
-    inputs.forEach(function(item) {
-      var count = 1;
-      $(item).each(function() {
-        $(this).val(count++)
-      });
-    });
-
-    $.each($('input.section_course_id'), function() {
-      var course_id = $(this).parents('li.course').attr('id');
-      var id = course_id.substr(8);
-      $(this).val(id);
-    });
-
-    $.each($('input.lesson_section_id'), function() {
-      var section_id = $(this).parents('li.section').attr('id');
-      var id = section_id.substr(8);
-      $(this).val(id);
-    });
+    updateNumbers('body', 'input.section_number');
+    updateNumbers('.section', 'input.lesson');
   });
 });
+
+function updateNumbers(parent, input) {
+  $(parent).each(function() {
+    var count = 1;
+    $(parent).find(input).each(function() {
+      $(this).val(count++);
+    });
+  });
+}
