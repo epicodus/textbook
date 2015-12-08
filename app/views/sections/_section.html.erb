@@ -1,4 +1,3 @@
-<%= fields_for section.course do |course_form| %>
   <li class='section', id='section_<%= section.id %>'>
     <% if section.week == 0 %>
       (Pre-Work)
@@ -10,7 +9,7 @@
       <%= link_to "(edit)", edit_course_section_path(section.course, section), :id => "edit_section_#{section.id}" %>
       <%= link_to "(delete)", section, :data => { :confirm => 'Are you sure?' }, :method => :delete,
                               :remote => true, :id => "delete_section_#{section.id}" %>
-      <%= course_form.fields_for 'sections_attributes[]', section do |section_form| %>
+      <%= f.fields_for 'sections_attributes[]', section do |section_form| %>
         <%= section_form.hidden_field :number, :class => :section_number %>
       <% end %>
     <% end %>
@@ -26,14 +25,13 @@
             <i class="glyphicon glyphicon-book"></i>
           <% end %>
           <%= link_to lesson.name, section_lesson_show_path(section, lesson), :class => 'lesson' %>
-          <%= course_form.fields_for 'lessons_attributes[]', lesson do |lesson_form| %>
-            <%= lesson_form.hidden_field :id %>
             <% if can? :update, Lesson %>
-              <%= lesson_form.hidden_field :number, { value: LessonSection.find_by(section_id: section.id, lesson_id: lesson.id).number, class: :lesson } %>
-            <% end %>
+              <%= f.fields_for 'lessons_attributes[]', lesson do |lesson_form| %>
+                <%= lesson_form.hidden_field :id %>
+                <%= lesson_form.hidden_field :number, { value: LessonSection.find_by(section_id: section.id, lesson_id: lesson.id).number, class: :lesson } %>
+              <% end %>
           <% end %>
         <% end %>
       </li>
     </ul>
   </li>
-<% end %>
