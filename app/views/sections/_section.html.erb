@@ -11,8 +11,6 @@
       <%= link_to "(delete)", section, :data => { :confirm => 'Are you sure?' }, :method => :delete,
                               :remote => true, :id => "delete_section_#{section.id}" %>
       <%= course_form.fields_for 'sections_attributes[]', section do |section_form| %>
-        <%= section_form.hidden_field :id %>
-        <%= section_form.hidden_field :course_id, :class => :section_course_id %>
         <%= section_form.hidden_field :number, :class => :section_number %>
       <% end %>
     <% end %>
