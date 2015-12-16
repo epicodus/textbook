@@ -13,6 +13,8 @@ class Lesson < ActiveRecord::Base
 
   before_destroy :set_private
 
+  accepts_nested_attributes_for :lesson_sections
+
   def section=(new_section)
     if new_section.nil?
       # do nothing

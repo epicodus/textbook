@@ -39,7 +39,7 @@
         <%= ff.hidden_field :section_id, value: section.id %>
         <div class="form-group">
           <div class="radio">
-            <%= ff.label :public do %>
+            <%= ff.label :work_type do %>
               <%= ff.radio_button :work_type, :homework, checked: false %>
               Homework
             <% end %>
@@ -47,7 +47,7 @@
         </div>
         <div class="form-group">
           <div class="radio">
-            <%= ff.label :public do %>
+            <%= ff.label :work_type do %>
               <%= ff.radio_button :work_type, :classwork, checked: false %>
               Classwork
             <% end %>
