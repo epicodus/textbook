@@ -9,6 +9,8 @@ class LessonSection < ActiveRecord::Base
 
   default_scope -> { order :number }
 
+  enum work_type: [ :homework, :classwork ]
+
 private
 
   def set_number
