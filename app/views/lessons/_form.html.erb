@@ -32,6 +32,30 @@
       <% end %>
     </div>
   </div>
+  <% Section.all.each do |section| %>
+    <div class='lesson-type' id="section-<%= section.id %>-lesson-type">
+      <label><%= section.name %></label>
+      <%= f.fields_for :lesson_sections, LessonSection.new do |ff| %>
+        <%= ff.hidden_field :section_id, value: section.id %>
+        <div class="form-group">
+          <div class="radio">
+            <%= ff.label :public do %>
+              <%= ff.radio_button :work_type, :homework, checked: false %>
+              Homework
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="radio">
+            <%= ff.label :public do %>
+              <%= ff.radio_button :work_type, :classwork, checked: false %>
+              Classwork
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
   <div class="form-group">
     <%= f.label :content, "Content (use Markdown)" %>
     <%= f.text_area :content, class: 'form-control' %>
