@@ -1,0 +1,17 @@
+$(function () {
+  $("ul.course-sortable").sortable({
+  });
+
+  $("input#save_course_order").click(function (click) {
+    updateNumbers('body', 'input.course_number');
+  });
+});
+
+function updateNumbers(parent, input) {
+  $(parent).each(function() {
+    var count = 1;
+    $(parent).find(input).each(function() {
+      $(this).val(count++);
+    });
+  });
+}
