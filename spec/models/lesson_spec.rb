@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Lesson do
   it { should validate_presence_of :content }
   it { should validate_presence_of :name }
-  it { should validate_presence_of :sections }
   it { should have_many(:sections).through(:lesson_sections) }
 
   it 'validates uniqueness of name' do

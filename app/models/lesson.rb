@@ -6,7 +6,6 @@ class Lesson < ActiveRecord::Base
 
   validates :name, :presence => true, :uniqueness => true
   validates :content, :presence => true
-  validates :sections, presence: true
 
   has_many :lesson_sections, inverse_of: :lesson
   has_many :sections, through: :lesson_sections
