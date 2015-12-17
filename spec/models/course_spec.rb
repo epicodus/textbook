@@ -2,7 +2,11 @@ require 'spec_helper'
 
 describe Course do
   it { should validate_presence_of :name }
-  it { should validate_presence_of :number }
+
+  it 'validates that a course always has a number' do
+    course = FactoryGirl.create(:course)
+    expect(course.update(number: nil)).to be false
+  end
 
   it 'validates uniqueness of name' do
     FactoryGirl.create :course

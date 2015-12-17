@@ -5,6 +5,8 @@ class Course < ActiveRecord::Base
   default_scope -> { order :number }
   scope :with_sections, -> { includes(:sections).where.not(sections: { id: nil }) }
 
+  before_validation :set_number, on: :create
+  
   validates :name, :presence => true, :uniqueness => true
   validates :number, :presence => true
 
@@ -15,6 +17,10 @@ class Course < ActiveRecord::Base
   accepts_nested_attributes_for :lessons
 
 private
+
+  def set_number
+    self.number = try(:number).to_i + 1
+  end
 
   def should_generate_new_friendly_id?
     slug.blank? || name_changed?
