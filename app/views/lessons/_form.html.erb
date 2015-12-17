@@ -40,16 +40,22 @@
         <div class="form-group">
           <div class="radio">
             <%= ff.label :work_type do %>
-              <%= ff.radio_button :work_type, :homework, checked: false %>
-              Homework
+              <% if LessonSection.find_by(section: section, lesson: @lesson).try(:work_type) %>
+                <%= ff.radio_button :work_type, :homework %>Homework
+              <% else %>
+                <%= ff.radio_button :work_type, :homework, checked: false %>Homework
+              <% end %>
             <% end %>
           </div>
         </div>
         <div class="form-group">
           <div class="radio">
             <%= ff.label :work_type do %>
-              <%= ff.radio_button :work_type, :classwork, checked: false %>
-              Classwork
+              <% if LessonSection.find_by(section: section, lesson: @lesson).try(:work_type) %>
+                <%= ff.radio_button :work_type, :classwork %>Classwork
+              <% else %>
+                <%= ff.radio_button :work_type, :classwork, checked: false %>Classwork
+              <% end %>
             <% end %>
           </div>
         </div>

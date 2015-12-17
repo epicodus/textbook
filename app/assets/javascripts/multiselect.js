@@ -3,8 +3,15 @@ $(function () {
     buttonClass: 'btn btn-info',
     maxHeight: 500,
     onChange: function(option, checked) {
-      $('#section-' + option.val() + '-lesson-type').toggle();
+      $('#section-' + option.val() + '-lesson-type').show();
     }
   });
-  $('.lesson-type').hide();
+
+  $('.lesson-type').each(function() {
+    if ($(this).find('input[type=radio]:checked').length === 1) {
+      $(this).show();
+    } else {
+      $(this).hide();
+    }
+  });
 });
