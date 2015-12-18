@@ -10,7 +10,6 @@ describe Course, js: true do
     visit courses_path
     click_link 'New Course'
     fill_in 'Name', with: 'Awesome course'
-    fill_in 'Course number', with: '1'
     click_button 'Create Course'
     expect(page).to have_content 'Awesome course'
   end

@@ -10,7 +10,7 @@
 				<%= f.submit 'Save Order', class: 'btn btn-danger', id: 'save_order' %>
 			</div>
 			<%= f.hidden_field :number, class: :course %>
-			<ul class='section-sortable list-unstyled'>
+			<ul class='sortable list-unstyled'>
 				<%= render @course.sections, f: f %>
 			</ul>
 		<% else %>

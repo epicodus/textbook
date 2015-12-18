@@ -1,24 +1,24 @@
 <% provide :title, 'Courses' %>
 <h1><%= yield :title %></h1>
 
-<% if can? :manage, :all %>
-  <div class="btn-group">
-    <% if can? :create, Course %>
-      <%= link_to 'New Course', new_course_path, class: 'btn btn-info', id: 'new_course_link' %>
-    <% end%>
-
-    <% if can? :create, Lesson %>
+<%= form_tag update_multiple_courses_path, method: :put do %>
+  <% if can? :manage, :all %>
+    <div class="btn-group">
+      <%= link_to 'New Course', new_course_path, class: 'btn btn-info' %>
       <%= link_to 'New Lesson', new_lesson_path, class: "btn btn-success" %>
-    <% end %>
-
-    <% if can? :update, Lesson %>
       <%= link_to 'View Deleted Lessons', lessons_path + '?deleted=true', class: 'btn btn-primary' %>
-    <% end %>
-  </div>
-<% end %>
-
-<ul class="list-unstyled">
-  <% @courses.accessible_by(current_ability).each do |course| %>
-    <li><%= link_to course.name, course_path(course) %></li>
+      <%= submit_tag "Save Order", id: "save_order", class: "btn btn-danger" %>
+    </div>
   <% end %>
-</ul>
+
+
+  <ul class="list-unstyled sortable">
+    <% @courses.accessible_by(current_ability).each do |course| %>
+      <li><%= link_to course.name, course_path(course) %>
+        <%= fields_for 'course_attributes[]', course do |course_form| %>
+          <%= course_form.hidden_field :number, class: :course_number %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

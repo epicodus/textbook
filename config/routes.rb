@@ -11,7 +11,9 @@ Textbook::Application.routes.draw do
   resources :lessons
   resources :courses do
     resources :sections, only: [:new, :create, :edit, :update]
+    put :update_multiple, on: :collection
   end
+
   get '/:id', to: 'sections#show', as: :section_show
   get '/:section_id/:id', to: 'lessons#show', as: :section_lesson_show
 end

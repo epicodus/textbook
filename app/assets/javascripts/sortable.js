@@ -1,11 +1,10 @@
 $(function () {
-  $("ul.section-sortable").sortable({
-  });
-  $("ul.lesson-sortable").sortable({
+  $(".sortable").sortable({
   });
 
-  $("input#save_order").click(function (click) {
+  $("input#save_order").click(function () {
     updateNumbers('body', 'input.section_number');
+    updateNumbers('body', 'input.course_number');
     updateNumbers('.section', 'input.lesson');
   });
 });

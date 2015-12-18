@@ -42,6 +42,11 @@ class CoursesController < ApplicationController
     end
   end
 
+  def update_multiple
+    Course.update(params[:course_attributes].keys, params[:course_attributes].values)
+    redirect_to courses_path, notice: "Order Updated"
+  end
+
   def destroy
     course = Course.find(params[:id])
     course.destroy
@@ -51,7 +56,7 @@ class CoursesController < ApplicationController
 private
 
   def course_params
-    params.require(:course).permit(:name, :number, :public,
+    params.require(:course).permit(:name, :public, course_attributes: [:number],
                                     sections_attributes: [:name, :number, :course_id, :public],
                                     lessons_attributes: [:name, :content, :section_id, :public, :deleted_at, :video_id])
   end
