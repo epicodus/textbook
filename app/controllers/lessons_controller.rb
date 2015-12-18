@@ -59,8 +59,10 @@ class LessonsController < ApplicationController
 private
 
   def lesson_params
+    params[:lesson][:lesson_sections_attributes].keep_if { |key, value| value[:work_type] }
     params.require(:lesson).permit(:name, :content, :cheat_sheet, :update_warning,
-                                   :public, :deleted_at, :video_id, :tutorial, section_ids: [])
+                                   :public, :deleted_at, :video_id,
+                                   lesson_sections_attributes: [:id, :work_type, :section_id])
   end
 
   def restore_lesson(lesson)

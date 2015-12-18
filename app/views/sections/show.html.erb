@@ -20,6 +20,11 @@
 
 <ul class="list-unstyled">
   <% @section.lessons.accessible_by(current_ability).each do |lesson| %>
-    <li><%= link_to lesson.name, section_lesson_show_path(@section, lesson) %></li>
+    <li>
+      <% if LessonSection.find_by(lesson: lesson, section: @section).homework? %>
+        <i class="glyphicon glyphicon-book"></i>
+      <% end %>
+      <%= link_to lesson.name, section_lesson_show_path(@section, lesson) %>
+    </li>
   <% end %>
 </ul>

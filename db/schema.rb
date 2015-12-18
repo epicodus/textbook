@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151109215124) do
+ActiveRecord::Schema.define(version: 20151217224358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20151109215124) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "work_type",  default: 0
   end
 
   add_index "lesson_sections", ["lesson_id"], name: "index_lesson_sections_on_lesson_id", using: :btree
@@ -54,7 +55,7 @@ ActiveRecord::Schema.define(version: 20151109215124) do
     t.text     "cheat_sheet"
     t.text     "update_warning"
     t.text     "markdown"
-    t.boolean  "tutorial"
+    t.boolean  "old_tutorial"
   end
 
   add_index "lessons", ["name"], name: "index_lessons_on_name", unique: true, using: :btree
