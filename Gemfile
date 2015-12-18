@@ -19,7 +19,6 @@ gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'bootstrap-multiselect-rails'
 gem 'sass-rails'
-gem 'hirb'
 
 group :development do
   gem 'quiet_assets'
@@ -31,6 +30,7 @@ end
 group :test, :development do
   gem 'rspec-rails'
   gem 'pry'
+  gem 'hirb'
 end
 
 group :test do

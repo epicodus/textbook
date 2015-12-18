@@ -42,16 +42,15 @@ class CoursesController < ApplicationController
     end
   end
 
+  def update_multiple
+    Course.update(params[:course_attributes].keys, params[:course_attributes].values)
+    redirect_to courses_path, notice: "Order Updated"
+  end
+
   def destroy
     course = Course.find(params[:id])
     course.destroy
     redirect_to courses_path, notice: 'Course deleted.'
-  end
-
-  def update_multiple
-    Course.update(params[:course_attributes].keys, params[:course_attributes].values)
-    redirect_to courses_path
-    flash[:notice] = "Order Updated"
   end
 
 private

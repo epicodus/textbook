@@ -14,7 +14,6 @@ Textbook::Application.routes.draw do
     put :update_multiple, on: :collection
   end
 
-
   get '/:id', to: 'sections#show', as: :section_show
   get '/:section_id/:id', to: 'lessons#show', as: :section_lesson_show
 end
