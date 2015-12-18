@@ -26,7 +26,7 @@
   </div>
   <% Section.all.each do |section| %>
     <div class='lesson-type' id="section-<%= section.id %>-lesson-type">
-      <label><%= section.name %></label>
+      <span class="label label-primary"><%= section.name %></span>
       <%= f.fields_for :lesson_sections, LessonSection.find_or_initialize_by(lesson: @lesson, section: section) do |ff| %>
         <%= ff.hidden_field :section_id, value: section.id %>
         <div class="form-group">
