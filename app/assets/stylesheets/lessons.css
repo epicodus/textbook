@@ -1,3 +1,7 @@
+ul.lesson {
+  display: none;
+}
+
 blockquote p {
   margin-bottom: inherit;
   line-height: inherit;

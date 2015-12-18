@@ -1,5 +1,11 @@
 <% provide :title, @lesson.name %>
 
+<% if LessonSection.find_by(lesson: @lesson, section: @section).try(:homework?) %>
+  <span class="label label-info">Homework</span>
+<% elsif LessonSection.find_by(lesson: @lesson, section: @section).try(:classwork?) %>
+  <span class="label label-success">Classwork</span>
+<% end %>
+
 <% unless params[:deleted] %>
   <ul class="breadcrumb">
     <% if @section %>

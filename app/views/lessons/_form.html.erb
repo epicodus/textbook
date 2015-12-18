@@ -18,14 +18,6 @@
   </div>
   <div class="form-group">
     <div class="checkbox">
-      <%= f.label :tutorial do %>
-        <%= f.check_box :tutorial %>
-        Tutorial
-      <% end %>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="checkbox">
       <%= f.label :public do %>
         <%= f.check_box :public %>
         Public
@@ -35,7 +27,7 @@
   <% Section.all.each do |section| %>
     <div class='lesson-type' id="section-<%= section.id %>-lesson-type">
       <label><%= section.name %></label>
-      <%= f.fields_for :lesson_sections, LessonSection.new do |ff| %>
+      <%= f.fields_for :lesson_sections, LessonSection.find_or_initialize_by(lesson: @lesson, section: section) do |ff| %>
         <%= ff.hidden_field :section_id, value: section.id %>
         <div class="form-group">
           <div class="radio">
