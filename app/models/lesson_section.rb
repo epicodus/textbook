@@ -10,6 +10,7 @@ class LessonSection < ActiveRecord::Base
   default_scope -> { order :number }
 
   enum work_type: [ :homework, :classwork ]
+  enum day_of_week: [ :weekend, :monday, :tuesday, :wednesday, :thursday, :friday ]
 
 private
 
