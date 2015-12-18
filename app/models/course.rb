@@ -19,7 +19,7 @@ class Course < ActiveRecord::Base
 private
 
   def set_number
-    self.number = try(:number).to_i + 1
+    self.number = Course.all.last.try(:number).to_i + 1
   end
 
   def should_generate_new_friendly_id?

@@ -8,6 +8,7 @@ require 'rspec/rails'
 require 'capybara/poltergeist'
 require 'simplecov'
 require 'coveralls'
+require 'cancan/matchers'
 
 include Warden::Test::Helpers
 Warden.test_mode!

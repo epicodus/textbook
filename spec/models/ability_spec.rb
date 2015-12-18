@@ -1,6 +1,3 @@
-require 'spec_helper'
-require 'cancan/matchers'
-
 describe 'User' do
   subject(:ability) { Ability.new(user) }
   

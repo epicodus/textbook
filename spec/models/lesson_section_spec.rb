@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe LessonSection do
 
   it { should validate_presence_of :section }

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Course do
   it { should validate_presence_of :name }
 
@@ -17,9 +15,9 @@ describe Course do
   it { should have_many(:lessons).through(:sections) }
 
   it 'sorts by the number by default' do
-    last_course = FactoryGirl.create :course, :number => 9
-    (2..8).each { |number| FactoryGirl.create :course, :number => number }
-    first_course = FactoryGirl.create :course, :number => 1
+    first_course = FactoryGirl.create :course
+    second_course = FactoryGirl.create :course
+    last_course = FactoryGirl.create :course
     expect(Course.first).to eq first_course
     expect(Course.last).to eq last_course
   end

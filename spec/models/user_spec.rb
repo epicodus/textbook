@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe User do
   context '#author?' do
     it 'should be false by default' do
