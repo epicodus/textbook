@@ -1,9 +1,9 @@
 <% provide :title, @lesson.name %>
 
-<% if LessonSection.find_by(lesson: @lesson, section: @section).try(:homework?) %>
-  <span class="label label-info">Homework</span>
-<% elsif LessonSection.find_by(lesson: @lesson, section: @section).try(:classwork?) %>
-  <span class="label label-success">Classwork</span>
+<% if LessonSection.find_by(lesson: @lesson, section: @section).try(:work_type) %>
+  <span class="label label-info">
+    <%= LessonSection.find_by(lesson: @lesson, section: @section).work_type.titlecase %>
+  </span>
 <% end %>
 
 <% unless params[:deleted] %>
