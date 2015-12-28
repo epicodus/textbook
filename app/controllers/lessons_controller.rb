@@ -40,6 +40,9 @@ class LessonsController < ApplicationController
     if params[:deleted]
       restore_lesson(@lesson)
     else
+      lesson_section_ids = lesson_params[:lesson_sections_attributes].map { |param| param[1][:id] }
+      lesson_sections_to_delete = LessonSection.where(lesson: @lesson) - LessonSection.find(lesson_section_ids)
+      lesson_sections_to_delete.each(&:destroy)
       if @lesson.update(lesson_params)
         redirect_to lesson_path(@lesson), notice: 'Lesson updated.'
       else
@@ -62,7 +65,7 @@ private
     params[:lesson][:lesson_sections_attributes].keep_if { |key, value| value[:work_type] }
     params.require(:lesson).permit(:name, :content, :cheat_sheet, :update_warning,
                                    :public, :deleted_at, :video_id,
-                                   lesson_sections_attributes: [:id, :work_type, :section_id])
+                                   lesson_sections_attributes: [:id, :work_type, :section_id, :day_of_week])
   end
 
   def restore_lesson(lesson)
