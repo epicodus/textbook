@@ -24,7 +24,7 @@
         <% if LessonSection.find_by(lesson: lesson, section: section).homework? %>
           <i class="glyphicon glyphicon-book"></i>
         <% end %>
-        <%= link_to lesson.name, course_section_lesson_show_path(section.course, section, lesson), :class => 'lesson' %>
+        <%= link_to lesson.name, course_section_lesson_path(section.course, section, lesson), :class => 'lesson' %>
           <% if can? :update, Lesson %>
             <%= f.fields_for 'lessons_attributes[]', lesson do |lesson_form| %>
               <%= lesson_form.hidden_field :id %>

@@ -130,7 +130,7 @@ describe Lesson do
     before { login_as(author, scope: :user) }
 
     it 'can be edited by an author' do
-      visit course_section_lesson_show_path(section.course, section, lesson)
+      visit course_section_lesson_path(section.course, section, lesson)
       click_link "Edit"
       fill_in 'Name', with: 'Updated lesson'
       click_button 'Save'
@@ -146,7 +146,7 @@ describe Lesson do
 
     it 'cannot be edited by a student' do
       login_as(student, scope: :user)
-      visit course_section_lesson_show_path(section.course, section, lesson)
+      visit course_section_lesson_path(section.course, section, lesson)
       expect(page).to_not have_content 'Edit lesson'
       visit edit_lesson_path(lesson)
       expect(page).to_not have_content 'Edit'
@@ -162,7 +162,7 @@ describe Lesson do
 
     it 'is visible to an author' do
       lesson = FactoryGirl.create :lesson, section: section, public: false
-      visit course_section_lesson_show_path(section.course, section, lesson)
+      visit course_section_lesson_path(section.course, section, lesson)
       expect(page).to have_content lesson.content
     end
 
@@ -170,7 +170,7 @@ describe Lesson do
       login_as(student, scope: :user)
       private_lesson = FactoryGirl.create :lesson, section: section, public: false
       public_lesson = FactoryGirl.create :lesson, section: section
-      visit course_section_lesson_show_path(section.course, section, private_lesson)
+      visit course_section_lesson_path(section.course, section, private_lesson)
       expect(page).to have_content "Sorry, that lesson isn't finished yet."
     end
 
@@ -213,7 +213,7 @@ describe Lesson do
     end
 
     it 'can be deleted' do
-      visit course_section_lesson_show_path(lesson.sections.first.course, lesson.sections.first, lesson)
+      visit course_section_lesson_path(lesson.sections.first.course, lesson.sections.first, lesson)
       click_link 'Delete'
       expect(page).to have_content 'Lesson deleted.'
     end

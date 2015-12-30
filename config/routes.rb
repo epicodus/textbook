@@ -11,11 +11,10 @@ Textbook::Application.routes.draw do
   end
   resources :courses, only: [:edit, :update, :destroy], path: '/'
   resources :courses, only: [:show], path: '/' do
-    resources :sections, only: [:index, :new, :create]
-    resources :sections, only: [:show, :edit, :update, :destroy], path: '/' do
+    resources :sections, only: [:index, :new, :create, :edit]
+    resources :sections, only: [:show, :update, :destroy], path: '/' do
       resources :lessons, only: [:index]
+      resources :lessons, only: [:show], path: '/'
     end
   end
-
-  get '/:course_id/:section_id/:id', to: 'lessons#show', as: :course_section_lesson_show
 end
