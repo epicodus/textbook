@@ -9,7 +9,7 @@
   <div class="btn-group">
     <% if can? :update, Section %>
       <%= link_to "Edit", edit_course_section_path(@section.course, @section), class: "btn btn-info" %>
-      <%= link_to "Delete", section_path(@section), data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-primary' %>
+      <%= link_to "Delete", course_section_path(@section.course, @section), data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-primary' %>
     <% end %>
 
     <% if can? :create, Lesson %>
@@ -24,7 +24,7 @@
       <% if LessonSection.find_by(lesson: lesson, section: @section).homework? %>
         <i class="glyphicon glyphicon-book"></i>
       <% end %>
-      <%= link_to lesson.name, section_lesson_show_path(@section, lesson) %>
+      <%= link_to lesson.name, course_section_lesson_show_path(@section.course, @section, lesson) %>
     </li>
   <% end %>
 </ul>

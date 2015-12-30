@@ -73,14 +73,14 @@ describe Section, js: true do
   it 'is visible to an author' do
     login_as(author, scope: :user)
     private_section = FactoryGirl.create :section, course: course, public: false
-    visit section_show_path(private_section)
+    visit course_section_path(private_section.course, private_section)
     expect(page).to have_content private_section.name
   end
 
   it 'is not visible to a student' do
     login_as(student, scope: :user)
     private_section = FactoryGirl.create :section, course: course, public: false
-    visit section_show_path(private_section)
+    visit course_section_path(private_section.course, private_section)
     expect(page).to have_content "Sorry, that section isn't finished yet."
   end
 
@@ -93,7 +93,7 @@ describe Section, js: true do
   end
 
   it 'redirects from lessons index to courses index when there are no params' do
-    visit sections_path
+    visit lessons_path
     expect(page.current_path).to eq courses_path
   end
 end

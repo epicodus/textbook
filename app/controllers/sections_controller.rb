@@ -33,7 +33,7 @@ class SectionsController < ApplicationController
   def update
     @section = Section.find(params[:id])
     if @section.update(section_params)
-      redirect_to section_show_path(@section), notice: "Section updated."
+      redirect_to course_section_path(@section.course, @section), notice: "Section updated."
     else
       render 'edit'
     end
