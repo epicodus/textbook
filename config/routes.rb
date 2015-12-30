@@ -5,15 +5,13 @@ Textbook::Application.routes.draw do
 
   get 'table-of-contents', to: redirect('courses')
 
-  resources :sections, only: [:index, :destroy] do
-    resources :lessons, only: [:index]
-  end
   resources :lessons
   resources :courses do
-    resources :sections, only: [:new, :create, :edit, :update]
+    resources :sections do
+      resources :lessons, only: [:index]
+    end
     put :update_multiple, on: :collection
   end
 
-  get '/:id', to: 'sections#show', as: :section_show
-  get '/:section_id/:id', to: 'lessons#show', as: :section_lesson_show
+  get '/:course_id/:section_id/:id', to: 'lessons#show', as: :course_section_lesson_show
 end

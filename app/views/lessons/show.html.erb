@@ -16,7 +16,7 @@
   <ul class="breadcrumb">
     <% if @section %>
       <li><%= link_to @section.course.name, course_path(@section.course) %></li>
-      <li><%= link_to @section.name, section_show_path(@section) %></li>
+      <li><%= link_to @section.name, course_section_path(@section.course, @section) %></li>
     <% end %>
     <li class="active"><%= @lesson.name %></li>
   </ul>
