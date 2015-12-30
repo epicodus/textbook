@@ -6,7 +6,7 @@ class Section < ActiveRecord::Base
 
   before_validation :set_number, on: :create
 
-  validates :name, :presence => true, :uniqueness => true
+  validates :name, :presence => true, uniqueness: { scope: :course }
   validates :number, :presence => true
   validates :course, :presence => true
   validate :name_does_not_conflict_with_routes
