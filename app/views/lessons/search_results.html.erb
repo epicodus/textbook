@@ -7,7 +7,7 @@
       <h3 id='search-section'><%= section.name %></h3>
       <ul class="list-unstyled">
         <% section.lessons.where(id: @results.map(&:id)).each do |lesson| %>
-          <li><%= link_to lesson.name, course_section_lesson_show_path(section.course, section, lesson) %></li>
+          <li><%= link_to lesson.name, course_section_lesson_path(section.course, section, lesson) %></li>
         <% end %>
       </ul>
     <% end %>

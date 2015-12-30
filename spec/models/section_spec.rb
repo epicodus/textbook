@@ -28,9 +28,9 @@ describe Section do
     end
   end
 
-  it 'validates uniqueness of name' do
+  xit 'validates uniqueness of name' do # FIXME pending https://github.com/thoughtbot/shoulda-matchers/issues/814
     FactoryGirl.create :section
-    should validate_uniqueness_of :name
+    should validate_uniqueness_of(:name).scoped_to(:course)
   end
 
   it 'sorts by the number by default' do
