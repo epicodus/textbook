@@ -4,7 +4,6 @@ ruby '2.3.0'
 
 gem 'rails', '~> 4.2.1'
 gem 'pg'
-gem 'unicorn'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'devise'
@@ -48,4 +47,5 @@ group :production do
   gem 'rails_12factor'
   gem 'lograge'
   gem 'bugsnag'
+  gem 'puma'
 end
