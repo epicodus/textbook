@@ -12,7 +12,7 @@
   <% end %>
 
 
-  <ul class="list-unstyled sortable">
+  <ul class="courses-list list-unstyled sortable">
     <% @courses.accessible_by(current_ability).each do |course| %>
       <li><%= link_to course.name, course_path(course) %>
         <%= fields_for 'course_attributes[]', course do |course_form| %>
