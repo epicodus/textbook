@@ -14,7 +14,7 @@
 				<%= render @course.sections, f: f %>
 			</ul>
 		<% else %>
-			<ul class="list-unstyled"><%= render @course.sections.accessible_by(current_ability) %></ul>
+			<ul class="sections-list list-unstyled"><%= render @course.sections.accessible_by(current_ability) %></ul>
 		<% end %>
 	</div>
 <% end %>

@@ -5,7 +5,12 @@ ul.lesson {
 blockquote p {
   margin-bottom: inherit;
   line-height: inherit;
-  font-size: 14px;
+}
+
+pre {
+  font-size: 1.6rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .filename {
@@ -13,6 +18,7 @@ blockquote p {
   border-left: 1px solid rgba(0, 0, 0, 0.15);
   border-right: 1px solid rgba(0, 0, 0, 0.15);
   padding: 4px 9.5px;
+  margin-bottom: -20px;
   background-color: #E6E6E6;
   font-weight: 600;
 }

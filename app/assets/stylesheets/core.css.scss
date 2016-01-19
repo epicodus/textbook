@@ -1,10 +1,7 @@
 body {
-  font-size: 1.6rem !important;
+  font-size: 1.8rem !important;
   padding-top: 60px;
-}
-
-li, a {
-  font-size: 1.6rem;
+  color: #252525;
 }
 
 ul.breadcrumb {
@@ -25,4 +22,17 @@ ul.breadcrumb {
 
 #search-section {
   margin-top: 4rem;
+}
+
+.tab-pane > h2,
+.tab-pane > h3,
+.tab-pane > h4 {
+  color: #3A56A2;
+  font-weight: bold;
+}
+
+.courses-list li,
+.sections-list li,
+.lessons-list li {
+  line-height: 2;
 }
