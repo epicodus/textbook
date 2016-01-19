@@ -14,17 +14,17 @@
     <% end %>
   <% end %>
   <ul class=<% if can? :update, Lesson %>
-              "lesson sortable"
+              "lesson sortable fa-ul"
             <% else %>
-              "lesson"
+              "lesson fa-ul"
             <% end %>
             >
     <% section.lessons.accessible_by(current_ability).each do |lesson| %>
       <li>
         <% if LessonSection.find_by(lesson: lesson, section: section).lesson? %>
-          <i class="glyphicon glyphicon-book"></i>
+          <i class="fa-li fa fa-book"></i>
         <% else %>
-          <i class="glyphicon glyphicon-pencil"></i>
+          <i class="fa-li fa fa-pencil"></i>
         <% end %>
         <%= LessonSection.find_by(lesson: lesson.id, section: section.id).day_of_week.titlecase %>
         <%= link_to lesson.name, course_section_lesson_path(section.course, section, lesson), :class => 'lesson' %>

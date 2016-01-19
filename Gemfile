@@ -19,6 +19,7 @@ gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'bootstrap-multiselect-rails'
 gem 'sass-rails'
+gem 'font-awesome-sass'
 
 group :development do
   gem 'quiet_assets'
