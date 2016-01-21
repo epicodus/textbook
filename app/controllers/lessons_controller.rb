@@ -19,7 +19,8 @@ class LessonsController < ApplicationController
   def create
     @lesson = Lesson.new(lesson_params)
     if @lesson.save
-      redirect_to lesson_path(@lesson), notice: 'Lesson saved.'
+      section = Section.find(params.dig(:lesson, :section_ids)[1])
+      redirect_to course_section_path(section.course, section), notice: 'Lesson saved.'
     else
       render 'new'
     end
@@ -44,7 +45,8 @@ class LessonsController < ApplicationController
       lesson_sections_to_delete = LessonSection.where(lesson: @lesson) - LessonSection.find(lesson_section_ids)
       lesson_sections_to_delete.each(&:destroy)
       if @lesson.update(lesson_params)
-        redirect_to lesson_path(@lesson), notice: 'Lesson updated.'
+        section = Section.find(params.dig(:lesson, :section_ids)[1])
+        redirect_to course_section_path(section.course, section), notice: 'Lesson updated.'
       else
         render 'edit'
       end
