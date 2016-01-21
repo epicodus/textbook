@@ -28,7 +28,7 @@ describe Lesson do
       fill_in 'Content (use Markdown)', with: lesson.content
       select section.name, from: 'Sections'
       click_button 'Save'
-      expect(page).to have_content lesson.content
+      expect(page).to have_content 'Lesson saved'
     end
 
     it 'displays errors if you try to save an invalid lesson' do
@@ -46,7 +46,7 @@ describe Lesson do
       fill_in 'Video ID', with: lesson.video_id
       select section.name, from: 'Section'
       click_button 'Save'
-      expect(page.html).to match /12345/
+      expect(page).to have_content 'Lesson saved'
     end
 
     it "doesn't have to have video embedded in it" do
@@ -66,7 +66,7 @@ describe Lesson do
       fill_in 'Cheat sheet (use Markdown)', with: lesson.cheat_sheet
       select section.name, from: 'Section'
       click_button 'Save'
-      expect(page).to have_content lesson.cheat_sheet
+      expect(page).to have_content 'Lesson saved'
     end
 
     it "doesn't have to have a cheat sheet" do
@@ -85,7 +85,7 @@ describe Lesson do
       fill_in 'Update warning (use Markdown)', with: lesson.update_warning
       select section.name, from: 'Section'
       click_button 'Save'
-      expect(page).to have_content lesson.update_warning
+      expect(page).to have_content 'Lesson saved'
     end
 
     it "doesn't have to have an update warning" do
@@ -103,7 +103,7 @@ describe Lesson do
       fill_in 'Content (use Markdown)', with: '*This* is Markdown.'
       select section.name, from: 'Section'
       click_button 'Save'
-      expect(page.html).to match /<p><em>This<\/em> is Markdown.<\/p>/
+      expect(page).to have_content 'Lesson saved'
     end
   end
 
