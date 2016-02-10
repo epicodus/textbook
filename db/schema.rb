@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151231010310) do
+ActiveRecord::Schema.define(version: 20160210224544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20151231010310) do
     t.text     "update_warning"
     t.text     "markdown"
     t.boolean  "old_tutorial"
+    t.text     "teacher_notes"
   end
 
   add_index "lessons", ["name"], name: "index_lessons_on_name", using: :btree

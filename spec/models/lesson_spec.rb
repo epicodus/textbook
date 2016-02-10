@@ -105,6 +105,18 @@ describe Lesson do
     end
   end
 
+  context '#has_teacher_notes?' do
+    it 'returns false if there are no teacher notes' do
+      lesson = FactoryGirl.create :lesson, :teacher_notes => nil
+      expect(lesson.has_teacher_notes?).to be false
+    end
+
+    it 'returns true if there are teacher notes' do
+      lesson = FactoryGirl.create :lesson
+      expect(lesson.has_teacher_notes?).to be true
+    end
+  end
+
   context '#has_update_warning?' do
     it 'returns false if there is no update warning' do
       lesson = FactoryGirl.create :lesson, :update_warning => nil
