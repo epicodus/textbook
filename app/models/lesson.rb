@@ -52,6 +52,10 @@ class Lesson < ActiveRecord::Base
     !cheat_sheet.blank?
   end
 
+  def has_teacher_notes?
+    !teacher_notes.blank?
+  end
+
   def has_update_warning?
     !update_warning.blank?
   end
