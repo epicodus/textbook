@@ -78,6 +78,27 @@ describe Lesson do
       expect(page).to_not have_content 'Cheat sheet'
     end
 
+    it 'can have teacher notes' do
+      visit new_lesson_path
+      fill_in 'Name', with: lesson.name
+      fill_in 'Content (use Markdown)', with: lesson.content
+      fill_in 'Video ID', with: lesson.video_id
+      fill_in 'Cheat sheet (use Markdown)', with: lesson.cheat_sheet
+      fill_in 'Teacher notes (use Markdown)', with: lesson.teacher_notes
+      select section.name, from: 'Section'
+      click_button 'Save'
+      expect(page).to have_content 'Lesson saved'
+    end
+
+    it "doesn't have to have teacher notes" do
+      visit new_lesson_path
+      fill_in 'Name', with: lesson.name
+      fill_in 'Content (use Markdown)', with: lesson.content
+      select section.name, from: 'Section'
+      click_button 'Save'
+      expect(page).to_not have_content 'Cheat sheet'
+    end
+
     it 'can have an update warning' do
       visit new_lesson_path
       fill_in 'Name', with: lesson.name
@@ -118,6 +139,14 @@ describe Lesson do
       click_link section.name
       click_link lesson.name
       expect(page).to have_content lesson.content
+    end
+
+    it 'hides teacher notes from students' do
+      login_as(student, scope: :user)
+      visit course_path(section.course)
+      click_link section.name
+      click_link lesson.name
+      expect(page).to_not have_content 'Teacher notes'
     end
   end
 

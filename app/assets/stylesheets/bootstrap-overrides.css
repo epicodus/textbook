@@ -3,7 +3,7 @@
   height: 50em;
 }
 
-.container textarea.cheat-sheet {
+.container textarea.cheat-sheet, textarea.teacher-notes {
   height: 25em;
 }
 
