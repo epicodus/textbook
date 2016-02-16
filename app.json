@@ -67,5 +67,6 @@
   },
   "addons":[
     "heroku-postgresql",
+    "logentries"
   ]
 }

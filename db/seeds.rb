@@ -5,7 +5,7 @@ Section.create(name: 'Section 1', number: 1, public: true, course: Course.first)
 
 3.times do |n|
   Lesson.create(
-    name: "Lesson #{n + 1}",
+    name: "Lesson",
     content: 'This is the lesson content.',
     cheat_sheet: 'This is the cheat sheet.',
     update_warning: 'This is the update warning',
