@@ -8,7 +8,7 @@
   </div>
   <div class="form-group">
     <%= f.label :section_ids, 'Sections' %>
-    <%= f.grouped_collection_select :section_ids, Course.with_sections.unscoped.order(:name), :sections, :name, :id, :name, {}, { class: 'multiselect-dropdown', multiple: true, include_hidden: false } %>
+    <%= f.grouped_collection_select :section_ids, Course.with_sections.unscoped.order(:name), :sections, :name, :id, :name, {}, { class: 'multiselect-dropdown', multiple: true, include_hidden: false, required: true } %>
   </div>
   <div class="row">
     <div class="form-group col-xs-2">
