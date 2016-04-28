@@ -45,8 +45,7 @@ class LessonsController < ApplicationController
       lesson_sections_to_delete = LessonSection.where(lesson: @lesson) - LessonSection.find(lesson_section_ids)
       lesson_sections_to_delete.each(&:destroy)
       if @lesson.update(lesson_params)
-        section = Section.find(params.dig(:lesson, :section_ids)[1])
-        redirect_to course_section_path(section.course, section), notice: 'Lesson updated.'
+        redirect_to courses_path, notice: 'Lesson updated.'
       else
         render 'edit'
       end
