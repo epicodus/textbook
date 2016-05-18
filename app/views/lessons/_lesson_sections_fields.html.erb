@@ -2,7 +2,10 @@
   <div class="col-xs-3 lesson-type" id="section-<%= section.id %>-lesson-type">
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title"><%= section.name %></h3>
+        <h3 class="panel-title">
+          <p><%= section.course.name %></p>
+          <%= section.name %>
+        </h3>
       </div>
       <div class="panel-body">
         <%= f.fields_for :lesson_sections, LessonSection.find_or_initialize_by(lesson: @lesson, section: section) do |ff| %>
@@ -10,7 +13,7 @@
 
           <div class="form-group">
             <div class="radio">
-              <%= ff.label :work_type do %>
+              <%= ff.label :work_type_lesson do %>
                 <% if LessonSection.find_by(section: section, lesson: @lesson).try(:work_type) %>
                   <%= ff.radio_button :work_type, :lesson %>Lesson
                 <% else %>
@@ -22,7 +25,7 @@
 
           <div class="form-group">
             <div class="radio">
-              <%= ff.label :work_type do %>
+              <%= ff.label :work_type_exercise do %>
                 <% if LessonSection.find_by(section: section, lesson: @lesson).try(:work_type) %>
                   <%= ff.radio_button :work_type, :exercise %>Exercise
                 <% else %>
@@ -36,7 +39,7 @@
 
           <div class="form-group">
             <div class="radio">
-              <%= ff.label :day_of_week do %>
+              <%= ff.label :day_of_week_weekend do %>
                 <% if LessonSection.find_by(section: section, lesson: @lesson).try(:day_of_week) %>
                   <%= ff.radio_button :day_of_week, :weekend %>Weekend
                 <% else %>
@@ -48,7 +51,7 @@
 
           <div class="form-group">
             <div class="radio">
-              <%= ff.label :day_of_week do %>
+              <%= ff.label :day_of_week_monday do %>
                 <% if LessonSection.find_by(section: section, lesson: @lesson).try(:day_of_week) %>
                   <%= ff.radio_button :day_of_week, :monday %>Monday
                 <% else %>
@@ -60,7 +63,7 @@
 
           <div class="form-group">
             <div class="radio">
-              <%= ff.label :day_of_week do %>
+              <%= ff.label :day_of_week_tuesday do %>
                 <% if LessonSection.find_by(section: section, lesson: @lesson).try(:day_of_week) %>
                   <%= ff.radio_button :day_of_week, :tuesday %>Tuesday
                 <% else %>
@@ -72,7 +75,7 @@
 
           <div class="form-group">
             <div class="radio">
-              <%= ff.label :day_of_week do %>
+              <%= ff.label :day_of_week_wednesday do %>
                 <% if LessonSection.find_by(section: section, lesson: @lesson).try(:day_of_week) %>
                   <%= ff.radio_button :day_of_week, :wednesday %>Wednesday
                 <% else %>
@@ -84,7 +87,7 @@
 
           <div class="form-group">
             <div class="radio">
-              <%= ff.label :day_of_week do %>
+              <%= ff.label :day_of_week_thursday do %>
                 <% if LessonSection.find_by(section: section, lesson: @lesson).try(:day_of_week) %>
                   <%= ff.radio_button :day_of_week, :thursday %>Thursday
                 <% else %>
@@ -96,7 +99,7 @@
 
           <div class="form-group">
             <div class="radio">
-              <%= ff.label :day_of_week do %>
+              <%= ff.label :day_of_week_friday do %>
                 <% if LessonSection.find_by(section: section, lesson: @lesson).try(:day_of_week) %>
                   <%= ff.radio_button :day_of_week, :friday %>Friday
                 <% else %>

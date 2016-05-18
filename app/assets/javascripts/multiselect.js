@@ -3,8 +3,15 @@ $(function () {
     buttonClass: 'btn btn-info',
     maxHeight: 500,
     onChange: function(option) {
-      $('#section-' + option.val() + '-lesson-type').toggle();
-      $('#section-' + option.val() + '-lesson-type').find('input[type=radio]:checked').attr('checked', false);
+      var lessonAttributes = $('#section-' + option.val() + '-lesson-type');
+      var lessonAttributesInput = lessonAttributes.find('input[type=radio]');
+      lessonAttributes.toggle();
+      lessonAttributesInput.attr('checked', false);
+      if (lessonAttributes.is(':visible')) {
+        lessonAttributesInput.attr('required', true);
+      } else {
+        lessonAttributesInput.attr('required', false);
+      }
     }
   });
 

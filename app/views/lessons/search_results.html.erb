@@ -4,7 +4,10 @@
 <div class="form-group">
   <% if @results.any? %>
     <% @sections.each do |section| %>
-      <h3 id='search-section'><%= section.name %></h3>
+      <p class='search-delete-section'>
+        <span class="label label-default"><%= section.course.name %></span>
+        <span class="label label-info"><%= section.name %></span>
+      </p>
       <ul class="list-unstyled">
         <% section.lessons.where(id: @results.map(&:id)).each do |lesson| %>
           <li><%= link_to lesson.name, course_section_lesson_path(section.course, section, lesson) %></li>
