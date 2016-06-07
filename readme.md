@@ -1,4 +1,4 @@
-#Textbook
+# Textbook
 
 [![Code Climate](https://codeclimate.com/github/epicodus/textbook/badges/gpa.svg)](https://codeclimate.com/github/epicodus/textbook)
 [![Coverage Status](https://coveralls.io/repos/epicodus/textbook/badge.svg)](https://coveralls.io/github/epicodus/textbook)
@@ -13,7 +13,15 @@ The first lesson of the first section is used as the homepage. If no lessons exi
 
 Pull requests are welcome :)
 
-##Environmental variables
+## Configuration
+
+1. `git clone https://github.com/epicodus/textbook.git`
+1. `cd textbook`
+1. `bundle`
+1. `rake db:create && rake db:schema:load && rake:db:seed`
+1. `rails s` and visit [localhost:3000](http://localhost:3000)
+
+## Environmental variables
 
 Environmental variables can be set in .bashrc, a .env file for use with Foreman, or in Heroku's config. See the [Heroku documentation](https://devcenter.heroku.com/articles/config-vars) for more information.
 
