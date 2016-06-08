@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui/sortable
-//= require bootstrap-multiselect
 //= require bootstrap-sprockets
+//= require bootstrap-multiselect
 //= require_tree .
