@@ -10,7 +10,11 @@
       </p>
       <ul class="list-unstyled">
         <% section.lessons.where(id: @results.map(&:id)).each do |lesson| %>
-          <li><%= link_to lesson.name, course_section_lesson_path(section.course, section, lesson) %></li>
+          <% if lesson.public? %>
+            <li><%= link_to lesson.name, course_section_lesson_path(section.course, section, lesson) %></li>
+          <% else %>
+            <li><%= link_to lesson.name, course_section_lesson_path(section.course, section, lesson), class: 'text-muted' %></li>
+          <% end %>
         <% end %>
       </ul>
     <% end %>
