@@ -56,6 +56,10 @@ class Lesson < ActiveRecord::Base
     !update_warning.blank?
   end
 
+  def has_teacher_notes?
+    !teacher_notes.blank?
+  end
+
 private
 
   def set_private

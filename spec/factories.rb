@@ -28,6 +28,7 @@ FactoryGirl.define do
     content "This is the lesson content."
     cheat_sheet "This is the cheat sheet."
     update_warning "This is the update warning."
+    teacher_notes "This is the teacher notes section."
     video_id 12345
     association :section, :factory => :section
     public true
