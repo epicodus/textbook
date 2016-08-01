@@ -18,7 +18,7 @@ Pull requests are welcome :)
 1. `git clone https://github.com/epicodus/textbook.git`
 1. `cd textbook`
 1. `bundle`
-1. `rake db:create && rake db:schema:load && rake:db:seed`
+1. `rake db:create && rake db:schema:load && rake db:seed`
 1. `rails s` and visit [localhost:3000](http://localhost:3000)
 
 ## Environmental variables
