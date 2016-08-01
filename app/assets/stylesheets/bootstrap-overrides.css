@@ -7,6 +7,10 @@
   height: 25em;
 }
 
+.container textarea.teacher-notes {
+  height: 25em;
+}
+
 .container textarea.update-warning {
   height: 10em;
 }
