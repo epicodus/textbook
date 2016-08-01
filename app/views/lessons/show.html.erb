@@ -55,7 +55,7 @@
     <li><a href="#cheat-sheet"  data-toggle="tab">Cheat sheet</a></li>
   <% end %>
 
-  <% if @lesson.has_teacher_notes? %>
+  <% if @lesson.has_teacher_notes? && (can? :manage, Lesson) %>
     <li><a href="#teacher-notes"  data-toggle="tab">Teacher notes</a></li>
   <% end %>
 </ul>
@@ -80,7 +80,7 @@
     </div>
   <% end %>
 
-  <% if @lesson.has_teacher_notes?%>
+  <% if @lesson.has_teacher_notes? && (can? :manage, Lesson) %>
     <div class="tab-pane" id="teacher-notes">
       <%= render 'teacher_notes' %>
     </div>
