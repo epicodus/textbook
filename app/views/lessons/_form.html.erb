@@ -38,6 +38,10 @@
     <%= f.text_area :cheat_sheet, class: 'form-control cheat-sheet' %>
   </div>
   <div class="form-group">
+    <%= f.label :teacher_notes, "Teacher notes (use Markdown)" %>
+    <%= f.text_area :teacher_notes, class: 'form-control teacher-notes' %>
+  </div>
+  <div class="form-group">
     <%= f.label :update_warning, "Update warning (use Markdown)" %>
     <%= f.text_area :update_warning, class: 'form-control update-warning' %>
   </div>

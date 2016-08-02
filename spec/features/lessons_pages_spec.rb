@@ -97,6 +97,25 @@ describe Lesson do
       expect(page.html).to_not match /alert-danger/
     end
 
+    it 'can have a teacher notes section' do
+      visit new_lesson_path
+      fill_in 'Name', with: lesson.name
+      fill_in 'Content (use Markdown)', with: lesson.content
+      fill_in 'Teacher notes (use Markdown)', with: lesson.teacher_notes
+      select section.name, from: 'Section'
+      click_button 'Save'
+      expect(page).to have_content 'Lesson saved'
+    end
+
+    it "doesn't have to have a teacher notes section" do
+      visit new_lesson_path
+      fill_in 'Name', with: lesson.name
+      fill_in 'Content (use Markdown)', with: lesson.content
+      select section.name, from: 'Section'
+      click_button 'Save'
+      expect(page.html).to_not match /alert-danger/
+    end
+
     it 'uses markdown to format lessons' do
       visit new_lesson_path
       fill_in 'Name', with: lesson.name
@@ -108,6 +127,7 @@ describe Lesson do
   end
 
   context 'viewing' do
+    let(:author) { FactoryGirl.create :author }
     let(:student) { FactoryGirl.create :student }
     let!(:section) { FactoryGirl.create :section }
     let!(:lesson) { FactoryGirl.create :lesson, section: section }
@@ -119,6 +139,19 @@ describe Lesson do
       click_link lesson.name
       expect(page).to have_content lesson.content
     end
+
+    it "shows teacher notes section to teachers" do
+      login_as(author, scope: :user)
+      visit course_section_lesson_path(section.course, section, lesson)
+      expect(page).to have_content lesson.teacher_notes
+    end
+
+    it "doesn't show teacher notes section to students" do
+      login_as(student, scope: :user)
+      visit course_section_lesson_path(section.course, section, lesson)
+      expect(page.html).to_not match lesson.teacher_notes
+    end
+
   end
 
   context 'editing' do
