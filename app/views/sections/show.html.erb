@@ -18,7 +18,11 @@
   </div>
 <% end %>
 
-<ul class="lessons-list list-unstyled">
+<ul class="lessons-list list-unstyled
+  <% if can? :manage, :all %>
+    sortable
+  <% end %>
+">
   <% @section.lessons.accessible_by(current_ability).each do |lesson| %>
     <li>
       <% if LessonSection.find_by(lesson: lesson, section: @section).lesson? %>

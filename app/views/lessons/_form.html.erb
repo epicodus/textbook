@@ -19,7 +19,7 @@
   <div class="form-group">
     <div class="checkbox">
       <%= f.label :public do %>
-        <%= f.check_box :public %>
+        <%= f.check_box :public, :checked => true %>
         Public
       <% end %>
     </div>
@@ -36,6 +36,10 @@
   <div class="form-group">
     <%= f.label :cheat_sheet, "Cheat sheet (use Markdown)" %>
     <%= f.text_area :cheat_sheet, class: 'form-control cheat-sheet' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :teacher_notes, "Teacher notes (use Markdown)" %>
+    <%= f.text_area :teacher_notes, class: 'form-control teacher-notes' %>
   </div>
   <div class="form-group">
     <%= f.label :update_warning, "Update warning (use Markdown)" %>
