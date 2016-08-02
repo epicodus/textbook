@@ -117,18 +117,6 @@ describe Lesson do
     end
   end
 
-  context '#has_teacher_notes?' do
-    it 'returns false if there are no teacher notes' do
-      lesson = FactoryGirl.create :lesson, :teacher_notes => nil
-      expect(lesson.has_teacher_notes?).to be false
-    end
-
-    it 'returns true if there are teacher notes' do
-      lesson = FactoryGirl.create :lesson
-      expect(lesson.has_teacher_notes?).to be true
-    end
-  end
-
   context 'callbacks' do
     it 'sets public to false before deleting' do
       lesson = FactoryGirl.create :lesson

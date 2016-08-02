@@ -1,4 +1,4 @@
-<% if @lesson.has_teacher_notes? %>
+<% if @lesson.teacher_notes? %>
   <%= markdown @lesson.teacher_notes %>
 <% else %>
   <p>No teacher notes!</p>
