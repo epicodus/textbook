@@ -1,15 +1,11 @@
 <% provide :title, @lesson.name %>
 
-<% if LessonSection.find_by(lesson: @lesson, section: @section).try(:work_type) %>
-  <span class="label label-info">
-    <%= LessonSection.find_by(lesson: @lesson, section: @section).work_type.titlecase %>
-  </span>
+<% if @lesson_section.try(:work_type) %>
+  <span class="label label-info"><%= @lesson_section.work_type.titlecase %></span>
 <% end %>
 
-<% if LessonSection.find_by(lesson: @lesson, section: @section).try(:day_of_week) %>
-  <span class="label label-primary">
-    <%= LessonSection.find_by(lesson: @lesson, section: @section).day_of_week.titlecase %>
-  </span>
+<% if @lesson_section.try(:day_of_week) %>
+  <span class="label label-primary"><%= @lesson_section.day_of_week.titlecase %></span>
 <% end %>
 
 <% unless params[:deleted] %>

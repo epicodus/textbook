@@ -29,6 +29,7 @@ class LessonsController < ApplicationController
   def show
     @lesson = Lesson.with_deleted.find(params[:id])
     @section = Section.find(params[:section_id]) if params[:section_id]
+    @lesson_section = LessonSection.find_by(lesson: @lesson, section: @section)
     authorize! :read, @lesson
   end
 
@@ -64,7 +65,7 @@ private
 
   def lesson_params
     params[:lesson][:lesson_sections_attributes].keep_if { |key, value| value[:work_type] }
-    params.require(:lesson).permit(:name, :content, :cheat_sheet, :update_warning, :teacher_notes, 
+    params.require(:lesson).permit(:name, :content, :cheat_sheet, :update_warning, :teacher_notes,
                                    :public, :deleted_at, :video_id,
                                    lesson_sections_attributes: [:id, :work_type, :section_id, :day_of_week])
   end
