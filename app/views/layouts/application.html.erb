@@ -55,7 +55,9 @@
             <div class="input-group">
               <%= text_field_tag :search, nil, placeholder: 'Search lessons', class: 'form-control' %>
               <div class="input-group-btn">
-                <%= submit_tag 'Search', class: 'btn btn-info' %>
+                <%= button_tag 'Search', class: 'btn btn-info', id: 'lesson-search' do %>
+                  <span class="glyphicon glyphicon-search"></span>
+                <% end %>
               </div>
             </div>
           <% end %>

@@ -275,7 +275,7 @@ describe Lesson do
     it 'lets you search for lessons' do
       visit courses_path
       fill_in 'Search lessons', with: lesson.content.split.last
-      click_button 'Search'
+      click_on 'lesson-search'
       expect(page).to have_content lesson.name
     end
   end
