@@ -46,4 +46,13 @@ describe Section do
     section.update(name: 'New awesome section')
     expect(section.slug).to eq 'new-awesome-section'
   end
+
+  it 'creates a zip file containings all lessons from a section' do
+    section = FactoryGirl.create(:section)
+    lesson = FactoryGirl.create(:lesson, section: section)
+    zipfile = section.export_lessons
+    unzipped_directory = Zip::File.open(zipfile)
+    expect(unzipped_directory.first.name).to include lesson.name.parameterize
+  end
+
 end

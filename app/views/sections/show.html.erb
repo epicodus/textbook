@@ -15,6 +15,9 @@
     <% if can? :create, Lesson %>
       <%= link_to 'New Lesson', new_lesson_path, :class => "btn btn-success" %>
     <% end %>
+
+    <%= link_to 'Export', course_section_export_path(@section.course, @section), :id => "export-btn", :class => "btn btn-default" %>
+
   </div>
 <% end %>
 
