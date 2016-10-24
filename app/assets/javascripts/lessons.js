@@ -6,5 +6,5 @@ $(function () {
     click.preventDefault();
   });
 
-  $("#video").fitVids();
+  $(".video").fitVids();
 });
