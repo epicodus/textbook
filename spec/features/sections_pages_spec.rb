@@ -96,4 +96,13 @@ describe Section, js: true do
     visit lessons_path
     expect(page.current_path).to eq courses_path
   end
+
+  it 'exports lessons from a section' do
+    lesson = FactoryGirl.create :lesson, section: section
+    login_as(author, scope: :user)
+    visit course_section_path(section.course, section)
+    click_link 'export-btn'
+    directory = Rails.root.join('tmp', section.name.parameterize)
+    expect(directory).to exist
+  end
 end

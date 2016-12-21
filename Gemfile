@@ -18,6 +18,7 @@ gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'bootstrap-multiselect-rails'
 gem 'sass-rails'
+gem 'rubyzip', require: 'zip'
 
 group :development do
   gem 'quiet_assets'

@@ -11,7 +11,9 @@ Textbook::Application.routes.draw do
   end
   resources :courses, only: [:edit, :update, :destroy], path: '/'
   resources :courses, only: [:show], path: '/' do
-    resources :sections, only: [:index, :new, :create, :edit]
+    resources :sections, only: [:index, :new, :create, :edit] do
+      resource :export, only: [:show], to: 'course_section_export#show'
+    end
     resources :sections, only: [:show, :update, :destroy], path: '/' do
       resources :lessons, only: [:index]
       resources :lessons, only: [:show], path: '/'
