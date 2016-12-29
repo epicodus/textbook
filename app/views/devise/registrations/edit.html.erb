@@ -9,17 +9,20 @@
     </div>
   <% end %>
 
-  <%= f.label :email %>
-  <%= f.email_field :email %>
+  <div class="form-group">
+    <%= f.label :password, "New password" %>
+    <%= f.password_field :password, :autocomplete => "off" %>
+  </div>
 
-  <%= f.label :password, "Password (leave blank if you don't want to change it)" %>
-  <%= f.password_field :password, :autocomplete => "off" %>
+  <div class="form-group">
+    <%= f.label :password_confirmation, "New password confirmation" %>
+    <%= f.password_field :password_confirmation %>
+  </div>
 
-  <%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %>
-
-  <%= f.label :current_password, "Current password (we need your current password to confirm your changes)" %>
-  <%= f.password_field :current_password %>
+  <div class="form-group">
+    <%= f.label :current_password, "Current password (to confirm changes)" %>
+    <%= f.password_field :current_password %>
+  </div>
 
   <%= f.submit "Update", :class => "btn btn-info" %>
 <% end %>
