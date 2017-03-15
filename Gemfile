@@ -25,6 +25,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'letter_opener'
   gem 'rack-mini-profiler'
+  gem 'httparty'
 end
 
 group :test, :development do
