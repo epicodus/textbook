@@ -13,8 +13,8 @@ task :export_offline_images_list => [:environment] do
                 links = lesson.content.scan(/(\/\/(dl|www)\.dropbox.*?)\)/)
                 links.each do |link|
                   url = "http:" + link[0]
-                  response_code = HTTParty.head(url).code
-                  if response_code != 200
+                  response = HTTParty.head(url)
+                  unless response.content_type.include? "image"
                     file.puts("#{section.name.upcase} | #{lesson.name}:")
                     file.puts(link[0])
                   end
