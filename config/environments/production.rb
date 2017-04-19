@@ -63,7 +63,6 @@ Textbook::Application.configure do
 
   config.action_mailer.default_url_options = { :host => ENV['ACTION_MAILER_DEFAULT_URL_HOST'] }
   config.action_mailer.smtp_settings = {
-    :tls => :true,
     :address => ENV['ACTION_MAILER_SMTP_ADDRESS'],
     :port => ENV['ACTION_MAILER_SMTP_PORT'],
     :domain => ENV['ACTION_MAILER_SMTP_DOMAIN'],
