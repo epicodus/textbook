@@ -19,6 +19,7 @@ gem 'bootswatch-rails'
 gem 'bootstrap-multiselect-rails'
 gem 'sass-rails'
 gem 'mailgun-ruby', require: 'mailgun'
+gem 'httparty'
 
 group :development do
   gem 'quiet_assets'
@@ -26,7 +27,6 @@ group :development do
   gem 'binding_of_caller'
   gem 'letter_opener'
   gem 'rack-mini-profiler'
-  gem 'httparty'
 end
 
 group :test, :development do
