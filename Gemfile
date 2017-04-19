@@ -18,6 +18,7 @@ gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'bootstrap-multiselect-rails'
 gem 'sass-rails'
+gem 'mailgun-ruby', require: 'mailgun'
 
 group :development do
   gem 'quiet_assets'
