@@ -81,7 +81,10 @@
       <%= render 'teacher_notes' %>
     </div>
   <% end %>
-
 </div>
+
+<% if can? :manage, Lesson %>
+  <p class="text-center text-muted">Last updated <%= time_ago_in_words(@lesson.updated_at) %> ago</p>
+<% end %>
 
 <%= render 'navbar' %>
