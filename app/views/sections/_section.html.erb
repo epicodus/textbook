@@ -4,7 +4,11 @@
   <% elsif section.week %>
     (Week <%= section.week %>)
   <% end %>
-  <%= link_to section.name, course_section_path(section.course, section), :class => 'section' %>
+  <% if section.public? %>
+    <%= link_to section.name, course_section_path(section.course, section), :class => 'section' %>
+  <% else %>
+    <%= link_to section.name, course_section_path(section.course, section), :class => 'section text-muted' %>
+  <% end %>
   <% if can? :update, Section %>
     <%= link_to "(edit)", edit_course_section_path(section.course, section), :id => "edit_section_#{section.id}" %>
     <%= link_to "(delete)", course_section_path(section.course, section), :data => { :confirm => 'Are you sure?' }, :method => :delete,

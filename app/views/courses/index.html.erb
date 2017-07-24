@@ -18,7 +18,12 @@
     <% end %>
   ">
     <% @courses.accessible_by(current_ability).each do |course| %>
-      <li><%= link_to course.name, course_path(course) %>
+      <li>
+        <% if course.public? %>
+          <%= link_to course.name, course_path(course) %>
+        <% else %>
+          <%= link_to course.name, course_path(course), class: 'lesson text-muted' %>
+        <% end %>
         <%= fields_for 'course_attributes[]', course do |course_form| %>
           <%= course_form.hidden_field :number, class: :course_number %>
         <% end %>
