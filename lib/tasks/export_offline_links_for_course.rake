@@ -1,9 +1,9 @@
-desc "export list of offline links in new java section"
-task :export_offline_links_java_tmp => [:environment] do
+desc "export list of offline links for a specific course" # pass in course slug or id
+task :export_offline_links_for_course, [:course] => [:environment] do |t, args|
+  course = Course.friendly.find(args.course)
   counter = 0
-  filename = File.join(Rails.root.join('tmp'), 'offline-links-java.txt')
+  filename = File.join(Rails.root.join('tmp'), 'offline-links.txt')
   File.open(filename, 'w') do |file|
-    course = Course.find_by(slug: "java-68306a8d-b845-4428-9186-1a41c2439e52")
     file.puts("COURSE: #{course.name.upcase}")
     course.sections.each do |section|
       section.lessons.each do |lesson|
@@ -32,9 +32,9 @@ task :export_offline_links_java_tmp => [:environment] do
       mb_obj = Mailgun::MessageBuilder.new()
       mb_obj.set_from_address("it@epicodus.com");
       mb_obj.add_recipient(:to, "curriculum@epicodus.com");
-      mb_obj.set_subject("offline-links-java.txt");
-      mb_obj.set_text_body("rake task: export_offline_links_java_tmp");
-      mb_obj.add_attachment(filename, "offline-links-java.txt");
+      mb_obj.set_subject("offline-links.txt");
+      mb_obj.set_text_body("rake task: export_offline_links_for_course");
+      mb_obj.add_attachment(filename, "offline-links.txt");
       result = mg_client.send_message("epicodus.com", mb_obj)
       puts result.body.to_s
       puts "Sent #{filename.to_s}"
@@ -42,6 +42,6 @@ task :export_offline_links_java_tmp => [:environment] do
       puts "Exported to #{filename.to_s}"
     end
   else
-    puts "No offline links in java section :)"
+    puts "No offline links in #{course.name} :)"
   end
 end
