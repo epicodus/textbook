@@ -3,6 +3,14 @@ task :export_offline_links_list => [:environment] do
   counter = 0
   filename = File.join(Rails.root.join('tmp'), 'offline-links.txt')
   File.open(filename, 'w') do |file|
+    if Rails.env.development?
+      puts ""
+      puts "*** WARNING: Run on local copy of DB ***"
+      puts ""
+      file.puts ""
+      file.puts "*** WARNING: Run on local copy of DB ***"
+      file.puts ""
+    end
     Course.all.each do |course|
       if course.public
         file.puts("")
