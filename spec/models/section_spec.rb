@@ -46,4 +46,20 @@ describe Section do
     section.update(name: 'New awesome section')
     expect(section.slug).to eq 'new-awesome-section'
   end
+
+  context 'paranoia' do
+    it 'archives destroyed section' do
+      section = FactoryGirl.create(:section)
+      section.destroy
+      expect(Section.count).to eq 0
+      expect(Section.with_deleted.count).to eq 1
+    end
+
+    it 'restores archived section' do
+      section = FactoryGirl.create(:section)
+      section.destroy
+      section.restore
+      expect(Section.count).to eq 1
+    end
+  end
 end

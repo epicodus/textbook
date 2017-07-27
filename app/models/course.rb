@@ -2,11 +2,13 @@ class Course < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, :use => [:slugged, :finders]
 
+  acts_as_paranoid
+
   default_scope -> { order :number }
   scope :with_sections, -> { includes(:sections).where.not(sections: { id: nil }) }
 
   before_validation :set_number, on: :create
-  
+
   validates :name, :presence => true, :uniqueness => true
   validates :number, :presence => true
 

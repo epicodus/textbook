@@ -2,6 +2,8 @@ class Section < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, :use => [:slugged, :finders]
 
+  acts_as_paranoid
+
   default_scope -> { order :number }
 
   before_validation :set_number, on: :create
