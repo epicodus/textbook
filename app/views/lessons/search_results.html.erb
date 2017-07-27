@@ -4,19 +4,21 @@
 <div class="form-group">
   <% if @results.any? %>
     <% @sections.each do |section| %>
-      <p class='search-delete-section'>
-        <span class="label label-default"><%= section.course.name %></span>
-        <span class="label label-info"><%= section.name %></span>
-      </p>
-      <ul class="list-unstyled">
-        <% section.lessons.where(id: @results.map(&:id)).each do |lesson| %>
-          <% if lesson.public? %>
-            <li><%= link_to lesson.name, course_section_lesson_path(section.course, section, lesson) %></li>
-          <% else %>
-            <li><%= link_to lesson.name, course_section_lesson_path(section.course, section, lesson), class: 'text-muted' %></li>
+      <% if current_user && current_user.author? || section.public? && section.course.public? %>
+        <p class='search-delete-section'>
+          <span class="label label-default"><%= section.course.name %></span>
+          <span class="label label-info"><%= section.name %></span>
+        </p>
+        <ul class="list-unstyled">
+          <% section.lessons.where(id: @results.map(&:id)).each do |lesson| %>
+            <% if lesson.public? %>
+              <li><%= link_to lesson.name, course_section_lesson_path(section.course, section, lesson) %></li>
+            <% else %>
+              <li><%= link_to lesson.name, course_section_lesson_path(section.course, section, lesson), class: 'text-muted' %></li>
+            <% end %>
           <% end %>
-        <% end %>
-      </ul>
+        </ul>
+      <% end %>
     <% end %>
   <% else %>
     <p>No lessons found.</p>
