@@ -143,4 +143,20 @@ describe Lesson do
       expect(lesson.sections).to eq [section, section_2]
     end
   end
+
+  context 'paranoia' do
+    it 'archives destroyed lesson' do
+      lesson = FactoryGirl.create(:lesson)
+      lesson.destroy
+      expect(Lesson.count).to eq 0
+      expect(Lesson.with_deleted.count).to eq 1
+    end
+
+    it 'restores archived lesson' do
+      lesson = FactoryGirl.create(:lesson)
+      lesson.destroy
+      lesson.restore
+      expect(Lesson.count).to eq 1
+    end
+  end
 end

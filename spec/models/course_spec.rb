@@ -34,4 +34,20 @@ describe Course do
     course.update(name: 'New awesome course')
     expect(course.slug).to eq 'new-awesome-course'
   end
+
+  context 'paranoia' do
+    it 'archives destroyed course' do
+      course = FactoryGirl.create(:course)
+      course.destroy
+      expect(Course.count).to eq 0
+      expect(Course.with_deleted.count).to eq 1
+    end
+
+    it 'restores archived course' do
+      course = FactoryGirl.create(:course)
+      course.destroy
+      course.restore
+      expect(Course.count).to eq 1
+    end
+  end
 end
