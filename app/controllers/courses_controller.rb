@@ -67,9 +67,9 @@ private
   end
 
   def update_lesson_order
-    lesson_sections = LessonSection.where(lesson_id: @course.lessons.pluck(:id), section_id: @course.sections.pluck(:id))
-    params[:course][:lessons_attributes].each do |lesson|
-      lesson_sections.find_by(lesson_id: lesson[1][:id]).update(number: lesson[1][:number])
+    params[:course][:lesson_sections_attributes].each do |lesson_section_params|
+      lesson_section = LessonSection.find(lesson_section_params[1][:id])
+      lesson_section.update(number: lesson_section_params[1][:number])
     end
   end
 end
