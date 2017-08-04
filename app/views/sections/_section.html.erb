@@ -40,9 +40,9 @@
         <% end %>
 
         <% if can? :update, Lesson %>
-          <%= f.fields_for 'lessons_attributes[]', lesson do |lesson_form| %>
-            <%= lesson_form.hidden_field :id %>
-            <%= lesson_form.hidden_field :number, { value: LessonSection.find_by(section_id: section.id, lesson_id: lesson.id).number, class: :lesson } %>
+          <%= f.fields_for 'lesson_sections_attributes[]', LessonSection.find_by(section_id: section.id, lesson_id: lesson.id) do |lesson_section_form| %>
+            <%= lesson_section_form.hidden_field :id %>
+            <%= lesson_section_form.hidden_field :number, { value: LessonSection.find_by(section_id: section.id, lesson_id: lesson.id).number, class: :lesson } %>
           <% end %>
         <% end %>
       <% end %>
