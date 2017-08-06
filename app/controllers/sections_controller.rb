@@ -31,8 +31,11 @@ class SectionsController < ApplicationController
   end
 
   def update
-    @section = Section.find(params[:id])
-    if @section.update(section_params)
+    @section = Section.with_deleted.find(params[:id])
+    if params[:deleted]
+      @section.restore
+      redirect_to course_path(@section.course), notice: "Section restored."
+    elsif @section.update(section_params)
       redirect_to course_section_path(@section.course, @section), notice: "Section updated."
     else
       render 'edit'
@@ -42,10 +45,7 @@ class SectionsController < ApplicationController
   def destroy
     @section = Section.find(params[:id])
     @section.destroy
-    respond_to do |format|
-      format.html { redirect_to course_path(@section.course), notice: 'Section deleted.' }
-      format.js { render 'destroy' }
-    end
+    redirect_to course_path(@section.course), notice: 'Section deleted.'
   end
 
 private

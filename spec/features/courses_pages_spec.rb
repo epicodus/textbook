@@ -60,13 +60,30 @@ describe Course, js: true do
     login_as(author, scope: :user)
     visit course_path(course)
     click_link "delete_course_#{course.id}"
-    expect(page).to_not have_content course.name
+    expect(page).to have_content 'Course deleted.'
+    expect(page).to have_content 'Deleted Courses: ' + course.name
+  end
+
+  it 'can be restored by an author' do
+    course.destroy
+    login_as(author, scope: :user)
+    visit courses_path
+    click_link "restore_course_#{course.id}"
+    expect(page).to have_content course.name
+    expect(page).to_not have_content 'Deleted Courses'
   end
 
   it 'cannot be deleted by a student' do
     login_as(student, scope: :user)
     visit courses_path
     expect(page).to_not have_content 'delete'
+  end
+
+  it 'cannot be restored by a student' do
+    course.destroy
+    login_as(student, scope: :user)
+    visit courses_path
+    expect(page).to_not have_content 'Deleted Courses'
   end
 
   it 'is visible to an author' do

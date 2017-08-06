@@ -7,7 +7,7 @@ class Lesson < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
   validates :content, :presence => true
 
-  has_many :lesson_sections, inverse_of: :lesson
+  has_many :lesson_sections, inverse_of: :lesson, dependent: :destroy
   has_many :sections, through: :lesson_sections
 
   before_destroy :set_private

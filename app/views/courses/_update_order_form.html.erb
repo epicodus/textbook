@@ -3,7 +3,7 @@
 		<% if can? :update, Course %>
 			<div class="btn-group">
 				<%= link_to "Edit", edit_course_path(@course), id: "edit_course_#{@course.id}", class: 'btn btn-info' %>
-				<%= link_to "Delete", @course, data: { confirm: 'Are you sure?' }, method: :delete, id: "delete_course_#{@course.id}", class: 'btn btn-primary' %>
+				<%= link_to "Delete", @course, data: { confirm: 'Delete COURSE?' }, method: :delete, id: "delete_course_#{@course.id}", class: 'btn btn-primary' %>
 				<% if can? :create, Lesson %>
 					<%= link_to "New Lesson", new_lesson_path, class: "btn btn-success" %>
 				<% end %>
@@ -16,6 +16,21 @@
 			<ul class='sortable list-unstyled'>
 				<%= render @course.sections, f: f %>
 			</ul>
+
+			<% if @course.sections.only_deleted.any? %>
+				<hr>
+				<h3>Deleted Sections:</h3>
+				<ul class="list-unstyled">
+					<% @course.sections.only_deleted.each do |section| %>
+						<li>
+							<%= section.name %>
+							<%= link_to course_section_path(@course, section, deleted: true), data: { confirm: 'Restore section?' }, method: :patch, id: "restore_section_#{section.id}" do %>
+								<i class="glyphicon glyphicon-repeat"></i>
+							<% end %>
+						</li>
+					<% end %>
+				</ul>
+			<% end %>
 		<% else %>
 			<ul class="sections-list list-unstyled"><%= render @course.sections.accessible_by(current_ability) %></ul>
 		<% end %>

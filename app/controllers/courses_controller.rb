@@ -28,8 +28,11 @@ class CoursesController < ApplicationController
   end
 
   def update
-    @course = Course.find(params[:id])
-    if params[:commit] == 'Save Order'
+    @course = Course.with_deleted.find(params[:id])
+    if params[:deleted]
+      @course.restore
+      redirect_to course_path(@course), notice: "Course restored."
+    elsif params[:commit] == 'Save Order'
       update_section_order
       update_lesson_order
       redirect_to course_path(@course), notice: "Order updated."
