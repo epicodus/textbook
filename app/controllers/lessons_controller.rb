@@ -84,9 +84,15 @@ private
 
   def find_search_results
     @query = params[:search]
-    @results = Lesson.basic_search(@query)
-    lesson_sections = LessonSection.where(lesson_id: @results.map(&:id))
-    @sections = Section.where(id: lesson_sections.map(&:section_id))
+    if current_user && current_user.author?
+      @results = Lesson.basic_search(@query)
+      lesson_sections = LessonSection.where(lesson_id: @results.map(&:id))
+      @sections = Section.where(id: lesson_sections.map(&:section_id))
+    else
+      @results = Lesson.basic_search(@query).where(public: true)
+      lesson_sections = LessonSection.where(lesson_id: @results.map(&:id))
+      @sections = Section.where(id: lesson_sections.map(&:section_id)).where(public: true)
+    end
     render :search_results
   end
 
