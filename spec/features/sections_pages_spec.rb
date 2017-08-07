@@ -61,13 +61,32 @@ describe Section, js: true do
     login_as(author, scope: :user)
     visit course_path(section.course)
     click_link "delete_section_#{section.id}"
-    expect(page).to_not have_content section.name
+    expect(page).to have_content 'Section deleted.'
+    expect(page).to have_content 'Deleted Sections: ' + section.name
+  end
+
+  it 'can be restored by an author' do
+    course = section.course
+    section.destroy
+    login_as(author, scope: :user)
+    visit course_path(course)
+    click_link "restore_section_#{section.id}"
+    expect(page).to have_content section.name
+    expect(page).to_not have_content 'Deleted Sections'
   end
 
   it 'cannot be deleted by a student' do
     login_as(student, scope: :user)
     visit courses_path
     expect(page).to_not have_content 'delete'
+  end
+
+  it 'cannot be restored by a student' do
+    course = section.course
+    section.destroy
+    login_as(student, scope: :user)
+    visit course_path(course)
+    expect(page).to_not have_content 'Deleted Sections'
   end
 
   it 'is visible to an author' do

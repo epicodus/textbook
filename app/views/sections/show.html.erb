@@ -9,7 +9,7 @@
   <div class="btn-group">
     <% if can? :update, Section %>
       <%= link_to "Edit", edit_course_section_path(@section.course, @section), class: "btn btn-info" %>
-      <%= link_to "Delete", course_section_path(@section.course, @section), data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-primary' %>
+      <%= link_to "Delete", course_section_path(@section.course, @section), data: { confirm: 'Delete SECTION?' }, method: :delete, class: 'btn btn-primary' %>
     <% end %>
 
     <% if can? :create, Lesson %>
@@ -32,6 +32,32 @@
       <% else %>
         <%= link_to lesson.name, course_section_lesson_path(@section.course, @section, lesson), class: 'text-muted' %>
       <% end %>
+      <% if can? :create, Lesson %>
+        <%= link_to lesson_path(lesson, section_id: @section.id), data: { confirm: 'Remove lesson from this section only?' }, method: :delete do %>
+          <i class="glyphicon glyphicon-remove"></i>
+        <% end %>
+      <% end %>
     </li>
   <% end %>
 </ul>
+
+<% if can? :create, Lesson %>
+  <% if @section.lesson_sections.only_deleted.any? %>
+    <hr>
+    <h3>Removed Lessons:</h3>
+    <ul class="list-unstyled">
+      <% @section.lesson_sections.only_deleted.each do |lesson_section| %>
+        <li>
+          <% if Lesson.with_deleted.find(lesson_section.lesson_id).deleted? %>
+            <del><%= link_to Lesson.only_deleted.find(lesson_section.lesson_id).name, lesson_path(Lesson.only_deleted.find(lesson_section.lesson_id)) + '?deleted=true' %></del>
+          <% else %>
+            <%= link_to Lesson.find(lesson_section.lesson_id).name, lesson_path(Lesson.find(lesson_section.lesson_id)) %>
+          <% end %>
+          <%= link_to lesson_path(Lesson.with_deleted.find(lesson_section.lesson_id), section_id: @section.id, deleted: true), data: { confirm: 'Restore lesson to this section only?' }, method: :patch do %>
+            <i class="glyphicon glyphicon-repeat"></i>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

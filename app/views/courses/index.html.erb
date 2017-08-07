@@ -30,4 +30,21 @@
       </li>
     <% end %>
   </ul>
+
+  <% if can? :manage, Course %>
+    <% if Course.only_deleted.any? %>
+      <hr>
+  		<h3>Deleted Courses:</h3>
+  		<ul class="list-unstyled">
+  		  <% Course.only_deleted.each do |course| %>
+  		    <li>
+            <%= course.name %>
+            <%= link_to course_path(course, deleted: true), data: { confirm: 'Restore course?' }, method: :patch, id: "restore_course_#{course.id}" do %>
+              <i class="glyphicon glyphicon-repeat"></i>
+            <% end %>
+          </li>
+  		  <% end %>
+  		</ul>
+    <% end %>
+  <% end %>
 <% end %>

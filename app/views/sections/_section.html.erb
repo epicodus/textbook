@@ -11,8 +11,9 @@
   <% end %>
   <% if can? :update, Section %>
     <%= link_to "(edit)", edit_course_section_path(section.course, section), :id => "edit_section_#{section.id}" %>
-    <%= link_to "(delete)", course_section_path(section.course, section), :data => { :confirm => 'Are you sure?' }, :method => :delete,
-                            :remote => true, :id => "delete_section_#{section.id}" %>
+    <%= link_to course_section_path(section.course, section), :data => { :confirm => 'Delete SECTION?' }, :method => :delete, :id => "delete_section_#{section.id}" do %>
+      <i class="glyphicon glyphicon-remove"></i>
+    <% end %>
     <%= f.fields_for 'sections_attributes[]', section do |section_form| %>
       <%= section_form.hidden_field :number, :class => :section_number %>
     <% end %>

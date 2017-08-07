@@ -236,7 +236,7 @@ describe Lesson do
       lesson.destroy
       visit course_path(section.course)
       click_link section.name
-      expect(page).to_not have_content lesson.name
+      expect(page).to have_content 'Removed Lessons: ' + lesson.name
     end
 
     it 'is listed on the deleted lessons page for an author' do

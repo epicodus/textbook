@@ -2,6 +2,8 @@ class LessonSection < ActiveRecord::Base
   belongs_to :lesson
   belongs_to :section
 
+  acts_as_paranoid
+
   before_validation :set_number, on: :create
 
   validates :section, presence: true
