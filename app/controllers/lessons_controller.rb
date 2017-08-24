@@ -43,12 +43,12 @@ class LessonsController < ApplicationController
       @lesson.restore
       lesson_section = LessonSection.only_deleted.find_by(lesson: @lesson, section_id: params[:section_id])
       lesson_section.restore
-      redirect_to course_section_path(lesson_section.section.course, lesson_section.section), notice: "Lesson restored to this section."
+      redirect_to course_section_path(lesson_section.section.course, lesson_section.section), notice: "Lesson restored to this section. (Lesson is private.)"
     elsif params[:deleted]
       @lesson.restore
       lesson_sections = LessonSection.only_deleted.where(lesson_id: @lesson.id)
       lesson_sections.each { |lesson_section| lesson_section.restore }
-      redirect_to lesson_path(@lesson), notice: 'Lesson restored to all its sections.'
+      redirect_to lesson_path(@lesson), notice: 'Lesson restored to all its sections. (Lesson is private.)'
     else
       lesson_section_ids = lesson_params[:lesson_sections_attributes].map { |param| param[1][:id] }
       lesson_sections_to_delete = LessonSection.where(lesson: @lesson) - LessonSection.find(lesson_section_ids)
