@@ -4,13 +4,15 @@ class Lesson < ActiveRecord::Base
 
   acts_as_paranoid
 
-  validates :name, :presence => true, :uniqueness => true
+  validates :name, :presence => true
   validates :content, :presence => true
 
   has_many :lesson_sections, inverse_of: :lesson, dependent: :destroy
   has_many :sections, through: :lesson_sections
 
   before_destroy :set_private
+  after_destroy :remove_slug
+  after_restore :create_slug
 
   accepts_nested_attributes_for :lesson_sections
 
@@ -62,7 +64,15 @@ private
     update(:public => false)
   end
 
+  def create_slug
+    save
+  end
+
+  def remove_slug
+    update(slug: nil)
+  end
+
   def should_generate_new_friendly_id?
-    slug.blank? || name_changed?
+    name_changed? || (slug.blank? && !deleted?)
   end
 end

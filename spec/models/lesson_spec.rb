@@ -3,11 +3,6 @@ describe Lesson do
   it { should validate_presence_of :name }
   it { should have_many(:sections).through(:lesson_sections) }
 
-  it 'validates uniqueness of name' do
-    FactoryGirl.create :lesson
-    should validate_uniqueness_of :name
-  end
-
   it 'changes the slug on update' do
     lesson = FactoryGirl.create :lesson
     lesson.update(:name => 'New name')
@@ -123,6 +118,21 @@ describe Lesson do
       lesson.destroy
       lesson.reload
       expect(lesson).to_not be_public
+    end
+
+    it 'removes slug after deleting' do
+      lesson = FactoryGirl.create :lesson
+      lesson.destroy
+      lesson.reload
+      expect(lesson.slug).to eq nil
+    end
+
+    it 'creates slug when lesson restored' do
+      lesson = FactoryGirl.create :lesson
+      lesson.destroy
+      lesson.restore
+      lesson.reload
+      expect(lesson.slug).to_not eq nil
     end
   end
 
