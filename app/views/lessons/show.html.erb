@@ -20,6 +20,7 @@
 
 <% if can? :manage, Lesson %>
   <% if @lesson.deleted? %>
+    <h2><%= @lesson.name %></h2>
     <div class="form-group">
       <%= form_for @lesson, url: lesson_path(@lesson, deleted: true), method: :patch do |f| %>
         <%= f.hidden_field :deleted_at, value: nil %>
