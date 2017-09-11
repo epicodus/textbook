@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     begin
-      redirect_to :back, :alert => exception.message.html_safe
+      flash[:alert] = exception.message.html_safe
+      redirect_back(fallback_location: root_path)
     rescue ActionController::RedirectBackError
       redirect_to courses_path, :alert => exception.message.html_safe
     end

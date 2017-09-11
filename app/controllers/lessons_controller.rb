@@ -50,7 +50,7 @@ class LessonsController < ApplicationController
       lesson_sections.each { |lesson_section| lesson_section.restore }
       redirect_to lesson_path(@lesson), notice: 'Lesson restored to all its sections. (Lesson is private.)'
     else
-      lesson_section_ids = lesson_params[:lesson_sections_attributes].map { |param| param[1][:id] }
+      lesson_section_ids = lesson_params.to_h[:lesson_sections_attributes].map { |param| param[1][:id] }
       lesson_sections_to_delete = LessonSection.where(lesson: @lesson) - LessonSection.find(lesson_section_ids)
       lesson_sections_to_delete.each(&:destroy)
       if @lesson.update(lesson_params)
