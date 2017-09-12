@@ -70,9 +70,9 @@ private
   end
 
   def update_lesson_order
-    params[:course][:lesson_sections_attributes].each do |lesson_section_params|
-      lesson_section = LessonSection.find(lesson_section_params[1][:id])
-      lesson_section.update(number: lesson_section_params[1][:number])
+    params[:course][:lesson_sections_attributes].values.each do |lesson_section_params|
+      lesson_section = LessonSection.find(lesson_section_params[:id])
+      lesson_section.update(number: lesson_section_params[:number])
     end
   end
 end
