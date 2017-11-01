@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'logging in' do
   it 'works' do
-    student = FactoryGirl.create :student
+    student = FactoryBot.create :student
     visit new_user_session_path
     fill_in 'Email', with: student.email
     fill_in 'Password', with: student.password

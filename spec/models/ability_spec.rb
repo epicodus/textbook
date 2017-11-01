@@ -7,16 +7,16 @@ describe 'User' do
     let(:user) { User.new }
 
     models.each do |model|
-      it { should be_able_to(:read, FactoryGirl.create(model)) }
+      it { should be_able_to(:read, FactoryBot.create(model)) }
 
       [:create, :update, :destroy].each do |action|
-        it { should_not be_able_to(action, FactoryGirl.create(model)) }
+        it { should_not be_able_to(action, FactoryBot.create(model)) }
       end
     end
   end
 
   context 'who is an author' do
-    let(:user) { FactoryGirl.create :author }
+    let(:user) { FactoryBot.create :author }
 
     models.each do |model|
       it { should be_able_to :manage, model }

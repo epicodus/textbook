@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :author, :class => User do
     email 'author@epicodus.com'
     password 'password'

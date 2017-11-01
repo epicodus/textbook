@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe Lesson do
   context 'creating' do
-    let(:author) { FactoryGirl.create :author }
-    let(:student) { FactoryGirl.create :student }
-    let!(:section) { FactoryGirl.create :section }
-    let!(:lesson) { FactoryGirl.build :lesson, section: section }
+    let(:author) { FactoryBot.create :author }
+    let(:student) { FactoryBot.create :student }
+    let!(:section) { FactoryBot.create :section }
+    let!(:lesson) { FactoryBot.build :lesson, section: section }
 
     before { login_as(author, scope: :user) }
 
@@ -127,10 +127,10 @@ describe Lesson do
   end
 
   context 'viewing' do
-    let(:author) { FactoryGirl.create :author }
-    let(:student) { FactoryGirl.create :student }
-    let!(:section) { FactoryGirl.create :section }
-    let!(:lesson) { FactoryGirl.create :lesson, section: section }
+    let(:author) { FactoryBot.create :author }
+    let(:student) { FactoryBot.create :student }
+    let!(:section) { FactoryBot.create :section }
+    let!(:lesson) { FactoryBot.create :lesson, section: section }
 
     it 'can be viewed by a student' do
       login_as(student, scope: :user)
@@ -155,10 +155,10 @@ describe Lesson do
   end
 
   context 'editing' do
-    let(:author) { FactoryGirl.create :author }
-    let(:student) { FactoryGirl.create :student }
-    let!(:section) { FactoryGirl.create :section }
-    let!(:lesson) { FactoryGirl.create :lesson, section: section }
+    let(:author) { FactoryBot.create :author }
+    let(:student) { FactoryBot.create :student }
+    let!(:section) { FactoryBot.create :section }
+    let!(:lesson) { FactoryBot.create :lesson, section: section }
 
     before { login_as(author, scope: :user) }
 
@@ -187,48 +187,48 @@ describe Lesson do
   end
 
   context 'when it is not public' do
-    let(:author) { FactoryGirl.create :author }
-    let(:student) { FactoryGirl.create :student }
-    let!(:section) { FactoryGirl.create :section }
+    let(:author) { FactoryBot.create :author }
+    let(:student) { FactoryBot.create :student }
+    let!(:section) { FactoryBot.create :section }
 
     before { login_as(author, scope: :user) }
 
     it 'is visible to an author' do
-      lesson = FactoryGirl.create :lesson, section: section, public: false
+      lesson = FactoryBot.create :lesson, section: section, public: false
       visit course_section_lesson_path(section.course, section, lesson)
       expect(page).to have_content lesson.content
     end
 
     it 'is not visible to a student' do
       login_as(student, scope: :user)
-      private_lesson = FactoryGirl.create :lesson, section: section, public: false
-      public_lesson = FactoryGirl.create :lesson, section: section
+      private_lesson = FactoryBot.create :lesson, section: section, public: false
+      public_lesson = FactoryBot.create :lesson, section: section
       visit course_section_lesson_path(section.course, section, private_lesson)
       expect(page).to have_content "Sorry, that lesson isn't finished yet."
     end
 
     it 'is not visible on the course show page' do
       login_as(student, scope: :user)
-      private_lesson = FactoryGirl.create :lesson, section: section, public: false
-      public_lesson = FactoryGirl.create :lesson, section: section
+      private_lesson = FactoryBot.create :lesson, section: section, public: false
+      public_lesson = FactoryBot.create :lesson, section: section
       visit course_path(section.course)
       expect(page).to_not have_content private_lesson.content
     end
 
     it 'is not visible on the section show page' do
       login_as(student, scope: :user)
-      private_lesson = FactoryGirl.create :lesson, section: section, public: false
-      public_lesson = FactoryGirl.create :lesson, section: section
+      private_lesson = FactoryBot.create :lesson, section: section, public: false
+      public_lesson = FactoryBot.create :lesson, section: section
       visit course_section_path(section.course, section)
       expect(page).to_not have_content private_lesson.content
     end
   end
 
   context 'deleting and restoring' do
-    let(:author) { FactoryGirl.create :author }
-    let(:student) { FactoryGirl.create :student }
-    let!(:section) { FactoryGirl.create :section }
-    let!(:lesson) { FactoryGirl.create :lesson, section: section }
+    let(:author) { FactoryBot.create :author }
+    let(:student) { FactoryBot.create :student }
+    let!(:section) { FactoryBot.create :section }
+    let!(:lesson) { FactoryBot.create :lesson, section: section }
 
     before { login_as(author, scope: :user) }
 
@@ -270,7 +270,7 @@ describe Lesson do
   end
 
   context 'searching' do
-    let!(:lesson) { FactoryGirl.create :lesson }
+    let!(:lesson) { FactoryBot.create :lesson }
 
     it 'lets you search for lessons' do
       visit courses_path

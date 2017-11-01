@@ -36,7 +36,7 @@ end
 
 group :test do
   gem 'shoulda-matchers'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'poltergeist'
   gem 'capybara'
   gem 'launchy'

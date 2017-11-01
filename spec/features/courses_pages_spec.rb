@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Course, js: true do
-  let(:author) { FactoryGirl.create(:author) }
-  let(:student) { FactoryGirl.create(:student) }
-  let!(:course) { FactoryGirl.create(:course) }
+  let(:author) { FactoryBot.create(:author) }
+  let(:student) { FactoryBot.create(:student) }
+  let!(:course) { FactoryBot.create(:course) }
 
   it 'can be created by an author' do
     login_as(author, scope: :user)
@@ -40,7 +40,7 @@ describe Course, js: true do
 
   it 'displays errors if you try to save an invalid course when editing' do
     login_as(author, scope: :user)
-    course = FactoryGirl.create(:course)
+    course = FactoryBot.create(:course)
     visit course_path(course)
     click_link 'Edit'
     fill_in 'Name', with: ''
@@ -88,22 +88,22 @@ describe Course, js: true do
 
   it 'is visible to an author' do
     login_as(author, scope: :user)
-    private_course = FactoryGirl.create :course, public: false
+    private_course = FactoryBot.create :course, public: false
     visit course_path(private_course)
     expect(page).to have_content private_course.name
   end
 
   it 'is not visible to a student' do
     login_as(student, scope: :user)
-    private_course = FactoryGirl.create :course, public: false
+    private_course = FactoryBot.create :course, public: false
     visit course_path(private_course)
     expect(page).to have_content "Sorry, that course isn't finished yet."
   end
 
   it 'is not visible on the course index page when private' do
     login_as(student, scope: :user)
-    private_course = FactoryGirl.create :course, public: false
-    public_course = FactoryGirl.create :course
+    private_course = FactoryBot.create :course, public: false
+    public_course = FactoryBot.create :course
     visit courses_path
     expect(page).to_not have_content private_course.name
   end

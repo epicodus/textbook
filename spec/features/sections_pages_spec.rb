@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe Section, js: true do
-  let(:author) { FactoryGirl.create(:author) }
-  let(:student) { FactoryGirl.create(:student) }
-  let!(:course) { FactoryGirl.create(:course) }
-  let!(:section) { FactoryGirl.create(:section) }
+  let(:author) { FactoryBot.create(:author) }
+  let(:student) { FactoryBot.create(:student) }
+  let!(:course) { FactoryBot.create(:course) }
+  let!(:section) { FactoryBot.create(:section) }
 
   it 'can be created by an author' do
     login_as(author, scope: :user)
@@ -91,22 +91,22 @@ describe Section, js: true do
 
   it 'is visible to an author' do
     login_as(author, scope: :user)
-    private_section = FactoryGirl.create :section, course: course, public: false
+    private_section = FactoryBot.create :section, course: course, public: false
     visit course_section_path(private_section.course, private_section)
     expect(page).to have_content private_section.name
   end
 
   it 'is not visible to a student' do
     login_as(student, scope: :user)
-    private_section = FactoryGirl.create :section, course: course, public: false
+    private_section = FactoryBot.create :section, course: course, public: false
     visit course_section_path(private_section.course, private_section)
     expect(page).to have_content "Sorry, that section isn't finished yet."
   end
 
   it 'is not visible on the course show page when private' do
     login_as(student, scope: :user)
-    private_section = FactoryGirl.create :section, course: course, public: false
-    public_section = FactoryGirl.create :section, course: course
+    private_section = FactoryBot.create :section, course: course, public: false
+    public_section = FactoryBot.create :section, course: course
     visit course_path(course)
     expect(page).to_not have_content private_section.name
   end
