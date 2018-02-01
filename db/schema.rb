@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170824182837) do
+ActiveRecord::Schema.define(version: 20180201235206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20170824182837) do
     t.text "markdown"
     t.boolean "old_tutorial"
     t.text "teacher_notes"
+    t.string "github_path"
     t.index ["name"], name: "index_lessons_on_name"
   end
 

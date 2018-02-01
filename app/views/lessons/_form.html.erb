@@ -11,6 +11,12 @@
     <%= f.grouped_collection_select :section_ids, Course.with_sections.unscoped.order(:name), :sections, :name, :id, :name, {}, { class: 'multiselect-dropdown', multiple: true, include_hidden: false, required: true } %>
   </div>
   <div class="row">
+    <div class="form-group col-xs-6">
+      <%= f.label :github_path, "GitHub URL" %>
+      <%= f.text_field :github_path, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="row">
     <div class="form-group col-xs-2">
       <%= f.label :video_id, "Video ID from Vimeo" %>
       <%= f.text_field :video_id, class: 'form-control' %>
