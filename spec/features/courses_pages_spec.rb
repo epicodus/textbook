@@ -59,7 +59,9 @@ describe Course, js: true do
   it 'can be deleted by an author' do
     login_as(author, scope: :user)
     visit course_path(course)
-    click_link "delete_course_#{course.id}"
+    accept_alert do
+      click_link "delete_course_#{course.id}"
+    end
     expect(page).to have_content 'Course deleted.'
     expect(page).to have_content 'Deleted Courses: ' + course.name
   end
@@ -68,7 +70,9 @@ describe Course, js: true do
     course.destroy
     login_as(author, scope: :user)
     visit courses_path
-    click_link "restore_course_#{course.id}"
+    accept_alert do
+      click_link "restore_course_#{course.id}"
+    end
     expect(page).to have_content course.name
     expect(page).to_not have_content 'Deleted Courses'
   end

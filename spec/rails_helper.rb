@@ -5,7 +5,8 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
-require 'capybara/poltergeist'
+require 'capybara/rails'
+require 'selenium/webdriver'
 require 'simplecov'
 require 'coveralls'
 require 'cancan/matchers'
@@ -13,8 +14,21 @@ require 'cancan/matchers'
 include Warden::Test::Helpers
 Warden.test_mode!
 
-Capybara.default_driver = :rack_test
-Capybara.javascript_driver = :poltergeist
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.register_driver :headless_chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w(headless disable-gpu) }
+  )
+
+  Capybara::Selenium::Driver.new app,
+    browser: :chrome,
+    desired_capabilities: capabilities
+end
+
+Capybara.javascript_driver = :headless_chrome
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 

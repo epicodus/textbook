@@ -60,7 +60,9 @@ describe Section, js: true do
   it 'can be deleted by an author' do
     login_as(author, scope: :user)
     visit course_path(section.course)
-    click_link "delete_section_#{section.id}"
+    accept_alert do
+      click_link "delete_section_#{section.id}"
+    end
     expect(page).to have_content 'Section deleted.'
     expect(page).to have_content 'Deleted Sections: ' + section.name
   end
@@ -70,7 +72,9 @@ describe Section, js: true do
     section.destroy
     login_as(author, scope: :user)
     visit course_path(course)
-    click_link "restore_section_#{section.id}"
+    accept_alert do
+      click_link "restore_section_#{section.id}"
+    end
     expect(page).to have_content section.name
     expect(page).to_not have_content 'Deleted Sections'
   end
