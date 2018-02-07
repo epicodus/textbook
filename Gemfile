@@ -20,6 +20,8 @@ gem 'bootstrap-multiselect-rails'
 gem 'sass-rails'
 gem 'mailgun-ruby', require: 'mailgun'
 gem 'httparty'
+gem 'jwt'
+gem 'octokit'
 
 group :development do
   gem 'better_errors'
@@ -32,6 +34,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'pry'
   gem 'hirb'
+  gem 'dotenv-rails'
 end
 
 group :test do
@@ -43,6 +46,8 @@ group :test do
   gem 'simplecov', require: false
   gem 'coveralls', require: false
   gem 'database_cleaner'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :production do
