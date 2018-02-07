@@ -14,6 +14,8 @@ require 'cancan/matchers'
 include Warden::Test::Helpers
 Warden.test_mode!
 
+WebMock.enable!
+
 Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
@@ -42,6 +44,19 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.clean_with(:truncation)
   end
+end
+
+VCR.configure do |config|
+  config.cassette_library_dir = 'spec/cassettes'
+  config.default_cassette_options = { :record => :new_episodes }
+  config.hook_into :webmock
+  config.ignore_localhost = true
+  config.configure_rspec_metadata!
+  config.allow_http_connections_when_no_cassette = true
+  config.filter_sensitive_data('<GITHUB_APP_PEM>') { ENV['GITHUB_APP_PEM'] }
+  config.filter_sensitive_data('<GITHUB_APP_ID>') { ENV['GITHUB_APP_ID'] }
+  config.filter_sensitive_data('<GITHUB_INSTALLATION_ID>') { ENV['GITHUB_INSTALLATION_ID'] }
+  config.filter_sensitive_data('<GITHUB_CURRICULUM_ORGANIZATION>') { ENV['GITHUB_CURRICULUM_ORGANIZATION'] }
 end
 
 Shoulda::Matchers.configure do |config|

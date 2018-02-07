@@ -17,4 +17,6 @@ Textbook::Application.routes.draw do
       resources :lessons, only: [:show], path: '/'
     end
   end
+
+  resources :github_callbacks, only: [:create]
 end

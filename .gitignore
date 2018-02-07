@@ -17,3 +17,6 @@
 
 # Ignore simplecov files.
 coverage
+
+# Don't check cassettes into github
+/spec/cassettes
