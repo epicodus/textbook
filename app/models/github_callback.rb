@@ -46,7 +46,7 @@ private
   end
 
   def files_modified
-    event['commits'].map { |commit| commit['modified'] }.flatten.uniq
+    event['commits'].map { |commit| commit['added'] + commit['modified'] }.flatten.uniq
   end
 
   def files_removed
