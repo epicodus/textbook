@@ -11,4 +11,12 @@ describe GithubCallback do
     github_callback.update_lessons
     expect(lesson.reload.content).to include 'testing'
   end
+
+  # disabled until can store GITHUB_APP_PEM in correct format on Travis (works locally & on Heroku)
+  xit 'marks lesson as private when removed from Github repo', vcr: true do
+    lesson = FactoryBot.create(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
+    github_callback = GithubCallback.new({ 'ref' => 'refs/heads/master', 'repository' => { 'name' => 'testing' }, 'commits' => [ 'removed' => ['README.md'] ] })
+    github_callback.update_lessons
+    expect(lesson.reload.public).to be false
+  end
 end
