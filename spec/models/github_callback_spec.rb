@@ -4,6 +4,7 @@ describe GithubCallback do
     expect(github_callback.push_to_master?).to be true
   end
 
+  # disabled until can store GITHUB_APP_PEM in correct format on Travis (works locally & on Heroku)
   xit 'updates lesson content based on Github repo name & list of file paths', vcr: true do
     lesson = FactoryBot.create(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
     github_callback = GithubCallback.new({ 'ref' => 'refs/heads/master', 'repository' => { 'name' => 'testing' }, 'commits' => [ 'modified' => ['README.md'], 'added' => [], 'removed' => [] ] })
