@@ -8,14 +8,8 @@ class GithubCallback
   end
 
   def update_lessons
-    files.each do |file|
-      github_path = "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{file}"
-      lesson = Lesson.find_by(github_path: github_path)
-      if lesson
-        updated_content = client.contents("#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}", path: "/#{file}", accept: 'application/vnd.github.3.raw')
-        lesson.update(content: updated_content)
-      end
-    end
+    update_modified_lessons
+    update_removed_lessons
   end
 
   def push_to_master?
@@ -23,6 +17,25 @@ class GithubCallback
   end
 
 private
+
+  def update_modified_lessons
+    files_modified.each do |file|
+      lesson = Lesson.find_by(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{file}")
+      if lesson
+        updated_content = client.contents("#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}", path: "/#{file}", accept: 'application/vnd.github.3.raw')
+        lesson.update(content: updated_content)
+      end
+    end
+  end
+
+  def update_removed_lessons
+    files_removed.each do |file|
+      lesson = Lesson.find_by(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{file}")
+      if lesson
+        lesson.update(public: false)
+      end
+    end
+  end
 
   def branch
     event['ref']
@@ -32,8 +45,12 @@ private
     event['repository']['name']
   end
 
-  def files
-    event['commits'].map { |commit| commit['added'] + commit['modified'] + commit['removed'] }.flatten.uniq
+  def files_modified
+    event['commits'].map { |commit| commit['modified'] }.flatten.uniq
+  end
+
+  def files_removed
+    event['commits'].map { |commit| commit['removed'] }.flatten.uniq
   end
 
   def client
