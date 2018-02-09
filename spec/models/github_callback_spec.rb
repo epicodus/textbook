@@ -4,19 +4,15 @@ describe GithubCallback do
     expect(github_callback.push_to_master?).to be true
   end
 
-  # disabled until can store GITHUB_APP_PEM in correct format on Travis (works locally & on Heroku)
-  xit 'updates lesson content based on Github repo name & list of file paths', vcr: true do
-    lesson = FactoryBot.create(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
-    github_callback = GithubCallback.new({ 'ref' => 'refs/heads/master', 'repository' => { 'name' => 'testing' }, 'commits' => [ 'modified' => ['README.md'], 'added' => [], 'removed' => [] ] })
+  it 'calls Github.update_lessons with repo and list of files modified' do
+    github_callback = GithubCallback.new({ 'ref' => 'refs/heads/master', 'repository' => { 'name' => 'testing' }, 'commits' => [ 'modified' => ['MODIFIED.txt'], 'added' => ['ADDED.txt'], 'removed' => [] ] })
+    expect(Github).to receive(:update_lessons).with({ repo: 'testing', modified: ['ADDED.txt', 'MODIFIED.txt'], removed: [] })
     github_callback.update_lessons
-    expect(lesson.reload.content).to include 'testing'
   end
 
-  # disabled until can store GITHUB_APP_PEM in correct format on Travis (works locally & on Heroku)
-  xit 'marks lesson as private when removed from Github repo', vcr: true do
-    lesson = FactoryBot.create(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
-    github_callback = GithubCallback.new({ 'ref' => 'refs/heads/master', 'repository' => { 'name' => 'testing' }, 'commits' => [ 'removed' => ['README.md'] ] })
+  it 'calls Github.update_lessons with repo and list of files removed' do
+    github_callback = GithubCallback.new({ 'ref' => 'refs/heads/master', 'repository' => { 'name' => 'testing' }, 'commits' => [ 'modified' => [], 'added' => [], 'removed' => ['REMOVED.txt'] ] })
+    expect(Github).to receive(:update_lessons).with({ repo: 'testing', modified: [], removed: ['REMOVED.txt'] })
     github_callback.update_lessons
-    expect(lesson.reload.public).to be false
   end
 end
