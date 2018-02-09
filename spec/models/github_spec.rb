@@ -12,4 +12,10 @@ describe Github do
     Github.update_lessons({ repo: 'testing', modified: [], removed: ['README.md'] })
     expect(lesson.reload.public).to be false
   end
+
+  # disabled until can store GITHUB_APP_PEM in correct format on Travis (works locally & on Heroku)
+  xit 'fetches lesson content from Github given github_path', vcr: true do
+    github_path = "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md"
+    expect(Github.get_content(github_path)[:content]).to include 'testing'
+  end
 end

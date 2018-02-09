@@ -134,6 +134,28 @@ describe Lesson do
       lesson.reload
       expect(lesson.slug).to_not eq nil
     end
+
+    it 'tries to update lesson from github when github_path present' do
+      allow(Github).to receive(:get_content).and_return({})
+      github_path = "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md"
+      lesson = FactoryBot.build(:lesson, github_path: github_path)
+      expect(Github).to receive(:get_content).with(github_path)
+      lesson.save
+    end
+
+    it 'saves when lesson successfully fetched from github' do
+      allow(Github).to receive(:get_content).and_return({content: 'new lesson content'})
+      github_path = "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md"
+      lesson = FactoryBot.build(:lesson, github_path: github_path)
+      expect(lesson.save).to eq true
+    end
+
+    it 'does not save when problem fetching lesson from github' do
+      allow(Github).to receive(:get_content).and_return({error: true})
+      github_path = "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md"
+      lesson = FactoryBot.build(:lesson, github_path: github_path)
+      expect(lesson.save).to eq false
+    end
   end
 
   context 'setter methods' do

@@ -1,4 +1,14 @@
 class Github
+  def self.get_content(github_path)
+    repo = github_path.match(/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}\/(.*)\/blob\/master/)[1]
+    file = github_path.match(/\/blob\/master\/(.*)/)[1]
+    begin
+      { content: client.contents("#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}", path: "/#{file}", accept: 'application/vnd.github.3.raw') }
+    rescue Faraday::Error => e
+      { error: true }
+    end
+  end
+
   def self.update_lessons(params)
     update_modified_lessons(params[:repo], params[:modified]) if params[:modified].try(:any?)
     update_removed_lessons(params[:repo], params[:removed]) if params[:removed].try(:any?)
