@@ -10,6 +10,7 @@ class Lesson < ActiveRecord::Base
   has_many :lesson_sections, inverse_of: :lesson, dependent: :destroy
   has_many :sections, through: :lesson_sections
 
+  before_validation :update_from_github, if: ->(lesson) { lesson.github_path.present? }
   before_destroy :set_private
   after_destroy :remove_slug
   after_restore :create_slug
@@ -74,5 +75,15 @@ private
 
   def should_generate_new_friendly_id?
     name_changed? || (slug.blank? && !deleted?)
+  end
+
+  def update_from_github
+    response = Github.get_content(github_path)
+    if response[:error]
+      errors.add(:base, 'Unable to pull lesson from Github')
+      throw(:abort)
+    else
+      self.content = response[:content]
+    end
   end
 end
