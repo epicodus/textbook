@@ -19,7 +19,7 @@ class Github
       lesson = Lesson.find_by(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{file}")
       if lesson
         updated_content = client.contents("#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}", path: "/#{file}", accept: 'application/vnd.github.3.raw')
-        lesson.update(content: updated_content)
+        lesson.update_columns(content: updated_content)
       end
     end
   end
@@ -27,7 +27,7 @@ class Github
   private_class_method def self.update_removed_lessons(repo, files)
     files.each do |file|
       lesson = Lesson.find_by(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{file}")
-      lesson.update(public: false) if lesson
+      lesson.update_columns(public: false) if lesson
     end
   end
 
