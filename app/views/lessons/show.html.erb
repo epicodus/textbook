@@ -4,7 +4,7 @@
   <span class="label label-info"><%= @lesson_section.work_type.titlecase %></span>
 <% end %>
 
-<% if @lesson_section.try(:day_of_week) %>
+<% if @lesson_section.try(:day_of_week) && !@lesson_section.try(:section).try(:course).try(:dateless) %>
   <span class="label label-primary"><%= @lesson_section.day_of_week.titlecase %></span>
 <% end %>
 
