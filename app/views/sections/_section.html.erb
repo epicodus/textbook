@@ -32,7 +32,9 @@
           <i class="glyphicon glyphicon-pencil"></i>
         <% end %>
 
-        <%= LessonSection.find_by(lesson: lesson.id, section: section.id).day_of_week.titlecase %>
+        <% unless section.try(:course).try(:dateless) %>
+          <%= LessonSection.find_by(lesson: lesson.id, section: section.id).day_of_week.titlecase %>
+        <% end %>
 
         <% if lesson.public? %>
           <%= link_to lesson.name, course_section_lesson_path(section.course, section, lesson), class: 'lesson' %>
