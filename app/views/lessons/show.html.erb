@@ -1,4 +1,5 @@
 <% provide :title, @lesson.name %>
+<% provide :course, @section.try(:course).try(:name) || @lesson_section.try(:section).try(:course).try(:name) %>
 
 <% if @lesson_section.try(:work_type) %>
   <span class="label label-info"><%= @lesson_section.work_type.titlecase %></span>

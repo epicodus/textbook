@@ -1,4 +1,5 @@
 <% provide :title, @section.name %>
+<% provide :course, @section.course.name %>
 
 <ul class="breadcrumb">
   <li><%= link_to @section.course.name, course_path(@section.course) %></li>
