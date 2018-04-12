@@ -64,7 +64,8 @@ describe Section, js: true do
       click_link "delete_section_#{section.id}"
     end
     expect(page).to have_content 'Section deleted.'
-    expect(page).to have_content 'Deleted Sections: ' + section.name
+    expect(page).to have_content 'Deleted Sections:'
+    expect(page).to have_content section.name
   end
 
   it 'can be restored by an author' do

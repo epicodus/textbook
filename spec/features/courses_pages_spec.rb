@@ -63,7 +63,8 @@ describe Course, js: true do
       click_link "delete_course_#{course.id}"
     end
     expect(page).to have_content 'Course deleted.'
-    expect(page).to have_content 'Deleted Courses: ' + course.name
+    expect(page).to have_content 'Deleted Courses:'
+    expect(page).to have_content course.name
   end
 
   it 'can be restored by an author' do
