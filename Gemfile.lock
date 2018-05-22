@@ -47,7 +47,7 @@ GEM
     arel (9.0.0)
     autoprefixer-rails (8.5.0)
       execjs
-    bcrypt (3.1.11)
+    bcrypt (3.1.12)
     better_errors (2.4.0)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
@@ -61,7 +61,7 @@ GEM
       sass (>= 3.3.4)
     bootswatch-rails (3.3.5)
       railties (>= 3.1)
-    bugsnag (6.7.2)
+    bugsnag (6.7.3)
       concurrent-ruby (~> 1.0)
     builder (3.2.3)
     cancancan (2.2.0)
