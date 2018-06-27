@@ -42,6 +42,7 @@ group :test do
   gem 'factory_bot_rails'
   gem 'capybara'
   gem 'capybara-selenium'
+  gem 'selenium-webdriver', '~> 3.12.0'
   gem 'launchy'
   gem 'simplecov', require: false
   gem 'coveralls', require: false
