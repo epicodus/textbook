@@ -35,6 +35,30 @@ describe Course do
     expect(course.slug).to eq 'new-awesome-course'
   end
 
+  it 'duplicates a course and its sections' do
+    course = FactoryBot.create(:course)
+    section1 = FactoryBot.create(:section, course: course)
+    section2 = FactoryBot.create(:section, course: course)
+    new_course = course.deep_clone
+    expect(new_course).to_not eq course
+    expect(new_course.name).to eq course.name + ' (copy)'
+    expect(new_course.public).to eq false
+    expect(new_course.sections).to_not eq course.sections
+    expect(new_course.sections.map {|s| s.name}).to eq course.sections.map {|s| s.name}
+  end
+
+  it 'duplicates a course and its sections and lessons' do
+    course = FactoryBot.create(:course)
+    section1 = FactoryBot.create(:section, course: course)
+    section2 = FactoryBot.create(:section, course: course)
+    lesson1 = FactoryBot.create(:lesson, section: section1)
+    lesson2 = FactoryBot.create(:lesson, section: section1)
+    lesson3 = FactoryBot.create(:lesson, section: section2)
+    new_course = course.deep_clone
+    expect(new_course.sections.first.lessons).to eq course.sections.first.lessons
+    expect(new_course.sections.last.lessons).to eq course.sections.last.lessons
+  end
+
   context 'paranoia' do
     it 'archives destroyed course' do
       course = FactoryBot.create(:course)

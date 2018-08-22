@@ -18,6 +18,19 @@ class Course < ActiveRecord::Base
   accepts_nested_attributes_for :sections
   accepts_nested_attributes_for :lessons
 
+  def deep_clone
+    new_course = self.dup
+    new_course.name = name + " (copy)"
+    new_course.public = false
+    new_course.save
+    sections.each do |section|
+      new_section = section.deep_clone(new_course)
+      new_section.course = new_course
+      new_section.save
+    end
+    new_course
+  end
+
 private
 
   def set_number
