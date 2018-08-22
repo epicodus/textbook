@@ -47,6 +47,19 @@ describe Section do
     expect(section.slug).to eq 'new-awesome-section'
   end
 
+  it 'duplicates a section and links to same lessons' do
+    section = FactoryBot.create(:section)
+    lesson1 = FactoryBot.create(:lesson, section: section)
+    lesson2 = FactoryBot.create(:lesson, section: section)
+    other_course = FactoryBot.create(:course, name: "other course")
+    new_section = section.deep_clone(other_course)
+    expect(new_section).to_not eq section
+    expect(new_section.name).to eq section.name
+    expect(new_section.public).to eq section.public
+    expect(new_section.lesson_sections).to_not eq section.lessons
+    expect(new_section.lessons).to eq section.lessons
+  end
+
   context 'paranoia' do
     it 'archives destroyed section' do
       section = FactoryBot.create(:section)

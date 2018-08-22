@@ -1,8 +1,10 @@
 <li class='section', id='section_<%= section.id %>'>
-  <% if section.week == 0 %>
-    (Pre-Work)
-  <% elsif section.week %>
-    (Week <%= section.week %>)
+  <% unless section.course.dateless? %>
+    <% if section.week == 0 %>
+      (Pre-Work)
+    <% elsif section.week %>
+      (Week <%= section.week %>)
+    <% end %>
   <% end %>
   <% if section.public? %>
     <%= link_to section.name, course_section_path(section.course, section), :class => 'section' %>
