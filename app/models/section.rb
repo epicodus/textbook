@@ -40,7 +40,7 @@ private
   end
 
   def name_does_not_conflict_with_routes
-    conflicting_names = ['sections', 'lessons', 'courses']
+    conflicting_names = ['sections', 'lessons', 'courses', 'tracks']
     if conflicting_names.include?(name.try(:downcase))
       errors.add(:name, "cannot be #{name}")
       false
