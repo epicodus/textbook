@@ -6,6 +6,7 @@ en:
     manage:
       all: "You aren't allowed to make changes to the site's content."
     read:
+      track: "Sorry, that track isn't finished yet."
       course: "Sorry, that course isn't finished yet."
       section: "Sorry, that section isn't finished yet."
       lesson: "Sorry, that lesson isn't finished yet."

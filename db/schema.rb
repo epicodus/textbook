@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180326225342) do
+ActiveRecord::Schema.define(version: 2018_08_23_222952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(version: 20180326225342) do
     t.boolean "dateless"
     t.index ["deleted_at"], name: "index_courses_on_deleted_at"
     t.index ["name"], name: "index_courses_on_name", unique: true
+  end
+
+  create_table "courses_tracks", id: false, force: :cascade do |t|
+    t.bigint "track_id", null: false
+    t.bigint "course_id", null: false
+    t.index ["course_id", "track_id"], name: "index_courses_tracks_on_course_id_and_track_id"
+    t.index ["track_id", "course_id"], name: "index_courses_tracks_on_track_id_and_course_id"
   end
 
   create_table "lesson_sections", id: :serial, force: :cascade do |t|
@@ -74,6 +81,13 @@ ActiveRecord::Schema.define(version: 20180326225342) do
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_sections_on_deleted_at"
     t.index ["name"], name: "index_sections_on_name"
+  end
+
+  create_table "tracks", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.integer "number"
+    t.boolean "public"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

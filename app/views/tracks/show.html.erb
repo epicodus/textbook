@@ -1,0 +1,18 @@
+<% provide :title, @track.name %>
+<% provide :track, @track.name %>
+
+<ul class="breadcrumb">
+  <li class="active"><%= @track.name %></li>
+</ul>
+
+<ul class="courses-list list-unstyled">
+  <% @track.courses.each do |course| %>
+    <li>
+      <% if course.public? %>
+        <%= link_to course.name, course_path(course) %>
+      <% else %>
+        <%= link_to course.name, course_path(course), class: 'lesson text-muted' %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

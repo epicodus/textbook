@@ -1,0 +1,19 @@
+<% provide :title, 'Tracks' %>
+<h1><%= yield :title %></h1>
+
+<ul class="courses-list list-unstyled">
+  <% @tracks.accessible_by(current_ability).each do |track| %>
+    <li>
+      <% if track.public? %>
+        <%= link_to track.name, track_path(track) %>
+      <% else %>
+        <%= link_to track.name, track_path(track), class: 'lesson text-muted' %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<% if can? :manage, :all %>
+  <hr>
+  <h5><%= link_to '[view all courses]', courses_path, class: 'text-muted' %></h5>
+<% end %>

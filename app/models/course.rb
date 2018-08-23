@@ -14,6 +14,7 @@ class Course < ActiveRecord::Base
 
   has_many :sections, :dependent => :destroy
   has_many :lessons, :through => :sections
+  has_and_belongs_to_many :tracks
 
   accepts_nested_attributes_for :sections
   accepts_nested_attributes_for :lessons

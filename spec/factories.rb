@@ -33,4 +33,10 @@ FactoryBot.define do
     association :section, :factory => :section
     public { true }
   end
+
+  factory :track do
+    sequence(:name) {|n| "Track #{n}"}
+    public { true }
+    sequence(:number) {|n| n}
+  end
 end

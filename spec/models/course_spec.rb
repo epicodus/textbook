@@ -11,6 +11,7 @@ describe Course do
     should validate_uniqueness_of :name
   end
 
+  it { should have_and_belong_to_many(:tracks) }
   it { should have_many(:sections).dependent(:destroy) }
   it { should have_many(:lessons).through(:sections) }
 
