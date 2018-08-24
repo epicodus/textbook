@@ -6,7 +6,7 @@
 </ul>
 
 <ul class="courses-list list-unstyled">
-  <% @track.courses.each do |course| %>
+  <% @track.courses.accessible_by(current_ability).reorder(:level).each do |course| %>
     <li>
       <% if course.public? %>
         <%= link_to course.name, course_path(course) %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_23_222952) do
+ActiveRecord::Schema.define(version: 2018_08_24_182914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2018_08_23_222952) do
     t.boolean "public", default: false, null: false
     t.datetime "deleted_at"
     t.boolean "dateless"
+    t.integer "level"
     t.index ["deleted_at"], name: "index_courses_on_deleted_at"
     t.index ["name"], name: "index_courses_on_name", unique: true
   end
