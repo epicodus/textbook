@@ -1,5 +1,8 @@
 <% provide :title, 'Tracks' %>
+<p class="well">Courses are now sorted by track. For the old view, <%= link_to 'click here', courses_path %>.</p>
+
 <h1><%= yield :title %></h1>
+
 
 <ul class="courses-list list-unstyled">
   <% @tracks.accessible_by(current_ability).each do |track| %>
