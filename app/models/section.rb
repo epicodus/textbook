@@ -29,6 +29,16 @@ class Section < ActiveRecord::Base
     new_section
   end
 
+  def detach_lessons
+    lesson_sections.each do |ls|
+      new_lesson = ls.lesson.dup
+      new_lesson.github_path = nil
+      new_lesson.save
+      ls.lesson = new_lesson
+      ls.save
+    end
+  end
+
 private
 
   def should_generate_new_friendly_id?
