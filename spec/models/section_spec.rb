@@ -60,6 +60,26 @@ describe Section do
     expect(new_section.lessons).to eq section.lessons
   end
 
+  it 'duplicates lessons within section' do
+    section = FactoryBot.create(:section)
+    allow_any_instance_of(Lesson).to receive(:update_from_github)
+    lesson1 = FactoryBot.create(:lesson, section: section, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
+    lesson2 = FactoryBot.create(:lesson, section: section)
+    section.detach_lessons
+    expect(section).to eq section
+    new_lesson1 = section.lessons.find_by(name: lesson1.name)
+    expect(new_lesson1).to_not eq lesson1
+    expect(new_lesson1.slug).to_not eq lesson1.slug
+    expect(new_lesson1.github_path).to eq nil
+    expect(new_lesson1.name).to eq lesson1.name
+    expect(new_lesson1.content).to eq lesson1.content
+    expect(new_lesson1.cheat_sheet).to eq lesson1.cheat_sheet
+    expect(new_lesson1.update_warning).to eq lesson1.update_warning
+    expect(new_lesson1.teacher_notes).to eq lesson1.teacher_notes
+    expect(new_lesson1.video_id).to eq lesson1.video_id
+    expect(new_lesson1.public).to eq lesson1.public
+  end
+
   context 'paranoia' do
     it 'archives destroyed section' do
       section = FactoryBot.create(:section)
