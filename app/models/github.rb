@@ -6,6 +6,8 @@ class Github
       { content: client.contents("#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}", path: "/#{file}", accept: 'application/vnd.github.3.raw') }
     rescue Faraday::Error => e
       { error: true }
+    rescue Octokit::NotFound => e
+      { error: true }
     end
   end
 
