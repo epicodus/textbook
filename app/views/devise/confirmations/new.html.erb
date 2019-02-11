@@ -3,11 +3,7 @@
 <h1><%= yield :title %></h1>
 
 <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
-  <% if devise_error_messages!.length > 0 %>
-    <div class="alert alert-error">
-      <%= devise_error_messages! %>
-    </div>
-  <% end %>
+  <%= render "devise/shared/error_messages", resource: resource %>
 
   <%= f.label :email %>
   <%= f.email_field :email %>

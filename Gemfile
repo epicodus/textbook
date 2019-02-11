@@ -39,7 +39,7 @@ end
 
 group :test do
   gem 'shoulda-matchers', '4.0.0.rc1'
-  gem 'factory_bot_rails'
+  gem 'factory_bot_rails', '~> 4.11'
   gem 'capybara'
   gem 'capybara-selenium'
   gem 'selenium-webdriver', '~> 3.141.0'
