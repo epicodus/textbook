@@ -44,7 +44,7 @@ class Github
   private_class_method def self.new_jwt_token
     private_pem = ENV['GITHUB_APP_PEM']
     private_key = OpenSSL::PKey::RSA.new(private_pem)
-    payload = { iat: Time.now.to_i, exp: 10.minutes.from_now.to_i, iss: ENV['GITHUB_APP_ID'] }
+    payload = { iat: Time.now.to_i, exp: 9.minutes.from_now.to_i, iss: ENV['GITHUB_APP_ID'] }
     JWT.encode(payload, private_key, "RS256")
   end
 end

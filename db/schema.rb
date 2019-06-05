@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_24_182914) do
+ActiveRecord::Schema.define(version: 2019_06_11_190858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2018_08_24_182914) do
     t.boolean "public", default: false, null: false
     t.integer "week"
     t.datetime "deleted_at"
+    t.string "github_path"
     t.index ["deleted_at"], name: "index_sections_on_deleted_at"
     t.index ["name"], name: "index_sections_on_name"
   end
