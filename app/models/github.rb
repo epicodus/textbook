@@ -16,6 +16,25 @@ class Github
     update_removed_lessons(params[:repo], params[:removed]) if params[:removed].try(:any?)
   end
 
+  def self.get_week
+    layout_file_url = "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/test_week/layout.md"
+    file = get_content(layout_file_url)[:content]
+    divider = ' ||| '
+    file.each_line do |line|
+      if line.include?('```')
+        # skip
+      elsif !line.include?(divider) # day of week
+        day = line.strip
+        puts day.upcase
+      else # lesson & filename
+        title = line.split(divider).first
+        filename = line.split(divider).last
+        puts "title: #{title}"
+        puts "filename: #{filename}"
+      end
+    end
+  end
+
   private_class_method def self.update_modified_lessons(repo, files)
     files.each do |file|
       lesson = Lesson.find_by(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{file}")
