@@ -16,6 +16,19 @@ describe Section, js: true do
     expect(page).to have_content 'Awesome section'
   end
 
+  it 'can be built from Github with URL provided' do
+    login_as(author, scope: :user)
+    visit course_path(course)
+    click_link 'New Section'
+    fill_in 'Name', with: 'Awesome section'
+    fill_in 'Section week', with: '1'
+    fill_in 'Section Github URL', with: 'https://example.com'
+    allow(Github).to receive(:build_section).and_return({})
+    expect(Github).to receive(:build_section)
+    click_button 'Create Section'
+    expect(page).to have_content 'Awesome section'
+  end
+
   it 'displays errors if you try to save an invalid section' do
     login_as(author, scope: :user)
     visit course_path(course)

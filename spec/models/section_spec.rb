@@ -47,6 +47,17 @@ describe Section do
     expect(section.slug).to eq 'new-awesome-section'
   end
 
+  it 'builds section from Github when URL included' do
+    allow(Github).to receive(:build_section).and_return({})
+    expect(Github).to receive(:build_section)
+    section = FactoryBot.create(:section, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/test_week")
+  end
+
+  it 'does not build section from Github when URL not included' do
+    expect(Github).to_not receive(:build_section)
+    section = FactoryBot.create(:section, github_path: nil)
+  end
+
   it 'duplicates a section and links to same lessons' do
     section = FactoryBot.create(:section)
     lesson1 = FactoryBot.create(:lesson, section: section)

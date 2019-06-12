@@ -17,6 +17,8 @@ class Section < ActiveRecord::Base
   has_many :lessons, through: :lesson_sections
   belongs_to :course
 
+  after_save :build_section, if: ->(section) { section.github_path.present? }
+
   def deep_clone(course_to_assign_to)
     new_section = self.dup
     new_section.course = course_to_assign_to
@@ -55,5 +57,9 @@ private
       errors.add(:name, "cannot be #{name}")
       false
     end
+  end
+
+  def build_section
+    Github.build_section(self)
   end
 end
