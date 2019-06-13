@@ -12,12 +12,29 @@ class Section < ActiveRecord::Base
   validates :number, :presence => true
   validates :course, :presence => true
   validate :name_does_not_conflict_with_routes
+  validates :github_path, uniqueness: true, allow_blank: true
 
   has_many :lesson_sections, inverse_of: :section
   has_many :lessons, through: :lesson_sections
   belongs_to :course
 
-  after_save :build_section, if: ->(section) { section.github_path.present? }
+  after_create :build_section, if: ->(section) { section.github_path.present? }
+
+  def empty_section
+    lesson_sections.each do |lesson_section|
+      lesson = lesson_section.lesson
+      lesson_section.really_destroy!
+      lesson.really_destroy! if lesson.sections.empty?
+    end
+  end
+
+  def build_section
+    lessons_params = Github.parse_layout_file(github_path)
+    lessons_params.each do |params|
+      lesson = Lesson.create(name: params[:title], content: params[:content], cheat_sheet: params[:cheat_sheet], teacher_notes: params[:teacher_notes], public: true)
+      lesson_sections.create(day_of_week: params[:day_of_week], work_type: params[:work_type], lesson: lesson)
+    end
+  end
 
   def deep_clone(course_to_assign_to)
     new_section = self.dup
@@ -57,9 +74,5 @@ private
       errors.add(:name, "cannot be #{name}")
       false
     end
-  end
-
-  def build_section
-    Github.build_section(self)
   end
 end

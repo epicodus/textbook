@@ -12,30 +12,41 @@ class Github
   end
 
   def self.update_lessons(params)
+    # update github-linked sections
+    all_changed_directories = (params[:modified] + params[:removed]).map {|filename| filename.split('/').first}.uniq
+    all_changed_directories.each do |directory|
+      section = Section.find_by(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{params[:repo]}/tree/master/#{directory}")
+      if section
+        section.empty_section
+        section.build_section
+      else
+        # throw error
+      end
+    end
+
+    # modify lessons not part of github-linked sections
     update_modified_lessons(params[:repo], params[:modified]) if params[:modified].try(:any?)
     update_removed_lessons(params[:repo], params[:removed]) if params[:removed].try(:any?)
   end
 
-  def self.build_section(section)
-    github_base_path = section.github_path.sub('/tree/', '/blob/').concat('/')
+  def self.parse_layout_file(github_path)
+    github_base_path = github_path.sub('/tree/', '/blob/').concat('/')
     layout_file = get_content(github_base_path + 'layout.md')[:content].gsub!("```\n", "")
     day_of_week = nil
+    lessons_params = []
     layout_file.each_line do |line|
       if line.include?(' ||| ')
         title, filename = line.split(' ||| ')
-        section.lesson_sections << build_lesson(title: title, day_of_week: day_of_week, content_path: github_base_path + filename)
+        content = get_content(github_base_path + filename)[:content]
+        cheat_sheet = get_content(github_base_path + filename.sub('.md', '_cheat.md'))[:content]
+        teacher_notes = get_content(github_base_path + filename.sub('.md', '_teacher.md'))[:content]
+        work_type = filename.downcase.include?('classwork') || filename.downcase.include?('independent_project') ? 'exercise' : 'lesson'
+        lessons_params << { day_of_week: day_of_week, work_type: work_type, title: title, content: content, cheat_sheet: cheat_sheet, teacher_notes: teacher_notes }
       else
         day_of_week = line.strip
       end
     end
-  end
-
-  def self.build_lesson(title:, day_of_week:, content_path:)
-    content = get_content(content_path)[:content]
-    cheat_sheet = get_content(content_path.sub('.md', '_cheat.md'))[:content]
-    teacher_notes = get_content(content_path.sub('.md', '_teacher.md'))[:content]
-    work_type = content_path.downcase.include?('classwork') || content_path.downcase.include?('independent_project') ? 'exercise' : 'lesson'
-    LessonSection.new(work_type: work_type, day_of_week: day_of_week, lesson: Lesson.create(name: title, content: content, cheat_sheet: cheat_sheet, teacher_notes: teacher_notes, public: true))
+    lessons_params
   end
 
   private_class_method def self.update_modified_lessons(repo, files)

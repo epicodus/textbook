@@ -23,8 +23,8 @@ describe Section, js: true do
     fill_in 'Name', with: 'Awesome section'
     fill_in 'Section week', with: '1'
     fill_in 'Section Github URL', with: 'https://example.com'
-    allow(Github).to receive(:build_section).and_return({})
-    expect(Github).to receive(:build_section)
+    allow(Github).to receive(:parse_layout_file).and_return({})
+    expect(Github).to receive(:parse_layout_file)
     click_button 'Create Section'
     expect(page).to have_content 'Awesome section'
   end
