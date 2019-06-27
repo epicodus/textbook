@@ -1,3 +1,0 @@
-```
-Example Title ||| README.md
-```

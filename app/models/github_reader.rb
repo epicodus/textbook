@@ -1,22 +1,29 @@
 class GithubReader
-  def self.parse_layout_file(github_path)
-    repo, directory = parse_github_path(github_path)
-    layout_file = read_file(repo: repo, directory: directory, filename: 'layout.md').gsub!("```\n", "")
-    day_of_week = nil
-    lessons_params = []
-    layout_file.each_line do |line|
-      if line.include?(' ||| ')
-        title, filename = line.split(' ||| ')
-        work_type = filename.downcase.include?('classwork') || filename.downcase.include?('independent_project') ? 'exercise' : 'lesson'
-        content = read_file(repo: repo, directory: directory, filename: filename)
-        cheat_sheet = read_file(repo: repo, directory: directory, filename: filename.sub('.md', '_cheat.md'))
-        teacher_notes = read_file(repo: repo, directory: directory, filename: filename.sub('.md', '_teacher.md'))
-        lessons_params << { day_of_week: day_of_week, work_type: work_type, title: title, content: content, cheat_sheet: cheat_sheet, teacher_notes: teacher_notes }
-      else
-        day_of_week = line.strip
-      end
+  def initialize(github_path)
+    begin
+      @repo = github_path.match(/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}\/(.*)\/tree\/master/)[1]
+      @directory = github_path.match(/\/tree\/master\/(.*)/)[1]
+    rescue NoMethodError => e
+      raise GithubError, "Invalid github path #{github_path}"
     end
-    is_valid?(lessons_params) ? lessons_params : raise_error("Unable to parse layout file for repo #{repo}")
+  end
+
+  def parse_layout_file
+    layout_file = read_file('layout.yaml')
+    if is_valid?(layout_file)
+      lessons_params = YAML.load(layout_file)
+      lessons_params.each do |params|
+        params[:lessons].each do |lesson|
+          lesson[:content] = read_file(lesson[:filename])
+          lesson[:cheat_sheet] = read_file(lesson[:filename].sub('.md', '_cheat.md'))
+          lesson[:teacher_notes] = read_file(lesson[:filename].sub('.md', '_teacher.md'))
+          lesson[:work_type] = lesson[:filename].downcase.include?('classwork') || lesson[:filename].downcase.include?('independent_project') ? 'exercise' : 'lesson'
+        end
+      end
+      lessons_params
+    else
+      raise GithubError, "Invalid layout file for #{@repo}/#{@directory}"
+    end
   end
 
   def self.update_sections(repo:, directories:)
@@ -26,35 +33,28 @@ class GithubReader
     end
   end
 
-  private_class_method def self.read_file(repo:, directory:, filename:)
+private
+
+  def read_file(filename)
     begin
-      client.contents("#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}", path: "/#{directory}/#{filename}", accept: 'application/vnd.github.3.raw')
+      client.contents("#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{@repo}", path: "/#{@directory}/#{filename}", accept: 'application/vnd.github.3.raw')
     rescue Faraday::Error => e
-      raise_error(e.message)
+      raise GithubError, e.message
     rescue Octokit::NotFound => e
-      raise_error(e.message) unless filename.include?('_cheat.md') || filename.include?('_teacher.md')
+      raise GithubError, "File not found: #{@repo}/#{@directory}/#{filename}" unless filename.include?('_cheat.md') || filename.include?('_teacher.md')
     end
   end
 
-  private_class_method def self.parse_github_path(path)
+  def is_valid?(layout_file)
     begin
-      repo = path.match(/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}\/(.*)\/tree\/master/)[1]
-      directory = path.match(/\/tree\/master\/(.*)/)[1]
-    rescue NoMethodError => e
-      raise_error("Invalid github path #{path}")
+      params = YAML.load(layout_file)
+    rescue Psych::SyntaxError
+      raise GithubError, "Syntax error in layout file for #{@repo}/#{@directory}"
     end
-    return repo, directory
+    params.any? && params.all? { |day_params| day_params.try(:key?, :day) && day_params.try(:key?, :lessons) && day_params[:lessons].any? && day_params[:lessons].all? { |lesson_params| lesson_params.try(:key?, :title) && lesson_params.try(:key?, :filename) } }
   end
 
-  private_class_method def self.is_valid?(lessons_params)
-    lessons_params && lessons_params.all? { |params| params[:title] && params[:content] && params[:day_of_week] && params[:work_type] }
-  end
-
-  private_class_method def self.raise_error(message)
-    raise GithubError, message
-  end
-
-  private_class_method def self.client
+  def client
     headers = { Authorization: "Bearer #{new_jwt_token}", Accept: 'application/vnd.github.machine-man-preview+json' }
     access_tokens_url = "/installations/#{ENV['GITHUB_INSTALLATION_ID']}/access_tokens"
     access_tokens_response = Octokit::Client.new.post(access_tokens_url, headers: headers)
@@ -62,7 +62,7 @@ class GithubReader
     Octokit::Client.new(access_token: access_token)
   end
 
-  private_class_method def self.new_jwt_token
+  def new_jwt_token
     private_pem = ENV['GITHUB_APP_PEM']
     private_key = OpenSSL::PKey::RSA.new(private_pem)
     payload = { iat: Time.now.to_i, exp: 9.minutes.from_now.to_i, iss: ENV['GITHUB_APP_ID'] }

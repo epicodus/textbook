@@ -1,0 +1,5 @@
+---
+- :day: monday
+  :lessons:
+  - :title: Example Title
+    :filename: README.md

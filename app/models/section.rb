@@ -32,15 +32,17 @@ class Section < ActiveRecord::Base
 
   def build_section
     begin
-      lessons_params = GithubReader.parse_layout_file(github_path)
+      lessons_params = GithubReader.new(github_path).parse_layout_file
     rescue GithubError => e
       errors.add(:base, e.message)
       raise ActiveRecord::RecordInvalid, self
     end
     empty_section!
-    lessons_params.each do |params|
-      lesson = Lesson.create(name: params[:title], content: params[:content], cheat_sheet: params[:cheat_sheet], teacher_notes: params[:teacher_notes], public: true)
-      lesson_sections.create(day_of_week: params[:day_of_week], work_type: params[:work_type], lesson: lesson)
+    lessons_params.each do |day_params|
+      day_params[:lessons].each do |lesson_params|
+        lesson = Lesson.create(name: lesson_params[:title], content: lesson_params[:content], cheat_sheet: lesson_params[:cheat_sheet], teacher_notes: lesson_params[:teacher_notes], public: true)
+        lesson_sections.create(day_of_week: day_params[:day], work_type: lesson_params[:work_type], lesson: lesson)
+      end
     end
   end
 

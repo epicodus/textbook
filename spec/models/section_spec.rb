@@ -133,8 +133,8 @@ describe Section do
 
   describe '#build_section' do
     it 'builds section from github when URL included' do
-      allow(GithubReader).to receive(:parse_layout_file).and_return([{ day_of_week: 'monday', work_type: 'lesson', title: 'test title', content: 'test content', cheat_sheet: nil, teacher_notes: nil }])
-      section = FactoryBot.create(:section, github_path: "https://example.com")
+      allow_any_instance_of(GithubReader).to receive(:parse_layout_file).and_return([{:day=>"monday", :lessons=>[{:title=>"test title", :filename=>"README.md", :work_type=>"lesson", :content=>"test content", :cheat_sheet=>nil, :teacher_notes=>nil}]}])
+      section = FactoryBot.create(:section, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/tree/master/static_for_automated_testing")
       lesson = section.lessons.first
       lesson_section = section.lesson_sections.first
       expect(lesson.name).to eq 'test title'
@@ -145,18 +145,17 @@ describe Section do
 
     it 'rebuilds section when github URL changed' do
       section = FactoryBot.create(:section, github_path: nil)
-      allow(GithubReader).to receive(:parse_layout_file).and_return([{ day_of_week: 'monday', work_type: 'lesson', title: 'test title', content: 'test content', cheat_sheet: nil, teacher_notes: nil }])
       allow_any_instance_of(Section).to receive(:build_section).and_return({})
       expect_any_instance_of(Section).to receive(:build_section)
-      section.update(github_path: "https://example.com")
+      section.update(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/tree/master/static_for_automated_testing")
     end
 
     it 'does not build section from github when URL not included' do
-      expect(GithubReader).to_not receive(:parse_layout_file)
+      expect_any_instance_of(GithubReader).to_not receive(:parse_layout_file)
       section = FactoryBot.create(:section, github_path: nil)
     end
 
-    it 'raises exception when unable to parse layout file' do
+    it 'raises exception when invalid github path' do
       expect { FactoryBot.create(:section, github_path: "https://example.com") }.to raise_error(ActiveRecord::RecordInvalid).with_message("Validation failed: Invalid github path https://example.com")
       expect(Section.all).to eq []
     end
