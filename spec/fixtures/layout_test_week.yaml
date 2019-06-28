@@ -1,0 +1,37 @@
+---
+- :day: weekend
+  :lessons:
+  - :title: Ping-Pong, Title Case, Leetspeak, Queen Attack, Clock Angle
+    :filename: 1a_classwork_Ping-Pong_Title_Case_Leetspeak_Queen_Attack_Clock_Angle.md
+  - :title: Instantiating New Objects
+    :filename: 1b_New_Objects_with_new.md
+  - :title: Creating Classes
+    :filename: 1c_Creating_Ruby_Classes.md
+  - :title: Hash Class
+    :filename: 1d_Hash_Class.md
+- :day: tuesday
+  :lessons:
+  - :title: Scrabble Score, Numbers to Words
+    :filename: 2a_classwork_Scrabble_Score_Numbers_to_Words.md
+  - :title: Writer Methods
+    :filename: 2b_Writer_Methods_in_Ruby.md
+  - :title: Class Inheritance
+    :filename: 2c_Class_Inheritance_in_Ruby.md
+  - :title: Modules and Mixins
+    :filename: 2d_Modules_and_Mixins.md
+- :day: wednesday
+  :lessons:
+  - :title: Rock Paper Scissors, Find and Replace, Palindromes
+    :filename: 3a_classwork_Rock_Paper_Scissors_Find_and_Replace_Palindromes.md
+  - :title: Using attr Methods
+    :filename: 3b_Using_attr_Methods.md
+  - :title: Mapping and the Enumerable Module
+    :filename: 3d_Ruby_map_Method_and_the_Enumerable_Module.md
+- :day: thursday
+  :lessons:
+  - :title: Coin Combinations, Prime Sifting, Allergies, Ruby Project Creator
+    :filename: 4a_classwork_Coin_Combinations_Prime_Sifting_Allergies_Ruby_Project_Creator.md
+- :day: friday
+  :lessons:
+  - :title: Behavior-Driven Development Independent Project
+    :filename: 5a_cr_BDD_Independent_Project.md

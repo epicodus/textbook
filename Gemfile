@@ -22,6 +22,7 @@ gem 'mailgun-ruby', require: 'mailgun'
 gem 'httparty'
 gem 'jwt'
 gem 'octokit'
+gem 'psych'
 
 group :development do
   gem 'better_errors'

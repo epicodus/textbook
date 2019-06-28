@@ -13,6 +13,41 @@ describe Section do
     expect(section.update(number: nil)).to be false
   end
 
+  describe 'validates github_path' do
+    let(:course) { FactoryBot.create(:course) }
+    it 'validates uniqueness of github_path' do
+      allow_any_instance_of(Section).to receive(:build_section)
+      FactoryBot.create(:section, course: course, name: 'test', number: 1, github_path: "test")
+      expect { FactoryBot.create(:section, course: course, name: 'test 2', number: 2, github_path: "test") }.to raise_error(ActiveRecord::RecordInvalid).with_message("Validation failed: Github path has already been taken")
+    end
+
+    it 'allows multiple sections with blank github_path' do
+      FactoryBot.create(:section, course: course, name: 'test', number: 1)
+      expect { FactoryBot.create(:section, course: course, name: 'test 2', number: 2) }.to_not raise_error
+    end
+  end
+
+  it 'clears github_path when section deleted' do
+    allow_any_instance_of(Section).to receive(:build_section)
+    section = FactoryBot.create(:section, github_path: 'https://example.com')
+    section.destroy
+    expect(section.github_path).to eq nil
+  end
+
+  describe 'github_path callback' do
+    it 'runs #build_section when github_path present' do
+      section = FactoryBot.build(:section, github_path: "test")
+      expect(section).to receive(:build_section)
+      section.save
+    end
+
+    it 'does not run #build_section when github_path not present' do
+      section = FactoryBot.build(:section, github_path: nil)
+      expect(section).to_not receive(:build_section)
+      section.save
+    end
+  end
+
   describe 'validates that name is not a top-level route' do
     it 'validates that name is not sections' do
       section = FactoryBot.build(:section, name: 'Sections')
@@ -93,6 +128,56 @@ describe Section do
       section.destroy
       section.restore
       expect(Section.count).to eq 1
+    end
+  end
+
+  describe '#build_section' do
+    it 'builds section from github when URL included' do
+      allow_any_instance_of(GithubReader).to receive(:parse_layout_file).and_return([{:day=>"monday", :lessons=>[{:title=>"test title", :filename=>"README.md", :work_type=>"lesson", :content=>"test content", :cheat_sheet=>nil, :teacher_notes=>nil}]}])
+      section = FactoryBot.create(:section, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/tree/master/static_for_automated_testing")
+      lesson = section.lessons.first
+      lesson_section = section.lesson_sections.first
+      expect(lesson.name).to eq 'test title'
+      expect(lesson.content).to eq 'test content'
+      expect(lesson_section.day_of_week).to eq 'monday'
+      expect(lesson_section.work_type).to eq 'lesson'
+    end
+
+    it 'rebuilds section when github URL changed' do
+      section = FactoryBot.create(:section, github_path: nil)
+      allow_any_instance_of(Section).to receive(:build_section).and_return({})
+      expect_any_instance_of(Section).to receive(:build_section)
+      section.update(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/tree/master/static_for_automated_testing")
+    end
+
+    it 'does not build section from github when URL not included' do
+      expect_any_instance_of(GithubReader).to_not receive(:parse_layout_file)
+      section = FactoryBot.create(:section, github_path: nil)
+    end
+
+    it 'raises exception when invalid github path' do
+      expect { FactoryBot.create(:section, github_path: "https://example.com") }.to raise_error(ActiveRecord::RecordInvalid).with_message("Validation failed: Invalid github path https://example.com")
+      expect(Section.all).to eq []
+    end
+  end
+
+  describe '#empty_section!' do
+    it 'erases all lesson_sections & actual lessons if lesson unique to this section' do
+      section = FactoryBot.create(:section)
+      2.times { FactoryBot.create(:lesson, section: section) }
+      section.empty_section!
+      expect(Lesson.with_deleted.count).to eq 0
+      expect(LessonSection.with_deleted.count).to eq 0
+    end
+
+    it 'does not erase lesson if belongs to other sections' do
+      lesson = FactoryBot.create(:lesson)
+      section = lesson.sections.first
+      section2 = FactoryBot.create(:section, lessons: [lesson])
+      section.empty_section!
+      expect(section2.lessons.count).to eq 1
+      expect(section2.lesson_sections.count).to eq 1
+      expect(LessonSection.with_deleted.count).to eq 1
     end
   end
 end

@@ -178,6 +178,7 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
+    psych (3.1.0)
     public_suffix (3.1.0)
     puma (3.12.1)
     rack (2.0.7)
@@ -343,6 +344,7 @@ DEPENDENCIES
   paranoia
   pg
   pry
+  psych
   puma
   rack-mini-profiler
   rails (~> 5.2.2)

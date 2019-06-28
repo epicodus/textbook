@@ -1,0 +1,2 @@
+class GithubError < StandardError
+end

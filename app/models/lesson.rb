@@ -11,8 +11,8 @@ class Lesson < ActiveRecord::Base
   has_many :sections, through: :lesson_sections
 
   before_validation :update_from_github, if: ->(lesson) { lesson.github_path.present? }
-  before_destroy :set_private
-  after_destroy :remove_slug
+  before_destroy :set_private, unless: ->(lesson) { lesson.deleted? }
+  after_destroy :remove_slug, if: ->(lesson) { Lesson.only_deleted.exists?(lesson.id) }
   after_restore :create_slug
 
   accepts_nested_attributes_for :lesson_sections

@@ -16,6 +16,30 @@ describe Section, js: true do
     expect(page).to have_content 'Awesome section'
   end
 
+  it 'can be built from Github with URL provided' do
+    login_as(author, scope: :user)
+    visit course_path(course)
+    click_link 'New Section'
+    fill_in 'Name', with: 'Awesome section'
+    fill_in 'Section week', with: '1'
+    fill_in 'Section Github URL', with: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/tree/master/static_for_automated_testing"
+    allow_any_instance_of(GithubReader).to receive(:parse_layout_file).and_return({})
+    expect_any_instance_of(GithubReader).to receive(:parse_layout_file)
+    click_button 'Create Section'
+    expect(page).to have_content 'Awesome section'
+  end
+
+  it 'displays error if unable to build from Github', :vcr do
+    login_as(author, scope: :user)
+    visit course_path(course)
+    click_link 'New Section'
+    fill_in 'Name', with: 'Awesome section'
+    fill_in 'Section week', with: '1'
+    fill_in 'Section Github URL', with: 'https://example.com'
+    click_button 'Create Section'
+    expect(page).to have_content 'Invalid github path https://example.com'
+  end
+
   it 'displays errors if you try to save an invalid section' do
     login_as(author, scope: :user)
     visit course_path(course)
