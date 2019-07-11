@@ -34,6 +34,7 @@ task :export_offline_images_list => [:environment] do
       mb_obj = Mailgun::MessageBuilder.new()
       mb_obj.set_from_address("it@epicodus.com");
       mb_obj.add_recipient(:to, "curriculum@epicodus.com");
+      mb_obj.add_recipient(:cc, "ben@epicodus.com");
       mb_obj.set_subject("offline-images.txt");
       mb_obj.set_text_body("rake task: export_offline_images_list");
       mb_obj.add_attachment(filename, "offline-images.txt");
