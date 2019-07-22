@@ -22,7 +22,7 @@ describe Section, js: true do
     click_link 'New Section'
     fill_in 'Name', with: 'Awesome section'
     fill_in 'Section week', with: '1'
-    fill_in 'Section Github URL', with: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/tree/master/static_for_automated_testing"
+    fill_in 'Section Layout File URL', with: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/layout.yaml"
     allow_any_instance_of(GithubReader).to receive(:parse_layout_file).and_return({})
     expect_any_instance_of(GithubReader).to receive(:parse_layout_file)
     click_button 'Create Section'
@@ -35,9 +35,9 @@ describe Section, js: true do
     click_link 'New Section'
     fill_in 'Name', with: 'Awesome section'
     fill_in 'Section week', with: '1'
-    fill_in 'Section Github URL', with: 'https://example.com'
+    fill_in 'Section Layout File URL', with: 'https://example.com'
     click_button 'Create Section'
-    expect(page).to have_content 'Invalid github path https://example.com'
+    expect(page).to have_content 'Invalid layout file path https://example.com'
   end
 
   it 'displays errors if you try to save an invalid section' do

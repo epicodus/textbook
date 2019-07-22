@@ -51,6 +51,6 @@ class SectionsController < ApplicationController
 private
 
   def section_params
-    params.require(:section).permit(:name, :course_id, :public, :week, :github_path)
+    params.require(:section).permit(:name, :course_id, :public, :week, :layout_file_path)
   end
 end

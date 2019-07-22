@@ -12,15 +12,15 @@ class Section < ActiveRecord::Base
   validates :number, :presence => true
   validates :course, :presence => true
   validate :name_does_not_conflict_with_routes
-  validates :github_path, uniqueness: true, allow_blank: true
+  validates :layout_file_path, uniqueness: true, allow_blank: true
 
   has_many :lesson_sections, inverse_of: :section
   has_many :lessons, through: :lesson_sections
   belongs_to :course
 
-  after_create :build_section, if: ->(section) { section.github_path.present? }
-  after_update :build_section, if: ->(section) { section.github_path.present? && section.saved_change_to_github_path? }
-  before_destroy :remove_github_path
+  after_create :build_section, if: ->(section) { section.layout_file_path.present? }
+  after_update :build_section, if: ->(section) { section.layout_file_path.present? && section.saved_change_to_layout_file_path? }
+  before_destroy :remove_layout_file_path
 
   def empty_section!
     lesson_sections.each do |lesson_section|
@@ -32,7 +32,7 @@ class Section < ActiveRecord::Base
 
   def build_section
     begin
-      lessons_params = GithubReader.new(github_path).parse_layout_file
+      lessons_params = GithubReader.new(layout_file_path).parse_layout_file
     rescue GithubError => e
       errors.add(:base, e.message)
       raise ActiveRecord::RecordInvalid, self
@@ -86,7 +86,7 @@ private
     end
   end
 
-  def remove_github_path
-    update(github_path: nil)
+  def remove_layout_file_path
+    update(layout_file_path: nil)
   end
 end
