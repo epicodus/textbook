@@ -22,3 +22,7 @@ pre {
   background-color: #E6E6E6;
   font-weight: 600;
 }
+
+img {
+  max-width: 100%
+}
