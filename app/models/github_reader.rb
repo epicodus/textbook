@@ -1,15 +1,17 @@
 class GithubReader
-  def initialize(github_path)
+  def initialize(layout_file_path)
     begin
-      @repo = github_path.match(/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}\/(.*)\/tree\/master/)[1]
-      @directory = github_path.match(/\/tree\/master\/(.*)/)[1]
+      @layout_file_path = layout_file_path
+      @layout_filename = layout_file_path.match(/(layout.*)/)[1]
+      @repo = layout_file_path.match(/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}\/(.*)\/blob\/master/)[1]
+      @directory = layout_file_path.match(/\/blob\/master\/(.*)\/layout/)[1]
     rescue NoMethodError => e
-      raise GithubError, "Invalid github path #{github_path}"
+      raise GithubError, "Invalid layout file path #{layout_file_path}"
     end
   end
 
   def parse_layout_file
-    layout_file = read_file('layout.yaml')
+    layout_file = read_file(@layout_filename)
     if is_valid?(layout_file)
       lessons_params = YAML.load(layout_file)
       lessons_params.each do |params|
@@ -22,14 +24,16 @@ class GithubReader
       end
       lessons_params
     else
-      raise GithubError, "Invalid layout file for #{@repo}/#{@directory}"
+      raise GithubError, "Invalid layout file #{@layout_file_path}"
     end
   end
 
   def self.update_sections(repo:, directories:)
     directories.each do |directory|
-      section = Section.find_by(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/tree/master/#{directory}")
-      section.try(:build_section)
+      sections = Section.where('layout_file_path LIKE ?', "%https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{directory}/layout%")
+      sections.each do |section|
+        section.try(:build_section)
+      end
     end
   end
 
@@ -49,7 +53,7 @@ private
     begin
       params = YAML.load(layout_file)
     rescue Psych::SyntaxError
-      raise GithubError, "Syntax error in layout file for #{@repo}/#{@directory}"
+      raise GithubError, "Syntax error in layout file #{@layout_file_path}"
     end
     params.any? && params.all? { |day_params| day_params.try(:key?, :day) && day_params.try(:key?, :lessons) && day_params[:lessons].any? && day_params[:lessons].all? { |lesson_params| lesson_params.try(:key?, :title) && lesson_params.try(:key?, :filename) } }
   end
