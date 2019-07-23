@@ -11,14 +11,14 @@ class GithubReader
   end
 
   def parse_layout_file
-    layout_file = read_file(@layout_filename)
+    layout_file = read_file(filename: @layout_filename)
     if is_valid?(layout_file)
       lessons_params = YAML.load(layout_file)
       lessons_params.each do |params|
         params[:lessons].each do |lesson|
-          lesson[:content] = read_file(lesson[:filename])
-          lesson[:cheat_sheet] = read_file(lesson[:filename].sub('.md', '_cheat.md'))
-          lesson[:teacher_notes] = read_file(lesson[:filename].sub('.md', '_teacher.md'))
+          lesson[:content] = read_file(filename: lesson[:filename], repo: lesson[:repo], directory: lesson[:directory])
+          lesson[:cheat_sheet] = read_file(filename: lesson[:filename].sub('.md', '_cheat.md'), repo: lesson[:repo], directory: lesson[:directory])
+          lesson[:teacher_notes] = read_file(filename: lesson[:filename].sub('.md', '_teacher.md'), repo: lesson[:repo], directory: lesson[:directory])
           lesson[:work_type] = lesson[:filename].downcase.include?('classwork') || lesson[:filename].downcase.include?('independent_project') ? 'exercise' : 'lesson'
         end
       end
@@ -39,13 +39,15 @@ class GithubReader
 
 private
 
-  def read_file(filename)
+  def read_file(filename:, repo: @repo, directory: @directory)
+    repo ||= @repo
+    directory ||= @directory
     begin
-      client.contents("#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{@repo}", path: "/#{@directory}/#{filename}", accept: 'application/vnd.github.3.raw')
+      client.contents("#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}", path: "/#{directory}/#{filename}", accept: 'application/vnd.github.3.raw')
     rescue Faraday::Error => e
       raise GithubError, e.message
     rescue Octokit::NotFound => e
-      raise GithubError, "File not found: #{@repo}/#{@directory}/#{filename}" unless filename.include?('_cheat.md') || filename.include?('_teacher.md')
+      raise GithubError, "File not found: #{repo}/#{directory}/#{filename}" unless filename.include?('_cheat.md') || filename.include?('_teacher.md')
     end
   end
 
