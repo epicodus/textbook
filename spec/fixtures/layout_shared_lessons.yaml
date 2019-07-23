@@ -1,0 +1,7 @@
+---
+- :day: monday
+  :lessons:
+  - :title: Shared Lesson
+    :filename: shared.md
+    :repo: shared_repo
+    :directory: static_for_automated_testing
