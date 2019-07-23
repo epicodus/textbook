@@ -40,7 +40,9 @@ class Section < ActiveRecord::Base
     empty_section!
     lessons_params.each do |day_params|
       day_params[:lessons].each do |lesson_params|
-        lesson = Lesson.create(name: lesson_params[:title], content: lesson_params[:content], cheat_sheet: lesson_params[:cheat_sheet], teacher_notes: lesson_params[:teacher_notes], public: true)
+        Lesson.skip_callback :validation, :before, :update_from_github
+        lesson = Lesson.create(name: lesson_params[:title], content: lesson_params[:content], cheat_sheet: lesson_params[:cheat_sheet], teacher_notes: lesson_params[:teacher_notes], public: true, github_path: lesson_params[:github_path])
+        Lesson.set_callback :validation, :before, :update_from_github, if: -> { self.github_path.present? }
         lesson_sections.create(day_of_week: day_params[:day], work_type: lesson_params[:work_type], lesson: lesson)
       end
     end

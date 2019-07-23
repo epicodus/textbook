@@ -9,7 +9,7 @@ describe GithubReader, vcr: true do
       allow_any_instance_of(GithubReader).to receive(:read_file).and_return('test')
       allow_any_instance_of(GithubReader).to receive(:read_file).with(filename:'layout.yaml').and_return(layout_file_response)
       lessons_params = GithubReader.new("https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/layout.yaml").parse_layout_file
-      expect(lessons_params).to eq [{:day=>"monday", :lessons=>[{:title=>"Example Title", :filename=>"README.md", :work_type=>"lesson", :content=>"test", :cheat_sheet=>"test", :teacher_notes=>"test"}]}]
+      expect(lessons_params).to eq [{:day=>"monday", :lessons=>[{:title=>"Example Title", :filename=>"README.md", :work_type=>"lesson", :content=>"test", :cheat_sheet=>"test", :teacher_notes=>"test", :github_path=>"https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/README.md"}]}]
     end
 
     it 'parses layout file with nested directories' do
@@ -17,7 +17,7 @@ describe GithubReader, vcr: true do
       allow_any_instance_of(GithubReader).to receive(:read_file).and_return('test')
       allow_any_instance_of(GithubReader).to receive(:read_file).with(filename:'layout.yaml').and_return(layout_file_response)
       lessons_params = GithubReader.new("https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/layout.yaml").parse_layout_file
-      expect(lessons_params).to eq [{:day=>"monday", :lessons=>[{:title=>"Nested Lesson", :filename=>"README.md", :work_type=>"lesson", :content=>"test", :cheat_sheet=>"test", :teacher_notes=>"test", :directory=>"static_for_automated_testing/subdir"}]}]
+      expect(lessons_params).to eq [{:day=>"monday", :lessons=>[{:title=>"Nested Lesson", :filename=>"README.md", :work_type=>"lesson", :content=>"test", :cheat_sheet=>"test", :teacher_notes=>"test", :directory=>"static_for_automated_testing/subdir", :github_path=>"https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/subdir/README.md"}]}]
     end
 
     it 'parses layout file with lessons linking to other repos' do
@@ -25,12 +25,12 @@ describe GithubReader, vcr: true do
       allow_any_instance_of(GithubReader).to receive(:read_file).and_return('test')
       allow_any_instance_of(GithubReader).to receive(:read_file).with(filename:'layout.yaml').and_return(layout_file_response)
       lessons_params = GithubReader.new("https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/layout.yaml").parse_layout_file
-      expect(lessons_params).to eq [{:day=>"monday", :lessons=>[{:title=>"Shared Lesson", :filename=>"shared.md", :work_type=>"lesson", :content=>"test", :cheat_sheet=>"test", :teacher_notes=>"test", :repo=>"shared_repo", :directory=>"static_for_automated_testing"}]}]
+      expect(lessons_params).to eq [{:day=>"monday", :lessons=>[{:title=>"Shared Lesson", :filename=>"shared.md", :work_type=>"lesson", :content=>"test", :cheat_sheet=>"test", :teacher_notes=>"test", :repo=>"shared_repo", :directory=>"static_for_automated_testing", :github_path=>"https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/shared_repo/blob/master/static_for_automated_testing/shared.md"}]}]
     end
 
     it 'pulls a layout file from github' do
       lessons_params = GithubReader.new("https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/layout.yaml").parse_layout_file
-      expect(lessons_params).to eq [{:day=>"monday", :lessons=>[{:title=>"Example Title", :filename=>"README.md", :work_type=>"lesson", :content=>"example content\n", :cheat_sheet=>nil, :teacher_notes=>nil}]}]
+      expect(lessons_params).to eq [{:day=>"monday", :lessons=>[{:title=>"Example Title", :filename=>"README.md", :work_type=>"lesson", :content=>"example content\n", :cheat_sheet=>nil, :teacher_notes=>nil, :github_path=>"https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/README.md"}]}]
     end
 
     it 'returns error for invalid layout file' do
