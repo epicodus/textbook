@@ -133,7 +133,7 @@ describe Section do
 
   describe '#build_section' do
     it 'builds section from github when URL included' do
-      allow_any_instance_of(GithubReader).to receive(:parse_layout_file).and_return([{:day=>"monday", :lessons=>[{:title=>"test title", :filename=>"README.md", :work_type=>"lesson", :content=>"test content", :cheat_sheet=>nil, :teacher_notes=>nil}]}])
+      allow_any_instance_of(GithubReader).to receive(:parse_layout_file).and_return([{:day=>"monday", :lessons=>[{:title=>"test title", :filename=>"README.md", :work_type=>"lesson", :content=>"test content", :cheat_sheet=>nil, :teacher_notes=>nil, :github_path=>"https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/README.md"}]}])
       section = FactoryBot.create(:section, layout_file_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/layout.yaml")
       lesson = section.lessons.first
       lesson_section = section.lesson_sections.first

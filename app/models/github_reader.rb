@@ -16,10 +16,14 @@ class GithubReader
       lessons_params = YAML.load(layout_file)
       lessons_params.each do |params|
         params[:lessons].each do |lesson|
-          lesson[:content] = read_file(filename: lesson[:filename], repo: lesson[:repo], directory: lesson[:directory])
-          lesson[:cheat_sheet] = read_file(filename: lesson[:filename].sub('.md', '_cheat.md'), repo: lesson[:repo], directory: lesson[:directory])
-          lesson[:teacher_notes] = read_file(filename: lesson[:filename].sub('.md', '_teacher.md'), repo: lesson[:repo], directory: lesson[:directory])
-          lesson[:work_type] = lesson[:filename].downcase.include?('classwork') || lesson[:filename].downcase.include?('independent_project') ? 'exercise' : 'lesson'
+          filename = lesson[:filename]
+          repo = lesson[:repo] || @repo
+          directory = lesson[:directory] || @directory
+          lesson[:content] = read_file(filename: filename, repo: repo, directory: directory)
+          lesson[:cheat_sheet] = read_file(filename: filename.sub('.md', '_cheat.md'), repo: repo, directory: directory)
+          lesson[:teacher_notes] = read_file(filename: filename.sub('.md', '_teacher.md'), repo: repo, directory: directory)
+          lesson[:work_type] = filename.downcase.include?('classwork') || filename.downcase.include?('independent_project') ? 'exercise' : 'lesson'
+          lesson[:github_path] = "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{directory}/#{filename}"
         end
       end
       lessons_params
@@ -40,8 +44,6 @@ class GithubReader
 private
 
   def read_file(filename:, repo: @repo, directory: @directory)
-    repo ||= @repo
-    directory ||= @directory
     begin
       client.contents("#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}", path: "/#{directory}/#{filename}", accept: 'application/vnd.github.3.raw')
     rescue Faraday::Error => e
