@@ -1,0 +1,6 @@
+---
+- :day: monday
+  :lessons:
+  - :title: Nested Lesson
+    :filename: README.md
+    :directory: static_for_automated_testing/subdir

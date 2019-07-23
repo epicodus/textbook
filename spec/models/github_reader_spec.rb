@@ -12,6 +12,14 @@ describe GithubReader, vcr: true do
       expect(lessons_params).to eq [{:day=>"monday", :lessons=>[{:title=>"Example Title", :filename=>"README.md", :work_type=>"lesson", :content=>"test", :cheat_sheet=>"test", :teacher_notes=>"test"}]}]
     end
 
+    it 'parses layout file with nested directories' do
+      layout_file_response = File.read('spec/fixtures/layout_nested.yaml')
+      allow_any_instance_of(GithubReader).to receive(:read_file).and_return('test')
+      allow_any_instance_of(GithubReader).to receive(:read_file).with(filename:'layout.yaml').and_return(layout_file_response)
+      lessons_params = GithubReader.new("https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/layout.yaml").parse_layout_file
+      expect(lessons_params).to eq [{:day=>"monday", :lessons=>[{:title=>"Nested Lesson", :filename=>"README.md", :work_type=>"lesson", :content=>"test", :cheat_sheet=>"test", :teacher_notes=>"test", :directory=>"static_for_automated_testing/subdir"}]}]
+    end
+
     it 'parses layout file with lessons linking to other repos' do
       layout_file_response = File.read('spec/fixtures/layout_shared_lessons.yaml')
       allow_any_instance_of(GithubReader).to receive(:read_file).and_return('test')
