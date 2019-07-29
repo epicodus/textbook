@@ -57,8 +57,10 @@ private
 
   def update_removed_lessons
     files_removed.each do |file|
-      lesson = Lesson.find_by(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{file}")
-      lesson.update_columns(public: false) if lesson
+      lessons = Lesson.where(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{file}")
+      lessons.each do |lesson|
+        lesson.update_columns(public: false)
+      end
     end
   end
 end
