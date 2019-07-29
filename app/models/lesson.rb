@@ -59,6 +59,13 @@ class Lesson < ActiveRecord::Base
     !update_warning.blank?
   end
 
+  def update_from_github
+    lesson_params = GithubReader.new(github_path).pull_lesson
+    self.content = lesson_params[:content]
+    self.cheat_sheet = lesson_params[:cheat_sheet]
+    self.teacher_notes = lesson_params[:teacher_notes]
+  end
+
 private
 
   def set_private
@@ -75,15 +82,5 @@ private
 
   def should_generate_new_friendly_id?
     name_changed? || (slug.blank? && !deleted?)
-  end
-
-  def update_from_github
-    response = Github.get_content(github_path)
-    if response[:error]
-      errors.add(:base, 'Unable to pull lesson from Github')
-      throw(:abort)
-    else
-      self.content = response[:content]
-    end
   end
 end
