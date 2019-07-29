@@ -1,17 +1,16 @@
 class GithubReader
-  def initialize(layout_file_path)
+  def initialize(path)
     begin
-      @layout_file_path = layout_file_path
-      @layout_filename = layout_file_path.match(/(layout.*)/)[1]
-      @repo = layout_file_path.match(/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}\/(.*)\/blob\/master/)[1]
-      @directory = layout_file_path.match(/\/blob\/master\/(.*)\/layout/)[1]
+      @filename = File.basename(path)
+      @directory = File.dirname(path).split('/blob/master/').last
+      @repo = path.match(/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}\/(.*)\/blob\/master/)[1]
     rescue NoMethodError => e
-      raise GithubError, "Invalid layout file path #{layout_file_path}"
+      raise GithubError, "Invalid Github path"
     end
   end
 
   def parse_layout_file
-    layout_file = read_file(filename: @layout_filename)
+    layout_file = read_file(filename: @filename)
     if is_valid?(layout_file)
       lessons_params = YAML.load(layout_file)
       lessons_params.each do |params|
@@ -19,26 +18,22 @@ class GithubReader
           filename = lesson[:filename]
           repo = lesson[:repo] || @repo
           directory = lesson[:directory] || @directory
-          lesson[:content] = read_file(filename: filename, repo: repo, directory: directory)
-          lesson[:cheat_sheet] = read_file(filename: filename.sub('.md', '_cheat.md'), repo: repo, directory: directory)
-          lesson[:teacher_notes] = read_file(filename: filename.sub('.md', '_teacher.md'), repo: repo, directory: directory)
           lesson[:work_type] = filename.downcase.include?('classwork') || filename.downcase.include?('independent_project') ? 'exercise' : 'lesson'
           lesson[:github_path] = "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{directory}/#{filename}"
         end
       end
       lessons_params
     else
-      raise GithubError, "Invalid layout file #{@layout_file_path}"
+      raise GithubError, "Invalid layout file"
     end
   end
 
-  def self.update_sections(repo:, directories:)
-    directories.each do |directory|
-      sections = Section.where('layout_file_path LIKE ?', "%https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{directory}/layout%")
-      sections.each do |section|
-        section.try(:build_section)
-      end
-    end
+  def pull_lesson
+    lesson_params = {}
+    lesson_params[:content] = read_file(filename: @filename)
+    lesson_params[:cheat_sheet] = read_file(filename: @filename.sub('.md', '_cheat.md'))
+    lesson_params[:teacher_notes] = read_file(filename: @filename.sub('.md', '_teacher.md'))
+    lesson_params
   end
 
 private
@@ -58,7 +53,7 @@ private
     begin
       params = YAML.load(layout_file)
     rescue Psych::SyntaxError
-      raise GithubError, "Syntax error in layout file #{@layout_file_path}"
+      raise GithubError, "Syntax error in layout file"
     end
     params.any? && params.all? { |day_params| day_params.try(:key?, :day) && day_params.try(:key?, :lessons) && day_params[:lessons].any? && day_params[:lessons].all? { |lesson_params| lesson_params.try(:key?, :title) && lesson_params.try(:key?, :filename) } }
   end
