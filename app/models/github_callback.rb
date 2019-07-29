@@ -34,11 +34,11 @@ private
   end
 
   def files_modified
-    event['commits'].map { |commit| commit['added'] + commit['modified'] }.flatten.uniq
+    event['commits'].map { |commit| commit['added'] + commit['modified'] }.flatten.map { |filename| filename.gsub('_cheat.md', '.md').gsub('_teacher.md', '.md') }.uniq
   end
 
   def files_removed
-    event['commits'].map { |commit| commit['removed'] }.flatten.uniq
+    event['commits'].map { |commit| commit['removed'] }.flatten.map { |filename| filename.gsub('_cheat.md', '.md').gsub('_teacher.md', '.md') }.uniq
   end
 
   def layout_files_modified

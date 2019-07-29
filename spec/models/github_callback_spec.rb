@@ -32,6 +32,15 @@ describe GithubCallback do
       expect(lesson.reload.content).to include 'test'
     end
 
+    it 'updates lesson when that lesson cheat sheet or teacher notes updated on Github' do
+      allow_any_instance_of(GithubReader).to receive(:read_file).and_return('test')
+      lesson = FactoryBot.create(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/example/README.md")
+      allow_any_instance_of(GithubReader).to receive(:read_file).and_return('updated')
+      github_callback = GithubCallback.new({ 'ref' => 'refs/heads/master', 'repository' => { 'name' => 'testing' }, 'commits' => [ 'modified' => ['example/README_teacher.md'], 'added' => [], 'removed' => [] ] })
+      github_callback.update_lessons
+      expect(lesson.reload.content).to include 'updated'
+    end
+
     it 'marks lesson as private when removed from Github repo' do
       allow_any_instance_of(GithubReader).to receive(:pull_lesson).and_return(content: 'test')
       lesson = FactoryBot.create(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/example/README.md")
