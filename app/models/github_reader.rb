@@ -45,7 +45,8 @@ private
 
   def read_file(filename:, repo: @repo, directory: @directory)
     begin
-      client.contents("#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}", path: "/#{directory}/#{filename}", accept: 'application/vnd.github.3.raw')
+      path = directory == '/' ? "/#{filename}" : "/#{directory}/#{filename}"
+      client.contents("#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}", path: path, accept: 'application/vnd.github.3.raw')
     rescue Faraday::Error => e
       raise GithubError, e.message
     rescue Octokit::NotFound => e
