@@ -41,12 +41,12 @@ describe GithubCallback do
       expect(lesson.reload.content).to include 'updated'
     end
 
-    it 'marks lesson as private when removed from Github repo' do
+    it 'deletes lesson when removed from Github repo' do
       allow_any_instance_of(GithubReader).to receive(:pull_lesson).and_return(content: 'test')
       lesson = FactoryBot.create(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/example/README.md")
       github_callback = GithubCallback.new({ 'ref' => 'refs/heads/master', 'repository' => { 'name' => 'testing' }, 'commits' => [ 'modified' => [], 'added' => [], 'removed' => ['example/README.md'] ] })
       github_callback.update_lessons
-      expect(lesson.reload.public).to be false
+      expect(Lesson.count).to eq 0
     end
   end
 end

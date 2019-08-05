@@ -59,7 +59,8 @@ private
     files_removed.each do |file|
       lessons = Lesson.where(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{file}")
       lessons.each do |lesson|
-        lesson.update_columns(public: false)
+        lesson.lesson_sections.delete_all
+        lesson.delete
       end
     end
   end
