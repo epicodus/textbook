@@ -5,10 +5,22 @@ describe GithubCallback do
   end
 
   describe '#update_sections' do
-    it 'updates section if a section has matching github path' do
-      section = FactoryBot.create(:section, layout_file_path: nil)
+    it 'is ignored if no matching layout file path' do
+      section = FactoryBot.create(:section)
+      section.update_columns(layout_file_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/does_not_exist/layout.yaml")
+      webhook_params = JSON.parse(File.read('spec/fixtures/fake_github_webhook_update_section_layout.json'))['body']
+      github_callback = GithubCallback.new(webhook_params)
+      expect_any_instance_of(Section).to_not receive(:build_section)
+      github_callback.update_sections
+    end
+
+    it 'updates section if a section has matching layout file path' do
+      section = FactoryBot.create(:section)
+      section.update_columns(layout_file_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/example/layout.yaml")
+      webhook_params = JSON.parse(File.read('spec/fixtures/fake_github_webhook_update_section_layout.json'))['body']
+      github_callback = GithubCallback.new(webhook_params)
       expect_any_instance_of(Section).to receive(:build_section)
-      section.update(layout_file_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/example/layout.yaml")
+      github_callback.update_sections
     end
 
     it 'raises error when updating sections if invalid layout file' do

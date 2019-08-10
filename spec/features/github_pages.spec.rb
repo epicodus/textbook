@@ -9,7 +9,7 @@ describe GithubCallback do
         host: Capybara.current_session.server.host,
         port: Capybara.current_session.server.port
       )
-      expect(GithubReader).to receive(:update_lessons).with({ repo: 'testing', modified: ['README.md'], removed: [] })
+      expect_any_instance_of(GithubCallback).to receive(:update_lessons)
       fake_github_webhook.send
     end
 
@@ -20,7 +20,7 @@ describe GithubCallback do
         host: Capybara.current_session.server.host,
         port: Capybara.current_session.server.port
       )
-      expect(GithubReader).to receive(:update_sections).with({ repo: 'testing', paths: ['example/layout.yaml'] })
+      expect_any_instance_of(GithubCallback).to receive(:update_sections)
       fake_github_webhook.send
     end
   end
