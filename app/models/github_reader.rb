@@ -2,7 +2,7 @@ class GithubReader
   def initialize(path)
     begin
       @filename = File.basename(path)
-      @directory = File.dirname(path).split('/blob/master/').last
+      @directory = File.dirname(path).split('/blob/master/')[1] || '/'
       @repo = path.match(/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}\/(.*)\/blob\/master/)[1]
     rescue NoMethodError => e
       raise GithubError, "Invalid Github path"
@@ -18,8 +18,9 @@ class GithubReader
           filename = lesson[:filename]
           repo = lesson[:repo] || @repo
           directory = lesson[:directory] || @directory
+          path = directory == '/' ? "#{filename}" : "#{directory}/#{filename}"
           lesson[:work_type] = filename.downcase.include?('classwork') || filename.downcase.include?('independent_project') ? 'exercise' : 'lesson'
-          lesson[:github_path] = "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{directory}/#{filename}"
+          lesson[:github_path] = "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{path}"
         end
       end
       lessons_params

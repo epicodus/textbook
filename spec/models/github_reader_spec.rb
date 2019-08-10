@@ -28,6 +28,14 @@ describe GithubReader, vcr: true do
       expect(lessons_params).to eq [{:day=>"monday", :lessons=>[{:title=>"Shared Lesson", :filename=>"shared.md", :work_type=>"lesson", :repo=>"shared_repo", :directory=>"static_for_automated_testing", :github_path=>"https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/shared_repo/blob/master/static_for_automated_testing/shared.md"}]}]
     end
 
+    it 'parses layout file with root level directories' do
+      layout_file_response = File.read('spec/fixtures/layout_shared_lessons_root_level.yaml')
+      allow_any_instance_of(GithubReader).to receive(:read_file).and_return('test')
+      allow_any_instance_of(GithubReader).to receive(:read_file).with(filename:'layout.yaml').and_return(layout_file_response)
+      lessons_params = GithubReader.new("https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/layout.yaml").parse_layout_file
+      expect(lessons_params).to eq [{:day=>"monday", :lessons=>[{:title=>"Shared Lesson", :filename=>"shared.md", :work_type=>"lesson", :repo=>"shared_repo", :directory=>"/", :github_path=>"https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/shared_repo/blob/master/shared.md"}]}]
+    end
+
     it 'pulls a layout file from github' do
       lessons_params = GithubReader.new("https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/layout.yaml").parse_layout_file
       expect(lessons_params).to eq [{:day=>"monday", :lessons=>[{:title=>"Example Title", :filename=>"README.md", :work_type=>"lesson", :github_path=>"https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/README.md"}]}]
