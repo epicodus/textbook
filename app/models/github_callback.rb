@@ -12,7 +12,7 @@ class GithubCallback
   end
 
   def update_sections
-    layout_files_modified.each do |path|
+    layouts_modified.each do |path|
       full_path = "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{path}"
       Section.find_by(layout_file_path: full_path).try(:build_section)
     end
@@ -33,20 +33,20 @@ private
     event['repository']['name']
   end
 
-  def files_modified
-    event['commits'].map { |commit| commit['added'] + commit['modified'] }.flatten.map { |filename| filename.gsub('_cheat.md', '.md').gsub('_teacher.md', '.md') }.uniq
+  def layouts_modified
+    event['commits'].map { |commit| commit['modified'] }.flatten.select { |filename| filename.include?('yaml') }
   end
 
-  def files_removed
-    event['commits'].map { |commit| commit['removed'] }.flatten.map { |filename| filename.gsub('_cheat.md', '.md').gsub('_teacher.md', '.md') }.uniq
+  def lessons_modified
+    event['commits'].map { |commit| commit['added'] + commit['modified'] + commit['removed'] }.flatten.map { |filename| filename.gsub('_cheat.md', '.md').gsub('_teacher.md', '.md') }.uniq - layouts_modified - lessons_removed
   end
 
-  def layout_files_modified
-    files_modified.select { |path| path.include?('yaml') }
+  def lessons_removed
+    event['commits'].map { |commit| commit['removed'] }.flatten.select { |filename| !filename.include?('_cheat.md') && !filename.include?('_teacher.md') && !filename.include?('.yaml') }
   end
 
   def update_modified_lessons
-    files_modified.each do |file|
+    lessons_modified.each do |file|
       lessons = Lesson.where(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{file}")
       lessons.each do |lesson|
         lesson.update_from_github
@@ -56,12 +56,9 @@ private
   end
 
   def update_removed_lessons
-    files_removed.each do |file|
-      lessons = Lesson.where(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{file}")
-      lessons.each do |lesson|
-        lesson.lesson_sections.delete_all
-        lesson.delete
-      end
+    lessons_removed.each do |filename|
+      lessons = Lesson.where(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{filename}")
+      lessons.update_all(content: 'Removed from Github', cheat_sheet: nil, teacher_notes: nil, public: false)
     end
   end
 end
