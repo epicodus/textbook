@@ -37,7 +37,7 @@ describe Section, js: true do
     fill_in 'Section week', with: '1'
     fill_in 'Section Layout File URL', with: 'https://example.com'
     click_button 'Create Section'
-    expect(page).to have_content 'Invalid layout file path https://example.com'
+    expect(page).to have_content 'Invalid Github path'
   end
 
   it 'displays errors if you try to save an invalid section' do

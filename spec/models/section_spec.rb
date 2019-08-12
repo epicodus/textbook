@@ -133,7 +133,8 @@ describe Section do
 
   describe '#build_section' do
     it 'builds section from github when URL included' do
-      allow_any_instance_of(GithubReader).to receive(:parse_layout_file).and_return([{:day=>"monday", :lessons=>[{:title=>"test title", :filename=>"README.md", :work_type=>"lesson", :content=>"test content", :cheat_sheet=>nil, :teacher_notes=>nil, :github_path=>"https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/README.md"}]}])
+      allow_any_instance_of(GithubReader).to receive(:parse_layout_file).and_return([{:day=>"monday", :lessons=>[{:title=>"test title", :filename=>"README.md", :work_type=>"lesson", :github_path=>"https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/README.md"}]}])
+      allow_any_instance_of(GithubReader).to receive(:pull_lesson).and_return({ content: 'test content' })
       section = FactoryBot.create(:section, layout_file_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/layout.yaml")
       lesson = section.lessons.first
       lesson_section = section.lesson_sections.first
@@ -143,7 +144,7 @@ describe Section do
       expect(lesson_section.work_type).to eq 'lesson'
     end
 
-    it 'rebuilds section when github URL changed' do
+    it 'rebuilds section when layout file path changed' do
       section = FactoryBot.create(:section, layout_file_path: nil)
       allow_any_instance_of(Section).to receive(:build_section).and_return({})
       expect_any_instance_of(Section).to receive(:build_section)
@@ -155,8 +156,8 @@ describe Section do
       section = FactoryBot.create(:section, layout_file_path: nil)
     end
 
-    it 'raises exception when invalid github path' do
-      expect { FactoryBot.create(:section, layout_file_path: "https://example.com") }.to raise_error(ActiveRecord::RecordInvalid).with_message("Validation failed: Invalid layout file path https://example.com")
+    it 'raises exception when invalid layout file path' do
+      expect { FactoryBot.create(:section, layout_file_path: "https://example.com") }.to raise_error(ActiveRecord::RecordInvalid).with_message("Validation failed: Invalid Github path")
       expect(Section.all).to eq []
     end
   end
