@@ -152,6 +152,12 @@ describe Lesson do
       expect(page.html).to_not match lesson.teacher_notes
     end
 
+    it "redirects if lesson not found" do
+      login_as(student, scope: :user)
+      lesson.really_destroy!
+      visit course_section_lesson_path(section.course, section, lesson)
+      expect(page).to have_content 'Page not found'
+    end
   end
 
   context 'editing' do

@@ -112,4 +112,10 @@ describe Course, js: true do
     visit courses_path
     expect(page).to_not have_content private_course.name
   end
+
+  it "redirects if course not found" do
+    login_as(student, scope: :user)
+    visit '/does_not_exist'
+    expect(page).to have_content 'Page not found'
+  end
 end

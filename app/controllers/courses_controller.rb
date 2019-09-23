@@ -19,7 +19,12 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @course = Course.find(params[:id])
+    begin
+      @course = Course.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = 'Page not found'
+      redirect_back(fallback_location: tracks_path) and return
+    end
     authorize! :read, @course
   end
 
