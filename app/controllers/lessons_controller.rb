@@ -27,9 +27,14 @@ class LessonsController < ApplicationController
   end
 
   def show
-    @lesson = Lesson.with_deleted.find(params[:id])
-    @section = Section.find(params[:section_id]) if params[:section_id]
-    @lesson_section = LessonSection.find_by(lesson: @lesson, section: @section)
+    begin
+      @lesson = Lesson.with_deleted.find(params[:id])
+      @section = Section.find(params[:section_id]) if params[:section_id]
+      @lesson_section = LessonSection.find_by(lesson: @lesson, section: @section)
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = 'Page not found'
+      redirect_back(fallback_location: tracks_path) and return
+    end
     authorize! :read, @lesson
   end
 
