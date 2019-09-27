@@ -342,7 +342,7 @@ DEPENDENCIES
   psych
   puma
   rack-mini-profiler
-  rails (~> 5.2.2)
+  rails (~> 5.2.3)
   rails_12factor
   redcarpet
   rspec-rails
@@ -356,7 +356,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 2.6.1p33
+   ruby 2.6.4p104
 
 BUNDLED WITH
    1.17.2
