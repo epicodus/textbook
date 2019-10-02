@@ -12,7 +12,6 @@ class Section < ActiveRecord::Base
   validates :number, :presence => true
   validates :course, :presence => true
   validate :name_does_not_conflict_with_routes
-  validates :layout_file_path, uniqueness: true, allow_blank: true
 
   has_many :lesson_sections, inverse_of: :section
   has_many :lessons, through: :lesson_sections

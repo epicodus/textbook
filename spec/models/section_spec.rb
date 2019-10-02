@@ -13,20 +13,6 @@ describe Section do
     expect(section.update(number: nil)).to be false
   end
 
-  describe 'validates layout_file_path' do
-    let(:course) { FactoryBot.create(:course) }
-    it 'validates uniqueness of layout_file_path' do
-      allow_any_instance_of(Section).to receive(:build_section)
-      FactoryBot.create(:section, course: course, name: 'test', number: 1, layout_file_path: "test")
-      expect { FactoryBot.create(:section, course: course, name: 'test 2', number: 2, layout_file_path: "test") }.to raise_error(ActiveRecord::RecordInvalid).with_message("Validation failed: Layout file path has already been taken")
-    end
-
-    it 'allows multiple sections with blank layout_file_path' do
-      FactoryBot.create(:section, course: course, name: 'test', number: 1)
-      expect { FactoryBot.create(:section, course: course, name: 'test 2', number: 2) }.to_not raise_error
-    end
-  end
-
   it 'clears layout_file_path when section deleted' do
     allow_any_instance_of(Section).to receive(:build_section)
     section = FactoryBot.create(:section, layout_file_path: 'https://example.com')

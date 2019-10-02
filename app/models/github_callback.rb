@@ -14,7 +14,9 @@ class GithubCallback
   def update_sections
     layouts_modified.each do |path|
       full_path = "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{path}"
-      Section.find_by(layout_file_path: full_path).try(:build_section)
+      Section.where(layout_file_path: full_path).each do |section|
+        section.try(:build_section)
+      end
     end
   end
 
