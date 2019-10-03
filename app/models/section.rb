@@ -47,6 +47,7 @@ class Section < ActiveRecord::Base
 
   def deep_clone(course_to_assign_to)
     new_section = self.dup
+    new_section.layout_file_path = nil
     new_section.course = course_to_assign_to
     new_section.save
     lesson_sections.each do |lesson_section|
