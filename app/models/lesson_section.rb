@@ -12,7 +12,7 @@ class LessonSection < ActiveRecord::Base
   default_scope -> { order :number }
 
   enum work_type: [ :lesson, :exercise ]
-  enum day_of_week: [ :weekend, :monday, :tuesday, :wednesday, :thursday, :friday ]
+  enum day_of_week: [ :weekend, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday ]
 
 private
 
