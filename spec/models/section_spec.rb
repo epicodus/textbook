@@ -49,11 +49,6 @@ describe Section do
     end
   end
 
-  xit 'validates uniqueness of name' do # FIXME pending https://github.com/thoughtbot/shoulda-matchers/issues/814
-    FactoryBot.create :section
-    should validate_uniqueness_of(:name).scoped_to(:course)
-  end
-
   it 'sorts by the number by default' do
     course = FactoryBot.create :course
     first_section = FactoryBot.create :section, course: course
