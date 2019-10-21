@@ -23,6 +23,7 @@ gem 'httparty'
 gem 'jwt'
 gem 'octokit'
 gem 'psych'
+gem "sprockets", "~> 3.7.2" # temp until issue fixed
 
 group :development do
   gem 'better_errors'
