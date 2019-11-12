@@ -156,11 +156,12 @@ describe Lesson do
       end
 
       it 'retrieves content and cheat sheet and teacher notes when present' do
-        allow_any_instance_of(GithubReader).to receive(:pull_lesson).and_return({ content: 'new lesson content', cheat_sheet: 'test cheat sheet', teacher_notes: 'test teacher notes' })
+        allow_any_instance_of(GithubReader).to receive(:pull_lesson).and_return({ content: 'new lesson content', cheat_sheet: 'test cheat sheet', teacher_notes: 'test teacher notes', video_id: 'test video id' })
         lesson = FactoryBot.create(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
         expect(lesson.content).to eq 'new lesson content'
         expect(lesson.cheat_sheet).to eq 'test cheat sheet'
         expect(lesson.teacher_notes).to eq 'test teacher notes'
+        expect(lesson.video_id).to eq 'test video id'
       end
 
       it 'does not save when problem fetching lesson from github' do

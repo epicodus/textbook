@@ -105,6 +105,19 @@ describe GithubCallback do
       expect(lesson.teacher_notes).to eq nil
     end
 
+    it 'updates lesson when video id removed from Github repo' do
+      allow_any_instance_of(GithubReader).to receive(:pull_lesson).and_return(content: 'test', cheat_sheet: 'test', teacher_notes: 'test', video_id: 'test')
+      lesson = FactoryBot.create(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/example/README.md")
+      allow_any_instance_of(GithubReader).to receive(:pull_lesson).and_return(content: 'test', cheat_sheet: 'test', teacher_notes: 'test', video_id: nil)
+      github_callback = GithubCallback.new({ 'ref' => 'refs/heads/master', 'repository' => { 'name' => 'testing' }, 'commits' => [ 'modified' => [], 'added' => [], 'removed' => ['example/README_video.md'] ] })
+      github_callback.update_lessons
+      lesson.reload
+      expect(lesson.content).to eq 'test'
+      expect(lesson.cheat_sheet).to eq 'test'
+      expect(lesson.teacher_notes).to eq 'test'
+      expect(lesson.video_id).to eq nil
+    end
+
     it 'updates lesson when both lesson and teacher notes removed from Github repo' do
       allow_any_instance_of(GithubReader).to receive(:pull_lesson).and_return(content: 'test', cheat_sheet: 'test', teacher_notes: 'test')
       lesson = FactoryBot.create(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/example/README.md")

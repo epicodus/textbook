@@ -64,6 +64,7 @@ class Lesson < ActiveRecord::Base
     self.content = lesson_params[:content]
     self.cheat_sheet = lesson_params[:cheat_sheet]
     self.teacher_notes = lesson_params[:teacher_notes]
+    self.video_id = lesson_params[:video_id]
   end
 
 private

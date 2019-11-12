@@ -40,11 +40,11 @@ private
   end
 
   def lessons_modified
-    event['commits'].map { |commit| commit['added'] + commit['modified'] + commit['removed'] }.flatten.map { |filename| filename.gsub('_cheat.md', '.md').gsub('_teacher.md', '.md') }.uniq - layouts_modified - lessons_removed
+    event['commits'].map { |commit| commit['added'] + commit['modified'] + commit['removed'] }.flatten.map { |filename| filename.gsub('_cheat.md', '.md').gsub('_teacher.md', '.md').gsub('_video.md', '.md') }.uniq - layouts_modified - lessons_removed
   end
 
   def lessons_removed
-    event['commits'].map { |commit| commit['removed'] }.flatten.select { |filename| !filename.include?('_cheat.md') && !filename.include?('_teacher.md') && !filename.include?('.yaml') }
+    event['commits'].map { |commit| commit['removed'] }.flatten.select { |filename| !filename.include?('_cheat.md') && !filename.include?('_teacher.md') && !filename.include?('_video.md') && !filename.include?('.yaml') }
   end
 
   def update_modified_lessons
