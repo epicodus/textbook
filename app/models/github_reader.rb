@@ -34,6 +34,7 @@ class GithubReader
     lesson_params[:content] = read_file(filename: @filename)
     lesson_params[:cheat_sheet] = read_file(filename: @filename.sub('.md', '_cheat.md'))
     lesson_params[:teacher_notes] = read_file(filename: @filename.sub('.md', '_teacher.md'))
+    lesson_params[:video] = read_file(filename: @filename.sub('.md', '_video.md'))
     lesson_params
   end
 
@@ -46,7 +47,7 @@ private
     rescue Faraday::Error => e
       raise GithubError, e.message
     rescue Octokit::NotFound => e
-      raise GithubError, "File not found: #{repo}/#{directory}/#{filename}" unless filename.include?('_cheat.md') || filename.include?('_teacher.md')
+      raise GithubError, "File not found: #{repo}/#{directory}/#{filename}" unless filename.include?('_cheat.md') || filename.include?('_teacher.md') || filename.include?('_video.md')
     end
   end
 
