@@ -4,4 +4,7 @@
 
 require File.expand_path('../config/application', __FILE__)
 
+require 'resque/tasks'
+task 'resque:setup' => :environment
+
 Textbook::Application.load_tasks
