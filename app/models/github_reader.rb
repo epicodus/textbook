@@ -34,7 +34,7 @@ class GithubReader
     lesson_params[:content] = read_file(filename: @filename)
     lesson_params[:cheat_sheet] = read_file(filename: @filename.sub('.md', '_cheat.md'))
     lesson_params[:teacher_notes] = read_file(filename: @filename.sub('.md', '_teacher.md'))
-    lesson_params[:video] = read_file(filename: @filename.sub('.md', '_video.md'))
+    lesson_params[:video_id] = read_file(filename: @filename.sub('.md', '_video.md')).try(:strip)
     lesson_params
   end
 
