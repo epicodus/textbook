@@ -61,11 +61,14 @@ private
   end
 
   def client
-    headers = { Authorization: "Bearer #{new_jwt_token}", Accept: 'application/vnd.github.machine-man-preview+json' }
-    access_tokens_url = "/installations/#{ENV['GITHUB_INSTALLATION_ID']}/access_tokens"
-    access_tokens_response = Octokit::Client.new.post(access_tokens_url, headers: headers)
-    access_token = access_tokens_response[:token]
-    Octokit::Client.new(access_token: access_token)
+    unless @client
+      headers = { Authorization: "Bearer #{new_jwt_token}", Accept: 'application/vnd.github.machine-man-preview+json' }
+      access_tokens_url = "/installations/#{ENV['GITHUB_INSTALLATION_ID']}/access_tokens"
+      access_tokens_response = Octokit::Client.new.post(access_tokens_url, headers: headers)
+      access_token = access_tokens_response[:token]
+      @client = Octokit::Client.new(access_token: access_token)
+    end
+    @client
   end
 
   def new_jwt_token
