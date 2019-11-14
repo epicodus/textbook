@@ -20,4 +20,6 @@ Textbook::Application.routes.draw do
   end
 
   resources :github_callbacks, only: [:create]
+
+  mount ResqueWeb::Engine => "/resque_web"
 end
