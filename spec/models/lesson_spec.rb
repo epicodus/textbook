@@ -138,36 +138,40 @@ describe Lesson do
     describe 'pulling from Github' do
       it 'does not try to pull from github unless github_path present' do
         lesson = FactoryBot.build(:lesson)
-        expect_any_instance_of(GithubReader).to_not receive(:pull_lesson)
+        expect(lesson).to_not receive(:update_from_github)
         lesson.save
       end
 
       it 'tries to update lesson from github when github_path present' do
-        allow_any_instance_of(GithubReader).to receive(:pull_lesson).and_return({})
+        allow(GithubLessonReaderJob).to receive(:perform_later).and_return({})
         lesson = FactoryBot.build(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
-        expect_any_instance_of(GithubReader).to receive(:pull_lesson)
+        expect(GithubLessonReaderJob).to receive(:perform_later)
         lesson.save
       end
 
-      it 'saves when lesson successfully fetched from github' do
-        allow_any_instance_of(GithubReader).to receive(:pull_lesson).and_return({content: 'new lesson content'})
-        lesson = FactoryBot.build(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
-        expect(lesson.save).to eq true
+      it "updates lesson content" do
+        lesson = FactoryBot.create(:lesson)
+        lesson.update_columns(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
+        allow_any_instance_of(GithubReader).to receive(:pull_lesson).and_return({:content=>"updated content", :cheat_sheet=>nil, :teacher_notes=>nil, :video_id=>nil})
+        expect(lesson.content).to eq 'This is the lesson content.'
+        Lesson.update_from_github(lesson)
+        lesson.reload
+        expect(lesson.content).to eq 'updated content'
+        expect(lesson.cheat_sheet).to eq nil
+        expect(lesson.teacher_notes).to eq nil
+        expect(lesson.video_id).to eq nil
       end
 
-      it 'retrieves content and cheat sheet and teacher notes when present' do
+      it "updates lesson content, cheat sheet, teacher notes, video id when present" do
+        lesson = FactoryBot.create(:lesson)
+        lesson.update_columns(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
         allow_any_instance_of(GithubReader).to receive(:pull_lesson).and_return({ content: 'new lesson content', cheat_sheet: 'test cheat sheet', teacher_notes: 'test teacher notes', video_id: 'test video id' })
-        lesson = FactoryBot.create(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
+        Lesson.update_from_github(lesson)
+        lesson.reload
         expect(lesson.content).to eq 'new lesson content'
         expect(lesson.cheat_sheet).to eq 'test cheat sheet'
         expect(lesson.teacher_notes).to eq 'test teacher notes'
         expect(lesson.video_id).to eq 'test video id'
-      end
-
-      it 'does not save when problem fetching lesson from github' do
-        allow_any_instance_of(GithubReader).to receive(:pull_lesson).and_return({})
-        lesson = FactoryBot.build(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
-        expect(lesson.save).to eq false
       end
     end
   end

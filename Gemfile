@@ -24,6 +24,7 @@ gem 'jwt'
 gem 'octokit'
 gem 'psych'
 gem "sprockets", "~> 3.7.2" # temp until issue fixed
+gem 'resque'
 
 group :development do
   gem 'better_errors'

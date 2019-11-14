@@ -10,7 +10,8 @@ class Lesson < ActiveRecord::Base
   has_many :lesson_sections, inverse_of: :lesson, dependent: :destroy
   has_many :sections, through: :lesson_sections
 
-  before_validation :update_from_github, if: ->(lesson) { lesson.github_path.present? }
+  before_validation :set_placeholder_content, if: ->(lesson) { lesson.github_path.present? }
+  after_save :update_from_github, if: ->(lesson) { lesson.github_path.present? }
   before_destroy :set_private, unless: ->(lesson) { lesson.deleted? }
   after_destroy :remove_slug, if: ->(lesson) { Lesson.only_deleted.exists?(lesson.id) }
   after_restore :create_slug
@@ -59,12 +60,18 @@ class Lesson < ActiveRecord::Base
     !update_warning.blank?
   end
 
+  def set_placeholder_content
+    self.content = 'Lesson queued for update... hit refresh soon!'
+  end
+
   def update_from_github
-    lesson_params = GithubReader.new(github_path).pull_lesson
-    self.content = lesson_params[:content]
-    self.cheat_sheet = lesson_params[:cheat_sheet]
-    self.teacher_notes = lesson_params[:teacher_notes]
-    self.video_id = lesson_params[:video_id]
+    GithubLessonReaderJob.perform_later(self)
+  end
+
+  def self.update_from_github(lesson)
+    lesson_params = GithubReader.new(lesson.github_path).pull_lesson
+    lesson.update_columns(content: lesson_params[:content], cheat_sheet: lesson_params[:cheat_sheet], teacher_notes: lesson_params[:teacher_notes], video_id: lesson_params[:video_id])
+    puts "#{lesson.name} lesson updated from Github"
   end
 
 private
