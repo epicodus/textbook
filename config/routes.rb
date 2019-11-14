@@ -1,9 +1,13 @@
+require "resque_web"
+
 Textbook::Application.routes.draw do
   devise_for :users
 
   root to: 'home#show'
 
   get 'table-of-contents', to: redirect('courses')
+
+  mount ResqueWeb::Engine => "/resque_web"
 
   resources :tracks, only: [:index, :show]
   resources :lessons
@@ -20,6 +24,4 @@ Textbook::Application.routes.draw do
   end
 
   resources :github_callbacks, only: [:create]
-
-  mount ResqueWeb::Engine => "/resque_web"
 end
