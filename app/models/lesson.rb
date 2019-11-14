@@ -71,7 +71,6 @@ class Lesson < ActiveRecord::Base
   def self.update_from_github(lesson)
     lesson_params = GithubReader.new(lesson.github_path).pull_lesson
     lesson.update_columns(content: lesson_params[:content], cheat_sheet: lesson_params[:cheat_sheet], teacher_notes: lesson_params[:teacher_notes], video_id: lesson_params[:video_id])
-    puts "#{lesson.name} lesson updated from Github"
   end
 
 private

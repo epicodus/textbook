@@ -18,7 +18,7 @@ class Section < ActiveRecord::Base
   belongs_to :course
 
   after_create :build_section, if: ->(section) { section.layout_file_path.present? }
-  after_update :build_section, if: ->(section) { section.layout_file_path.present? && section.saved_change_to_layout_file_path? }
+  after_update :build_section, if: ->(section) { section.layout_file_path.present? }
   before_destroy :remove_layout_file_path
 
   def empty_section!
