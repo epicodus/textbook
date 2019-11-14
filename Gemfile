@@ -25,7 +25,6 @@ gem 'octokit'
 gem 'psych'
 gem "sprockets", "~> 3.7.2" # temp until issue fixed
 gem 'resque'
-gem 'resque-web', require: 'resque_web'
 
 group :development do
   gem 'better_errors'
