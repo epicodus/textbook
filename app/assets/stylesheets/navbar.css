@@ -1,0 +1,7 @@
+.navbar-header>ul>li {
+  display: inline-block;
+}
+
+.navbar-header>ul>a {
+  margin-left: 1em;
+}
