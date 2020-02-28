@@ -43,12 +43,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <%= link_to 'Tracks', tracks_path, class: 'navbar-brand' %>
-      </div>
-      <div id='navbar' class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
+          <%= link_to 'Tracks', tracks_path, class: 'navbar-brand' %>
           <li><%= yield :forward_back %></li>
         </ul>
+      </div>
+      <div id='navbar' class="collapse navbar-collapse">
 
         <ul class="nav navbar-nav pull-right">
           <li id="navbar-search">
