@@ -49,7 +49,7 @@ group :test do
   gem 'selenium-webdriver', '~> 3.141.0'
   gem 'launchy'
   gem 'simplecov', require: false
-  gem 'coveralls', require: false
+  gem 'coveralls', '~> 0.8', require: false
   gem 'database_cleaner'
   gem 'vcr'
   gem 'webmock'
