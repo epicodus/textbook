@@ -31,11 +31,10 @@ class LessonsController < ApplicationController
       @lesson = Lesson.with_deleted.find(params[:id])
       @section = Section.find(params[:section_id]) if params[:section_id]
       @lesson_section = LessonSection.find_by(lesson: @lesson, section: @section)
+      authorize! :read, @lesson
     rescue ActiveRecord::RecordNotFound
-      flash[:alert] = 'Page not found'
-      redirect_back(fallback_location: tracks_path) and return
+      render file: "#{Rails.root}/public/404", status: :not_found
     end
-    authorize! :read, @lesson
   end
 
   def edit
@@ -83,7 +82,7 @@ private
   def lesson_params
     params[:lesson][:lesson_sections_attributes].keep_if { |key, value| value[:work_type] }
     params.require(:lesson).permit(:name, :content, :cheat_sheet, :update_warning, :teacher_notes,
-                                   :public, :deleted_at, :video_id, :github_path, 
+                                   :public, :deleted_at, :video_id, :github_path,
                                    lesson_sections_attributes: [:id, :work_type, :section_id, :day_of_week])
   end
 
