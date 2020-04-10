@@ -24,7 +24,7 @@ task :export_offline_links_list => [:environment] do
                 lhtp_links.each do |link|
                   url = link[0]
                   response = HTTParty.head(url, timeout: 60)
-                  if response.code == 400 && url.include?("http:")
+                  if url.include?("http:") && (response.code == 400 || response.code == 404)
                     https_url = url.gsub("http:", "https:")
                     response = HTTParty.head(https_url, timeout: 60)
                   end
