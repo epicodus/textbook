@@ -79,6 +79,14 @@ GEM
     childprocess (1.0.1)
       rake (< 13.0)
     coderay (1.1.2)
+    coffee-rails (5.0.0)
+      coffee-script (>= 2.2.0)
+      railties (>= 5.2.0)
+    coffee-script (2.4.1)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.12.2)
+    commonjs (0.2.7)
     concurrent-ruby (1.1.6)
     coveralls (0.8.23)
       json (>= 1.8, < 3)
@@ -115,6 +123,8 @@ GEM
     faraday (0.17.3)
       multipart-post (>= 1.2, < 3)
     ffi (1.12.2)
+    font-awesome-sass (5.12.0)
+      sassc (>= 1.11)
     friendly_id (5.3.0)
       activerecord (>= 4.0.0)
     globalid (0.4.2)
@@ -138,6 +148,13 @@ GEM
     jwt (2.2.1)
     launchy (2.5.0)
       addressable (~> 2.7)
+    less (2.6.0)
+      commonjs (~> 0.2.7)
+    less-rails (2.8.0)
+      actionpack (>= 4.0)
+      less (~> 2.6.0)
+      sprockets (> 2, < 4)
+      tilt
     letter_opener (1.7.0)
       launchy (~> 2.2)
     lograge (0.11.2)
@@ -240,6 +257,13 @@ GEM
       redis-namespace (~> 1.6)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
+    resque-web (0.0.12)
+      coffee-rails
+      font-awesome-sass
+      jquery-rails
+      resque
+      sass-rails
+      twitter-bootstrap-rails
     rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
@@ -309,6 +333,11 @@ GEM
     tilt (2.0.10)
     tins (1.24.1)
       sync
+    twitter-bootstrap-rails (4.0.0)
+      actionpack (~> 5.0, >= 5.0.1)
+      execjs (~> 2.7)
+      less-rails (~> 2.8, >= 2.8.0)
+      railties (~> 5.0, >= 5.0.1)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
@@ -372,6 +401,7 @@ DEPENDENCIES
   rails_12factor
   redcarpet
   resque
+  resque-web
   rspec-rails
   sass-rails
   selenium-webdriver (~> 3.141.0)
