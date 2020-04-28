@@ -18,6 +18,9 @@ class Lesson < ActiveRecord::Base
 
   accepts_nested_attributes_for :lesson_sections
 
+  enum work_type: [ :lesson, :exercise ]
+  enum day_of_week: [ :weekend, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday ]
+
   def section=(new_section)
     if new_section.nil?
       # do nothing

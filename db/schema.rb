@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_27_025756) do
+ActiveRecord::Schema.define(version: 2020_04_28_005338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,8 +53,6 @@ ActiveRecord::Schema.define(version: 2020_04_27_025756) do
   create_table "lessons", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255, null: false
     t.text "content", null: false
-    t.integer "old_section_id"
-    t.integer "old_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
@@ -68,7 +66,11 @@ ActiveRecord::Schema.define(version: 2020_04_27_025756) do
     t.text "teacher_notes"
     t.string "github_path"
     t.bigint "section_id"
+    t.integer "work_type", default: 0
+    t.integer "day_of_week", default: 0
+    t.integer "number"
     t.index ["name"], name: "index_lessons_on_name"
+    t.index ["number"], name: "index_lessons_on_number"
     t.index ["section_id"], name: "index_lessons_on_section_id"
   end
 
