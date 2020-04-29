@@ -31,11 +31,6 @@
       <% else %>
         <%= link_to lesson.name, course_section_lesson_path(@section.course, @section, lesson), class: 'text-muted' %>
       <% end %>
-      <% if can? :create, Lesson %>
-        <%= link_to lesson_path(lesson, section_id: @section.id), data: { confirm: 'Remove lesson from this section only?' }, method: :delete do %>
-          <i class="glyphicon glyphicon-remove"></i>
-        <% end %>
-      <% end %>
     </li>
   <% end %>
 </ul>
