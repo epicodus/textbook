@@ -3,7 +3,6 @@
 		<% if can? :update, Course %>
 			<div class="btn-group">
 				<%= link_to "Edit", edit_course_path(@course), id: "edit_course_#{@course.id}", class: 'btn btn-info' %>
-				<%= link_to "Delete", @course, data: { confirm: 'Delete COURSE?' }, method: :delete, id: "delete_course_#{@course.id}", class: 'btn btn-primary' %>
 				<% if can? :create, Section %>
 					<%= link_to "New Section", new_course_section_path(@course), class: "btn btn-warning" %>
 				<% end %>

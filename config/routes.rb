@@ -21,7 +21,7 @@ Textbook::Application.routes.draw do
   resources :courses, only: [:index, :new, :create] do
     put :update_multiple, on: :collection
   end
-  resources :courses, only: [:edit, :update, :destroy], path: '/'
+  resources :courses, only: [:edit, :update], path: '/'
   resources :courses, only: [:show], path: '/' do
     resources :sections, only: [:index, :new, :create, :edit]
     resources :sections, only: [:show, :update, :destroy], path: '/' do

@@ -33,7 +33,7 @@ class CoursesController < ApplicationController
   end
 
   def update
-    @course = Course.with_deleted.find(params[:id])
+    @course = Course.find(params[:id])
     if params[:deleted]
       @course.restore
       redirect_to course_path(@course), notice: "Course restored."
@@ -52,12 +52,6 @@ class CoursesController < ApplicationController
   def update_multiple
     Course.update(params[:course_attributes].keys, params[:course_attributes].values)
     redirect_to courses_path, notice: "Order Updated"
-  end
-
-  def destroy
-    course = Course.find(params[:id])
-    course.destroy
-    redirect_to courses_path, notice: 'Course deleted.'
   end
 
 private

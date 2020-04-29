@@ -56,41 +56,6 @@ describe Course, js: true do
     expect(page).to_not have_content 'Edit'
   end
 
-  it 'can be deleted by an author' do
-    login_as(author, scope: :user)
-    visit course_path(course)
-    accept_alert do
-      click_link "delete_course_#{course.id}"
-    end
-    expect(page).to have_content 'Course deleted.'
-    expect(page).to have_content 'Deleted Courses:'
-    expect(page).to have_content course.name
-  end
-
-  it 'can be restored by an author' do
-    course.destroy
-    login_as(author, scope: :user)
-    visit courses_path
-    accept_alert do
-      click_link "restore_course_#{course.id}"
-    end
-    expect(page).to have_content course.name
-    expect(page).to_not have_content 'Deleted Courses'
-  end
-
-  it 'cannot be deleted by a student' do
-    login_as(student, scope: :user)
-    visit courses_path
-    expect(page).to_not have_content 'delete'
-  end
-
-  it 'cannot be restored by a student' do
-    course.destroy
-    login_as(student, scope: :user)
-    visit courses_path
-    expect(page).to_not have_content 'Deleted Courses'
-  end
-
   it 'is visible to an author' do
     login_as(author, scope: :user)
     private_course = FactoryBot.create :course, public: false
