@@ -13,13 +13,6 @@ describe Section do
     expect(section.update(number: nil)).to be false
   end
 
-  it 'clears layout_file_path when section deleted' do
-    allow_any_instance_of(Section).to receive(:build_section)
-    section = FactoryBot.create(:section, layout_file_path: 'https://example.com')
-    section.destroy
-    expect(section.layout_file_path).to eq nil
-  end
-
   describe 'layout_file_path callback' do
     it 'runs #build_section when layout_file_path present' do
       section = FactoryBot.build(:section, layout_file_path: "test")
@@ -94,22 +87,6 @@ describe Section do
     expect(new_lesson1.teacher_notes).to eq lesson1.teacher_notes
     expect(new_lesson1.video_id).to eq lesson1.video_id
     expect(new_lesson1.public).to eq lesson1.public
-  end
-
-  context 'paranoia' do
-    it 'archives destroyed section' do
-      section = FactoryBot.create(:section)
-      section.destroy
-      expect(Section.count).to eq 0
-      expect(Section.with_deleted.count).to eq 1
-    end
-
-    it 'restores archived section' do
-      section = FactoryBot.create(:section)
-      section.destroy
-      section.restore
-      expect(Section.count).to eq 1
-    end
   end
 
   describe '#build_section' do

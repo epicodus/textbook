@@ -31,11 +31,8 @@ class SectionsController < ApplicationController
   end
 
   def update
-    @section = Section.with_deleted.find(params[:id])
-    if params[:deleted]
-      @section.restore
-      redirect_to course_path(@section.course), notice: "Section restored."
-    elsif @section.update(section_params)
+    @section = Section.find(params[:id])
+    if @section.update(section_params)
       redirect_to course_section_path(@section.course, @section), notice: "Section updated."
     else
       render 'edit'

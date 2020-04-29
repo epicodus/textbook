@@ -2,8 +2,6 @@ class Section < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, :use => [:slugged, :finders]
 
-  acts_as_paranoid
-
   default_scope -> { order :number }
 
   before_validation :set_number, on: :create
@@ -19,7 +17,6 @@ class Section < ActiveRecord::Base
 
   after_create :build_section, if: ->(section) { section.layout_file_path.present? }
   after_update :build_section, if: ->(section) { section.layout_file_path.present? }
-  before_destroy :remove_layout_file_path
 
   def empty_section!
     lesson_sections.each do |lesson_section|
@@ -84,9 +81,5 @@ private
       errors.add(:name, "cannot be #{name}")
       false
     end
-  end
-
-  def remove_layout_file_path
-    update(layout_file_path: nil)
   end
 end

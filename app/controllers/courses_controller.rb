@@ -39,7 +39,6 @@ class CoursesController < ApplicationController
       redirect_to course_path(@course), notice: "Course restored."
     elsif params[:commit] == 'Save Order'
       update_section_order
-      update_lesson_order
       redirect_to course_path(@course), notice: "Order updated."
     else
       if @course.update(course_params)
@@ -72,12 +71,5 @@ private
   def update_section_order
     sections_params = params[:course][:sections_attributes]
     @course.sections.update(sections_params.keys, sections_params.values)
-  end
-
-  def update_lesson_order
-    params[:course][:lesson_sections_attributes].values.each do |lesson_section_params|
-      lesson_section = LessonSection.find(lesson_section_params[:id])
-      lesson_section.update(number: lesson_section_params[:number])
-    end
   end
 end
