@@ -20,24 +20,11 @@
 <% end %>
 
 <% if can? :manage, Lesson %>
-  <% if @lesson.deleted? %>
-    <h2><%= @lesson.name %></h2>
-    <div class="form-group">
-      <%= form_for @lesson, url: lesson_path(@lesson, deleted: true), method: :patch do |f| %>
-        <%= f.hidden_field :deleted_at, value: nil %>
-        <%= f.submit "Restore", data: { confirm: 'Restore lesson to ALL sections it has ever belonged to?' }, class: "btn btn-info" %>
-      <% end %>
-    </div>
-    <div class="form-group">
-      <%= link_to 'New Lesson', new_lesson_path, class: 'btn btn-success' %>
-    </div>
-  <% else %>
-    <div class="btn-group">
-      <%= link_to "Edit", edit_lesson_path(@lesson), class: "btn btn-info" %>
-      <%= link_to "Delete", lesson_path(@lesson), data: { confirm: 'Delete lesson from ALL sections?' }, method: :delete, class: 'btn btn-primary' %>
-      <%= link_to 'New Lesson', new_lesson_path, class: 'btn btn-success' %>
-    </div>
-  <% end %>
+  <div class="btn-group">
+    <%= link_to "Edit", edit_lesson_path(@lesson), class: "btn btn-info" %>
+    <%= link_to "Delete", lesson_path(@lesson), data: { confirm: 'Delete lesson from ALL sections?' }, method: :delete, class: 'btn btn-primary' %>
+    <%= link_to 'New Lesson', new_lesson_path, class: 'btn btn-success' %>
+  </div>
 <% end %>
 
 

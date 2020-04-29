@@ -24,8 +24,8 @@ class Section < ActiveRecord::Base
   def empty_section!
     lesson_sections.each do |lesson_section|
       lesson = lesson_section.lesson
-      lesson_section.really_destroy!
-      lesson.really_destroy! if lesson.sections.empty?
+      lesson_section.destroy
+      lesson.destroy if lesson.sections.empty?
     end
   end
 

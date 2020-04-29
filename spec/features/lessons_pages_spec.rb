@@ -154,7 +154,7 @@ describe Lesson do
 
     it "shows 404 if lesson not found" do
       login_as(student, scope: :user)
-      lesson.really_destroy!
+      lesson.destroy
       visit course_section_lesson_path(section.course, section, lesson)
       expect(page).to have_content 'Page not found'
     end
@@ -230,49 +230,17 @@ describe Lesson do
     end
   end
 
-  context 'deleting and restoring' do
+  context 'deleting' do
     let(:author) { FactoryBot.create :author }
-    let(:student) { FactoryBot.create :student }
     let!(:section) { FactoryBot.create :section }
     let!(:lesson) { FactoryBot.create :lesson, section: section }
 
     before { login_as(author, scope: :user) }
 
-    it 'is removed from the courses page when it is deleted' do
-      lesson.destroy
-      visit course_path(section.course)
-      click_link section.name
-      expect(page).to have_content 'Removed Lessons:'
-      expect(page).to have_content lesson.name
-    end
-
-    it 'is listed on the deleted lessons page for an author' do
-      lesson.destroy
-      visit course_section_lessons_path(section.course, section) + "?deleted=true"
-      expect(page).to have_content lesson.name
-    end
-
     it 'can be deleted' do
       visit course_section_lesson_path(lesson.sections.first.course, lesson.sections.first, lesson)
       click_link 'Delete'
       expect(page).to have_content 'Lesson deleted.'
-    end
-
-    it 'is not visible to a student' do
-      lesson.destroy
-      login_as(student, scope: :user)
-      visit course_section_lessons_path(section.course, section) + "?deleted=true"
-      click_link lesson.name
-      expect(page).to have_content "Sorry, that lesson isn't finished yet."
-    end
-
-    it 'can be restored' do
-      lesson.destroy
-      visit courses_path
-      click_link 'View Deleted Lessons'
-      click_link lesson.name
-      click_button 'Restore'
-      expect(page).to have_content 'Lesson restored'
     end
   end
 

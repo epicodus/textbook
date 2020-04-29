@@ -2,8 +2,6 @@ class Lesson < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, :use => [:slugged, :finders]
 
-  acts_as_paranoid
-
   validates :name, :presence => true
   validates :content, :presence => true
 
@@ -12,9 +10,6 @@ class Lesson < ActiveRecord::Base
 
   before_validation :set_placeholder_content, if: ->(lesson) { lesson.github_path.present? }
   after_save :update_from_github, if: ->(lesson) { lesson.github_path.present? }
-  before_destroy :set_private, unless: ->(lesson) { lesson.deleted? }
-  after_destroy :remove_slug, if: ->(lesson) { Lesson.only_deleted.exists?(lesson.id) }
-  after_restore :create_slug
 
   accepts_nested_attributes_for :lesson_sections
 
@@ -37,7 +32,7 @@ class Lesson < ActiveRecord::Base
 
   def navigate_to(position, current_section)
     lesson_number = LessonSection.find_by(section_id: current_section.try(:id), lesson_id: id).try(:number)
-    current_section_lessons = LessonSection.where(deleted_at: nil).where(section_id: current_section.try(:id))
+    current_section_lessons = LessonSection.where(section_id: current_section.try(:id))
     if position == :next
       next_lesson = current_section_lessons.where('number > ?', lesson_number).first
       Lesson.find(next_lesson.lesson_id) unless next_lesson.nil?
@@ -78,19 +73,7 @@ class Lesson < ActiveRecord::Base
 
 private
 
-  def set_private
-    update(:public => false)
-  end
-
-  def create_slug
-    save
-  end
-
-  def remove_slug
-    update(slug: nil)
-  end
-
   def should_generate_new_friendly_id?
-    name_changed? || (slug.blank? && !deleted?)
+    slug.blank? || name_changed?
   end
 end
