@@ -4,8 +4,6 @@ class LessonsController < ApplicationController
   def index
     if params[:search]
       find_search_results
-    elsif params[:deleted]
-      find_deleted_lessons
     else
       flash.keep
       redirect_to courses_path
@@ -28,7 +26,7 @@ class LessonsController < ApplicationController
 
   def show
     begin
-      @lesson = Lesson.with_deleted.find(params[:id])
+      @lesson = Lesson.find(params[:id])
       @section = Section.find(params[:section_id]) if params[:section_id]
       @lesson_section = LessonSection.find_by(lesson: @lesson, section: @section)
       authorize! :read, @lesson
@@ -38,30 +36,18 @@ class LessonsController < ApplicationController
   end
 
   def edit
-    @lesson = Lesson.with_deleted.find(params[:id])
+    @lesson = Lesson.find(params[:id])
   end
 
   def update
-    @lesson = Lesson.with_deleted.find(params[:id])
-    if params[:deleted] && params[:section_id]
-      @lesson.restore
-      lesson_section = LessonSection.only_deleted.find_by(lesson: @lesson, section_id: params[:section_id])
-      lesson_section.restore
-      redirect_to course_section_path(lesson_section.section.course, lesson_section.section), notice: "Lesson restored to this section. (Lesson is private.)"
-    elsif params[:deleted]
-      @lesson.restore
-      lesson_sections = LessonSection.only_deleted.where(lesson_id: @lesson.id)
-      lesson_sections.each { |lesson_section| lesson_section.restore }
-      redirect_to lesson_path(@lesson), notice: 'Lesson restored to all its sections. (Lesson is private.)'
+    @lesson = Lesson.find(params[:id])
+    lesson_section_ids = lesson_params.to_h[:lesson_sections_attributes].map { |param| param[1][:id] }
+    lesson_sections_to_delete = LessonSection.where(lesson: @lesson) - LessonSection.find(lesson_section_ids)
+    lesson_sections_to_delete.each(&:destroy)
+    if @lesson.update(lesson_params)
+      redirect_to lesson_path(@lesson), notice: 'Lesson updated.'
     else
-      lesson_section_ids = lesson_params.to_h[:lesson_sections_attributes].map { |param| param[1][:id] }
-      lesson_sections_to_delete = LessonSection.where(lesson: @lesson) - LessonSection.find(lesson_section_ids)
-      lesson_sections_to_delete.each(&:destroy)
-      if @lesson.update(lesson_params)
-        redirect_to lesson_path(@lesson), notice: 'Lesson updated.'
-      else
-        render 'edit'
-      end
+      render 'edit'
     end
   end
 
@@ -98,13 +84,5 @@ private
       @sections = Section.where(id: lesson_sections.map(&:section_id)).where(public: true)
     end
     render :search_results
-  end
-
-  def find_deleted_lessons
-    @lessons = Lesson.only_deleted
-    lesson_sections = LessonSection.only_deleted.where(lesson_id: @lessons.map(&:id))
-    sections = Section.where(id: lesson_sections.map(&:section_id))
-    @courses = sections.map { |section| Course.find(section.course_id) }.uniq
-    render :deleted
   end
 end

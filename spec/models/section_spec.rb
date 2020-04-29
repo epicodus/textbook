@@ -148,8 +148,8 @@ describe Section do
       section = FactoryBot.create(:section)
       2.times { FactoryBot.create(:lesson, section: section) }
       section.empty_section!
-      expect(Lesson.with_deleted.count).to eq 0
-      expect(LessonSection.with_deleted.count).to eq 0
+      expect(Lesson.count).to eq 0
+      expect(LessonSection.count).to eq 0
     end
 
     it 'does not erase lesson if belongs to other sections' do
@@ -159,7 +159,7 @@ describe Section do
       section.empty_section!
       expect(section2.lessons.count).to eq 1
       expect(section2.lesson_sections.count).to eq 1
-      expect(LessonSection.with_deleted.count).to eq 1
+      expect(LessonSection.count).to eq 1
     end
   end
 end

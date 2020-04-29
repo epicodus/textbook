@@ -113,28 +113,6 @@ describe Lesson do
   end
 
   context 'callbacks' do
-    it 'sets public to false before deleting' do
-      lesson = FactoryBot.create :lesson
-      lesson.destroy
-      lesson.reload
-      expect(lesson).to_not be_public
-    end
-
-    it 'removes slug after deleting' do
-      lesson = FactoryBot.create :lesson
-      lesson.destroy
-      lesson.reload
-      expect(lesson.slug).to eq nil
-    end
-
-    it 'creates slug when lesson restored' do
-      lesson = FactoryBot.create :lesson
-      lesson.destroy
-      lesson.restore
-      lesson.reload
-      expect(lesson.slug).to_not eq nil
-    end
-
     describe 'pulling from Github' do
       it 'does not try to pull from github unless github_path present' do
         lesson = FactoryBot.build(:lesson)
@@ -191,22 +169,6 @@ describe Lesson do
       lesson = FactoryBot.create(:lesson, section: section)
       lesson.section=(section_2.id)
       expect(lesson.sections).to eq [section, section_2]
-    end
-  end
-
-  context 'paranoia' do
-    it 'archives destroyed lesson' do
-      lesson = FactoryBot.create(:lesson)
-      lesson.destroy
-      expect(Lesson.count).to eq 0
-      expect(Lesson.with_deleted.count).to eq 1
-    end
-
-    it 'restores archived lesson' do
-      lesson = FactoryBot.create(:lesson)
-      lesson.destroy
-      lesson.restore
-      expect(Lesson.count).to eq 1
     end
   end
 end
