@@ -5,8 +5,6 @@
   <% if can? :manage, :all %>
     <div class="btn-group">
       <%= link_to 'New Course', new_course_path, class: 'btn btn-info' %>
-      <%= link_to 'New Lesson', new_lesson_path, class: "btn btn-success" %>
-      <%= link_to 'View Deleted Lessons', lessons_path + '?deleted=true', class: 'btn btn-primary' %>
       <%= submit_tag "Save Order", id: "save_order", class: "btn btn-danger" %>
     </div>
   <% end %>
