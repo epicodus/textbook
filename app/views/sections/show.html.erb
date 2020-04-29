@@ -12,10 +12,6 @@
       <%= link_to "Edit", edit_course_section_path(@section.course, @section), class: "btn btn-info" %>
       <%= link_to "Delete", course_section_path(@section.course, @section), data: { confirm: 'Delete SECTION?' }, method: :delete, class: 'btn btn-primary' %>
     <% end %>
-
-    <% if can? :create, Lesson %>
-      <%= link_to 'New Lesson', new_lesson_path, :class => "btn btn-success" %>
-    <% end %>
   </div>
 <% end %>
 

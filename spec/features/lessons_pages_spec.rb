@@ -1,131 +1,6 @@
 require 'spec_helper'
 
 describe Lesson do
-  context 'creating' do
-    let(:author) { FactoryBot.create :author }
-    let(:student) { FactoryBot.create :student }
-    let!(:section) { FactoryBot.create :section }
-    let!(:lesson) { FactoryBot.build :lesson, section: section }
-
-    before { login_as(author, scope: :user) }
-
-    it 'lets the author view the New page' do
-      visit new_lesson_path
-      expect(page).to have_content 'New Lesson'
-    end
-
-    it 'does not let students view the New page' do
-      login_as(student, scope: :user)
-      visit courses_path
-      expect(page).to_not have_content 'New Lesson'
-      visit new_lesson_path
-      expect(page).to_not have_content 'New Lesson'
-    end
-
-    it 'lets authors create a lesson' do
-      visit new_lesson_path
-      fill_in 'Name', with: lesson.name
-      fill_in 'Content (use Markdown)', with: lesson.content
-      select section.name, from: 'Sections'
-      click_button 'Save'
-      expect(page).to have_content 'Lesson saved'
-    end
-
-    it 'displays errors if you try to save an invalid lesson' do
-      login_as(author, scope: :user)
-      visit new_lesson_path
-      fill_in 'Name', with: ''
-      click_button 'Save'
-      expect(page).to have_content "Please correct these problems:"
-    end
-
-    it 'can have a video embedded in it' do
-      visit new_lesson_path
-      fill_in 'Name', with: lesson.name
-      fill_in 'Content (use Markdown)', with: lesson.content
-      fill_in 'Video ID', with: lesson.video_id
-      select section.name, from: 'Section'
-      click_button 'Save'
-      expect(page).to have_content 'Lesson saved'
-    end
-
-    it "doesn't have to have video embedded in it" do
-      visit new_lesson_path
-      fill_in 'Name', with: lesson.name
-      fill_in 'Content (use Markdown)', with: lesson.content
-      select section.name, from: 'Section'
-      click_button 'Save'
-      expect(page.html).to_not match /<div id="video">/
-    end
-
-    it 'can have a cheat sheet' do
-      visit new_lesson_path
-      fill_in 'Name', with: lesson.name
-      fill_in 'Content (use Markdown)', with: lesson.content
-      fill_in 'Video ID', with: lesson.video_id
-      fill_in 'Cheat sheet (use Markdown)', with: lesson.cheat_sheet
-      select section.name, from: 'Section'
-      click_button 'Save'
-      expect(page).to have_content 'Lesson saved'
-    end
-
-    it "doesn't have to have a cheat sheet" do
-      visit new_lesson_path
-      fill_in 'Name', with: lesson.name
-      fill_in 'Content (use Markdown)', with: lesson.content
-      select section.name, from: 'Section'
-      click_button 'Save'
-      expect(page).to_not have_content 'Cheat sheet'
-    end
-
-    it 'can have an update warning' do
-      visit new_lesson_path
-      fill_in 'Name', with: lesson.name
-      fill_in 'Content (use Markdown)', with: lesson.content
-      fill_in 'Update warning (use Markdown)', with: lesson.update_warning
-      select section.name, from: 'Section'
-      click_button 'Save'
-      expect(page).to have_content 'Lesson saved'
-    end
-
-    it "doesn't have to have an update warning" do
-      visit new_lesson_path
-      fill_in 'Name', with: lesson.name
-      fill_in 'Content (use Markdown)', with: lesson.content
-      select section.name, from: 'Section'
-      click_button 'Save'
-      expect(page.html).to_not match /alert-danger/
-    end
-
-    it 'can have a teacher notes section' do
-      visit new_lesson_path
-      fill_in 'Name', with: lesson.name
-      fill_in 'Content (use Markdown)', with: lesson.content
-      fill_in 'Teacher notes (use Markdown)', with: lesson.teacher_notes
-      select section.name, from: 'Section'
-      click_button 'Save'
-      expect(page).to have_content 'Lesson saved'
-    end
-
-    it "doesn't have to have a teacher notes section" do
-      visit new_lesson_path
-      fill_in 'Name', with: lesson.name
-      fill_in 'Content (use Markdown)', with: lesson.content
-      select section.name, from: 'Section'
-      click_button 'Save'
-      expect(page.html).to_not match /alert-danger/
-    end
-
-    it 'uses markdown to format lessons' do
-      visit new_lesson_path
-      fill_in 'Name', with: lesson.name
-      fill_in 'Content (use Markdown)', with: '*This* is Markdown.'
-      select section.name, from: 'Section'
-      click_button 'Save'
-      expect(page).to have_content 'Lesson saved'
-    end
-  end
-
   context 'viewing' do
     let(:author) { FactoryBot.create :author }
     let(:student) { FactoryBot.create :student }
@@ -158,37 +33,19 @@ describe Lesson do
       visit course_section_lesson_path(section.course, section, lesson)
       expect(page).to have_content 'Page not found'
     end
-  end
 
-  context 'editing' do
-    let(:author) { FactoryBot.create :author }
-    let(:student) { FactoryBot.create :student }
-    let!(:section) { FactoryBot.create :section }
-    let!(:lesson) { FactoryBot.create :lesson, section: section }
-
-    before { login_as(author, scope: :user) }
-
-    it 'can be edited by an author' do
+    it "links to github path, if available, for teachers" do
+      lesson.update_columns(github_path: 'example.com')
+      login_as(author, scope: :user)
       visit course_section_lesson_path(section.course, section, lesson)
-      click_link "Edit"
-      fill_in 'Name', with: 'Updated lesson'
-      click_button 'Save'
-      expect(page).to have_content 'Lesson updated'
+      expect(page).to have_selector(:css, 'a[href="example.com"]')
     end
 
-    it "displays errors if you try to save an invalid lesson when editing" do
-      visit edit_lesson_path(lesson)
-      fill_in 'Name', with: ''
-      click_button 'Save'
-      expect(page).to have_content "Please correct these problems:"
-    end
-
-    it 'cannot be edited by a student' do
+    it "does not link to github path for students" do
+      lesson.update_columns(github_path: 'example.com')
       login_as(student, scope: :user)
       visit course_section_lesson_path(section.course, section, lesson)
-      expect(page).to_not have_content 'Edit lesson'
-      visit edit_lesson_path(lesson)
-      expect(page).to_not have_content 'Edit'
+      expect(page).to_not have_selector(:css, 'a[href="example.com"]')
     end
   end
 
@@ -227,20 +84,6 @@ describe Lesson do
       public_lesson = FactoryBot.create :lesson, section: section
       visit course_section_path(section.course, section)
       expect(page).to_not have_content private_lesson.content
-    end
-  end
-
-  context 'deleting' do
-    let(:author) { FactoryBot.create :author }
-    let!(:section) { FactoryBot.create :section }
-    let!(:lesson) { FactoryBot.create :lesson, section: section }
-
-    before { login_as(author, scope: :user) }
-
-    it 'can be deleted' do
-      visit course_section_lesson_path(lesson.sections.first.course, lesson.sections.first, lesson)
-      click_link 'Delete'
-      expect(page).to have_content 'Lesson deleted.'
     end
   end
 

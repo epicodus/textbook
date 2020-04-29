@@ -17,7 +17,7 @@ Textbook::Application.routes.draw do
   get 'table-of-contents', to: redirect('courses')
 
   resources :tracks, only: [:index, :show]
-  resources :lessons
+  resources :lessons, only: [:index, :show]
   resources :courses, only: [:index, :new, :create] do
     put :update_multiple, on: :collection
   end

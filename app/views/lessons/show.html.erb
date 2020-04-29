@@ -9,24 +9,17 @@
   <span class="label label-primary"><%= @lesson_section.day_of_week.titlecase %></span>
 <% end %>
 
-<% unless params[:deleted] %>
-  <ul class="breadcrumb">
-    <% if @section %>
-      <li><%= link_to @section.course.name, course_path(@section.course) %></li>
-      <li><%= link_to @section.name, course_section_path(@section.course, @section) %></li>
-    <% end %>
+<ul class="breadcrumb">
+  <% if @section %>
+    <li><%= link_to @section.course.name, course_path(@section.course) %></li>
+    <li><%= link_to @section.name, course_section_path(@section.course, @section) %></li>
+  <% end %>
+  <% if can? :manage, Lesson && @lesson.github_path.present? %>
+    <li class="active"><%= link_to @lesson.name, @lesson.github_path, target: '_blank' %></li>
+  <% else %>
     <li class="active"><%= @lesson.name %></li>
-  </ul>
-<% end %>
-
-<% if can? :manage, Lesson %>
-  <div class="btn-group">
-    <%= link_to "Edit", edit_lesson_path(@lesson), class: "btn btn-info" %>
-    <%= link_to "Delete", lesson_path(@lesson), data: { confirm: 'Delete lesson from ALL sections?' }, method: :delete, class: 'btn btn-primary' %>
-    <%= link_to 'New Lesson', new_lesson_path, class: 'btn btn-success' %>
-  </div>
-<% end %>
-
+  <% end %>
+</ul>
 
 <ul class="nav nav-tabs">
   <% if @lesson.has_video? %>
