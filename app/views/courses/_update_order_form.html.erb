@@ -13,21 +13,6 @@
 			<ul class='sortable list-unstyled'>
 				<%= render @course.sections, f: f %>
 			</ul>
-
-			<% if @course.sections.only_deleted.any? %>
-				<hr>
-				<h3>Deleted Sections:</h3>
-				<ul class="list-unstyled">
-					<% @course.sections.only_deleted.each do |section| %>
-						<li>
-							<%= section.name %>
-							<%= link_to course_section_path(@course, section, deleted: true), data: { confirm: 'Restore section?' }, method: :patch, id: "restore_section_#{section.id}" do %>
-								<i class="glyphicon glyphicon-repeat"></i>
-							<% end %>
-						</li>
-					<% end %>
-				</ul>
-			<% end %>
 		<% else %>
 			<ul class="sections-list list-unstyled"><%= render @course.sections.accessible_by(current_ability) %></ul>
 		<% end %>
