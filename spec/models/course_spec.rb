@@ -59,20 +59,4 @@ describe Course do
     expect(new_course.sections.first.lessons).to eq course.sections.first.lessons
     expect(new_course.sections.last.lessons).to eq course.sections.last.lessons
   end
-
-  context 'paranoia' do
-    it 'archives destroyed course' do
-      course = FactoryBot.create(:course)
-      course.destroy
-      expect(Course.count).to eq 0
-      expect(Course.with_deleted.count).to eq 1
-    end
-
-    it 'restores archived course' do
-      course = FactoryBot.create(:course)
-      course.destroy
-      course.restore
-      expect(Course.count).to eq 1
-    end
-  end
 end
