@@ -23,14 +23,14 @@
   <ul class="lesson">
     <% section.lessons.accessible_by(current_ability).each do |lesson| %>
       <li>
-        <% if LessonSection.find_by(lesson: lesson, section: section).lesson? %>
+        <% if lesson.lesson? %>
           <i class="glyphicon glyphicon-book"></i>
         <% else %>
           <i class="glyphicon glyphicon-pencil"></i>
         <% end %>
 
         <% unless section.try(:course).try(:dateless) %>
-          <%= LessonSection.find_by(lesson: lesson.id, section: section.id).day_of_week.titlecase %>
+          <%= lesson.day_of_week.titlecase %>
         <% end %>
 
         <% if lesson.public? %>
