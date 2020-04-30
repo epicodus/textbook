@@ -12,7 +12,7 @@ task :export_offline_links_list => [:environment] do
       file.puts ""
     end
     Course.all.each do |course|
-      if course.public
+      if course.public && !['Android', 'User Interfaces'].include? course.name
         file.puts("")
         file.puts("COURSE: #{course.name.upcase}")
         course.sections.each do |section|
