@@ -4,7 +4,7 @@ describe Section, js: true do
   let(:author) { FactoryBot.create(:author) }
   let(:student) { FactoryBot.create(:student) }
   let!(:course) { FactoryBot.create(:course) }
-  let!(:section) { FactoryBot.create(:section) }
+  let!(:section) { FactoryBot.create(:section, course: course) }
 
   it 'can be created by an author' do
     login_as(author, scope: :user)

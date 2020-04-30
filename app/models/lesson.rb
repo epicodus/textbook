@@ -1,6 +1,6 @@
 class Lesson < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :name, :use => [:slugged, :finders]
+  friendly_id :name, :use => [:slugged, :finders, :scoped], :scope => :section
 
   default_scope -> { order :number }
 
