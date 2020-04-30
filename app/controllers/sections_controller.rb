@@ -22,16 +22,19 @@ class SectionsController < ApplicationController
   end
 
   def show
-    @section = Section.find(params[:id])
+    course = Course.find(params[:course_id])
+    @section = course.sections.find(params[:id])
     authorize! :read, @section
   end
 
   def edit
-    @section = Section.find(params[:id])
+    course = Course.find(params[:course_id])
+    @section = course.sections.find(params[:id])
   end
 
   def update
-    @section = Section.find(params[:id])
+    course = Course.find(params[:course_id])
+    @section = course.sections.find(params[:id])
     if @section.update(section_params)
       redirect_to course_section_path(@section.course, @section), notice: "Section updated."
     else
@@ -40,7 +43,8 @@ class SectionsController < ApplicationController
   end
 
   def destroy
-    @section = Section.find(params[:id])
+    course = Course.find(params[:course_id])
+    @section = course.sections.find(params[:id])
     @section.destroy
     redirect_to course_path(@section.course), notice: 'Section deleted.'
   end

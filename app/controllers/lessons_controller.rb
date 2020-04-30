@@ -12,8 +12,14 @@ class LessonsController < ApplicationController
 
   def show
     begin
-      @lesson = Lesson.find(params[:id])
-      @section = Section.find(params[:section_id]) if params[:section_id]
+      if params[:section_id]
+        course = Course.find(params[:course_id])
+        @section = course.sections.find(params[:section_id])
+        @lesson = @section.lessons.find(params[:id])
+      else
+        # will likely soon remove lesson availability from /lessons
+        @lesson = Lesson.find(params[:id]) # random lesson w/ this friendly id
+      end
       authorize! :read, @lesson
     rescue ActiveRecord::RecordNotFound
       render file: "#{Rails.root}/public/404", status: :not_found
