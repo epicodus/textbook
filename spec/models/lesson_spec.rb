@@ -1,7 +1,33 @@
 describe Lesson do
+  it { should belong_to :section }
   it { should validate_presence_of :content }
   it { should validate_presence_of :name }
-  it { should have_many(:sections).through(:lesson_sections) }
+
+  describe 'validations' do
+    it 'validates that a lesson always has a number' do
+      lesson = FactoryBot.create(:lesson)
+      expect(lesson.update(number: nil)).to be false
+    end
+
+    it 'validates that a lesson always has a number that is an integer' do
+      section = FactoryBot.create(:section)
+      lesson = FactoryBot.create(:lesson)
+      expect(lesson.update(number: 1.7)).to be false
+    end
+  end
+
+  describe 'default scope' do
+    let(:section) { FactoryBot.create(:section) }
+    let(:last_lesson) { FactoryBot.create :lesson, section: section}
+    let(:first_lesson) { FactoryBot.create :lesson, section: section }
+
+    it 'sorts by the number by default' do
+      first_lesson.update(number: 1)
+      last_lesson.update(number: 2)
+      expect(section.lessons.first).to eq first_lesson
+      expect(section.lessons.last).to eq last_lesson
+    end
+  end
 
   it 'changes the slug on update' do
     lesson = FactoryBot.create :lesson
@@ -15,11 +41,11 @@ describe Lesson do
 
     it 'returns the lesson with the next-highest number than the current lesson' do
       next_lesson = FactoryBot.create :lesson, section: section
-      expect(current_lesson.navigate_to(:next, section)).to eq next_lesson
+      expect(current_lesson.navigate_to(:next)).to eq next_lesson
     end
 
     it 'returns nil when there is only one lesson in a section' do
-      expect(current_lesson.navigate_to(:next, section)).to eq nil
+      expect(current_lesson.navigate_to(:next)).to eq nil
     end
   end
 
@@ -30,13 +56,13 @@ describe Lesson do
     let!(:next_lesson) { FactoryBot.create(:lesson, section: section) }
 
     it 'returns the lesson with the next-lowest number than the current lesson' do
-      expect(current_lesson.navigate_to(:previous, section)).to eq previous_lesson
+      expect(current_lesson.navigate_to(:previous)).to eq previous_lesson
     end
 
     it 'returns nil when there is only one lesson in a section' do
       new_section = FactoryBot.create(:section)
       solo_lesson = FactoryBot.create(:lesson, section: new_section)
-      expect(solo_lesson.navigate_to(:previous, section)).to eq nil
+      expect(solo_lesson.navigate_to(:previous)).to eq nil
     end
   end
 
@@ -45,13 +71,13 @@ describe Lesson do
 
     it 'returns false if there is no next lesson' do
       current_lesson = FactoryBot.create :lesson, section: section
-      expect(current_lesson.can_navigate_to(:next, section)).to be false
+      expect(current_lesson.can_navigate_to(:next)).to be false
     end
 
     it 'returns true if there is a next lesson' do
       current_lesson = FactoryBot.create :lesson, section: section
       next_lesson = FactoryBot.create :lesson, section: section
-      expect(current_lesson.can_navigate_to(:next, section)).to be true
+      expect(current_lesson.can_navigate_to(:next)).to be true
     end
   end
 
@@ -60,20 +86,14 @@ describe Lesson do
 
     it 'returns false if there is no previous lesson' do
       current_lesson = FactoryBot.create :lesson, section: section
-      expect(current_lesson.can_navigate_to(:previous, section)).to be false
+      expect(current_lesson.can_navigate_to(:previous)).to be false
     end
 
     it 'returns true if there is a previous lesson' do
       previous_lesson = FactoryBot.create :lesson, section: section
       current_lesson = FactoryBot.create :lesson, section: section
-      expect(current_lesson.can_navigate_to(:previous, section)).to be true
+      expect(current_lesson.can_navigate_to(:previous)).to be true
     end
-  end
-
-  it 'updates the slug when a lesson name is updated' do
-    lesson = FactoryBot.create(:lesson)
-    lesson.update(name: 'New awesome lesson')
-    expect(lesson.slug).to eq 'new-awesome-lesson'
   end
 
   context '#has_video?' do
@@ -151,24 +171,6 @@ describe Lesson do
         expect(lesson.teacher_notes).to eq 'test teacher notes'
         expect(lesson.video_id).to eq 'test video id'
       end
-    end
-  end
-
-  context 'setter methods' do
-    it 'adds a section for the lesson with section_id=' do
-      section = FactoryBot.create(:section)
-      section_2 = FactoryBot.create(:section)
-      lesson = FactoryBot.create(:lesson, section: section)
-      lesson.section_id=(section_2.id)
-      expect(lesson.sections).to eq [section, section_2]
-    end
-
-    it 'adds a section for the lesson with section=' do
-      section = FactoryBot.create(:section)
-      section_2 = FactoryBot.create(:section)
-      lesson = FactoryBot.create(:lesson, section: section)
-      lesson.section=(section_2.id)
-      expect(lesson.sections).to eq [section, section_2]
     end
   end
 end

@@ -56,7 +56,7 @@ describe Course do
     lesson2 = FactoryBot.create(:lesson, section: section1)
     lesson3 = FactoryBot.create(:lesson, section: section2)
     new_course = course.deep_clone
-    expect(new_course.sections.first.lessons).to eq course.sections.first.lessons
-    expect(new_course.sections.last.lessons).to eq course.sections.last.lessons
+    expect(new_course.sections.first.lessons.first.content).to eq course.sections.first.lessons.first.content
+    expect(new_course.sections.last.lessons.last.content).to eq course.sections.last.lessons.last.content
   end
 end

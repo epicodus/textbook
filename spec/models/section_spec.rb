@@ -1,7 +1,6 @@
 describe Section do
-  it { should validate_presence_of :course }
-  it { should have_many(:lessons).through(:lesson_sections) }
   it { should belong_to :course }
+  it { should have_many(:lessons).dependent(:destroy) }
 
   it "validates the presence of name" do
     section = FactoryBot.build(:section, name: nil)
@@ -11,6 +10,19 @@ describe Section do
   it 'validates that a section always has a number' do
     section = FactoryBot.create(:section)
     expect(section.update(number: nil)).to be false
+  end
+
+  describe 'default scope' do
+    let(:course) { FactoryBot.create(:course) }
+    let(:last_section) { FactoryBot.create :section, course: course}
+    let(:first_section) { FactoryBot.create(:section, course: course) }
+
+    it 'sorts by the number by default' do
+      first_section.update(number: 1)
+      last_section.update(number: 2)
+      expect(course.sections.first).to eq first_section
+      expect(course.sections.last).to eq last_section
+    end
   end
 
   describe 'layout_file_path callback' do
@@ -40,14 +52,10 @@ describe Section do
       section = FactoryBot.build(:section, name: 'Courses')
       expect(section.valid?).to be false
     end
-  end
-
-  it 'sorts by the number by default' do
-    course = FactoryBot.create :course
-    first_section = FactoryBot.create :section, course: course
-    last_section = FactoryBot.create :section, course: course
-    expect(Section.first).to eq first_section
-    expect(Section.last).to eq last_section
+    it 'validates that name is not tracks' do
+      section = FactoryBot.build(:section, name: 'Tracks')
+      expect(section.valid?).to be false
+    end
   end
 
   it 'updates the slug when a section name is updated' do
@@ -65,28 +73,8 @@ describe Section do
     expect(new_section).to_not eq section
     expect(new_section.name).to eq section.name
     expect(new_section.public).to eq section.public
-    expect(new_section.lesson_sections).to_not eq section.lessons
-    expect(new_section.lessons).to eq section.lessons
-  end
-
-  it 'duplicates lessons within section' do
-    section = FactoryBot.create(:section)
-    allow_any_instance_of(Lesson).to receive(:update_from_github)
-    lesson1 = FactoryBot.create(:lesson, section: section, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
-    lesson2 = FactoryBot.create(:lesson, section: section)
-    section.detach_lessons
-    expect(section).to eq section
-    new_lesson1 = section.lessons.find_by(name: lesson1.name)
-    expect(new_lesson1).to_not eq lesson1
-    expect(new_lesson1.slug).to_not eq lesson1.slug
-    expect(new_lesson1.github_path).to eq nil
-    expect(new_lesson1.name).to eq lesson1.name
-    expect(new_lesson1.content).to eq lesson1.content
-    expect(new_lesson1.cheat_sheet).to eq lesson1.cheat_sheet
-    expect(new_lesson1.update_warning).to eq lesson1.update_warning
-    expect(new_lesson1.teacher_notes).to eq lesson1.teacher_notes
-    expect(new_lesson1.video_id).to eq lesson1.video_id
-    expect(new_lesson1.public).to eq lesson1.public
+    expect(new_section.lessons.first.content).to eq section.lessons.first.content
+    expect(new_section.lessons.first).to_not eq section.lessons.first
   end
 
   describe '#build_section' do
@@ -95,11 +83,10 @@ describe Section do
       allow_any_instance_of(Lesson).to receive(:update_from_github)
       section = FactoryBot.create(:section, layout_file_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/layout.yaml")
       lesson = section.lessons.first
-      lesson_section = section.lesson_sections.first
       expect(lesson.name).to eq 'test title'
       expect(lesson.content).to eq 'Lesson queued for update... hit refresh soon!'
-      expect(lesson_section.day_of_week).to eq 'monday'
-      expect(lesson_section.work_type).to eq 'lesson'
+      expect(lesson.day_of_week).to eq 'monday'
+      expect(lesson.work_type).to eq 'lesson'
     end
 
     it 'rebuilds section when layout file path changed' do
@@ -117,26 +104,6 @@ describe Section do
     it 'raises exception when invalid layout file path' do
       expect { FactoryBot.create(:section, layout_file_path: "https://example.com") }.to raise_error(ActiveRecord::RecordInvalid).with_message("Validation failed: Invalid Github path")
       expect(Section.all).to eq []
-    end
-  end
-
-  describe '#empty_section!' do
-    it 'erases all lesson_sections & actual lessons if lesson unique to this section' do
-      section = FactoryBot.create(:section)
-      2.times { FactoryBot.create(:lesson, section: section) }
-      section.empty_section!
-      expect(Lesson.count).to eq 0
-      expect(LessonSection.count).to eq 0
-    end
-
-    it 'does not erase lesson if belongs to other sections' do
-      lesson = FactoryBot.create(:lesson)
-      section = lesson.sections.first
-      section2 = FactoryBot.create(:section, lessons: [lesson])
-      section.empty_section!
-      expect(section2.lessons.count).to eq 1
-      expect(section2.lesson_sections.count).to eq 1
-      expect(LessonSection.count).to eq 1
     end
   end
 end

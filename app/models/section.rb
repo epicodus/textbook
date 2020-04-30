@@ -4,27 +4,17 @@ class Section < ActiveRecord::Base
 
   default_scope -> { order :number }
 
+  belongs_to :course
+  has_many :lessons, :dependent => :destroy
+
   before_validation :set_number, on: :create
 
   validates :name, :presence => true
   validates :number, :presence => true
-  validates :course, :presence => true
   validate :name_does_not_conflict_with_routes
-
-  has_many :lesson_sections, inverse_of: :section
-  has_many :lessons, through: :lesson_sections
-  belongs_to :course
 
   after_create :build_section, if: ->(section) { section.layout_file_path.present? }
   after_update :build_section, if: ->(section) { section.layout_file_path.present? }
-
-  def empty_section!
-    lesson_sections.each do |lesson_section|
-      lesson = lesson_section.lesson
-      lesson_section.destroy
-      lesson.destroy if lesson.sections.empty?
-    end
-  end
 
   def build_section
     begin
@@ -33,11 +23,16 @@ class Section < ActiveRecord::Base
       errors.add(:base, e.message)
       raise ActiveRecord::RecordInvalid, self
     end
-    empty_section!
+    lessons.destroy_all
     lessons_params.each do |day_params|
       day_params[:lessons].each do |lesson_params|
-        lesson = Lesson.create(name: lesson_params[:title], github_path: lesson_params[:github_path], public: true)
-        lesson_sections.create(day_of_week: day_params[:day], work_type: lesson_params[:work_type], lesson: lesson)
+        lesson = lessons.new
+        lesson.name = lesson_params[:title]
+        lesson.github_path = lesson_params[:github_path]
+        lesson.work_type = lesson_params[:work_type]
+        lesson.day_of_week = day_params[:day]
+        lesson.public = true
+        lesson.save
       end
     end
   end
@@ -47,22 +42,12 @@ class Section < ActiveRecord::Base
     new_section.layout_file_path = nil
     new_section.course = course_to_assign_to
     new_section.save
-    lesson_sections.each do |lesson_section|
-      new_lesson_section = lesson_section.dup
-      new_lesson_section.section = new_section
-      new_lesson_section.save
+    lessons.each do |lesson|
+      new_lesson = lesson.dup
+      new_lesson.section = new_section
+      new_lesson.save
     end
     new_section
-  end
-
-  def detach_lessons
-    lesson_sections.each do |ls|
-      new_lesson = ls.lesson.dup
-      new_lesson.github_path = nil
-      new_lesson.save
-      ls.lesson = new_lesson
-      ls.save
-    end
   end
 
 private

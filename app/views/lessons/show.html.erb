@@ -1,12 +1,12 @@
 <% provide :title, @lesson.name %>
-<% provide :course, @section.try(:course).try(:name) || @lesson_section.try(:section).try(:course).try(:name) %>
+<% provide :course, @section.try(:course).try(:name) || @lesson.try(:section).try(:course).try(:name) %>
 
-<% if @lesson_section.try(:work_type) %>
-  <span class="label label-info"><%= @lesson_section.work_type.titlecase %></span>
+<% if @lesson.try(:work_type) %>
+  <span class="label label-info"><%= @lesson.work_type.titlecase %></span>
 <% end %>
 
-<% if @lesson_section.try(:day_of_week) && !@lesson_section.try(:section).try(:course).try(:dateless) %>
-  <span class="label label-primary"><%= @lesson_section.day_of_week.titlecase %></span>
+<% if @lesson.try(:day_of_week) && !@lesson.try(:section).try(:course).try(:dateless) %>
+  <span class="label label-primary"><%= @lesson.day_of_week.titlecase %></span>
 <% end %>
 
 <ul class="breadcrumb">
@@ -14,7 +14,7 @@
     <li><%= link_to @section.course.name, course_path(@section.course) %></li>
     <li><%= link_to @section.name, course_section_path(@section.course, @section) %></li>
   <% end %>
-  <% if can? :manage, Lesson && @lesson.github_path.present? %>
+  <% if (can? :manage, Lesson) && @lesson.github_path.present? %>
     <li class="active"><%= link_to @lesson.name, @lesson.github_path, target: '_blank' %></li>
   <% else %>
     <li class="active"><%= @lesson.name %></li>
@@ -69,4 +69,6 @@
   <p class="text-center text-muted">Last updated <%= time_ago_in_words(@lesson.updated_at) %> ago</p>
 <% end %>
 
-<%= render 'navbar' %>
+<% if @section %>
+  <%= render 'navbar' %>
+<% end %>
