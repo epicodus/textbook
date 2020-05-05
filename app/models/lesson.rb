@@ -61,6 +61,6 @@ private
   end
 
   def set_number
-    self.number = section.try(:lessons).try(:last).try(:number).to_i + 1
+    self.number = section.try(:lessons).try('reorder', 'number').try(:last).try(:number).to_i + 1
   end
 end
