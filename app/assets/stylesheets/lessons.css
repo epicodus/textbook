@@ -32,3 +32,7 @@ img {
   margin-right: auto;
   max-width: 100%;
 }
+
+img.full-width {
+  width: 100% !important;
+}
