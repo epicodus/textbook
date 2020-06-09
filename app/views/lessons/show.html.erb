@@ -65,9 +65,7 @@
   <% end %>
 </div>
 
-<% if can? :manage, Lesson %>
-  <p class="text-center text-muted">Last updated <%= time_ago_in_words(@lesson.updated_at) %> ago</p>
-<% end %>
+<p class="text-center text-muted">Last updated <%= time_ago_in_words(@lesson.updated_at) %> ago</p>
 
 <% if @section %>
   <%= render 'navbar' %>
