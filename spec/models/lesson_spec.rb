@@ -132,6 +132,15 @@ describe Lesson do
     end
   end
 
+  context '#index' do
+    it 'returns index of lesson in that section' do
+      section = FactoryBot.create(:section)
+      lesson_1 = FactoryBot.create(:lesson, section: section)
+      lesson_2 = FactoryBot.create(:lesson, section: section)
+      expect(lesson_2.index).to eq 1
+    end
+  end
+
   context 'callbacks' do
     describe 'pulling from Github' do
       it 'does not try to pull from github unless github_path present' do
