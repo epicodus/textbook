@@ -54,6 +54,10 @@ class Lesson < ActiveRecord::Base
     lesson.update_columns(content: lesson_params[:content], cheat_sheet: lesson_params[:cheat_sheet], teacher_notes: lesson_params[:teacher_notes], video_id: lesson_params[:video_id])
   end
 
+  def index
+    section.lessons.find_index(self)
+  end
+
 private
 
   def should_generate_new_friendly_id?
