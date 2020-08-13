@@ -61,7 +61,7 @@ GEM
       sassc (>= 2.0.0)
     bootswatch-rails (3.3.5)
       railties (>= 3.1)
-    bugsnag (6.15.0)
+    bugsnag (6.16.0)
       concurrent-ruby (~> 1.0)
     builder (3.2.4)
     cancancan (3.1.0)
@@ -87,7 +87,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     commonjs (0.2.7)
-    concurrent-ruby (1.1.6)
+    concurrent-ruby (1.1.7)
     coveralls (0.8.23)
       json (>= 1.8, < 3)
       simplecov (~> 0.16.1)
