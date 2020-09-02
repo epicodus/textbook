@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_29_211654) do
+ActiveRecord::Schema.define(version: 2020_09_02_200747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,10 +22,8 @@ ActiveRecord::Schema.define(version: 2020_04_29_211654) do
     t.datetime "updated_at", null: false
     t.string "slug", limit: 255, null: false
     t.boolean "public", default: false, null: false
-    t.datetime "deleted_at"
     t.boolean "dateless"
     t.integer "level"
-    t.index ["deleted_at"], name: "index_courses_on_deleted_at"
     t.index ["name"], name: "index_courses_on_name", unique: true
   end
 
@@ -36,26 +34,11 @@ ActiveRecord::Schema.define(version: 2020_04_29_211654) do
     t.index ["track_id", "course_id"], name: "index_courses_tracks_on_track_id_and_course_id"
   end
 
-  create_table "lesson_sections", id: :serial, force: :cascade do |t|
-    t.integer "lesson_id"
-    t.integer "section_id"
-    t.integer "number"
-    t.datetime "deleted_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "work_type", default: 0
-    t.integer "day_of_week", default: 0
-    t.index ["lesson_id"], name: "index_lesson_sections_on_lesson_id"
-    t.index ["number"], name: "index_lesson_sections_on_number"
-    t.index ["section_id"], name: "index_lesson_sections_on_section_id"
-  end
-
   create_table "lessons", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255, null: false
     t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
     t.string "slug", limit: 255
     t.boolean "public", default: false, null: false
     t.string "video_id", limit: 255
@@ -83,9 +66,7 @@ ActiveRecord::Schema.define(version: 2020_04_29_211654) do
     t.string "slug", limit: 255, null: false
     t.boolean "public", default: false, null: false
     t.integer "week"
-    t.datetime "deleted_at"
     t.string "layout_file_path"
-    t.index ["deleted_at"], name: "index_sections_on_deleted_at"
     t.index ["name"], name: "index_sections_on_name"
   end
 
