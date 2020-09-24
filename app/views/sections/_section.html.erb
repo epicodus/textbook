@@ -20,7 +20,7 @@
       <%= section_form.hidden_field :number, :class => :section_number %>
     <% end %>
   <% end %>
-  <ul class="lesson">
+  <ol class="lesson">
     <% section.lessons.accessible_by(current_ability).each do |lesson| %>
       <li>
         <% if lesson.lesson? %>
@@ -28,7 +28,6 @@
         <% else %>
           <i class="glyphicon glyphicon-pencil"></i>
         <% end %>
-
         <% unless section.try(:course).try(:dateless) %>
           <%= lesson.day_of_week.titlecase %>
         <% end %>
@@ -40,5 +39,5 @@
         <% end %>
       <% end %>
     </li>
-  </ul>
+  </ol>
 </li>

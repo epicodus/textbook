@@ -15,7 +15,7 @@
   </div>
 <% end %>
 
-<ul class="lessons-list list-unstyled">
+<ol class="lessons-list">
   <% @section.lessons.accessible_by(current_ability).each do |lesson| %>
     <li>
       <% if lesson.lesson? %>
@@ -33,4 +33,4 @@
       <% end %>
     </li>
   <% end %>
-</ul>
+</ol>
