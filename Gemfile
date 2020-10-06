@@ -35,7 +35,7 @@ group :development do
 end
 
 group :test, :development do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 4.0.1'
   gem 'pry'
   gem 'hirb'
   gem 'dotenv-rails'
