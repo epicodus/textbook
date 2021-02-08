@@ -1,72 +1,16 @@
 {
-  "name":"textbook-test-review-app",
-  "scripts":{
-    "postdeploy": "bundle exec rake db:setup"
-  },
-  "env":{
-    "ACTION_MAILER_DEFAULT_URL_HOST":{
-      "required":true
-    },
-    "ACTION_MAILER_SMTP_ADDRESS":{
-      "required":true
-    },
-    "ACTION_MAILER_SMTP_DOMAIN":{
-      "required":true
-    },
-    "ACTION_MAILER_SMTP_PASSWORD":{
-      "required":true
-    },
-    "ACTION_MAILER_SMTP_PORT":{
-      "required":true
-    },
-    "ACTION_MAILER_SMTP_USER_NAME":{
-      "required":true
-    },
-    "DEVISE_MAILER_SENDER":{
-      "required":true
-    },
-    "GEM_PATH":{
-      "required":true
-    },
-    "HEROKU_APP_ID":{
-      "required":true
-    },
-    "HEROKU_APP_NAME":{
-      "required":true
-    },
-    "HEROKU_RELEASE_VERSION":{
-      "required":true
-    },
-    "HEROKU_SLUG_COMMIT":{
-      "required":true
-    },
-    "HEROKU_SLUG_DESCRIPTION":{
-      "required":true
-    },
-    "LANG":{
-      "required":true
-    },
-    "PATH":{
-      "required":true
-    },
-    "RACK_ENV":{
-      "required":true
-    },
-    "RAILS_ENV":{
-      "required":true
-    },
-    "RAILS_SECRET_KEY_BASE":{
-      "required":true
-    },
-    "RAILS_SECRET_TOKEN":{
-      "required":true
-    },
-    "WEB_CONCURRENCY":{
-      "required":true
+  "environments": {
+    "test": {
+      "buildpacks": [
+        { "url": "heroku/ruby" },
+        { "url": "https://github.com/heroku/heroku-buildpack-chromedriver" },
+        { "url": "heroku/google-chrome" }
+      ],
+      "addons":[
+        "logentries",
+        "heroku-postgresql:in-dyno",
+        "heroku-redis:in-dyno"
+      ]
     }
-  },
-  "addons":[
-    "heroku-postgresql",
-    "logentries"
-  ]
+  }
 }
