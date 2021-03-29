@@ -20,3 +20,4 @@ coverage
 
 # Don't check cassettes into github
 /spec/cassettes
+.vscode/
