@@ -22,7 +22,7 @@ describe Section, js: true do
     click_link 'New Section'
     fill_in 'Name', with: 'Awesome section'
     fill_in 'Section week', with: '1'
-    fill_in 'Section Layout File URL', with: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/layout.yaml"
+    fill_in 'Section Layout File URL', with: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/main/static_for_automated_testing/layout.yaml"
     allow_any_instance_of(GithubReader).to receive(:parse_layout_file).and_return({})
     expect_any_instance_of(GithubReader).to receive(:parse_layout_file)
     click_button 'Create Section'
