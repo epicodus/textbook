@@ -4,7 +4,7 @@ class GithubCallbacksController < ApplicationController
   def create
     github_callback = GithubCallback.new(params)
     begin
-      if github_callback.push_to_master?
+      if github_callback.push_to_main?
         github_callback.update_sections
         github_callback.update_lessons
       end

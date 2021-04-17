@@ -8,7 +8,7 @@
     "X-GitHub-Event": "push"
   },
   "body": {
-    "ref": "refs/heads/master",
+    "ref": "refs/heads/main",
     "before": "7d48baf68c5e5f40a5a2c57f060e9941f66afc4b",
     "after": "700bb07ad6d92b87defa6bf256ec85db9ac0e7ed",
     "created": false,
@@ -161,9 +161,9 @@
       "forks": 0,
       "open_issues": 0,
       "watchers": 0,
-      "default_branch": "master",
+      "default_branch": "main",
       "stargazers": 0,
-      "master_branch": "master",
+      "master_branch": "main",
       "organization": "epicodus-classroom"
     },
     "pusher": {

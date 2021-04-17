@@ -151,14 +151,14 @@ describe Lesson do
 
       it 'tries to update lesson from github when github_path present' do
         allow(GithubLessonReaderJob).to receive(:perform_later).and_return({})
-        lesson = FactoryBot.build(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
+        lesson = FactoryBot.build(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/main/README.md")
         expect(GithubLessonReaderJob).to receive(:perform_later)
         lesson.save
       end
 
       it "updates lesson content" do
         lesson = FactoryBot.create(:lesson)
-        lesson.update_columns(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
+        lesson.update_columns(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/main/README.md")
         allow_any_instance_of(GithubReader).to receive(:pull_lesson).and_return({:content=>"updated content", :cheat_sheet=>nil, :teacher_notes=>nil, :video_id=>nil})
         expect(lesson.content).to eq 'This is the lesson content.'
         Lesson.update_from_github(lesson)
@@ -171,7 +171,7 @@ describe Lesson do
 
       it "updates lesson content, cheat sheet, teacher notes, video id when present" do
         lesson = FactoryBot.create(:lesson)
-        lesson.update_columns(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
+        lesson.update_columns(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/main/README.md")
         allow_any_instance_of(GithubReader).to receive(:pull_lesson).and_return({ content: 'new lesson content', cheat_sheet: 'test cheat sheet', teacher_notes: 'test teacher notes', video_id: 'test video id' })
         Lesson.update_from_github(lesson)
         lesson.reload

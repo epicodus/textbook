@@ -79,9 +79,9 @@ describe Section do
 
   describe '#build_section' do
     it 'builds section from github when URL included' do
-      allow_any_instance_of(GithubReader).to receive(:parse_layout_file).and_return([{:day=>"monday", :lessons=>[{:title=>"test title", :filename=>"README.md", :work_type=>"lesson", :github_path=>"https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/README.md"}]}])
+      allow_any_instance_of(GithubReader).to receive(:parse_layout_file).and_return([{:day=>"monday", :lessons=>[{:title=>"test title", :filename=>"README.md", :work_type=>"lesson", :github_path=>"https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/main/static_for_automated_testing/README.md"}]}])
       allow_any_instance_of(Lesson).to receive(:update_from_github)
-      section = FactoryBot.create(:section, layout_file_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/layout.yaml")
+      section = FactoryBot.create(:section, layout_file_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/main/static_for_automated_testing/layout.yaml")
       lesson = section.lessons.first
       expect(lesson.name).to eq 'test title'
       expect(lesson.content).to eq 'Lesson queued for update... hit refresh soon!'
@@ -93,7 +93,7 @@ describe Section do
       section = FactoryBot.create(:section, layout_file_path: nil)
       allow_any_instance_of(Section).to receive(:build_section).and_return({})
       expect_any_instance_of(Section).to receive(:build_section)
-      section.update(layout_file_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/static_for_automated_testing/layout.yaml")
+      section.update(layout_file_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/main/static_for_automated_testing/layout.yaml")
     end
 
     it 'does not build section from github when URL not included' do

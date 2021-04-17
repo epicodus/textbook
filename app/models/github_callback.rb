@@ -7,13 +7,13 @@ class GithubCallback
     @event = params
   end
 
-  def push_to_master?
-    branch == 'refs/heads/master'
+  def push_to_main?
+    branch == 'refs/heads/main'
   end
 
   def update_sections
     layouts_modified.each do |path|
-      full_path = "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{path}"
+      full_path = "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/main/#{path}"
       Section.where(layout_file_path: full_path).each do |section|
         section.try(:build_section)
       end
@@ -49,7 +49,7 @@ private
 
   def update_modified_lessons
     lessons_modified.each do |file|
-      lessons = Lesson.where(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{file}")
+      lessons = Lesson.where(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/main/#{file}")
       lessons.each do |lesson|
         lesson.update_from_github
         lesson.save
@@ -59,7 +59,7 @@ private
 
   def update_removed_lessons
     lessons_removed.each do |filename|
-      lessons = Lesson.where(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/master/#{filename}")
+      lessons = Lesson.where(github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}/blob/main/#{filename}")
       lessons.update_all(content: 'Removed from Github', cheat_sheet: nil, teacher_notes: nil, public: false)
     end
   end

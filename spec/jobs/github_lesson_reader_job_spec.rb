@@ -16,7 +16,7 @@ RSpec.describe GithubLessonReaderJob, type: :job do
   end
 
   it "executes lesson.update_from_github" do
-    lesson = FactoryBot.build(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/master/README.md")
+    lesson = FactoryBot.build(:lesson, github_path: "https://github.com/#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/testing/blob/main/README.md")
     allow_any_instance_of(GithubReader).to receive(:pull_lesson).and_return({:content=>"test content", :cheat_sheet=>nil, :teacher_notes=>nil, :video_id=>nil})
     expect(Lesson).to receive(:update_from_github).with(lesson)
     lesson.save
