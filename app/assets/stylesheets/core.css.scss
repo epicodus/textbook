@@ -2,6 +2,18 @@ body, h1, h2, h3, h4, h5, h6, div, p, a, input, button {
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Open Sans', sans-serif !important;
 }
 
+h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
+  color: #283a6a;
+}
+
+h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited {
+  color: #3a56a2;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+  color: #3a56a2;
+}
+
 body {
   font-size: 1.8rem !important;
   padding-top: 60px;
