@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.7.2'
+ruby '2.7.4'
 
-gem 'rails', '~> 5.2.4'
+gem 'rails', '~> 5.2.6'
 gem 'pg'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
