@@ -43,6 +43,7 @@
         </button>
         <ul class="nav navbar-nav">
           <%= link_to 'Tracks', tracks_path, class: 'navbar-brand' %>
+          <%= link_to 'Handbook', lesson_path('student-handbook'), class: 'navbar-brand' %>
           <li><%= yield :forward_back %></li>
         </ul>
       </div>
