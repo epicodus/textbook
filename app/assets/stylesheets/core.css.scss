@@ -58,3 +58,9 @@ ul.breadcrumb {
   margin: 20px;
   display: inline;
 }
+
+@media (max-width: 767px) {
+  .navbar-handbook-link {
+    display: none;
+  }
+}
