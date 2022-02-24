@@ -42,7 +42,7 @@ private
 
   def read_file(filename:, repo: @repo, directory: @directory)
     begin
-      path = directory == '/' ? "/#{filename}" : "/#{directory}/#{filename}"
+      path = directory == '/' ? filename : "#{directory}/#{filename}"
       client.contents("#{ENV['GITHUB_CURRICULUM_ORGANIZATION']}/#{repo}", path: path, accept: 'application/vnd.github.3.raw')
     rescue Faraday::Error => e
       raise GithubError, e.message
@@ -74,7 +74,7 @@ private
   def new_jwt_token
     private_pem = ENV['GITHUB_APP_PEM']
     private_key = OpenSSL::PKey::RSA.new(private_pem)
-    payload = { iat: Time.now.to_i, exp: 9.minutes.from_now.to_i, iss: ENV['GITHUB_APP_ID'] }
+    payload = { iat: Time.now.to_i - 60, exp: 9.minutes.from_now.to_i, iss: ENV['GITHUB_APP_ID'] }
     JWT.encode(payload, private_key, "RS256")
   end
 end

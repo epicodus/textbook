@@ -1,4 +1,4 @@
-describe GithubReader, vcr: true do
+describe GithubReader, vcr: false do
   it 'raises error for invalid layout_file_path' do
     expect { GithubReader.new('example.com') }.to raise_error(GithubError).with_message("Invalid Github path")
   end
