@@ -1,15 +1,4 @@
 Textbook::Application.routes.draw do
-  require "resque_web"
-
-  resque_web_constraint = lambda do |request|
-    current_user = request.env['warden'].user
-    current_user.present? && current_user.author?
-  end
-
-  constraints resque_web_constraint do
-    mount ResqueWeb::Engine => "/resque_web"
-  end
-
   devise_for :users
 
   root to: 'home#show'
