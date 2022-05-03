@@ -16,16 +16,7 @@ Warden.test_mode!
 
 WebMock.enable!
 
-chrome_bin = ENV.fetch('GOOGLE_CHROME_SHIM', nil)
-chrome_opts = chrome_bin ? { "chromeOptions" => { "binary" => chrome_bin } } : { "goog:chromeOptions": { args: ['headless'] } }
-Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new(
-     app,
-     browser: :chrome,
-     desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(chrome_opts)
-  )
-end
-Capybara.javascript_driver = :chrome
+Capybara.javascript_driver = :selenium_chrome_headless
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
