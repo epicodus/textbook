@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.7.4'
+ruby '2.7.6'
 
-gem 'rails', '~> 5.2.6'
+gem 'rails', '~> 5.2.8'
 gem 'pg'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -22,7 +22,7 @@ gem 'httparty'
 gem 'jwt'
 gem 'octokit'
 gem 'psych'
-gem "sprockets", "~> 3.7.2" # temp until issue fixed
+gem 'sprockets'
 gem 'resque'
 
 group :development do
