@@ -419,7 +419,7 @@ DEPENDENCIES
   psych
   puma
   rack-mini-profiler
-  rails (~> 6.0)
+  rails (~> 6.1.6)
   rails_12factor
   redcarpet
   resque
