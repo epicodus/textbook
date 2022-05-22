@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.7.6'
 
-gem 'rails', '~> 5.2.8'
+gem 'rails', '~> 6.0'
 gem 'pg'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -30,6 +30,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'letter_opener'
   gem 'rack-mini-profiler'
+  gem 'listen'
 end
 
 group :test, :development do
