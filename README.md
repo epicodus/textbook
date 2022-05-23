@@ -37,5 +37,10 @@ Here is a list of environmental variables that need to be set:
 * NEW_RELIC_APP_NAME
 * RAILS_SECRET_TOKEN (a default value is provided for development and test environments)
 * WEB_CONCURRENCY (for Unicorn workers; defaults to 3)
+* GITHUB_APP_ID
+* GITHUB_INSTALLATION_ID
+* GITHUB_CURRICULUM_ORGANIZATION
+* GITHUB_APP_PEM
+* ZAPIER_ERROR_REPORTING_WEBHOOK
 
-Currently it is not necessary to set any of them in development or test environments.
+Only the last 5 (GitHub and Zapier ones) need to be set in test and development environments.
