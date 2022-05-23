@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.7.6'
 
-gem 'rails', '~> 6.1.6'
+gem 'rails', '~> 7.0'
 gem 'pg'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -17,12 +17,12 @@ gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'bootstrap-multiselect-rails'
 gem 'sass-rails'
-gem 'mailgun-ruby', require: 'mailgun'
+gem 'mailgun-ruby'
 gem 'httparty'
 gem 'jwt'
 gem 'octokit'
 gem 'psych'
-gem 'sprockets'
+gem 'sprockets-rails'
 gem 'resque'
 
 group :development do
@@ -34,15 +34,15 @@ group :development do
 end
 
 group :test, :development do
-  gem 'rspec-rails', '~> 4.0.1'
+  gem 'rspec-rails'
   gem 'pry'
   gem 'hirb'
   gem 'dotenv-rails'
 end
 
 group :test do
-  gem 'shoulda-matchers', '4.0.0.rc1'
-  gem 'factory_bot_rails', '~> 4.11'
+  gem 'shoulda-matchers'
+  gem 'factory_bot_rails'
   gem 'capybara'
   gem 'capybara-selenium'
   gem 'selenium-webdriver'
