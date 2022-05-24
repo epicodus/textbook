@@ -81,7 +81,18 @@
       (function() { var s = document.createElement("script"); s.type = "text/javascript"; s.async = true; s.src = '//api.usersnap.com/load/aa1422f9-9ca9-4942-8b1c-830007020e3d.js';
       var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); })();
     </script>
-    <!-- end usersnap live embed code -->
+    <!-- end OLD usersnap live embed code -->
+  <% end %>
+  <% if Rails.env != 'test' %>
+    <script>
+      window.onUsersnapCXLoad = function(api) {
+        api.init();
+      }
+      var script = document.createElement('script');
+      script.defer = 1;
+      script.src = 'https://widget.usersnap.com/global/load/bfabd51e-64e5-4f0f-99d0-e88a059f7611?onload=onUsersnapCXLoad';
+      document.getElementsByTagName('head')[0].appendChild(script);
+    </script>
   <% end %>
 </body>
 </html>
