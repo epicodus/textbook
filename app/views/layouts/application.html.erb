@@ -75,15 +75,6 @@
   </footer>
 
   <% if Rails.env != 'test' %>
-    <!-- begin usersnap live embed code -->
-    <script type="text/javascript">
-      var _usersnapconfig = { loadHandler: function() {UserSnap.on('beforeSend', function(obj) { obj.label = "<%= yield :course %>"; }) } };
-      (function() { var s = document.createElement("script"); s.type = "text/javascript"; s.async = true; s.src = '//api.usersnap.com/load/aa1422f9-9ca9-4942-8b1c-830007020e3d.js';
-      var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); })();
-    </script>
-    <!-- end OLD usersnap live embed code -->
-  <% end %>
-  <% if Rails.env != 'test' %>
     <script>
       window.onUsersnapCXLoad = function(api) {
         api.init();
