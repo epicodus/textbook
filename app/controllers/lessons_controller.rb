@@ -16,11 +16,12 @@ class LessonsController < ApplicationController
         course = Course.find(params[:course_id])
         @section = course.sections.find(params[:section_id])
         @lesson = @section.lessons.find(params[:id])
+        authorize! :read, @lesson
+        render :show
       else
-        # will likely soon remove lesson availability from /lessons
-        @lesson = Lesson.find(params[:id]) # random lesson w/ this friendly id
+        @lessons = Lesson.active_lessons.where(slug: params[:id])
+        render :lesson_chooser
       end
-      authorize! :read, @lesson
     rescue ActiveRecord::RecordNotFound
       render file: Rails.root.join('public/404.html'), status: :not_found
     end

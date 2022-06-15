@@ -87,6 +87,34 @@ describe Lesson do
     end
   end
 
+  context 'lesson disambiguation' do
+    let(:track) { FactoryBot.create :track }
+    let(:course) { FactoryBot.create :course, tracks: [track] }
+    let(:section) { FactoryBot.create :section, course: course }
+    let!(:lesson) { FactoryBot.create :lesson, section: section, content: 'lesson 1 content' }
+    let(:course_2) { FactoryBot.create :course, tracks: [track] }
+    let(:section_2) { FactoryBot.create :section, course: course_2 }
+    let!(:lesson_2) { FactoryBot.create :lesson, section: section_2, name: lesson.name, content: 'lesson 2 content' }
+    
+    it 'shows list of courses lesson belongs to' do
+      visit lesson_path(lesson)
+      expect(page).to have_content lesson.name
+      expect(page).to have_content course.name
+      expect(page).to have_content course_2.name
+    end
+
+    it 'allows navigation to lesson' do
+      visit lesson_path(lesson)
+      click_on course.name
+      expect(page).to have_content lesson.content
+    end
+
+    it 'informs user if no lesson found' do
+      visit lesson_path('non-existent-lesson')
+      expect(page).to have_content 'Oops'
+    end
+  end
+
   context 'searching' do
     let!(:lesson) { FactoryBot.create :lesson }
 

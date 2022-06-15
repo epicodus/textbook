@@ -23,6 +23,14 @@ describe Course do
     expect(Course.last).to eq last_course
   end
 
+  describe '.where_public' do
+    it 'returns only public lessons' do
+      public_lesson = FactoryBot.create(:lesson, public: true)
+      private_lesson = FactoryBot.create(:lesson, public: false)
+      expect(Lesson.where_public).to eq [public_lesson]
+    end
+  end
+
   it 'returns courses that have sections' do
     course_with_section = FactoryBot.create(:course)
     course_without_section = FactoryBot.create(:course)
