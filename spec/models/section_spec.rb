@@ -25,6 +25,14 @@ describe Section do
     end
   end
 
+  describe '.where_public' do
+    it 'returns only public lessons' do
+      public_lesson = FactoryBot.create(:lesson, public: true)
+      private_lesson = FactoryBot.create(:lesson, public: false)
+      expect(Lesson.where_public).to eq [public_lesson]
+    end
+  end
+
   describe 'layout_file_path callback' do
     it 'runs #build_section when layout_file_path present' do
       section = FactoryBot.build(:section, layout_file_path: "test")

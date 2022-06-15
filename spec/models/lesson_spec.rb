@@ -29,6 +29,25 @@ describe Lesson do
     end
   end
 
+  describe '.where_public' do
+    it 'returns only public lessons' do
+      public_lesson = FactoryBot.create(:lesson, public: true)
+      private_lesson = FactoryBot.create(:lesson, public: false)
+      expect(Lesson.where_public).to eq [public_lesson]
+    end
+  end
+
+  describe '.active_lessons' do
+    it 'returns public lessons that belong to public tracks' do
+      public_lesson = FactoryBot.create(:lesson, public: true)
+      track = FactoryBot.create(:track)
+      course = FactoryBot.create(:course, tracks: [track])
+      section = FactoryBot.create(:section, course: course)
+      public_lesson_in_track = FactoryBot.create(:lesson, section: section, public: true)
+      expect(Lesson.active_lessons).to eq [public_lesson_in_track]
+    end
+  end
+
   it 'changes the slug on update' do
     lesson = FactoryBot.create :lesson
     lesson.update(:name => 'New name')

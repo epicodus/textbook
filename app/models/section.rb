@@ -3,6 +3,7 @@ class Section < ActiveRecord::Base
   friendly_id :name, :use => [:slugged, :finders, :scoped], :scope => :course
 
   default_scope -> { order :number }
+  scope :where_public, -> { where(public: true) }
 
   belongs_to :course
   has_many :lessons, :dependent => :destroy

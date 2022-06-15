@@ -3,6 +3,7 @@ class Lesson < ActiveRecord::Base
   friendly_id :name, :use => [:slugged, :finders, :scoped], :scope => :section
 
   default_scope -> { order :number }
+  scope :where_public, -> { where(public: true) }
 
   belongs_to :section
 
@@ -27,6 +28,12 @@ class Lesson < ActiveRecord::Base
 
   def can_navigate_to(position)
     self.navigate_to(position) != nil
+  end
+
+  def self.active_lessons
+    courses = Course.where_public.where(id: Course.select {|course| course.tracks.where(public: true).any?})
+    sections = Section.where_public.where(course: courses)
+    lessons = Lesson.where_public.where(section: sections)
   end
 
   def has_video?
