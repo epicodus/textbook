@@ -1,10 +1,15 @@
 <% provide :title, 'Routing Menu' %>
 <div class='well'>
   <% if @lessons.any? %>
-    <h3>Select the program you're in to view the lesson "<%= @lessons.last.name %>":</h3>
+    <p><strong>Select the program you're in to view the lesson <em><%= @lessons.last.name %></em>:</strong></p>
+    <br>
     <ul class='list-unstyled'>
       <% @lessons.each do |lesson| %>
-        <li><%= link_to lesson.section.course.name, course_section_lesson_path(lesson.section.course, lesson.section, lesson) %></li>
+        <li>
+          <%= lesson.section.course.name.include?('Part-Time') ? 'Part-Time: ' : 'Full-Time: ' %>
+          <%= link_to lesson.section.course.name, course_section_lesson_path(lesson.section.course, lesson.section, lesson) %>
+        </li>
+        <br>
       <% end %>
     </ul>
   <% else %>
