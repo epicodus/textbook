@@ -1,6 +1,8 @@
 require "application_responder"
 
 class ApplicationController < ActionController::Base
+  before_action :set_student_handbook
+
   self.responder = ApplicationResponder
   respond_to :html, :js
 
@@ -17,5 +19,14 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     courses_path
+  end
+
+private
+  def set_student_handbook
+    begin
+      @handbook = Course.first.try(:sections).try(:first).try(:lessons).try('find', 'student-handbook')
+    rescue ActiveRecord::RecordNotFound
+      @handbook = nil
+    end
   end
 end

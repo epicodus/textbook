@@ -1,6 +1,7 @@
+<% provide :title, 'Routing Menu' %>
 <div class='well'>
   <% if @lessons.any? %>
-    <h3><%= @lessons.last.name %></h3>
+    <h3>Select the program you're in to view the lesson "<%= @lessons.last.name %>":</h3>
     <ul class='list-unstyled'>
       <% @lessons.each do |lesson| %>
         <li><%= link_to lesson.section.course.name, course_section_lesson_path(lesson.section.course, lesson.section, lesson) %></li>
