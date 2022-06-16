@@ -103,6 +103,17 @@ describe Lesson do
       expect(page).to have_content course_2.name
     end
 
+    it 'prepends part-time if course description contains part-time' do
+      course.update(name: 'JavaScript Part-Time')
+      visit lesson_path(lesson)
+      expect(page).to have_content 'Part-Time: '
+    end
+
+    it 'prepends full-time if course description does not contain part-time' do
+      visit lesson_path(lesson)
+      expect(page).to have_content 'Full-Time: '
+    end
+
     it 'allows navigation to lesson' do
       visit lesson_path(lesson)
       click_on course.name
