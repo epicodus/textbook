@@ -64,3 +64,7 @@ ul.breadcrumb {
     display: none;
   }
 }
+
+div.active > *:not(:first-child, hr) {
+  margin-top: 25px;
+}
