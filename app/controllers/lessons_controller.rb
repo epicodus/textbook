@@ -14,15 +14,24 @@ class LessonsController < ApplicationController
     begin
       if params[:section_id]
         course = Course.find(params[:course_id])
-        @section = course.sections.find(params[:section_id])
-        @lesson = @section.lessons.find(params[:id])
+        section = course.sections.find(params[:section_id])
+        @lesson = section.lessons.find(params[:id])
         authorize! :read, @lesson
         render :show
+      elsif request.referer.try('split', '/').try(:fourth)
+        course_slug = request.referer.split('/').fourth
+        course = Course.find(course_slug)
+        lesson = Lesson.find_by(slug: params[:id], section: course.try(:sections))
+        redirect_to course_section_lesson_path(course, lesson.try(:section), lesson)
       else
         @lessons = Lesson.active_lessons.where(slug: params[:id])
-        render :lesson_chooser
+        if @lessons.any?
+          render :lesson_chooser
+        else
+          raise ActiveRecord::RecordNotFound
+        end
       end
-    rescue ActiveRecord::RecordNotFound
+    rescue ActiveRecord::RecordNotFound, ActionController::UrlGenerationError
       render file: Rails.root.join('public/404.html'), status: :not_found
     end
   end

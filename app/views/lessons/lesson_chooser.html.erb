@@ -1,18 +1,14 @@
 <% provide :title, 'Routing Menu' %>
 <div class='well'>
-  <% if @lessons.any? %>
-    <p><strong>Select the program you're in to view the lesson <em><%= @lessons.last.name %></em>:</strong></p>
-    <br>
-    <ul class='list-unstyled'>
-      <% @lessons.each do |lesson| %>
-        <li>
-          <%= lesson.section.course.name.include?('Part-Time') ? 'Part-Time: ' : 'Full-Time: ' %>
-          <%= link_to lesson.section.course.name, course_section_lesson_path(lesson.section.course, lesson.section, lesson) %>
-        </li>
-        <br>
-      <% end %>
-    </ul>
-  <% else %>
-    Oops, it looks like you found a bad link.
-  <% end %>
+  <p><strong>Select the program you're in to view the lesson <em><%= @lessons.last.name %></em>:</strong></p>
+  <br>
+  <ul class='list-unstyled'>
+    <% @lessons.each do |lesson| %>
+      <li>
+        <%= lesson.section.course.name.include?('Part-Time') ? 'Part-Time: ' : 'Full-Time: ' %>
+        <%= link_to lesson.section.course.name, course_section_lesson_path(lesson.section.course, lesson.section, lesson) %>
+      </li>
+      <br>
+    <% end %>
+  </ul>
 </div>
