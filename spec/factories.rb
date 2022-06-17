@@ -10,6 +10,12 @@ FactoryBot.define do
     password {'password'}
   end
 
+  factory :track do
+    sequence(:name) {|n| "Track #{n}"}
+    public { true }
+    sequence(:number) {|n| n}
+  end
+
   factory :course do
     sequence(:name) {|n| "Course #{n}"}
     public { true }
@@ -32,11 +38,5 @@ FactoryBot.define do
     video_id { 12345 }
     association :section, :factory => :section
     public { true }
-  end
-
-  factory :track do
-    sequence(:name) {|n| "Track #{n}"}
-    public { true }
-    sequence(:number) {|n| n}
   end
 end

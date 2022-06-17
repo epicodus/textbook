@@ -92,37 +92,66 @@ describe Lesson do
     let(:course) { FactoryBot.create :course, tracks: [track] }
     let(:section) { FactoryBot.create :section, course: course }
     let!(:lesson) { FactoryBot.create :lesson, section: section, content: 'lesson 1 content' }
-    let(:course_2) { FactoryBot.create :course, tracks: [track] }
-    let(:section_2) { FactoryBot.create :section, course: course_2 }
-    let!(:lesson_2) { FactoryBot.create :lesson, section: section_2, name: lesson.name, content: 'lesson 2 content' }
     
-    it 'shows list of courses lesson belongs to' do
-      visit lesson_path(lesson)
-      expect(page).to have_content lesson.name
-      expect(page).to have_content course.name
-      expect(page).to have_content course_2.name
+    context 'without referrer url' do
+      it 'shows list of courses lesson belongs to' do
+        course_2 = FactoryBot.create :course, tracks: [track]
+        section_2 = FactoryBot.create :section, course: course_2
+        lesson_2 = FactoryBot.create :lesson, section: section_2, name: lesson.name
+        visit lesson_path(lesson)
+        expect(page).to have_content lesson.name
+        expect(page).to have_content course.name
+        expect(page).to have_content lesson_2.section.course.name
+      end
+
+      it 'prepends part-time if course description contains part-time' do
+        course.update(name: 'JavaScript Part-Time')
+        visit lesson_path(lesson)
+        expect(page).to have_content 'Part-Time: '
+      end
+
+      it 'prepends full-time if course description does not contain part-time' do
+        visit lesson_path(lesson)
+        expect(page).to have_content 'Full-Time: '
+      end
+
+      it 'allows navigation to lesson' do
+        visit lesson_path(lesson)
+        click_on course.name
+        expect(page).to have_content lesson.content
+      end
+
+      it 'informs user if no lesson found' do
+        visit lesson_path('non-existent-lesson')
+        expect(page).to have_content '404'
+      end
     end
 
-    it 'prepends part-time if course description contains part-time' do
-      course.update(name: 'JavaScript Part-Time')
-      visit lesson_path(lesson)
-      expect(page).to have_content 'Part-Time: '
-    end
+    context 'with referrer url' do  
+      it 'routes to the correct lesson' do
+        lesson_same_course = FactoryBot.create(:lesson, section: section, content: "<a href='/lessons/#{lesson.slug}'>link to lesson</a>")
+        visit course_section_lesson_path(lesson_same_course.section.course, lesson_same_course.section, lesson_same_course)
+        click_on 'link to lesson'
+        expect(page).to have_content lesson.content
+        expect(current_path).to eq course_section_lesson_path(lesson.section.course, lesson.section, lesson)
+      end
 
-    it 'prepends full-time if course description does not contain part-time' do
-      visit lesson_path(lesson)
-      expect(page).to have_content 'Full-Time: '
-    end
+      it 'routes to the correct lesson when same lesson in multiple courses' do
+        lesson_same_course = FactoryBot.create(:lesson, section: section, content: 'should see this')
+        lesson_other_course = FactoryBot.create(:lesson, section: FactoryBot.create(:section), name: lesson_same_course.name, content: 'should not see this')
+        lesson.update(content: "<a href='/lessons/#{lesson_other_course.slug}'>link to lesson</a>")
+        visit course_section_lesson_path(lesson.section.course, lesson.section, lesson)
+        click_on 'link to lesson'
+        expect(page).to have_content 'should see this'
+        expect(current_path).to eq course_section_lesson_path(lesson_same_course.section.course, lesson_same_course.section, lesson_same_course)
+      end
 
-    it 'allows navigation to lesson' do
-      visit lesson_path(lesson)
-      click_on course.name
-      expect(page).to have_content lesson.content
-    end
-
-    it 'informs user if no lesson found' do
-      visit lesson_path('non-existent-lesson')
-      expect(page).to have_content 'Oops'
+      it 'informs user if no lesson found in that section' do
+        lesson_other_course = FactoryBot.create(:lesson, section: FactoryBot.create(:section), content: "<a href='/lessons/#{lesson.slug}'>link to lesson</a>")
+        visit course_section_lesson_path(lesson_other_course.section.course, lesson_other_course.section, lesson_other_course)
+        click_on 'link to lesson'
+        expect(page).to have_content '404'
+      end
     end
   end
 
