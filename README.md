@@ -25,21 +25,8 @@ Environmental variables can be set in .bashrc, a .env file for use with Foreman,
 
 Here is a list of environmental variables that need to be set:
 
-* ACTION_MAILER_DEFAULT_URL_HOST
-* ACTION_MAILER_SMTP_ADDRESS
-* ACTION_MAILER_SMTP_DOMAIN
-* ACTION_MAILER_SMTP_PORT
-* ACTION_MAILER_SMTP_USER_NAME
-* ACTION_MAILER_SMTP_PASSWORD
-* DEVISE_MAILER_SENDER
-* NEW_RELIC_LICENSE_KEY
-* NEW_RELIC_APP_NAME
-* RAILS_SECRET_TOKEN (a default value is provided for development and test environments)
-* WEB_CONCURRENCY (for Unicorn workers; defaults to 3)
 * GITHUB_APP_ID
 * GITHUB_INSTALLATION_ID
 * GITHUB_CURRICULUM_ORGANIZATION
 * GITHUB_APP_PEM
 * ZAPIER_ERROR_REPORTING_WEBHOOK
-
-Only the last 5 (GitHub and Zapier ones) need to be set in test and development environments.
