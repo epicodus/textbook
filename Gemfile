@@ -58,5 +58,5 @@ group :production do
   gem 'rails_12factor'
   gem 'lograge'
   gem 'bugsnag'
-  gem 'puma'
+  gem 'puma', '< 6'
 end
