@@ -20,6 +20,12 @@
   height: 10em;
 }
 
+@media (min-width: 1800px) {
+  .container {
+    width: 90%;
+  }
+}
+
 pre ul {
   line-height: 0;
   margin-bottom: -15px;
