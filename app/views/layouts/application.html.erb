@@ -84,6 +84,9 @@
             course: window.location.pathname.split('/')[1]
           }
         })
+        api.on('open', function(event) {
+          event.api.setValue('labels', [window.location.pathname.split('/')[1]])
+        })
       }
       var script = document.createElement('script');
       script.defer = 1;
