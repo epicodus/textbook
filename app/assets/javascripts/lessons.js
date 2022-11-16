@@ -8,4 +8,8 @@ $(function () {
   });
 
   $(".video").fitVids();
+
+  if(document.getElementById("table-of-contents")) {
+    $('a[target="_blank"]').removeAttr('target');
+  }
 });
