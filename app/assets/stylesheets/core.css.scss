@@ -59,12 +59,6 @@ ul.breadcrumb {
   display: inline;
 }
 
-@media (max-width: 767px) {
-  .navbar-handbook-link {
-    display: none;
-  }
-}
-
 div.active > *:not(:first-child, hr) {
   margin-top: 25px;
 }
