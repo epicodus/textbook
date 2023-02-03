@@ -1,8 +1,8 @@
 <% provide :forward_back do %>
   <% if @lesson.can_navigate_to(:previous) %>
-    <li><%= link_to 'Previous', course_section_lesson_path(@lesson.section.course, @lesson.section, @lesson.navigate_to(:previous)) %></li>
+    <li><%= link_to 'Previous', course_section_lesson_path(@lesson.section.course, @lesson.section, @lesson.navigate_to(:previous)), id: 'navbar-previous' %></li>
   <% end %>
   <% if @lesson.can_navigate_to(:next) %>
-    <li><%= link_to 'Next', course_section_lesson_path(@lesson.section.course, @lesson.section, @lesson.navigate_to(:next)) %></li>
+    <li><%= link_to 'Next', course_section_lesson_path(@lesson.section.course, @lesson.section, @lesson.navigate_to(:next)), id: 'navbar-next' %></li>
   <% end %>
 <% end %>

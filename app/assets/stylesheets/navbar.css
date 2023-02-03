@@ -5,3 +5,20 @@
 .navbar-header>ul>a {
   margin-left: 1em;
 }
+
+#navbar-bottom-previous-link {
+  float: left;
+}
+#navbar-bottom-next-link {
+  float: right;
+}
+
+#lesson-footer {
+  font-size: smaller;
+}
+
+@media (max-width: 767px) {
+  .navbar-handbook-link {
+    display: none;
+  }
+}
