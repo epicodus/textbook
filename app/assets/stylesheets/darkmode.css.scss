@@ -65,7 +65,12 @@ body.darkmode {
   }
 
   h1, h2, h3, h4, h5, h6 {
-    color:rgb(144, 145, 180) !important;
+    color:rgb(156, 120, 246) !important;
+  }
+
+  strong {
+    // font-weight: 800;
+    color: #cdcdcd;
   }
 
   .tab-content {
@@ -101,7 +106,7 @@ body.darkmode {
   }
 
   pre {
-    background: #2f2f2f;
+    background: #393939;
     border-top: 1px solid rgb(96, 95, 95);
     border-bottom: 1px solid rgb(96, 95, 95);
     border-left: 1px solid rgb(96, 95, 95);
@@ -110,14 +115,14 @@ body.darkmode {
 
   // prettyprint
   .prettyprint {
-    background-color: #272727;
+    background-color: #393939;
   }
   .com { color: #c1bec1; }
   .lit { color: #2586cb; }
   .pun, .opn, .clo { color: #c1bec1; }
   .fun { color: #dc322f; }
-  .str, .atv { color: rgb(227, 131, 198); }
-  .kwd, .prettyprint .tag { color: #84cdd2; }
-  .typ, .atn, .dec, .var { color: rgb(175, 117, 198); }
+  .str, .atv { color: rgb(237, 100, 196); }
+  .kwd, .prettyprint .tag { color: #3be0eb; }
+  .typ, .atn, .dec, .var { color: rgb(204, 121, 237); }
   .pln { color: #c1bec1; }
 }
