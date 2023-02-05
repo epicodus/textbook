@@ -62,3 +62,8 @@ ul.breadcrumb {
 div.active > *:not(:first-child, hr) {
   margin-top: 25px;
 }
+
+#change-theme {
+  cursor: pointer;
+  color: rgb(217, 35, 15);
+}

@@ -18,7 +18,7 @@
   <%= javascript_include_tag "application" %>
 
 </head>
-<body>
+<body class=<%= cookies[:theme] %>>
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
@@ -27,6 +27,10 @@
         <% end %>
         <% if alert %>
           <div class="alert alert-danger"><%= alert %></div>
+        <% end %>
+
+        <% if request.base_url.try('include?', 'staging') %>
+          <p class='text-center text-danger'><strong>STAGING SERVER &mdash; FOR TESTING ONLY</strong></p>
         <% end %>
 
         <%= yield %>
@@ -72,6 +76,7 @@
   <footer class="footer">
     <div class="container">
       <p><a href="http://www.epicodus.com" target=_blank><img id="epicodus-logo" src="https://static1.squarespace.com/static/5524448ee4b0d6f6b83ab9e2/t/57cf3de246c3c4d2933aa57c/1529949737992/?format=1500w" title="Learn to program at Epicodus" alt="Learn to program at Epicodus"></a></p>
+      <p><span id='change-theme'><%= cookies[:theme] ? 'disable dark mode' : 'enable dark mode' %></span></p>
       <p>&#169; <%= Time.zone.now.year %> <%= link_to 'Epicodus', 'http://www.epicodus.com/' %>, Inc.</p>
     </div>
   </footer>

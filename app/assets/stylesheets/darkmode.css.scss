@@ -1,0 +1,123 @@
+body.darkmode {
+  background: #222222;
+  color: #c1bec1;
+
+  a {
+    color: #4288C3;
+  }
+
+  hr {
+    color: rgb(96, 95, 95);
+  }
+
+  #change-theme {
+    color: #4288C3;
+  }
+
+  .btn-primary, .btn-info, .btn-danger, .btn-warning, .btn-secondary, .btn-success {
+    background:rgb(141, 141, 141);
+    color: white;
+  }
+
+  .label-info {
+    background:cornflowerblue;
+  }
+
+  .label-primary {
+    background:darkmagenta;
+  }
+
+  li::before {
+    color: #919191 !important;
+  }
+
+  blockquote {
+    border-left: 5px solid rgb(96, 95, 95) !important;
+  }
+
+  nav {
+    background: #222222;
+    border-bottom: 1px solid rgb(58, 58, 58);
+
+    #search {
+      background: #121212;
+      color: #c1bec1;
+      border-top: 1px solid rgb(96, 95, 95);
+      border-left: 1px solid rgb(96, 95, 95);
+      border-bottom: 1px solid rgb(96, 95, 95);
+    }
+
+    ::placeholder {
+      color: #707070;
+    }
+
+    .btn {
+      background: #4288C3;
+    }
+
+    a {
+      color: #c1bec1 !important;
+    }
+
+    a:hover {
+      color: #4288C3 !important;
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color:rgb(144, 145, 180) !important;
+  }
+
+  .tab-content {
+    border-left: 1px solid rgb(96, 95, 95);
+    border-right: 1px solid rgb(96, 95, 95);
+    border-bottom: 1px solid rgb(96, 95, 95);
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .breadcrumb li {
+    color: #c1bec1 !important;
+  }
+
+  .nav-brand {
+    color: red;
+  }
+
+  .nav-tabs {
+    border-bottom: 1px solid rgb(96, 95, 95);
+    li a {
+      border-top: 1px solid rgb(96, 95, 95);
+      border-left: 1px solid rgb(96, 95, 95);
+      border-right: 1px solid rgb(96, 95, 95);
+      background: #121212;
+      color: rgb(141, 141, 141);
+    }
+  }
+
+  .filename {
+    background: rgb(70, 70, 70);
+    color: #c1bec1;;
+  }
+
+  pre {
+    background: #2f2f2f;
+    border-top: 1px solid rgb(96, 95, 95);
+    border-bottom: 1px solid rgb(96, 95, 95);
+    border-left: 1px solid rgb(96, 95, 95);
+    border-right: 1px solid rgb(96, 95, 95);
+  }
+
+  // prettyprint
+  .prettyprint {
+    background-color: #272727;
+  }
+  .com { color: #c1bec1; }
+  .lit { color: #2586cb; }
+  .pun, .opn, .clo { color: #c1bec1; }
+  .fun { color: #dc322f; }
+  .str, .atv { color: rgb(227, 131, 198); }
+  .kwd, .prettyprint .tag { color: #84cdd2; }
+  .typ, .atn, .dec, .var { color: rgb(175, 117, 198); }
+  .pln { color: #c1bec1; }
+}
