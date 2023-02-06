@@ -91,11 +91,22 @@ body.darkmode {
 
   .nav-tabs {
     border-bottom: 1px solid rgb(96, 95, 95);
-    li a {
+
+    li a:hover, li a:focus {
+      background: rgb(57, 57, 57);
+      border-bottom: 1px solid #222222;
       border-top: 1px solid rgb(96, 95, 95);
       border-left: 1px solid rgb(96, 95, 95);
       border-right: 1px solid rgb(96, 95, 95);
-      background: #121212;
+
+    }
+
+    li.active a {
+      border-top: 1px solid rgb(96, 95, 95);
+      border-left: 1px solid rgb(96, 95, 95);
+      border-right: 1px solid rgb(96, 95, 95);
+      border-bottom: 1px solid #222222;
+      background: #222222;
       color: rgb(141, 141, 141);
     }
   }
@@ -113,16 +124,8 @@ body.darkmode {
     border-right: 1px solid rgb(96, 95, 95);
   }
 
-  // prettyprint
-  .prettyprint {
-    background-color: #393939;
+  code:not(.hljs) {
+    background: #434343;
+    color: #ffffff;
   }
-  .com { color: #c1bec1; }
-  .lit { color: #2586cb; }
-  .pun, .opn, .clo { color: #c1bec1; }
-  .fun { color: #dc322f; }
-  .str, .atv { color: rgb(237, 100, 196); }
-  .kwd, .prettyprint .tag { color: #3be0eb; }
-  .typ, .atn, .dec, .var { color: rgb(204, 121, 237); }
-  .pln { color: #c1bec1; }
 }
