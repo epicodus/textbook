@@ -11,7 +11,14 @@ require 'simplecov'
 require 'coveralls'
 require 'cancan/matchers'
 
-Coveralls.wear!
+
+SimpleCov.formatters = [
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter,
+]
+SimpleCov.start
+
+# Coveralls.wear!
 
 include Warden::Test::Helpers
 Warden.test_mode!
@@ -53,9 +60,3 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
-
-SimpleCov.formatters = [
-  SimpleCov::Formatter::HTMLFormatter,
-  Coveralls::SimpleCov::Formatter,
-]
-SimpleCov.start
