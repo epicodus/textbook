@@ -8,17 +8,32 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'selenium/webdriver'
 require 'simplecov'
-require 'coveralls'
+# require 'coveralls'
 require 'cancan/matchers'
 
+# Coveralls.wear!('rails')
 
-SimpleCov.formatters = [
-  SimpleCov::Formatter::HTMLFormatter,
-  Coveralls::SimpleCov::Formatter,
-]
-SimpleCov.start
+SimpleCov.start 'rails' do
+  if ENV['CI']
+    require 'simplecov-lcov'
 
-# Coveralls.wear!
+    SimpleCov::Formatter::LcovFormatter.config do |c|
+      c.report_with_single_file = true
+      c.single_report_path = 'coverage/lcov.info'
+    end
+
+    formatter SimpleCov::Formatter::LcovFormatter
+  end
+
+  add_filter %w[version.rb initializer.rb]
+end
+
+# SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+# SimpleCov.formatters = [
+#   SimpleCov::Formatter::HTMLFormatter,
+#   Coveralls::SimpleCov::Formatter,
+# ]
+# SimpleCov.start
 
 include Warden::Test::Helpers
 Warden.test_mode!

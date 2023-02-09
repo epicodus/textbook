@@ -47,8 +47,9 @@ group :test do
   gem 'capybara-selenium'
   gem 'selenium-webdriver'
   gem 'launchy'
-  gem 'simplecov', require: false
-  gem 'coveralls', '~> 0.8', require: false
+  gem 'simplecov'
+  gem 'simplecov-lcov', '~> 0.8.0'
+  gem 'coveralls_reborn', '~> 0.26.0', require: false
   gem 'database_cleaner'
   gem 'vcr'
   gem 'webmock'
