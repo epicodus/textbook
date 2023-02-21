@@ -1,0 +1,128 @@
+body.darkmode {
+  background: #222222;
+  color: #eeeeee;
+
+  a, #change-theme {
+    color: #56b3ff;
+  }
+
+  hr {
+    color: rgb(96, 95, 95);
+  }
+
+  .btn-primary, .btn-info, .btn-danger, .btn-warning, .btn-secondary, .btn-success {
+    background:rgb(141, 141, 141);
+    color: white;
+  }
+
+  .label-info, .label-primary {
+    background:#eeeeee;
+    color: black;
+  }
+
+  li::before {
+    color: #919191 !important;
+  }
+
+  blockquote {
+    border-left: 5px solid rgb(96, 95, 95) !important;
+  }
+
+  #staging-server strong {
+    color: rgb(185, 74, 72) !important;
+  }
+
+  nav {
+    background: #222222;
+    border-bottom: 1px solid rgb(58, 58, 58);
+
+    #search {
+      background: #121212;
+      color: #eeeeee;
+      border-top: 1px solid rgb(96, 95, 95);
+      border-left: 1px solid rgb(96, 95, 95);
+      border-bottom: 1px solid rgb(96, 95, 95);
+    }
+
+    ::placeholder {
+      color: #707070;
+    }
+
+    .btn {
+      background: #4288C3;
+    }
+
+    a {
+      color: #eeeeee !important;
+    }
+
+    a:hover {
+      color: #56b3ff !important;
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color:rgb(156, 120, 246) !important;
+  }
+
+  strong {
+    // font-weight: 800;
+    color: white;
+  }
+
+  .tab-content {
+    border-left: 1px solid rgb(96, 95, 95);
+    border-right: 1px solid rgb(96, 95, 95);
+    border-bottom: 1px solid rgb(96, 95, 95);
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .breadcrumb li {
+    color: #eeeeee !important;
+  }
+
+  .nav-brand {
+    color: red;
+  }
+
+  .nav-tabs {
+    border-bottom: 1px solid rgb(96, 95, 95);
+
+    li a:hover, li a:focus {
+      background: rgb(57, 57, 57);
+      border-bottom: 1px solid #222222;
+      border-top: 1px solid rgb(96, 95, 95);
+      border-left: 1px solid rgb(96, 95, 95);
+      border-right: 1px solid rgb(96, 95, 95);
+
+    }
+
+    li.active a {
+      border-top: 1px solid rgb(96, 95, 95);
+      border-left: 1px solid rgb(96, 95, 95);
+      border-right: 1px solid rgb(96, 95, 95);
+      border-bottom: 1px solid #222222;
+      background: #222222;
+      color: white !important;
+    }
+  }
+
+  .filename {
+    background: rgb(70, 70, 70);
+    color: #eeeeee;;
+  }
+
+  pre {
+    background: #393939;
+    border-top: 1px solid rgb(96, 95, 95);
+    border-bottom: 1px solid rgb(96, 95, 95);
+    border-left: 1px solid rgb(96, 95, 95);
+    border-right: 1px solid rgb(96, 95, 95);
+  }
+
+  code:not(.hljs) {
+    background: #434343;
+    color: #ffffff;
+  }
+}

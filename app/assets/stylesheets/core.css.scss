@@ -62,3 +62,30 @@ ul.breadcrumb {
 div.active > *:not(:first-child, hr) {
   margin-top: 25px;
 }
+
+#change-theme {
+  cursor: pointer;
+  color: rgb(217, 35, 15);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.label-info, .label-primary {
+  background:black;
+}
+
+.nav {
+  .navbar-brand, #search, #navbar-previous, #navbar-next {
+    color: black;
+
+    &:hover {
+      color: rgb(217, 35, 15);
+    }
+  }
+}
+
+.nav-tabs li.active a {
+  color: black !important;
+}
