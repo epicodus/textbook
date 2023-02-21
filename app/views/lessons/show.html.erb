@@ -76,7 +76,7 @@
   <% end %>
 </div>
 
-<p class="text-center text-muted" id='lesson-footer'>
+<p class="text-center" id='lesson-footer'>
   Lesson <%= @lesson.index + 1 %> of <%= @lesson.section.lessons.count %><br>
   Last updated <%= @lesson.updated_at > Time.now - 3.months ? @lesson.updated_at.strftime('%B %-d, %Y') : 'more than 3 months ago.' %>
 </p>

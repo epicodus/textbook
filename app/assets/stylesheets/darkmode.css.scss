@@ -1,17 +1,13 @@
 body.darkmode {
   background: #222222;
-  color: #c1bec1;
+  color: #eeeeee;
 
-  a {
-    color: #4288C3;
+  a, #change-theme {
+    color: #56b3ff;
   }
 
   hr {
     color: rgb(96, 95, 95);
-  }
-
-  #change-theme {
-    color: #4288C3;
   }
 
   .btn-primary, .btn-info, .btn-danger, .btn-warning, .btn-secondary, .btn-success {
@@ -19,12 +15,9 @@ body.darkmode {
     color: white;
   }
 
-  .label-info {
-    background:cornflowerblue;
-  }
-
-  .label-primary {
-    background:darkmagenta;
+  .label-info, .label-primary {
+    background:#eeeeee;
+    color: black;
   }
 
   li::before {
@@ -35,13 +28,17 @@ body.darkmode {
     border-left: 5px solid rgb(96, 95, 95) !important;
   }
 
+  #staging-server strong {
+    color: rgb(185, 74, 72) !important;
+  }
+
   nav {
     background: #222222;
     border-bottom: 1px solid rgb(58, 58, 58);
 
     #search {
       background: #121212;
-      color: #c1bec1;
+      color: #eeeeee;
       border-top: 1px solid rgb(96, 95, 95);
       border-left: 1px solid rgb(96, 95, 95);
       border-bottom: 1px solid rgb(96, 95, 95);
@@ -56,11 +53,11 @@ body.darkmode {
     }
 
     a {
-      color: #c1bec1 !important;
+      color: #eeeeee !important;
     }
 
     a:hover {
-      color: #4288C3 !important;
+      color: #56b3ff !important;
     }
   }
 
@@ -70,7 +67,7 @@ body.darkmode {
 
   strong {
     // font-weight: 800;
-    color: #cdcdcd;
+    color: white;
   }
 
   .tab-content {
@@ -82,7 +79,7 @@ body.darkmode {
   }
 
   .breadcrumb li {
-    color: #c1bec1 !important;
+    color: #eeeeee !important;
   }
 
   .nav-brand {
@@ -107,13 +104,13 @@ body.darkmode {
       border-right: 1px solid rgb(96, 95, 95);
       border-bottom: 1px solid #222222;
       background: #222222;
-      color: rgb(141, 141, 141);
+      color: white !important;
     }
   }
 
   .filename {
     background: rgb(70, 70, 70);
-    color: #c1bec1;;
+    color: #eeeeee;;
   }
 
   pre {
