@@ -24,6 +24,7 @@ gem 'octokit'
 gem 'psych'
 gem 'sprockets-rails'
 gem 'resque'
+gem 'fastimage'
 
 group :development do
   gem 'better_errors'

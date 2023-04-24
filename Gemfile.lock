@@ -144,6 +144,7 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
+    fastimage (2.2.6)
     ffi (1.15.5)
     friendly_id (5.5.0)
       activerecord (>= 4.0.0)
@@ -405,6 +406,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   factory_bot_rails
+  fastimage
   friendly_id
   hirb
   httparty

@@ -1,5 +1,3 @@
-require 'fastimage'
-
 desc "export list of offline images in public lessons"
 task :export_offline_images_list => [:environment] do
 
