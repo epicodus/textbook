@@ -1,21 +1,20 @@
 desc "export list of offline images in public lessons"
 task :export_offline_images_list => [:environment] do
-
   offline_images = {}
   Course.where(public: true).each do |course|
     course.sections.where(public: true).each do |section|
       section.lessons.where(public: true).each do |lesson|
-        if lesson.content.include?('dropbox')
-          links = lesson.content.scan(/(\/\/(dl|www)\.dropbox.*?)\)/)
-          links.each do |link|
-            url = 'http:' + link[0]
+        if lesson.content.include? 'https://learnhowtoprogram.s3.us-west-2.amazonaws.com/'
+          image_link_pattern = /https:\/\/learnhowtoprogram\.s3\.us-west-2\.amazonaws\.com\/(?:[^\/]+\/)+[^\/]+\.(?:png|gif|jpg|jpeg)/
+          links = lesson.content.scan(image_link_pattern)
+          links.each do |url|
             is_image = FastImage.type(url, raise_on_failure: false)
             unless is_image
               route = "https://www.learnhowtoprogram.com#{Rails.application.routes.url_helpers.course_section_lesson_path(lesson.section.course, lesson.section, lesson)}"
               offline_images[course.name] ||= {}
               offline_images[course.name][section.name] ||= {}
-              offline_images[course.name][section.name][lesson.name] ||= { lesson_path: route, filenames: [] }
-              offline_images[course.name][section.name][lesson.name][:filenames] << url.split('/').last.split('?').first
+              offline_images[course.name][section.name][lesson.name] ||= { lesson_path: route, urls: [] }
+              offline_images[course.name][section.name][lesson.name][:urls] << url
             end
           end
         end
@@ -36,8 +35,8 @@ task :export_offline_images_list => [:environment] do
           file.puts ''
           file.puts "    #{lesson_name}"
           file.puts "    #{lesson[:lesson_path]}"
-          lesson[:filenames].each do |filename|
-            file.puts "      #{filename}"
+          lesson[:urls].each do |url|
+            file.puts "      #{url}"
           end
         end
       end
