@@ -46,7 +46,7 @@ group :test do
   gem 'factory_bot_rails'
   gem 'capybara'
   gem 'capybara-selenium'
-  gem 'selenium-webdriver', '~> 4.10.0'
+  gem 'selenium-webdriver'
   gem 'launchy'
   gem 'simplecov'
   gem 'simplecov-lcov', '~> 0.8.0'
