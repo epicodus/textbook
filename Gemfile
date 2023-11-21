@@ -43,7 +43,7 @@ end
 
 group :test do
   gem 'shoulda-matchers'
-  gem 'factory_bot_rails'
+  gem 'factory_bot_rails', '~> 6.2.0'
   gem 'capybara'
   gem 'capybara-selenium'
   gem 'selenium-webdriver'
@@ -60,5 +60,5 @@ group :production do
   gem 'rails_12factor'
   gem 'lograge'
   gem 'bugsnag'
-  gem 'puma', '< 6'
+  gem 'puma'
 end
